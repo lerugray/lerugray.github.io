@@ -1,0 +1,199 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Death Of An Empire | Ray Weiss"
+  description="Death Of An Empire. A terminal wargame of the Franco-Prussian War, 1870. Released on itch under Conflict Simulations LLC."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <p
+        class="font-mono text-xs font-medium uppercase tracking-wider text-muted"
+      >
+        <a
+          href="/conflict-simulations-llc"
+          class="hover:text-link-hover">Conflict Simulations LLC</a
+        >
+      </p>
+      <h1
+        class="mt-4 font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl"
+      >
+        Death Of An Empire
+      </h1>
+      <p class="mt-6 font-serif text-lg italic text-muted">
+        A terminal wargame of the Franco-Prussian War, 1870.
+      </p>
+
+      <div class="prose-body mt-16">
+        <p>
+          You are the Commander-in-Chief. You don't move units. You issue
+          orders via dispatch riders and hope they arrive in time. Your
+          formations march, fight, and die based on your decisions, but the
+          fog of war is thick, your reports are late, and your subordinates
+          have minds of their own.
+        </p>
+        <p>
+          July 1870. France declares war on Prussia. On paper, the French
+          army is superior. The Chassepot rifle outranges the Prussian needle
+          gun by double, the mitrailleuse is decades ahead of its time, and
+          French soldiers are veterans of a dozen campaigns. It doesn't
+          matter. In six weeks, the French Empire is destroyed.
+        </p>
+        <p>
+          Not by inferior weapons but by inferior command. The German system,
+          built on Auftragstaktik and Moltke's General Staff, lets
+          subordinates act on initiative. The French system demands they
+          wait for orders that never come. At Spicheren, neighbouring corps
+          could hear the guns but didn't march. At Wörth, MacMahon fought
+          alone. At Sedan, an entire army was surrounded because Paris
+          ordered a march everyone knew was suicidal. This game makes you
+          feel why.
+        </p>
+      </div>
+
+      <div class="mt-12 overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th
+                class="py-3 pr-6 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                >Feature</th
+              >
+              <th
+                class="py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                >Detail</th
+              >
+            </tr>
+          </thead>
+          <tbody class="font-serif">
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Nine scenarios</td>
+              <td class="py-4 text-muted">
+                The 45-day Grand Campaign, the Frontier Battles, the battles
+                for Metz, Mars-la-Tour, the March to Sedan, Sedan, plus
+                what-if variants (Niel Plan, Defensive Concentration, The Wet
+                Summer).
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground"
+                >Command asymmetry</td
+              >
+              <td class="py-4 text-muted">
+                German commanders act on initiative when they hear gunfire.
+                French commanders wait for orders that arrive late or not at
+                all. German players get three orders per turn and a faster
+                command cycle; French players get two and political
+                interference from Paris.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Fog of war</td>
+              <td class="py-4 text-muted">
+                You see only what your scouts report. They are not always
+                right.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">CRT combat</td>
+              <td class="py-4 text-muted">
+                Bombardment, infantry assault, cavalry charges. Terrain and
+                entrenchment modifiers. Chassepot range advantage modeled.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground"
+                >Historical orders of battle</td
+              >
+              <td class="py-4 text-muted">
+                25+ commanders with unique initiative, aggression, and
+                personal traits.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Supply</td>
+              <td class="py-4 text-muted">
+                Depots, supply lines, French intendance chaos.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground"
+                >Political pressure</td
+              >
+              <td class="py-4 text-muted">
+                Paris sends directives. You can comply or defy, with
+                consequences either way.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Weather</td>
+              <td class="py-4 text-muted">
+                Historical 1870 conditions affecting movement, artillery, and
+                reconnaissance.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">AI opponent</td>
+              <td class="py-4 text-muted">
+                Concentrates forces, pursues retreating enemies, fills
+                defensive gaps, holds reserves.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">PBEM multiplayer</td>
+              <td class="py-4 text-muted">
+                Exchange fog-safe save files with a friend. Opponent cannot
+                see your hidden units.
+              </td>
+            </tr>
+            <tr>
+              <td class="py-4 pr-6 font-medium text-foreground">Spectator mode</td>
+              <td class="py-4 text-muted">
+                Watch the war play itself to learn the campaign flow before
+                taking command.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose-body mt-12">
+        <h2>Why this subject</h2>
+        <p>
+          The Franco-Prussian War is one of the most consequential wars most
+          people have never played a game about. It produced the modern
+          German state, ended France's continental dominance, set up the
+          conditions for the First World War, and rewrote the textbook on
+          how armies should be organized. The Prussian general-staff system
+          was studied and copied by nearly every military in the world
+          afterward. DOAE is the digital extension of Ray's wargame-design
+          eye into the same under-covered historical subjects the print
+          catalog has been mining for years.
+        </p>
+
+        <h2>Stack</h2>
+        <p>
+          Rust, ratatui, crossterm, rodio. Twelve period music tracks
+          (Liszt, Elgar, Piefke, Planquette, Wagner, Schumann) all from
+          public-domain recordings. Built by Ray with Claude Code.
+        </p>
+
+        <h2>Buy</h2>
+        <p>
+          Released on itch under Conflict Simulations LLC at $3.99. <a
+            href="https://conflict-simulations-llc.itch.io/death-of-an-empire"
+            >conflict-simulations-llc.itch.io/death-of-an-empire</a
+          >.
+        </p>
+
+        <h2>See also</h2>
+        <p>
+          Auftragstaktik, the German doctrine the German side of DOAE
+          models, also names <a href="/auftragstaktik">Ray's tactical OSINT
+          terminal</a>. Same principle, same builder.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

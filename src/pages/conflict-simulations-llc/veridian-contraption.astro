@@ -1,0 +1,165 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Veridian Contraption | Ray Weiss"
+  description="Veridian Contraption. An autonomous ASCII world-simulator of considerable density and dubious intent. Released on itch under Conflict Simulations LLC."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <p
+        class="font-mono text-xs font-medium uppercase tracking-wider text-muted"
+      >
+        <a
+          href="/conflict-simulations-llc"
+          class="hover:text-link-hover">Conflict Simulations LLC</a
+        >
+      </p>
+      <h1
+        class="mt-4 font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl"
+      >
+        Veridian Contraption
+      </h1>
+      <p class="mt-6 font-serif text-lg italic text-muted">
+        A World-Simulator of Considerable Density and Dubious Intent.
+      </p>
+
+      <div class="prose-body mt-16">
+        <p>
+          An autonomous ASCII world-simulator. Settlements glow amber.
+          Caravans crawl along trade routes. Forgotten beasts patrol in
+          magenta. Levies march in blood-red. The narrative log reads like a
+          bureaucrat who has absorbed too much Borges.
+        </p>
+        <p>
+          Civilizations rise, splinter, and develop baroque bureaucracies
+          while you're doing something else. Come back later and there's
+          always more to read. The simulation runs whether you watch it or
+          not.
+        </p>
+        <p>
+          Built for the audience that liked Dwarf Fortress's narrative layer
+          more than the colony management. Players who thought <em>Dune</em>'s
+          appendices were the best part. The kind of person whose ideal
+          Saturday is running a simulation and reading the output.
+        </p>
+      </div>
+
+      <div class="mt-12 overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th
+                class="py-3 pr-6 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                >System</th
+              >
+              <th
+                class="py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                >What it does</th
+              >
+            </tr>
+          </thead>
+          <tbody class="font-serif">
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Simulation core</td>
+              <td class="py-4 text-muted">
+                170+ event types in five prose registers (Clinical, Lyrical,
+                Bureaucratic, Ominous, Conspiratorial). 21 quest types pursued
+                autonomously by agents.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Patron actions</td>
+              <td class="py-4 text-muted">
+                Sponsor artists. Introduce rumors. Declare embargoes. Found
+                guilds, cults, and mercenary companies. Grant titles.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Military</td>
+              <td class="py-4 text-muted">
+                Levies, cavalry, artillery. CRT combat resolved with
+                tabletop-inspired tables. Sieges with organic wall
+                development. Multi-phase off-map invasions with three-tier
+                foreshadowing.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Magic</td>
+              <td class="py-4 text-muted">
+                Six traditions: Necromancer, Elementalist, Geomancer,
+                Bureaucromancer, Cleric, Illusionist. Wizard towers,
+                corruption, rogue wizards.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Politics</td>
+              <td class="py-4 text-muted">
+                Coups, purges, show trials, espionage, demagogues,
+                ideological spread.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Anomalies</td>
+              <td class="py-4 text-muted">
+                Sixteen rare localized event types. R'lyeh Deep One Emergence
+                with foreshadowing, surfacing, and diplomatic Deep Ones.
+                Seven Eschaton catastrophe classes that reshape the world
+                without ending the simulation.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Trade and ecology</td>
+              <td class="py-4 text-muted">
+                27 trade goods. A* caravan pathfinding. Naval blockades during
+                sieges. 24 animal species with predator-prey dynamics and
+                seasonal cycles.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Artist system</td>
+              <td class="py-4 text-muted">
+                Poets, bards, and visual artists create feeling-driven works.
+                Great works enter the World Annals.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">World presets</td>
+              <td class="py-4 text-muted">
+                Five flavors: The Long Bureaucracy, The Burning Provinces,
+                The Deep Taxonomy, The Conspiratorial Age, Unguided.
+              </td>
+            </tr>
+            <tr>
+              <td class="py-4 pr-6 font-medium text-foreground">Cross-world</td>
+              <td class="py-4 text-muted">
+                The Atlas screen tracks entities and expeditions across
+                multiple saved worlds. The Bureau of Absent Persons keeps
+                records.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose-body mt-12">
+        <h2>Stack</h2>
+        <p>
+          Rust 2021 edition, terminal with truecolor support. Variable world
+          size from Small to Huge with scrollable viewport and minimap. Full
+          save/load, multiple named worlds, autosave, eleven document report
+          types, TXT history export.
+        </p>
+
+        <h2>Buy</h2>
+        <p>
+          Released on itch under Conflict Simulations LLC at $3. <a
+            href="https://conflict-simulations-llc.itch.io/veridian-contraption"
+            >conflict-simulations-llc.itch.io/veridian-contraption</a
+          >.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
