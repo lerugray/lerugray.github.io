@@ -29,3 +29,15 @@ This structure mirrors the pattern Ray already uses on CatalogDNA (`docs/interna
 - **Hammerstein log is append-only.** Never edit or delete old entries. Log negatives aggressively — counter-observations outweigh success stories.
 - **Business blurbs are the source of truth.** Site copy consumes them. Don't duplicate copy into `src/content/` without touching the vault — reconcile to the vault first.
 - **Files are `kebab-case.md`.**
+
+## IP rule (applies to every file in this vault)
+
+The vault is tracked in the public `lerugray.github.io` repo so it can sync across Ray's machines. That means **every file in `vault/` is public reading** — decisions, sessions, the Hammerstein log, business positioning notes, everything. Apply the same public/private boundary that `CLAUDE.md` enforces for site copy:
+
+- **Never** commit proprietary prompts or prompt engineering (CatalogDNA `interpret` module, Devforge internal modes, Retrogaze constraint-enforcement internals).
+- **Never** commit customer data, user counts, revenue, pricing margins, CAC, conversion, or any internal business metric.
+- **Never** commit unpublished book chapters, draft manuscript material, or any piece of in-progress writing Ray hasn't chosen to share yet.
+- **Never** commit internal decision records from Ray's other projects (e.g. `../catalogDNA/docs/internal/`). Those live in their own repos with their own boundaries.
+- **Never** commit screenshots, logs, or transcripts that contain API keys, tokens, `.env` values, or private URLs.
+
+If in doubt about whether something crosses the line, ask Ray before writing the file. The recovery cost on a public repo is ugly — removing a committed file means rewriting git history, which breaks every downstream clone.

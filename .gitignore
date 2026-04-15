@@ -40,11 +40,9 @@ desktop.ini
 .obsidian/graph.json
 .obsidian/cache
 
-# vault: internal working notes kept local-only.
-# Public parts of the vault (businesses/, projects/, music/, index.md, README.md) stay tracked.
-vault/hammerstein-log/
-vault/sessions/
-vault/decisions/
+# vault: all subfolders tracked across machines so the home PC can sync them.
+# IP rule enforced in vault/README.md — no proprietary prompts, customer data,
+# pricing margins, internal methodology, or unpublished book chapters in ANY vault file.
 
 # Claude Code working state (permissions, local session data) — not for public repo.
 .claude/

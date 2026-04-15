@@ -4,15 +4,22 @@ Map of content for the `personal-site` vault. Start here.
 
 ## Decisions
 
-_Local-only (gitignored — not in the public repo). Working notes live in `vault/decisions/` on Ray's local copy._
+ADR-style records of architectural and product decisions. Date-prefixed.
+
+- [2026-04-15 — project kickoff](decisions/2026-04-15-project-kickoff.md)
+- [2026-04-15 — tooling resolution](decisions/2026-04-15-tooling-resolution.md)
+- [2026-04-15 — design system v1](decisions/2026-04-15-design-system-v1.md) — IBM Plex + Ink on Parchment palette + multi-page routing, Ray-approved in session 2
 
 ## Sessions
 
-_Local-only (gitignored — not in the public repo). Working notes live in `vault/sessions/` on Ray's local copy._
+Per-session working notes. Date-prefixed.
+
+- [2026-04-15 — session 01: scaffolding](sessions/2026-04-15-session-01.md)
+- [2026-04-15 — session 02: design exploration + foundation build](sessions/2026-04-15-session-02.md)
 
 ## Hammerstein log
 
-_Local-only (gitignored — not in the public repo). Append-only observation log lives in `vault/hammerstein-log/observations.md` on Ray's local copy._
+- [observations.md](hammerstein-log/observations.md) — append-only log, log negatives aggressively. Ground rules inside.
 
 ## About
 
