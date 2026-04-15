@@ -2,6 +2,7 @@
 title: "Von Hammerstein's Ghost, In Daily Use"
 publishDate: 2026-04-15
 readingTime: "~10 min"
+description: "A Prussian officer typology, used as the operating principle for daily AI-assisted work."
 ---
 
 Kurt von Hammerstein-Equord divided his officers into four types. Clever and lazy. Clever and industrious. Stupid and lazy. Stupid and industrious. He put the clever and lazy in the highest command positions, because they had the nerves for hard decisions without wasting effort on ones that did not matter. He recommended removing the stupid and industrious immediately, because they would work relentlessly in the wrong direction and bring nothing but disaster.

@@ -16,6 +16,7 @@ Per-session working notes. Date-prefixed.
 
 - [2026-04-15 — session 01: scaffolding](sessions/2026-04-15-session-01.md)
 - [2026-04-15 — session 02: design exploration + foundation build](sessions/2026-04-15-session-02.md)
+- [2026-04-15 — session 03: portal landing page + social previews](sessions/2026-04-15-session-03.md)
 
 ## Hammerstein log
 

@@ -8,6 +8,7 @@ const writing = defineCollection({
     title: z.string(),
     publishDate: z.date(),
     readingTime: z.string().optional(),
+    description: z.string().optional(),
     published: z.boolean().default(true),
   }),
 });

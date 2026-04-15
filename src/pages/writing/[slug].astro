@@ -18,7 +18,12 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title={entry.data.title}>
+<BaseLayout
+  title={`${entry.data.title} | Ray Weiss`}
+  description={entry.data.description ??
+    `${entry.data.title}, an essay by Ray Weiss.`}
+  ogType="article"
+>
   <EssayLayout
     title={entry.data.title}
     publishDate={entry.data.publishDate}
