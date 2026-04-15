@@ -30,7 +30,7 @@ Operational and strategic-scale historical wargames including **1950 Korea**, **
 | **Devforge** | $9 | Desktop (Tauri 2 + React 19) | Structured UI that wraps Claude Code for game developers. *"A game dev terminal that knows your project cold."* Not a game engine — a context-keeper and mode-switcher. **Marketing site: `usedevforge.com`** (public, launched — confirmed by Ray 2026-04-15). Buy on itch at `conflict-simulations-llc.itch.io/devforge`. See `vault/businesses/devforge.md` for full positioning. |
 | **Veridian Contraption** | $3 | Rust terminal app | Autonomous ASCII world-simulator. *"A World-Simulator of Considerable Density and Dubious Intent."* 170+ event types, 21 quest types, 7 Eschaton catastrophe classes, Lovecraftian R'lyeh Deep One Emergence, full military / magic / political / economic systems. Narrative voice described in the README as "like a bureaucrat who has absorbed too much Borges." See `vault/projects/veridian-contraption.md` (to be drafted). |
 | **Death Of An Empire (DOAE)** | $3.99 | Rust terminal wargame | Terminal-based historical wargame depicting the Franco-Prussian War, 1870. Private repo (`DOAE`), publicly released on itch. See `vault/projects/death-of-an-empire.md` (to be drafted). |
-| **Prigozhin's March of Justice** | $2.99 | Digital | Digital version of Ray's own solitaire board wargame of the same name. A direct crossover between the physical and digital catalogs. |
+| **Prigozhin's March of Justice** | $2.99 | Digital | Digital version of Ray's own solitaire board wargame of the same name. A direct crossover between the physical and digital catalogs. URL: `conflict-simulations-llc.itch.io/prigozhins-march-of-justice` (confirmed by Ray 2026-04-15). |
 
 ## The book — *A Contemporary Guide to Wargame Design*
 
