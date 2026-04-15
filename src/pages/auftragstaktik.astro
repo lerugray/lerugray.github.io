@@ -1,0 +1,147 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Auftragstaktik — Ray Weiss"
+  description="Auftragstaktik. A tactical OSINT command terminal with live frontlines, aircraft and ship tracking, air-defense envelopes, and auto-translated intel, in NATO symbology."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <h1
+        class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl"
+      >
+        Auftragstaktik
+      </h1>
+      <p class="mt-6 font-serif text-lg text-muted">
+        A tactical OSINT command terminal. Frontlines, aircraft, ships, air
+        defenses, nuclear sites, and conflict events on one map, in NATO
+        symbology.
+      </p>
+
+      <div class="prose-body mt-16">
+        <p>
+          Eight togglable map layers across four theaters. Click any marker
+          for detail panels and Wikipedia links. Dark or light basemap.
+          Export the intelligence feed as JSON, CSV, or PDF. Historical mode
+          replays 140,000+ archived conflict events from 1989 to 2023 with a
+          year-gradient scrubbable timeline.
+        </p>
+        <p>
+          The name is the German doctrine of mission-type tactics: give the
+          objective, let subordinates execute. Ray gave Claude Code the
+          objective and shipped the result in about two weeks.
+        </p>
+      </div>
+
+      <div class="mt-12 overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th
+                class="py-3 pr-6 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                >Layer</th
+              >
+              <th
+                class="py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                >What it shows</th
+              >
+            </tr>
+          </thead>
+          <tbody class="font-serif">
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Tactical map</td>
+              <td class="py-4 text-muted">
+                Nine togglable layers: frontlines, aircraft, ships, air
+                defense, installations, radar, nuclear, conflict events,
+                density heatmap.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground"
+                >Intelligence feed</td
+              >
+              <td class="py-4 text-muted">
+                GeoConfirmed events plus auto-translated Telegram posts.
+                Filter by source or severity, click to fly the map to
+                location.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground"
+                >Briefing generator</td
+              >
+              <td class="py-4 text-muted">
+                Local LLM (Ollama) produces structured SITREPs with location
+                summaries, faction breakdown, equipment losses, source
+                attribution. Exports to PDF. Zero API cost.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Air defense</td>
+              <td class="py-4 text-muted">
+                OSINT-confirmed SAM and AD installations with engagement
+                envelopes. S-400 at 400 km, Patriot at 160 km, Iron Dome at
+                70 km.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Installations</td>
+              <td class="py-4 text-muted">
+                Thirty-five military bases, naval ports, HQs, logistics hubs,
+                and chokepoints (Hormuz, Bab el-Mandeb, Suez, Malacca) across
+                four theaters. Friendly or hostile affiliation marked.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Radar</td>
+              <td class="py-4 text-muted">
+                Twenty radar sites from Voronezh early warning (6,000 km
+                range) down to coastal surveillance. Purple range rings show
+                detection and tracking envelopes.
+              </td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="py-4 pr-6 font-medium text-foreground">Nuclear / CBRN</td
+              >
+              <td class="py-4 text-muted">
+                Known reactors, enrichment plants, weapons storage, and test
+                sites. Yellow exclusion zones. CBRN keywords in events
+                auto-escalate to critical severity.
+              </td>
+            </tr>
+            <tr>
+              <td class="py-4 pr-6 font-medium text-foreground">Historical mode</td
+              >
+              <td class="py-4 text-muted">
+                140,000+ archived events from UCDP GED, 1989 to 2023, across
+                five theaters (Yugoslav Wars, Gulf War, Iraq War,
+                Afghanistan, Syrian Civil War). Cumulative playback with
+                fatality-scaled markers.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose-body mt-12">
+        <h2>Data sources</h2>
+        <p>
+          All public OSINT. No paid APIs required. DeepState for frontlines,
+          GeoConfirmed for verified events, adsb.lol for ADS-B aircraft,
+          aisstream.io for AIS ships, Telegram channels (Rybar, DeepState UA,
+          WarGonzo) auto-translated, UCDP GED for historical events.
+        </p>
+
+        <h2>Stack</h2>
+        <p>
+          Next.js 15, TypeScript 5.7, MapLibre GL for the map, Ollama for
+          local LLM briefings. Public repo at <a
+            href="https://github.com/lerugray/auftragstaktik"
+            >github.com/lerugray/auftragstaktik</a
+          >, MIT licensed.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

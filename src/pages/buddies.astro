@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Buddies — Ray Weiss"
+  description="Buddies. The game layer for Claude Code — a creature-collection game that doubles as a productivity tool."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <h1
+        class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl"
+      >
+        Buddies
+      </h1>
+      <p class="mt-6 font-serif text-lg text-muted">
+        The game layer for Claude Code. A creature-collection game that
+        doubles as a productivity tool.
+      </p>
+
+      <div class="prose-body mt-16">
+        <p>Buddies is two things in one terminal app.</p>
+
+        <p>
+          The first is a creature-collection game: 70+ species, 16 hats, a
+          10-game arcade (including a deckbuilder, Snake, and Ski Free), a
+          full text-adventure MUD, buddy fusion, personality drift, a retro
+          BBS, and async multiplayer.
+        </p>
+
+        <p>
+          The second is a Claude Code productivity layer. It auto-generates
+          a code map of your project so Claude doesn't burn tokens figuring
+          out where things are. It grades your <code>CLAUDE.md</code>. It
+          watches for repeated mistakes and writes rules to stop Claude
+          making them. It tracks token usage and warns you before context
+          limits.
+        </p>
+
+        <p>
+          The README framing: <em>"Because productivity tools should be fun."</em>
+        </p>
+
+        <h2>How it sits with Claude Code</h2>
+
+        <p>
+          Claude Code ships with a built-in <code>/buddy</code> companion, a
+          mascot that watches you code. Buddies is everything beyond that.
+          You can import your Claude Code companion into your Buddies party
+          and the bridge is automatic. Your Claude Code mushroom can sit at
+          the poker table with your Phoenix.
+        </p>
+
+        <h2>Local AI, optional</h2>
+
+        <p>
+          Install Ollama, pull a model, and your buddy can answer coding
+          questions, read files, search code, and run safe commands with no
+          API cost. Queries are routed by complexity.
+        </p>
+
+        <h2>Stack and tests</h2>
+
+        <p>
+          Python 3.11 and up. 1,015 passing tests. MIT licensed. Public repo
+          at <a href="https://github.com/lerugray/Buddies"
+            >github.com/lerugray/Buddies</a
+          >.
+        </p>
+
+        <p>
+          Ray directed the game systems, the productivity features, and the
+          test suite. The code is Claude's.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
