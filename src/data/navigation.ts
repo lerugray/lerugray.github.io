@@ -9,6 +9,7 @@ export const navItems: NavItem[] = [
   { href: '/conflict-simulations-llc', label: 'Conflict Simulations LLC' },
   { href: '/catalogdna', label: 'CatalogDNA' },
   { href: '/retrogaze', label: 'Retrogaze' },
+  { href: '/devforge', label: 'Devforge' },
   { href: '/auftragstaktik', label: 'Auftragstaktik' },
   { href: '/buddies', label: 'Buddies' },
   { href: '/music', label: 'Music' },
