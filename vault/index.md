@@ -14,6 +14,10 @@ _Local-only (gitignored — not in the public repo). Working notes live in `vaul
 
 _Local-only (gitignored — not in the public repo). Append-only observation log lives in `vault/hammerstein-log/observations.md` on Ray's local copy._
 
+## About
+
+- [Bio (draft v3, Ray-approved 2026-04-15)](about/bio.md) — About-page source-of-truth. Voice calibrated from Ray's pre-AI prose in `passive-income-hub/manuals/An Amateur Guide To Wargame Design.txt`. Stop-slop clean. Captures the "couldn't code for a decade, 6502 was the only one I ever got, AI tools finally bridged the gap" origin story plus the class-context framing on AI-tool use.
+
 ## Businesses
 
 Public positioning source-of-truth — site copy pulls from these:
