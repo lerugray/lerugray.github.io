@@ -29,6 +29,12 @@ Public positioning source-of-truth — site copy pulls from these:
 
 _(Per-project positioning files to follow once the slate is decided.)_
 
+## Music
+
+Positioning source-of-truth for Ray's music work:
+
+- [Le Rug](music/le-rug.md) — current project (Brooklyn; `lerug.bandcamp.com`). Includes prior-band notes for Sweet Bulbs (with three verified Tyler-the-Creator tweets) and Butter The Children, plus the Pete Burns / CatalogDNA structural-truth recursion.
+
 ## See also
 
 - [`../CLAUDE.md`](../CLAUDE.md) — agent instructions, the Hammerstein framework.

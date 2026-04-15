@@ -23,6 +23,14 @@ Musicians, composers, music nerds. Work that would otherwise need a musicologist
 
 The Pete Burns / Dead or Alive match surfaced in Ray's own catalog — a structural similarity that contradicted his self-image and made him reconsider his work. That **defiance** is the feature.
 
+## Living demo — the Le Rug / Peter Burns recursion (verified 2026-04-15)
+
+Ray records music as **Le Rug** (`lerug.bandcamp.com`). One of his own Le Rug albums is titled ***Party With Peter Burns*** — an explicit nod to Pete Burns of Dead or Alive. Independently, when CatalogDNA analyzed his ~407-track catalog, its canonical structural match came back as **Pete Burns / Dead or Alive**.
+
+So the album title says *"I know about Pete Burns."* The fingerprint says *"you sound more like him than you thought."* The album is a self-aware homage; the tool reveals the influence runs deeper than a title — into chord vocabulary, scale choices, melodic shape.
+
+This is arguably CatalogDNA's strongest "living demo" story. On the site, the CatalogDNA section should link directly to the *Party With Peter Burns* album — a visitor reads the positioning, follows the link, hears the music, returns with the claim internalized. See [`../music/le-rug.md`](../music/le-rug.md) for the full Le Rug research notes and source links.
+
 ## Stack (public, open-core)
 
 Python 3.10–3.12. Pipeline: MP3 → MIDI (`basic-pitch`) → JSON → analysis (scales, chords, motifs, rhythm, register, melody). Optional enrichments via `music21` (harmony) and `librosa` (timbre). Report generation via Jinja2 templates into Obsidian vault markdown.
