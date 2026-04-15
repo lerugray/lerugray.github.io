@@ -39,6 +39,8 @@ Windows desktop app. **Tauri 2 + React 19.** xterm.js terminal. `@react-pdf/rend
 
 ## Links
 
+- **Marketing site:** https://usedevforge.com (public, launched — confirmed by Ray 2026-04-15)
+- **Buy on itch:** https://conflict-simulations-llc.itch.io/devforge
 - App repo: https://github.com/lerugray/devforge
 - Website repo: https://github.com/lerugray/devforge-website
 
