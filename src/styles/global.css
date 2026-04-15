@@ -127,3 +127,29 @@
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
 }
+
+/* Terminal-section section headings get a small mono triangle prefix.
+   Apply .terminal-section to a .prose-body container on terminal-game
+   project pages (Veridian, DOAE, Auftragstaktik, Buddies, Devforge) so
+   their Stack / Buy / Try-it / similar h2s read as terminal output. */
+.terminal-section h2::before {
+  content: "▸ ";
+  font-family: var(--font-mono);
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+/* Subtle paper-grain overlay applied across the whole viewport.
+   Pushes the Ink on Parchment palette toward actual ink-on-parchment
+   instead of solid warm-dark. pointer-events: none so it never blocks
+   clicks; mix-blend-mode: overlay so it interacts with content below. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("/grain.svg");
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  z-index: 9999;
+}

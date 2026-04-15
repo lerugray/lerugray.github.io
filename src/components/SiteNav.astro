@@ -21,7 +21,7 @@ const currentPath = Astro.url.pathname;
               class:list={[
                 'block border-l-2 py-1.5 pl-4 text-sm transition-colors',
                 isActive(href, currentPath)
-                  ? 'border-link text-foreground'
+                  ? 'border-accent text-foreground'
                   : 'border-transparent text-muted hover:border-border hover:text-foreground',
               ]}
             >
@@ -46,7 +46,7 @@ const currentPath = Astro.url.pathname;
               class:list={[
                 'inline-block border-b-2 pb-1 transition-colors',
                 isActive(href, currentPath)
-                  ? 'border-link text-foreground'
+                  ? 'border-accent text-foreground'
                   : 'border-transparent text-muted hover:text-foreground',
               ]}
             >
