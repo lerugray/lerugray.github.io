@@ -27,7 +27,11 @@ Designers re-explaining their project to Claude every session, losing context, a
 
 ## Pricing (public)
 
-$20 one-time purchase. No subscription.
+**$9 on itch.io** — https://conflict-simulations-llc.itch.io/devforge. Released status, one-time purchase, no subscription. (An earlier draft of this file said "$20 one-time" based on an older marketing page; that was stale. Ray confirmed 2026-04-15 the itch price is $9.)
+
+## Publisher
+
+Published under **Conflict Simulations LLC** on itch (alongside Ray's other digital games — Veridian Contraption, Death Of An Empire, Prigozhin's March of Justice). CSL is Ray's game-publishing entity across formats (board wargames at `consimsltd.com/shop` plus digital games on itch), not a peer-level business separate from Devforge. The kickoff-era "four businesses" framing is deprecated; see `vault/businesses/conflict-simulations.md` for the CSL umbrella structure.
 
 ## Stack (public)
 

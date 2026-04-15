@@ -25,9 +25,19 @@ Public positioning source-of-truth — site copy pulls from these:
 
 ## Projects
 
+**Curated slate (approved 2026-04-15, 5 items):**
+
+- [Auftragstaktik](projects/auftragstaktik.md) — tactical OSINT command terminal, built in ~2 weeks via Claude Code
+- [Buddies](projects/buddies.md) — Claude Code game layer + creature collection (productivity tool with 70+ species)
+- [Veridian Contraption](projects/veridian-contraption.md) — Rust ASCII world-simulator, released on itch under CSL
+- [Death Of An Empire (DOAE)](projects/death-of-an-empire.md) — Franco-Prussian War terminal wargame, released on itch under CSL
+- [A Contemporary Guide to Wargame Design](projects/wargame-design-book.md) — Ray's book on wargame design, lives under CSL in the site structure
+
+**Background:**
+
 - [2026-04-15 — project discovery (public-safe summary)](projects/project-discovery-2026-04-15.md) — git-aware scan of Ray's GitHub repos and `Dev Work/` folders for curated-slate prep
 
-_(Per-project positioning files to follow once the slate is decided.)_
+_Kreuzfeuer was considered and deferred — no public surface yet. Revisit when Ray has an itch listing / devlog / trailer to link to._
 
 ## Music
 
