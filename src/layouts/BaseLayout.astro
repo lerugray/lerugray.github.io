@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title,
-  description = 'Ray Weiss — Devforge, CatalogDNA, Retrogaze, Conflict Simulations LLC.',
+  description = 'Ray Weiss — wargame designer, musician, and solo founder of Conflict Simulations LLC, CatalogDNA, and Retrogaze.',
 } = Astro.props;
 ---
 
@@ -21,7 +21,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="bg-neutral-950 text-neutral-100 font-sans antialiased">
+  <body class="bg-background text-foreground font-sans antialiased">
     <slot />
   </body>
 </html>

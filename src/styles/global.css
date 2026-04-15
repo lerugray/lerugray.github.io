@@ -1,8 +1,36 @@
+@import "@fontsource/ibm-plex-serif/400.css";
+@import "@fontsource/ibm-plex-serif/400-italic.css";
+@import "@fontsource/ibm-plex-serif/600.css";
+@import "@fontsource/ibm-plex-serif/600-italic.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
 @import "tailwindcss";
 
 @theme {
+  /* Ink on Parchment — warm-dark palette.
+     Contrast verified against #0c0b09 bg:
+       foreground ~17:1 (AAA), muted ~7:1 (AAA),
+       subtle ~3.3:1 (AA large-text only — use ≥14px),
+       link ~8.5:1 (AAA). */
+  --color-background: #0c0b09;
+  --color-surface: #1a1814;
+  --color-border: #2a2620;
+  --color-foreground: #f5f0e6;
+  --color-muted: #a8a095;
+  --color-subtle: #6b6356;
+  --color-link: #d4a574;
+  --color-link-hover: #f0c38a;
+  --color-accent: #c9484e;
+
+  --font-serif:
+    "IBM Plex Serif", ui-serif, Georgia, Cambria, "Times New Roman", serif;
   --font-sans:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", sans-serif;
   --font-mono:
-    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
 }

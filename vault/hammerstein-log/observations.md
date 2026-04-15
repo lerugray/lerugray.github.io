@@ -82,3 +82,23 @@ The danger: logging *for the essay* instead of *for the work*. That would be its
 **Fix applied.** `.claude/` added to `.gitignore`. `git rm --cached .claude/settings.local.json` removed the file from tracking. Committed + pushed. The Le Rug vault content itself is unaffected.
 
 **Meta-meta.** Three log entries in one day, all negatives. The log is doing exactly what the ground rules say it should: counter-observations and limits over success stories. The public essay when drafted should probably open with the claim "the framework has three documented failure modes from its first day of use" rather than "the framework worked perfectly." That framing is both more honest and a harder flex than the success version.
+
+---
+
+## 2026-04-15 — entry 5: placeholder prose slipped into `src/` during Phase 1b build momentum
+
+**Observation.** Session 2, mid-Phase 1b (design tokens + Plex fonts + `BaseLayout` + placeholder update). I wrote a "temporary" paragraph directly into `src/pages/index.astro`:
+
+> Wargame designer, musician, solo founder of Conflict Simulations LLC, CatalogDNA, and Retrogaze. The site is being rebuilt — the bio and the flagship Hammerstein essay land next.
+
+No draft in the vault. No stop-slop pass. Three slop tells in 26 words: a tricolon intro (*"Wargame designer, musician, solo founder"*), a passive middle (*"the site is being rebuilt"*), and an em-dash cascade to the second clause. The sentence was bad by the rule the project has a hard commitment to.
+
+**What the pause prevented.** Nothing had been committed. I caught the violation in my own thinking one tool-call after the Write. The `content-strategy.md` pipeline rule was in my active context the whole session; the "placeholder is prose-free" convention was already on record in session 01. I reverted to label-only (seven section names) and moved on.
+
+**What failure mode this is.** Different from the four prior entries. Entry 2 was an agent hallucination. Entry 3 was the flag-and-hold rule firing on external credentials. Entry 4 was `git add -A` on an untracked `.claude/` directory. Entry 5 is **build-momentum slippage**: the stop-slop pipeline fires reliably when the frame is "I am drafting public copy," but during a build phase where the frame is "ship the component," temporary-feeling prose slips past the filter. The word "placeholder" in my head was functioning as a get-out-of-jail token.
+
+**Rule captured.** The stop-slop pipeline has to fire on *any* write to `src/pages/**` or `src/content/**` that contains a user-visible sentence, regardless of whether the sentence is "real copy" or "just temporary." Session 01's note already said this — "placeholder pages are the category of public copy most at risk of boilerplate AI slop; the way to pass the rule is to not write the prose in the first place" — and I violated it anyway because build momentum had narrowed my attention. The discipline has to override the momentum, not wait for the momentum to clear.
+
+**Shape check.** This is Hammerstein applied at the individual write-file call, not the grand strategy. Same lesson as entry 4 at a different scale: the framework has to fire at the two-second action level, not only at the planning level. *Is this the right shape of work?* applies to "am I about to write copy that will become visible prose without running it through the pipeline?" just as much as it applies to "am I about to scaffold the wrong tool?"
+
+**Meta (for the public essay).** Four out of five entries now are negatives, in four distinct failure categories: hallucinated credential (agent output), staging discipline (`git add -A`), two-layer recording discipline (memory + vault), drafting discipline (stop-slop pipeline). The essay's current framing — "the log is three negatives out of four because success stories are the confirmation-bias default" — still holds at four-of-five. But five categorical failure modes across one day of use is starting to look less like "the framework is robust" and more like "the user (me) keeps finding new ways to fail." That's worth sitting with before the next essay revision.
