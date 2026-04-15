@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="CatalogDNA — Ray Weiss"
+  description="CatalogDNA. A musical fingerprinting tool that reverse-engineers a musician's catalog into structural DNA."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <h1
+        class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl"
+      >
+        CatalogDNA
+      </h1>
+      <p class="mt-6 font-serif text-lg text-muted">
+        A musical fingerprinting tool that reverse-engineers a musician's
+        catalog into structural DNA.
+      </p>
+
+      <div class="prose-body mt-16">
+        <p>
+          Unlike Spotify Wrapped or Last.fm, which flatter listeners with
+          "people who liked X also liked Y," CatalogDNA tells musicians what
+          their music actually sounds like structurally, even when that
+          contradicts their stated influences. <strong
+            >Structural truth over affinity flattery.</strong
+          >
+        </p>
+        <p>
+          The output is a report a musician could otherwise only get from a
+          musicologist, and only after months.
+        </p>
+
+        <h2>The living demo</h2>
+
+        <p>
+          Ray records music as <a href="https://lerug.bandcamp.com">Le Rug</a>.
+          One of his Le Rug albums is titled <a
+            href="https://lerug.bandcamp.com/album/party-with-peter-burns"
+            ><em>Party With Peter Burns</em></a
+          >, an explicit nod to Pete Burns of Dead or Alive. When CatalogDNA
+          analyzed his four-hundred-track Le Rug catalog, the canonical
+          structural match came back as Pete Burns / Dead or Alive.
+        </p>
+        <p>
+          The album title says, "I know about Pete Burns." The fingerprint
+          says, "you sound more like him than you thought." The album is a
+          self-aware homage; the fingerprint reveals the influence runs
+          deeper than a title.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

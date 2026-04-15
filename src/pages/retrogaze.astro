@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Retrogaze — Ray Weiss"
+  description="Retrogaze. AI-powered pixel art generator for eight retro consoles, validated against real hardware constraints."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <h1
+        class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl"
+      >
+        Retrogaze
+      </h1>
+      <p class="mt-6 font-serif text-lg text-muted">
+        AI-powered pixel art generator for eight retro consoles. Sprites and
+        tilesets validated against real hardware constraints.
+      </p>
+
+      <div class="prose-body mt-16">
+        <p>
+          The differentiation is not "looks retro." Retrogaze enforces the
+          real hardware constraints of each target console: NES gets 54
+          colors with four per tile, Game Boy gets four shades, Genesis gets
+          512 colors. Output is genuinely playable on real hardware and
+          faithful emulators.
+        </p>
+        <p>
+          Supported platforms: NES, Game Boy (DMG, Pocket, Color), Commodore
+          64, Genesis, SNES, and PC-Engine. Target audience: indie devs,
+          game jam participants, pixel artists, retro modders.
+        </p>
+
+        <h2>Try it</h2>
+
+        <p>
+          Live at <a href="https://retrogazeai.com">retrogazeai.com</a>
+          (closed beta).
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
