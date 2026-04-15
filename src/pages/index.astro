@@ -3,20 +3,83 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Ray Weiss">
-  <main class="min-h-screen flex items-center justify-center px-6 py-24">
-    <div class="max-w-xl space-y-10">
-      <h1 class="font-sans text-4xl font-medium tracking-tight text-foreground">
-        Ray Weiss
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-[65ch]">
+      <h1
+        class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl"
+      >
+        About
       </h1>
-      <ul class="space-y-1 font-mono text-sm text-muted">
-        <li>Conflict Simulations LLC</li>
-        <li>CatalogDNA</li>
-        <li>Retrogaze</li>
-        <li>Auftragstaktik</li>
-        <li>Buddies</li>
-        <li>Le Rug</li>
-        <li>Hammerstein essay</li>
-      </ul>
+      <div class="prose-body mt-16">
+        <p>
+          A little about me. I've been designing games of different kinds for
+          around a decade and currently own and operate
+          <strong>Conflict Simulations LLC</strong>, a small wargame publishing
+          company based in Brooklyn.
+        </p>
+        <p>
+          I've put out about thirty board wargames. I handle most through CSL's
+          own print-on-demand operation, and Multi-Man Publishing put out
+          <strong>Rostov 41</strong> under their SCS series. Three of them got
+          CSR Award nominations in consecutive years
+          (<strong>The World Undone: Serbia</strong>,
+          <strong>1854: The Alma</strong>, and
+          <strong>Imperial Bayonets: For Liberty & Lombardy</strong>), which I
+          remain somewhat bewildered about. The board catalog is at <a
+            href="https://consimsltd.com/shop">consimsltd.com/shop</a>. The
+          digital catalog is on itch, under the same CSL brand.
+        </p>
+        <p>
+          The rest of this site exists because I could never quite learn to
+          code.
+        </p>
+        <p>
+          I tried. Throughout the 2010s, when teaching yourself to program was
+          supposed to be the thing you were doing, I made serious attempts at
+          Python, JavaScript, C++, and a handful of others I would rather not
+          name. The only language I ever came close to a real understanding of
+          was <strong>6502 assembly</strong>, the instruction set for a 1977 CPU
+          that ran the NES and the Commodore 64, and even then I understood it
+          poorly. (If you are getting the impression this is an unusual
+          direction of aptitude, you are correct.)
+        </p>
+        <p>Then AI-assisted coding got good enough that I could finally ship.</p>
+        <p>
+          There is no such thing as ethical consumption under capitalism, and I
+          am working a minimum wage job with a somewhat relentless drive to
+          create anyway. I may as well use that drive to make things that are
+          interesting, useful, or meaningful. Claude has helped me become
+          creative again after a long lull, and that probably matters more than
+          the tool itself.
+        </p>
+        <p>
+          <strong>I direct, and the tools implement.</strong> On
+          <strong>ZERO-PAGE</strong>, the 6502 puzzle game and sandbox I have
+          been working on, I provided the direction and Claude did most of the
+          code. The same goes for the rest. <strong>Auftragstaktik</strong> is
+          a tactical OSINT terminal I talked into shape in about two weeks.
+          <strong>Veridian Contraption</strong> is the Rust ASCII world-simulator
+          I have been building under CSL. <strong>Death Of An Empire</strong>,
+          also under CSL, is a terminal wargame on the Franco-Prussian War.
+          <strong>Buddies</strong> is a Claude Code companion that is also a
+          creature-collection game. <strong>CatalogDNA</strong> started as a
+          tool for analyzing my own four-hundred-track catalog as Le Rug. All
+          of these are projects I designed, could not have written the code
+          for, and shipped anyway.
+        </p>
+        <p>
+          I did not "build" most of those. I directed, researched, playtested,
+          and shipped. I did not write most of the code. The games, the tools,
+          the editorial eye, and the positioning are mine. That version of the
+          story is worth telling, and a lot of people will be telling some
+          version of it about their own work over the next few years.
+        </p>
+        <p>
+          If you came here from the wargame hobby, welcome. If not, this site
+          is what happens when a wargame designer starts shipping in other
+          media.
+        </p>
+      </div>
     </div>
   </main>
 </BaseLayout>
