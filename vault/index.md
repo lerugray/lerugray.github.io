@@ -18,6 +18,10 @@ _Local-only (gitignored — not in the public repo). Append-only observation log
 
 - [Bio (draft v3, Ray-approved 2026-04-15)](about/bio.md) — About-page source-of-truth. Voice calibrated from Ray's pre-AI prose in `passive-income-hub/manuals/An Amateur Guide To Wargame Design.txt`. Stop-slop clean. Captures the "couldn't code for a decade, 6502 was the only one I ever got, AI tools finally bridged the gap" origin story plus the class-context framing on AI-tool use.
 
+## Writing
+
+- [Von Hammerstein's Ghost, In Daily Use (draft v1, Ray-approved 2026-04-15)](hammerstein-essay-draft.md) — flagship site essay on using the Hammerstein officer typology as an operating principle in daily AI-assisted work. Pairs with Ray's [Medium article](https://medium.com/@lerugray/von-hammersteins-ghost-a-prussian-general-s-typology-for-ai-misalignment-e54040961433) as the lived-practice companion. Three log entries (bot refusing a destructive action, hallucinated-credential near-miss, `.claude/` folder committed to public repo) plus four sharpened principles. Stop-slop clean. Site navigation location TBD in the design-exploration pass.
+
 ## Businesses
 
 Public positioning source-of-truth — site copy pulls from these:
