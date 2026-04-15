@@ -68,7 +68,7 @@ Brooklyn guitar band. Dreampop / retro new wave. Members: **Inna Mkrtycheva** (v
 - **Releases:**
   - Self-titled EP — released 2012-05-16, 4 tracks
   - *True Crime* — released 2014-08-29, 12 tracks
-- **Context from the Bandcamp bio:** "ex-members of Sweet Bulbs & Night Manager." It's not clear from the bio whether **Ray** was specifically in Night Manager or whether that refers to other members — **do NOT claim Ray was in Night Manager** without his confirmation.
+- **Context from the Bandcamp bio:** "ex-members of Sweet Bulbs & Night Manager." Ray confirmed in session 03 (2026-04-15) that **he was never in Night Manager** — that refers to **Jordyn Blakely**, the BTC drummer. Sweet Bulbs is the prior band that connects to Ray; Night Manager is the prior band that connects to Jordyn. Do not credit Ray with Night Manager anywhere on the site.
 - **Press:** 2013 write-up in *New York Music Daily* framed them as "a catchy update on classic dreampop."
 
 ## Site-positioning proposal (to decide with Ray, not finalized here)
@@ -83,7 +83,7 @@ Brooklyn guitar band. Dreampop / retro new wave. Members: **Inna Mkrtycheva** (v
 
 - Exact Spotify / Apple Music artist URLs — confirm by visiting the platforms before linking from the site.
 - The Tyler tweets — status URLs are verified via WebSearch but tweets can be deleted at any time. When citing on the site, embed a screenshot or link to an archive (archive.org / wayback) in addition to the status URL.
-- Any claim that **Ray** was in **Night Manager** — the Butter The Children bio says "ex-members of Sweet Bulbs & Night Manager" but that may refer to a different member; do not claim it without Ray's confirmation.
+- Any claim that **Ray** was in **Night Manager** — **resolved 2026-04-15 (session 03)**: Ray confirmed he was never in Night Manager. The "ex-members of Sweet Bulbs & Night Manager" phrase in the BTC bio refers to **Jordyn Blakely** (Night Manager), not Ray. Never credit Ray with Night Manager.
 - Specific chart / sales / press numbers — only use primary sources.
 
 ## Sources (2026-04-15 WebSearch pass)
