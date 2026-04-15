@@ -4,16 +4,15 @@ Map of content for the `personal-site` vault. Start here.
 
 ## Decisions
 
-- [2026-04-15 — project kickoff](decisions/2026-04-15-project-kickoff.md)
-- [2026-04-15 — tooling resolution](decisions/2026-04-15-tooling-resolution.md)
+_Local-only (gitignored — not in the public repo). Working notes live in `vault/decisions/` on Ray's local copy._
 
 ## Sessions
 
-- [2026-04-15 — session 01 (scaffolding)](sessions/2026-04-15-session-01.md)
+_Local-only (gitignored — not in the public repo). Working notes live in `vault/sessions/` on Ray's local copy._
 
 ## Hammerstein log
 
-- [Observations log (append-only)](hammerstein-log/observations.md)
+_Local-only (gitignored — not in the public repo). Append-only observation log lives in `vault/hammerstein-log/observations.md` on Ray's local copy._
 
 ## Businesses
 

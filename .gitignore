@@ -39,3 +39,9 @@ desktop.ini
 .obsidian/workspace*
 .obsidian/graph.json
 .obsidian/cache
+
+# vault: internal working notes kept local-only.
+# Public parts of the vault (businesses/, projects/, index.md, README.md) stay tracked.
+vault/hammerstein-log/
+vault/sessions/
+vault/decisions/
