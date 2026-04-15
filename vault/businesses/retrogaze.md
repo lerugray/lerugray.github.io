@@ -22,14 +22,13 @@ The differentiation is **not** "looks retro." It's that Retrogaze enforces *actu
 
 Indie game devs, game jam participants, retro modding communities, pixel artists, hobbyist game creators.
 
-## Stack (public)
+## Stack
 
-- **Generation:** FLUX Schnell + Image2Pixel (fal.ai) for FLUX mode; Claude Haiku + pixel-mcp for Aseprite mode.
-- **Constraint enforcement:** Python (Pillow, numpy) + CIE76 Lab color matching.
-- **Backend:** FastAPI.
-- **Database:** Supabase (Postgres).
-- **Frontend:** vanilla HTML / CSS / JS, NES-themed.
-- **Hosting:** Railway (Docker).
+Intentionally omitted from the vault. Retrogaze's constraint-enforcement
+implementation, model choices, and backend stack are off-limits per the
+`DO NOT publish` block below and per `CLAUDE.md`'s Retrogaze IP rule.
+If a future session needs Retrogaze stack context, ask Ray directly
+rather than pulling it from any prior vault version.
 
 ## Links
 
