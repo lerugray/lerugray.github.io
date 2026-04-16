@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Retrogaze | Ray Weiss"
-  description="Retrogaze. AI-powered pixel art generator for eight retro consoles, validated against real hardware constraints."
+  description="Retrogaze. AI pixel art for eight retro consoles with real hardware constraints, animations, batch generation, and native Aseprite integration. Built by a game designer, not venture capital."
 >
   <main class="px-6 py-24 lg:px-16">
     <div class="mx-auto max-w-3xl">
@@ -14,29 +14,103 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         Retrogaze
       </h1>
       <p class="mt-6 font-serif text-lg text-muted">
-        AI-powered pixel art generator for eight retro consoles. Sprites and
-        tilesets validated against real hardware constraints.
+        AI pixel art for eight retro consoles. Sprites, tilesets, animations,
+        and UI elements generated inside real hardware constraints. Built by a
+        game designer, not venture capital.
       </p>
 
       <div class="prose-body mt-16">
         <p>
-          Retrogaze enforces the real hardware constraints of each target
-          console: NES gets 54 colors with four per tile, Game Boy gets four
-          shades, Genesis gets 512 colors. Output is playable on real
-          hardware and faithful emulators, not just "looks retro" on a
-          modern monitor.
+          Type what you need: character, enemy, item, tile, UI element, sprite
+          sheet, walking set, UI frame. Pick a console and an era. Retrogaze
+          generates it inside that platform's actual palette, tile limits, and
+          sprite rules. NES gets 54 colors with four per tile. Game Boy gets
+          four shades. Genesis gets 512. Output runs on real hardware and
+          faithful emulators, not just "looks retro" on a modern monitor.
         </p>
         <p>
-          Supported platforms: NES, Game Boy (DMG, Pocket, Color), Commodore
-          64, Genesis, SNES, and PC-Engine. Target audience: indie devs,
-          game jam participants, pixel artists, retro modders.
+          Six animation cycles: walk, attack, death, cast, idle, jump.
+          Four-frame spritesheets with zero palette drift between frames. Batch
+          generation produces up to four candidates at once so you pick the one
+          that fits. Upload a reference sketch or mockup and Retrogaze works
+          from it. Palette lock keeps colors consistent across a full project.
+        </p>
+        <p>
+          Export as PNG, sprite sheets, atlas JSON, or palette files (GPL, hex,
+          PAL). Scaled from 1x to 8x. Drop output into Unity, Godot,
+          GameMaker, or a homebrew toolkit.
+        </p>
+
+        <h2>Consoles</h2>
+
+        <p>
+          NES, SNES, Genesis, Game Boy, Game Boy Color, Commodore 64,
+          PC-Engine. Each target enforces its own palette size, tile budget, and
+          sprite dimensions. An era selector (Retro 1978-83, Early 1983-84, Mid
+          1985-86, Late 1987+) sets the constraint strictness within each
+          console.
+        </p>
+
+        <h2>Aseprite integration</h2>
+
+        <p>
+          Retrogaze ships an MCP server that integrates directly with Aseprite.
+          Output is a real <code>.aseprite</code> file with editable layers and
+          palette. No exporting, no re-importing. If Aseprite is your pixel art
+          pipeline, Retrogaze plugs into it natively.
+        </p>
+
+        <h2>Ethics</h2>
+
+        <p>
+          Retrogaze did not train a model on pixel art. No itch.io scraping, no
+          DeviantArt harvesting. The constraint layer is the product, built on
+          top of general-purpose image generation that already exists as public
+          infrastructure.
+        </p>
+        <p>
+          The
+          <a href="https://retrogazeai.com/ethics">ethics page</a> credits 34
+          artists by name across six consoles: the people who built the visual
+          language Retrogaze draws from, from Kazuko Shibuya's Final Fantasy
+          sprites to Steve Mayles's pre-rendered DKC Kremlings. Five to ten
+          percent of net profit goes back to the pixel art community once
+          profitable. Artist recommendations surface in-app after every
+          generation. All Retrogaze branding and marketing art is commissioned
+          from working pixel artists. No AI art in the marketing.
+        </p>
+        <p>
+          The honest scope: Retrogaze is a prototyping tool for developers who
+          can't draw. Solo devs, hobbyists, game jam participants who need a
+          placeholder sprite to keep building. If your game reaches the point
+          where you're shipping it to real players, hire a real artist. The
+          constraint tools work on hand-drawn art too, so when you bring an
+          artist on, Retrogaze stays useful to both of you.
+        </p>
+
+        <h2>Upcoming</h2>
+
+        <p>
+          Pre-rendered sprite mode for the SNES, targeting the Donkey Kong
+          Country / Super Mario RPG aesthetic: 3D models compressed into
+          console-legal sprites, the way Rare and Square did it on SGI
+          workstations in the mid-90s.
+        </p>
+
+        <h2>Pricing</h2>
+
+        <p>
+          Free tier: 5 generations per day, all 9 asset types, all features
+          included. Paid tiers from $5 to $20/month add generation history,
+          saved settings, API access, and higher volume. Full breakdown at
+          <a href="https://retrogazeai.com">retrogazeai.com</a>.
         </p>
 
         <h2>Try it</h2>
 
         <p>
-          Live at <a href="https://retrogazeai.com">retrogazeai.com</a>
-          (closed beta).
+          Closed beta. Live at
+          <a href="https://retrogazeai.com">retrogazeai.com</a>.
         </p>
       </div>
     </div>

@@ -17,6 +17,7 @@ Per-session working notes. Date-prefixed.
 - [2026-04-15 — session 01: scaffolding](sessions/2026-04-15-session-01.md)
 - [2026-04-15 — session 02: design exploration + foundation build](sessions/2026-04-15-session-02.md)
 - [2026-04-15 — session 03: portal landing page + social previews](sessions/2026-04-15-session-03.md)
+- [2026-04-16 — session 04: Retrogaze rewrite + CSL imagery + open-item sweep](sessions/2026-04-16-session-04.md)
 
 ## Hammerstein log
 
@@ -59,7 +60,7 @@ _Kreuzfeuer was considered and deferred — no public surface yet. Revisit when 
 
 Positioning source-of-truth for Ray's music work:
 
-- [Le Rug](music/le-rug.md) — current project (Brooklyn; `lerug.bandcamp.com`). Includes prior-band notes for Sweet Bulbs (with three verified Tyler-the-Creator tweets) and Butter The Children, plus the Pete Burns / CatalogDNA structural-truth recursion.
+- [Le Rug](music/le-rug.md) — Ray's main music project, no longer active (instruments sold; catalog archived at `lerug.bandcamp.com`). Includes prior-band notes for Sweet Bulbs (with three verified Tyler-the-Creator tweets) and Butter The Children, plus the Pete Burns / CatalogDNA structural-truth recursion.
 
 ## See also
 

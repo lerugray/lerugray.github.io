@@ -31,6 +31,12 @@ So the album title says *"I know about Pete Burns."* The fingerprint says *"you 
 
 This is arguably CatalogDNA's strongest "living demo" story. On the site, the CatalogDNA section should link directly to the *Party With Peter Burns* album — a visitor reads the positioning, follows the link, hears the music, returns with the claim internalized. See [`../music/le-rug.md`](../music/le-rug.md) for the full Le Rug research notes and source links.
 
+## Public vault (live example)
+
+Ray's Le Rug analysis is published at `https://lerugray.github.io/le-rug-musical-dna/`. 439 tracks across ~15 releases (2007-2020). Shows fingerprints, chord vocabularies, influence comparisons, era-based evolution, and per-album deep dives. Ray's catalog was the original test case and still serves as the primary development reference. Content may change as the software is still in development.
+
+Added to site copy 2026-04-16.
+
 ## Stack (public, open-core)
 
 Python 3.10–3.12. Pipeline: MP3 → MIDI (`basic-pitch`) → JSON → analysis (scales, chords, motifs, rhythm, register, melody). Optional enrichments via `music21` (harmony) and `librosa` (timbre). Report generation via Jinja2 templates into Obsidian vault markdown.

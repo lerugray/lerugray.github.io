@@ -33,6 +33,15 @@ Living document. Short by design. Update in place as the project grows — don't
 - **Linter:** Biome (default) or ESLint. Decide during scaffolding.
 - **No test harness** planned for a static site. Smoke-test via dev server (`astro dev`) on every non-trivial change. If interactivity gets real, revisit.
 
+## Visual audits
+
+Two tools, two jobs:
+
+- **Playwright script** (`scripts/audit-site.mjs`): headless Chromium screenshots of all 13 routes at desktop + mobile viewports. Good for post-deploy screenshot regression, OG meta verification, layout sweep. Base URL overridable via `AUDIT_BASE_URL` env var. Output goes to `audit-screenshots/` (gitignored).
+- **Chrome extension** (Ray's claude.ai browser extension): interactive walkthroughs — clicking nav, testing hover states, inspecting live DOM, exploring user paths. Use when the audit needs more than static screenshots.
+
+Pick the right one for the job. Don't try to script Playwright through interaction loops.
+
 ## When to deviate
 
 A convention worth breaking is worth documenting. If you break one, update this file in the same change with the reason. No silent deviations.
