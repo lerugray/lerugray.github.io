@@ -4,7 +4,7 @@ _Created 2026-04-15 after a WebSearch research pass. All facts verified to publi
 
 ## Who
 
-**Le Rug** is the ongoing music project of **Ray Weiss** — Brooklyn-based singer / guitarist. "Le Rug" is the project name; Ray writes and fronts it. Bandcamp bio phrasing: "basically Ray Weiss & Friends."
+**Le Rug** was the main music project of **Ray Weiss** — Brooklyn-based singer / guitarist. "Le Rug" is the project name; Ray wrote and fronted it. Bandcamp bio phrasing: "basically Ray Weiss & Friends." **Status as of 2026-04-15 (session 03):** Ray confirmed he is no longer actively making music — instruments are sold, focus has shifted to the games and software businesses. The Le Rug catalog stays up at `lerug.bandcamp.com` as an archive of the prior body of work, not as a current project. Site copy should always speak about Le Rug in past tense.
 
 ## Where to listen (verified public links)
 

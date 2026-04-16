@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title,
-  description = 'Personal site of Ray Weiss. Brooklyn wargame designer, running four businesses and a band.',
+  description = 'Personal site of Ray Weiss. Brooklyn wargame designer, running four businesses.',
   image = '/og-image.png',
   ogType = 'website',
 } = Astro.props;
@@ -40,7 +40,7 @@ const ogImageURL = new URL(image, Astro.site).toString();
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Ray Weiss. Brooklyn wargame designer, running four businesses and a band."
+      content="Ray Weiss. Brooklyn wargame designer, running four businesses."
     />
 
     <meta name="twitter:card" content="summary_large_image" />

@@ -25,7 +25,7 @@ The Pete Burns / Dead or Alive match surfaced in Ray's own catalog — a structu
 
 ## Living demo — the Le Rug / Peter Burns recursion (verified 2026-04-15)
 
-Ray records music as **Le Rug** (`lerug.bandcamp.com`). One of his own Le Rug albums is titled ***Party With Peter Burns*** — an explicit nod to Pete Burns of Dead or Alive. Independently, when CatalogDNA analyzed his ~407-track catalog, its canonical structural match came back as **Pete Burns / Dead or Alive**.
+Ray recorded music as **Le Rug** (`lerug.bandcamp.com`). The project is no longer active as of session 03 confirmation; the catalog stays up as an archive of prior work. One of his own Le Rug albums is titled ***Party With Peter Burns*** — an explicit nod to Pete Burns of Dead or Alive. Independently, when CatalogDNA analyzed his ~407-track catalog, its canonical structural match came back as **Pete Burns / Dead or Alive**.
 
 So the album title says *"I know about Pete Burns."* The fingerprint says *"you sound more like him than you thought."* The album is a self-aware homage; the tool reveals the influence runs deeper than a title — into chord vocabulary, scale choices, melodic shape.
 
