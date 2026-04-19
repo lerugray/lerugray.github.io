@@ -11,7 +11,10 @@ export interface NavGroup {
 export const navGroups: NavGroup[] = [
   {
     label: 'Writing',
-    items: [{ href: '/writing/hammerstein', label: "Von Hammerstein's Ghost" }],
+    items: [
+      { href: '/writing/hammerstein', label: "Von Hammerstein's Ghost" },
+      { href: '/writing/boolean-gates', label: 'Boolean Gates, Not Prompts' },
+    ],
   },
   {
     label: 'Businesses',
