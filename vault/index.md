@@ -71,6 +71,12 @@ Positioning source-of-truth for Ray's music work:
 
 - [Le Rug](music/le-rug.md) — Ray's main music project, no longer active (instruments sold; catalog archived at `lerug.bandcamp.com`). Includes prior-band notes for Sweet Bulbs (with three verified Tyler-the-Creator tweets) and Butter The Children, plus the Pete Burns / CatalogDNA structural-truth recursion.
 
+## Artifacts
+
+Reference bundles kept alongside the vault.
+
+- [`artifacts/2026-04-18-claude-design-pass.zip`](artifacts/2026-04-18-claude-design-pass.zip) — source bundle from the session-05 anchor redesign.
+
 ## See also
 
 - [`../CLAUDE.md`](../CLAUDE.md) — agent instructions, the Hammerstein framework.
