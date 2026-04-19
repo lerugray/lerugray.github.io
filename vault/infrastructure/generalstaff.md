@@ -58,7 +58,7 @@ All enforced in code or by convention. The full list lives in the public README;
 
 ## License
 
-**MIT.**
+**AGPL-3.0.** Chosen over MIT to prevent corporate repackaging — derivatives (including SaaS) must remain open-source under the same terms.
 
 ## Links
 
