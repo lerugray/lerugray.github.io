@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ray Weiss</title>
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=ibm-plex-mono:400,500|ibm-plex-sans:400,500,600|ibm-plex-serif:400,400i,600,600i&display=swap">
+<style>
+  :root {
+    /* palette — ink on parchment */
+    --color-background: #0c0b09;
+    --color-surface:    #1a1814;
+    --color-border:     #2a2620;
+    --color-foreground: #f5f0e6;
+    --color-muted:      #a8a095;
+    --color-subtle:     #6b6356;
+    --color-link:       #d4a574;
+    --color-link-hover: #f0c38a;
+    --color-accent:     #c9484e;
+
+    /* type */
+    --font-serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+    --font-sans:  "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono:  "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+    /* scale */
+    --fs-micro: 12px;
+    --fs-meta:  14px;
+    --fs-small: 15px;
+    --fs-body:  17px;
+    --fs-h3:    22px;
+    --fs-h2:    17px;    /* section labels are mono-small-caps, not large */
+    --fs-h1:    44px;
+    --fs-dek:   20px;
+
+    /* rhythm */
+    --lh-body: 1.6;
+    --lh-tight: 1.25;
+
+    /* measure */
+    --measure-prose: 65ch;
+    --measure-list:  72ch;
+
+    /* layout */
+    --sidebar-w: 260px;
+    --content-pad: 80px;
+    --section-gap: 72px;
+
+    /* motion */
+    --t: 150ms ease;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  html {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-serif);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* grain overlay — full viewport, pointer-events: none */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("assets/grain.svg");
+    background-size: 240px 240px;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 100;
+    mix-blend-mode: screen;
+  }
+
+  a {
+    color: var(--color-link);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color var(--t), border-color var(--t);
+  }
+  a:hover { color: var(--color-link-hover); border-bottom-color: var(--color-link-hover); }
+
+  :focus-visible {
+    outline: 2px solid var(--color-link);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* ---------- layout shell ---------- */
+  .shell {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+
+  @media (min-width: 1024px) {
+    .shell {
+      grid-template-columns: var(--sidebar-w) 1fr;
+    }
+  }
+
+  /* ---------- sidebar ---------- */
+  .sidebar {
+    border-right: 1px solid var(--color-border);
+    padding: 48px 28px 48px 40px;
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .sidebar { display: block; }
+  }
+
+  .masthead {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 44px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--color-foreground);
+    font-size: 16px;
+    letter-spacing: -0.005em;
+    border-bottom: none;
+  }
+  .masthead:hover { color: var(--color-link-hover); border-bottom: none; }
+  .masthead .counter-mini {
+    width: 18px; height: 18px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .nav-group { margin-bottom: 28px; }
+  .nav-group-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-subtle);
+    padding: 0 0 10px 12px;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 10px;
+  }
+  .nav-group ul {
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .nav-group li { margin: 0; }
+  .nav-group a {
+    display: block;
+    padding: 5px 12px;
+    color: var(--color-muted);
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+    border-bottom: none;
+    line-height: 1.4;
+    transition: color var(--t), border-color var(--t);
+  }
+  .nav-group a:hover {
+    color: var(--color-foreground);
+    border-bottom: none;
+  }
+  .nav-group a[aria-current="page"] {
+    color: var(--color-foreground);
+    border-left-color: var(--color-link);
+  }
+
+  /* ---------- mobile top bar ---------- */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-sans);
+  }
+  @media (min-width: 1024px) { .topbar { display: none; } }
+  .topbar .masthead { margin: 0; }
+  .menu-toggle {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    background: none;
+    border: 1px solid var(--color-border);
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  /* ---------- main column ---------- */
+  main {
+    padding: 72px var(--content-pad) 96px;
+    max-width: calc(var(--measure-list) + var(--content-pad) * 2);
+  }
+  @media (max-width: 1024px) {
+    main { padding: 48px 28px 72px; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 22px;
+    align-items: start;
+    margin-bottom: 40px;
+  }
+  .hero .counter {
+    width: 48px; height: 48px;
+    margin-top: 10px;
+  }
+  .hero h1 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: var(--fs-h1);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 0 10px;
+    color: var(--color-foreground);
+  }
+  .hero .dek {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--fs-dek);
+    color: var(--color-muted);
+    margin: 0;
+    max-width: 52ch;
+    line-height: 1.4;
+  }
+
+  /* ---------- bio ---------- */
+  .bio {
+    max-width: var(--measure-prose);
+    margin: 0 0 var(--section-gap);
+    font-size: var(--fs-body);
+    color: var(--color-foreground);
+  }
+  .bio p { margin: 0; }
+
+  /* ---------- section scaffolding ---------- */
+  section { margin-bottom: var(--section-gap); }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+    margin-bottom: 28px;
+    max-width: var(--measure-list);
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .section-count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--color-subtle);
+  }
+  .section-subhead {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--fs-small);
+    color: var(--color-muted);
+    margin: -14px 0 28px;
+    max-width: var(--measure-prose);
+  }
+
+  /* ---------- featured "Start here" ---------- */
+  .featured {
+    border-left: 2px solid var(--color-accent);
+    padding: 4px 0 4px 28px;
+    margin: 0 0 var(--section-gap);
+    max-width: var(--measure-prose);
+  }
+  .featured .section-label { margin-bottom: 10px; display: block; }
+  .featured h3 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: var(--fs-h3);
+    line-height: var(--lh-tight);
+    margin: 0 0 10px;
+    color: var(--color-foreground);
+    letter-spacing: -0.005em;
+  }
+  .featured .desc {
+    font-family: var(--font-serif);
+    color: var(--color-muted);
+    font-size: var(--fs-body);
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+  .featured .cta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-link);
+    border-bottom: none;
+  }
+  .featured .cta:hover { color: var(--color-link-hover); border-bottom: none; }
+  .featured .cta .arrow {
+    display: inline-block;
+    transition: transform var(--t);
+    margin-left: 2px;
+  }
+  .featured .cta:hover .arrow { transform: translateX(3px); }
+
+  /* ---------- Businesses list ---------- */
+  .entries { list-style: none; margin: 0; padding: 0; max-width: var(--measure-list); }
+  .entries > li {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .entries > li:last-child { border-bottom: none; }
+  .entry {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .entry-title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: var(--fs-h3);
+    line-height: 1.2;
+    color: var(--color-foreground);
+    margin: 0;
+    letter-spacing: -0.005em;
+    transition: color var(--t);
+    cursor: pointer;
+    display: inline-block;
+  }
+  a.entry-title { border-bottom: none; }
+  a.entry-title:hover { color: var(--color-link-hover); border-bottom: none; }
+
+  .entry-desc {
+    font-family: var(--font-serif);
+    font-size: var(--fs-body);
+    color: var(--color-muted);
+    margin: 0;
+    max-width: 65ch;
+    line-height: 1.5;
+  }
+
+  /* ---------- Infrastructure — visually distinct ---------- */
+  /* differentiation: indented block with left hairline, tighter rhythm,
+     plex-mono metadata strip (status / license) above each title */
+  .infra {
+    max-width: var(--measure-list);
+  }
+  .infra-list {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .infra-list > li {
+    padding: 20px 0 22px 24px;
+    border-left: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+  }
+  .infra-list > li:last-child { border-bottom: none; }
+  .infra-list > li::before {
+    content: "";
+    position: absolute;
+    left: -1px; top: 28px;
+    width: 14px; height: 1px;
+    background: var(--color-border);
+  }
+
+  .infra-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 18px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    margin: 0 0 10px;
+  }
+  .infra-meta .k { color: var(--color-subtle); }
+  .infra-meta .v { color: var(--color-muted); margin-left: 6px; }
+  .infra-meta .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--color-muted);
+    border-radius: 50%;
+    margin-right: 7px;
+    vertical-align: 1px;
+  }
+  .infra-meta .dot.live { background: #7ba05b; }
+  .infra-meta .dot.private { background: var(--color-subtle); }
+
+  .infra-title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--fs-h3);
+    line-height: 1.2;
+    color: var(--color-foreground);
+    margin: 0 0 8px;
+    letter-spacing: -0.005em;
+    transition: color var(--t);
+  }
+  a.infra-title { border-bottom: none; }
+  a.infra-title:hover { color: var(--color-link-hover); border-bottom: none; }
+
+  .infra-desc {
+    font-family: var(--font-serif);
+    font-size: var(--fs-body);
+    color: var(--color-muted);
+    margin: 0;
+    max-width: 62ch;
+    line-height: 1.5;
+  }
+
+  /* ---------- Music ---------- */
+  .music {
+    max-width: var(--measure-prose);
+  }
+  .music p {
+    font-family: var(--font-serif);
+    font-size: var(--fs-body);
+    color: var(--color-foreground);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .music .muted {
+    color: var(--color-muted);
+    font-style: italic;
+  }
+  .music .follow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-top: 14px;
+    display: inline-block;
+    color: var(--color-link);
+    border-bottom: none;
+  }
+  .music .follow:hover { color: var(--color-link-hover); }
+
+  /* ---------- footer / colophon ---------- */
+  footer {
+    border-top: 1px solid var(--color-border);
+    padding-top: 20px;
+    margin-top: var(--section-gap);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    color: var(--color-muted);
+    max-width: var(--measure-list);
+  }
+  footer a { color: var(--color-muted); border-bottom: none; }
+  footer a:hover { color: var(--color-link-hover); }
+  footer .sep { color: var(--color-subtle); margin: 0 6px; }
+
+  /* ---------- mobile dropdown nav ---------- */
+  .mobile-nav {
+    display: none;
+    border-bottom: 1px solid var(--color-border);
+    padding: 12px 24px 20px;
+    font-family: var(--font-sans);
+  }
+  .mobile-nav.open { display: block; }
+  @media (min-width: 1024px) { .mobile-nav { display: none !important; } }
+  .mobile-nav .nav-group { margin-bottom: 18px; }
+</style>
+</head>
+<body>
+
+<!-- sidebar counter SVG rendering: we use the raster for the hero, and a mini version in masthead -->
+
+<div class="shell">
+  <!-- sidebar (≥1024px) -->
+  <nav class="sidebar" aria-label="Primary">
+    <a href="/" class="masthead" aria-current="page">
+      <img src="assets/wargame-counter.png" alt="" class="counter-mini" width="18" height="18">
+      <span>Ray Weiss</span>
+    </a>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Writing</div>
+      <ul>
+        <li><a href="/essays/hammerstein">Von Hammerstein's Ghost</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Businesses</div>
+      <ul>
+        <li><a href="/conflict-simulations">Conflict Simulations LLC</a></li>
+        <li><a href="/devforge">Devforge</a></li>
+        <li><a href="/catalogdna">CatalogDNA</a></li>
+        <li><a href="/retrogaze">Retrogaze</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Infrastructure</div>
+      <ul>
+        <li><a href="/generalstaff">GeneralStaff</a></li>
+        <li><a href="/raybrain">RayBrain</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Projects</div>
+      <ul>
+        <li><a href="/auftragstaktik">Auftragstaktik</a></li>
+        <li><a href="/buddies">Buddies</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Music</div>
+      <ul>
+        <li><a href="/music">Le Rug</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- mobile topbar (&lt;1024px) -->
+  <div class="topbar">
+    <a href="/" class="masthead">
+      <img src="assets/wargame-counter.png" alt="" class="counter-mini" width="18" height="18">
+      <span>Ray Weiss</span>
+    </a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mnav" onclick="var n=document.getElementById('mnav');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);">Menu</button>
+  </div>
+
+  <div class="mobile-nav" id="mnav">
+    <div class="nav-group"><div class="nav-group-label">Writing</div><ul><li><a href="/essays/hammerstein">Von Hammerstein's Ghost</a></li></ul></div>
+    <div class="nav-group"><div class="nav-group-label">Businesses</div><ul><li><a href="/conflict-simulations">Conflict Simulations LLC</a></li><li><a href="/devforge">Devforge</a></li><li><a href="/catalogdna">CatalogDNA</a></li><li><a href="/retrogaze">Retrogaze</a></li></ul></div>
+    <div class="nav-group"><div class="nav-group-label">Infrastructure</div><ul><li><a href="/generalstaff">GeneralStaff</a></li><li><a href="/raybrain">RayBrain</a></li></ul></div>
+    <div class="nav-group"><div class="nav-group-label">Projects</div><ul><li><a href="/auftragstaktik">Auftragstaktik</a></li><li><a href="/buddies">Buddies</a></li></ul></div>
+    <div class="nav-group"><div class="nav-group-label">Music</div><ul><li><a href="/music">Le Rug</a></li></ul></div>
+  </div>
+
+  <main>
+    <!-- 1. Hero -->
+    <header class="hero">
+      <img src="assets/wargame-counter.png" alt="" class="counter" width="48" height="48">
+      <div>
+        <h1>Ray Weiss</h1>
+        <p class="dek">Brooklyn wargame designer, running four businesses.</p>
+      </div>
+    </header>
+
+    <!-- 2. Bio -->
+    <div class="bio">
+      <p>For a decade I tried and couldn't quite learn to code. Then AI-assisted tools got good enough. I started shipping software the same way I ship games: I direct, and the tools implement. Everything on this site came out of that.</p>
+    </div>
+
+    <!-- 3. Featured essay -->
+    <aside class="featured" aria-labelledby="start-here">
+      <span class="section-label" id="start-here">Start here</span>
+      <h3>Von Hammerstein's Ghost, In Daily Use</h3>
+      <p class="desc">A Prussian officer typology, used as the operating principle for daily AI-assisted work.</p>
+      <a href="/essays/hammerstein" class="cta">Read the essay <span class="arrow">→</span></a>
+    </aside>
+
+    <!-- 4. Businesses -->
+    <section aria-labelledby="businesses">
+      <div class="section-head">
+        <h2 class="section-label" id="businesses">Businesses</h2>
+        <span class="section-count">04 ——</span>
+      </div>
+      <ol class="entries">
+        <li>
+          <div class="entry">
+            <a href="/conflict-simulations" class="entry-title">Conflict Simulations LLC</a>
+            <p class="entry-desc">Brooklyn wargame publishing. Around thirty board titles and three CSR nominations. One SCS release through Multi-Man Publishing.</p>
+          </div>
+        </li>
+        <li>
+          <div class="entry">
+            <a href="/devforge" class="entry-title">Devforge</a>
+            <p class="entry-desc">Game-development companion for Claude Code. Built for people who don't touch git.</p>
+          </div>
+        </li>
+        <li>
+          <div class="entry">
+            <a href="/catalogdna" class="entry-title">CatalogDNA</a>
+            <p class="entry-desc">Music cataloging. Hear what your catalog actually sounds like, not what you want it to.</p>
+          </div>
+        </li>
+        <li>
+          <div class="entry">
+            <a href="/retrogaze" class="entry-title">Retrogaze</a>
+            <p class="entry-desc">AI pixel art for eight retro consoles. Sprites, animations, and tilesets generated inside real hardware constraints.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 5. Infrastructure — distinct -->
+    <section aria-labelledby="infrastructure" class="infra">
+      <div class="section-head">
+        <h2 class="section-label" id="infrastructure">Infrastructure</h2>
+        <span class="section-count">02 ——</span>
+      </div>
+      <p class="section-subhead">How the work actually gets done.</p>
+      <ol class="infra-list">
+        <li>
+          <div class="infra-meta">
+            <span><span class="dot live"></span><span class="k">Status</span><span class="v">Phases 1–4 shipped</span></span>
+            <span><span class="k">License</span><span class="v">MIT</span></span>
+            <span><span class="k">Access</span><span class="v">BYOK · local-first</span></span>
+          </div>
+          <a href="/generalstaff" class="infra-title">GeneralStaff</a>
+          <p class="infra-desc">Open-source autonomous engineering for solo founders. My scheme to democratize Polsia while keeping four businesses running sanely. Verification-gated, BYOK, local-first. Public launch in preparation.</p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span><span class="dot private"></span><span class="k">Status</span><span class="v">Private</span></span>
+            <span><span class="k">Pattern</span><span class="v">Three-layer LLM-Wiki</span></span>
+            <span><span class="k">Invariants</span><span class="v">Four, enforced</span></span>
+          </div>
+          <a href="/raybrain" class="infra-title">RayBrain</a>
+          <p class="infra-desc">Retrieval-only second brain. Built on Karpathy's three-layer LLM-Wiki pattern with four enforced invariants. Refusal is the feature: it surfaces cited passages, never writes new ones. Architecture will be published.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 6. Projects -->
+    <section aria-labelledby="projects">
+      <div class="section-head">
+        <h2 class="section-label" id="projects">Projects</h2>
+        <span class="section-count">02 ——</span>
+      </div>
+      <ol class="entries">
+        <li>
+          <div class="entry">
+            <a href="/auftragstaktik" class="entry-title">Auftragstaktik</a>
+            <p class="entry-desc">Tactical OSINT command terminal. Talked into shape in about two weeks via Claude Code.</p>
+          </div>
+        </li>
+        <li>
+          <div class="entry">
+            <a href="/buddies" class="entry-title">Buddies</a>
+            <p class="entry-desc">A Claude Code companion and a creature-collection game in one codebase. 70+ species, 1,015 tests.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 7. Music -->
+    <section aria-labelledby="music" class="music">
+      <div class="section-head">
+        <h2 class="section-label" id="music">Music</h2>
+        <span class="section-count">01 ——</span>
+      </div>
+      <p><a href="/music">Le Rug</a>, <span class="muted">with Sweet Bulbs and Butter The Children before that. Brooklyn projects from a former life.</span></p>
+      <a href="/music" class="follow">Listen →</a>
+    </section>
+
+    <!-- 8. Colophon -->
+    <footer>
+      <div>Ray Weiss <span class="sep">·</span> Brooklyn <span class="sep">·</span> <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a></div>
+      <div><a href="https://github.com/lerugray">lerugray on GitHub</a> <span class="sep">·</span> <a href="https://lerug.bandcamp.com">Bandcamp</a></div>
+    </footer>
+  </main>
+</div>
+
+</body>
+</html>

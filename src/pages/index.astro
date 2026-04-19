@@ -6,28 +6,25 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   title="Ray Weiss"
   description="Brooklyn wargame designer, running four businesses. Personal site of Ray Weiss."
 >
-  <main class="px-6 py-24 lg:px-16">
-    <div class="mx-auto max-w-[65ch]">
-      <img
-        src="/wargame-counter.png"
-        alt=""
-        width="48"
-        height="48"
-        class="mb-6 block h-12 w-12"
-      />
-      <h1
-        class="font-sans text-5xl font-medium tracking-tight text-foreground lg:text-6xl"
-      >
-        Ray Weiss
-      </h1>
+  <main class="px-6 pt-16 pb-24 lg:px-20 lg:pt-20 lg:pb-24">
+    <div class="mx-auto max-w-4xl">
+      <header class="hero">
+        <img
+          src="/wargame-counter.png"
+          alt=""
+          class="counter"
+          width="48"
+          height="48"
+        />
+        <div>
+          <h1>Ray Weiss</h1>
+          <p class="dek">
+            Brooklyn wargame designer, running four businesses.
+          </p>
+        </div>
+      </header>
 
-      <p
-        class="mt-6 font-serif text-xl italic text-muted lg:text-2xl"
-      >
-        Brooklyn wargame designer, running four businesses.
-      </p>
-
-      <div class="prose-body mt-12">
+      <div class="bio">
         <p>
           For a decade I tried and couldn't quite learn to code. Then
           AI-assisted tools got good enough. I started shipping software the
@@ -36,142 +33,159 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         </p>
       </div>
 
-      <section class="mt-20 border-t-2 border-link pt-12">
-        <h2
-          class="font-sans text-xs font-medium uppercase tracking-wider text-muted"
-        >
-          Start here
-        </h2>
-        <a href="/writing/hammerstein" class="group mt-6 block">
-          <h3
-            class="font-serif text-2xl font-normal text-foreground group-hover:text-link-hover lg:text-3xl"
-          >
-            Von Hammerstein's Ghost, In Daily Use
-          </h3>
-          <p class="mt-3 font-serif text-lg text-muted">
-            A Prussian officer typology, used as the operating principle for
-            daily AI-assisted work.
-          </p>
-          <span
-            class="mt-4 block font-mono text-xs uppercase tracking-wider text-link group-hover:text-link-hover"
-          >
-            Read the essay
-          </span>
-        </a>
-      </section>
+      <aside class="featured" aria-labelledby="start-here">
+        <span class="section-label" id="start-here">Start here</span>
+        <h3>Von Hammerstein's Ghost, In Daily Use</h3>
+        <p class="desc">
+          A Prussian officer typology, used as the operating principle for
+          daily AI-assisted work.
+        </p>
+        <a href="/writing/hammerstein" class="cta">Read the essay →</a>
+      </aside>
 
-      <section class="mt-20 border-t border-border pt-12">
-        <h2
-          class="font-sans text-xs font-medium uppercase tracking-wider text-muted"
-        >
-          Businesses
-        </h2>
-        <ul class="mt-6 space-y-8">
+      <section aria-labelledby="businesses">
+        <div class="section-head">
+          <h2 class="section-label" id="businesses">Businesses</h2>
+          <span class="section-count">04 ——</span>
+        </div>
+        <ol class="entries">
           <li>
-            <a href="/conflict-simulations-llc" class="group block">
-              <h3
-                class="font-serif text-xl font-normal text-foreground group-hover:text-link-hover"
-              >
+            <div class="entry">
+              <a href="/conflict-simulations-llc" class="entry-title">
                 Conflict Simulations LLC
-              </h3>
-              <p class="mt-2 font-serif text-base text-muted">
+              </a>
+              <p class="entry-desc">
                 Brooklyn wargame publishing. Around thirty board titles and
                 three CSR nominations. One SCS release through Multi-Man
                 Publishing.
               </p>
-            </a>
+            </div>
           </li>
           <li>
-            <a href="/devforge" class="group block">
-              <h3
-                class="font-serif text-xl font-normal text-foreground group-hover:text-link-hover"
-              >
-                Devforge
-              </h3>
-              <p class="mt-2 font-serif text-base text-muted">
+            <div class="entry">
+              <a href="/devforge" class="entry-title">Devforge</a>
+              <p class="entry-desc">
                 Game-development companion for Claude Code. Built for people
                 who don't touch git.
               </p>
-            </a>
+            </div>
           </li>
           <li>
-            <a href="/catalogdna" class="group block">
-              <h3
-                class="font-serif text-xl font-normal text-foreground group-hover:text-link-hover"
-              >
-                CatalogDNA
-              </h3>
-              <p class="mt-2 font-serif text-base text-muted">
+            <div class="entry">
+              <a href="/catalogdna" class="entry-title">CatalogDNA</a>
+              <p class="entry-desc">
                 Music cataloging. Hear what your catalog actually sounds like,
                 not what you want it to.
               </p>
-            </a>
+            </div>
           </li>
           <li>
-            <a href="/retrogaze" class="group block">
-              <h3
-                class="font-serif text-xl font-normal text-foreground group-hover:text-link-hover"
-              >
-                Retrogaze
-              </h3>
-              <p class="mt-2 font-serif text-base text-muted">
-                AI pixel art for eight retro consoles. Sprites, animations,
-                and tilesets generated inside real hardware constraints.
+            <div class="entry">
+              <a href="/retrogaze" class="entry-title">Retrogaze</a>
+              <p class="entry-desc">
+                AI pixel art for eight retro consoles. Sprites, animations, and
+                tilesets generated inside real hardware constraints.
               </p>
-            </a>
+            </div>
           </li>
-        </ul>
+        </ol>
       </section>
 
-      <section class="mt-16 border-t border-border pt-12">
-        <h2
-          class="font-sans text-xs font-medium uppercase tracking-wider text-muted"
-        >
-          Projects
-        </h2>
-        <ul class="mt-6 space-y-8">
+      <section aria-labelledby="infrastructure">
+        <div class="section-head">
+          <h2 class="section-label" id="infrastructure">Infrastructure</h2>
+          <span class="section-count">02 ——</span>
+        </div>
+        <p class="section-subhead">How the work actually gets done.</p>
+        <ol class="infra-list">
           <li>
-            <a href="/auftragstaktik" class="group block">
-              <h3
-                class="font-serif text-xl font-normal text-foreground group-hover:text-link-hover"
+            <div class="infra-meta">
+              <span
+                ><span class="dot live"></span><span class="k">Status</span
+                ><span class="v">Phases 1–4 shipped</span></span
               >
-                Auftragstaktik
-              </h3>
-              <p class="mt-2 font-serif text-base text-muted">
-                Tactical OSINT command terminal. Talked into shape in about
-                two weeks via Claude Code.
-              </p>
-            </a>
+              <span
+                ><span class="k">License</span><span class="v">MIT</span></span
+              >
+              <span
+                ><span class="k">Access</span
+                ><span class="v">BYOK · local-first</span></span
+              >
+            </div>
+            <a href="/generalstaff" class="infra-title">GeneralStaff</a>
+            <p class="infra-desc">
+              Open-source autonomous engineering for solo founders. My scheme
+              to democratize Polsia while keeping four businesses running
+              sanely. Verification-gated, BYOK, local-first. Public launch in
+              preparation.
+            </p>
           </li>
           <li>
-            <a href="/buddies" class="group block">
-              <h3
-                class="font-serif text-xl font-normal text-foreground group-hover:text-link-hover"
+            <div class="infra-meta">
+              <span
+                ><span class="dot private"></span><span class="k">Status</span
+                ><span class="v">Private</span></span
               >
-                Buddies
-              </h3>
-              <p class="mt-2 font-serif text-base text-muted">
+              <span
+                ><span class="k">Pattern</span
+                ><span class="v">Three-layer LLM-Wiki</span></span
+              >
+              <span
+                ><span class="k">Invariants</span
+                ><span class="v">Four, enforced</span></span
+              >
+            </div>
+            <a href="/raybrain" class="infra-title">RayBrain</a>
+            <p class="infra-desc">
+              Retrieval-only second brain. Built on Karpathy's three-layer
+              LLM-Wiki pattern with four enforced invariants. Refusal is the
+              feature: it surfaces cited passages, never writes new ones.
+              Architecture will be published.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="projects">
+        <div class="section-head">
+          <h2 class="section-label" id="projects">Projects</h2>
+          <span class="section-count">02 ——</span>
+        </div>
+        <ol class="entries">
+          <li>
+            <div class="entry">
+              <a href="/auftragstaktik" class="entry-title">Auftragstaktik</a>
+              <p class="entry-desc">
+                Tactical OSINT command terminal. Talked into shape in about two
+                weeks via Claude Code.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="entry">
+              <a href="/buddies" class="entry-title">Buddies</a>
+              <p class="entry-desc">
                 A Claude Code companion and a creature-collection game in one
                 codebase. 70+ species, 1,015 tests.
               </p>
-            </a>
+            </div>
           </li>
-        </ul>
+        </ol>
       </section>
 
-      <section class="mt-16 border-t border-border pt-12">
-        <h2
-          class="font-sans text-xs font-medium uppercase tracking-wider text-muted"
-        >
-          Music
-        </h2>
-        <a href="/music" class="group mt-6 block">
-          <p class="font-serif text-base text-muted">
-            <span class="font-medium text-foreground">Le Rug</span>, with
-            Sweet Bulbs and Butter The Children before that. Brooklyn
-            projects from a former life.
-          </p>
-        </a>
+      <section class="music-block" aria-labelledby="music">
+        <div class="section-head">
+          <h2 class="section-label" id="music">Music</h2>
+          <span class="section-count">01 ——</span>
+        </div>
+        <p>
+          <a href="/music">Le Rug</a>,
+          <span class="muted"
+            >with Sweet Bulbs and Butter The Children before that. Brooklyn
+            projects from a former life.</span
+          >
+        </p>
+        <a href="/music" class="follow">Listen →</a>
       </section>
     </div>
   </main>

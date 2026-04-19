@@ -3,21 +3,46 @@ export interface NavItem {
   label: string;
 }
 
-export const navItems: NavItem[] = [
-  { href: '/about', label: 'About' },
-  { href: '/writing', label: 'Writing' },
-  { href: '/conflict-simulations-llc', label: 'Conflict Simulations LLC' },
-  { href: '/catalogdna', label: 'CatalogDNA' },
-  { href: '/retrogaze', label: 'Retrogaze' },
-  { href: '/devforge', label: 'Devforge' },
-  { href: '/auftragstaktik', label: 'Auftragstaktik' },
-  { href: '/buddies', label: 'Buddies' },
-  { href: '/music', label: 'Music' },
-  { href: '#contact', label: 'Contact' },
+export interface NavGroup {
+  label: string;
+  items: NavItem[];
+}
+
+export const navGroups: NavGroup[] = [
+  {
+    label: 'Writing',
+    items: [{ href: '/writing/hammerstein', label: "Von Hammerstein's Ghost" }],
+  },
+  {
+    label: 'Businesses',
+    items: [
+      { href: '/conflict-simulations-llc', label: 'Conflict Simulations LLC' },
+      { href: '/devforge', label: 'Devforge' },
+      { href: '/catalogdna', label: 'CatalogDNA' },
+      { href: '/retrogaze', label: 'Retrogaze' },
+    ],
+  },
+  {
+    label: 'Infrastructure',
+    items: [
+      { href: '/generalstaff', label: 'GeneralStaff' },
+      { href: '/raybrain', label: 'RayBrain' },
+    ],
+  },
+  {
+    label: 'Projects',
+    items: [
+      { href: '/auftragstaktik', label: 'Auftragstaktik' },
+      { href: '/buddies', label: 'Buddies' },
+    ],
+  },
+  {
+    label: 'Music',
+    items: [{ href: '/music', label: 'Le Rug' }],
+  },
 ];
 
 export function isActive(href: string, currentPath: string): boolean {
   if (href === '/') return currentPath === '/';
-  if (href.startsWith('#')) return false;
   return currentPath === href || currentPath.startsWith(href + '/');
 }

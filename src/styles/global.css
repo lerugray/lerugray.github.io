@@ -153,3 +153,344 @@ body::after {
   mix-blend-mode: overlay;
   z-index: 9999;
 }
+
+/* ===== Anchor vocabulary (landing redesign 2026-04-18) =====
+   Named component patterns extracted from the Claude Design anchor in
+   docs/phase-22-anchor/landing.html. Every downstream page inherits
+   these primitives by reusing the class names. New pages EXTEND this
+   vocabulary rather than replace it; see vault/decisions/ for the
+   discipline rules. */
+
+/* Hero — counter icon + H1 + italic dek */
+.hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.375rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+}
+.hero .counter {
+  width: 48px;
+  height: 48px;
+  margin-top: 0.625rem;
+}
+.hero h1 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 2.75rem;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 0 0.625rem;
+  color: var(--color-foreground);
+}
+.hero .dek {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--color-muted);
+  margin: 0;
+  max-width: 52ch;
+  line-height: 1.4;
+}
+
+/* Bio — single-paragraph prose block, 65ch measure */
+.bio {
+  max-width: 65ch;
+  margin: 0 0 4.5rem;
+  font-size: 1.0625rem;
+  font-family: var(--font-serif);
+  color: var(--color-foreground);
+  line-height: 1.6;
+}
+.bio p {
+  margin: 0;
+}
+
+/* Section scaffolding — mono small-caps label + count over hairline rule.
+   Reusable across Businesses / Infrastructure / Projects / Music / any
+   future section. The "04 ——" count reinforces the editorial-index feel. */
+section {
+  margin-bottom: 4.5rem;
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.625rem;
+  margin-bottom: 1.75rem;
+  max-width: 72ch;
+}
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-muted);
+  margin: 0;
+}
+.section-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--color-subtle);
+}
+.section-subhead {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+  margin: -0.875rem 0 1.75rem;
+  max-width: 65ch;
+}
+
+/* Featured "Start here" — the ONLY non-counter use of --color-accent on
+   the site. 2px left rule, never repeated elsewhere. */
+.featured {
+  border-left: 2px solid var(--color-accent);
+  padding: 0.25rem 0 0.25rem 1.75rem;
+  margin: 0 0 4.5rem;
+  max-width: 65ch;
+}
+.featured .section-label {
+  margin-bottom: 0.625rem;
+  display: block;
+}
+.featured h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.25;
+  margin: 0 0 0.625rem;
+  color: var(--color-foreground);
+  letter-spacing: -0.005em;
+}
+.featured .desc {
+  font-family: var(--font-serif);
+  color: var(--color-muted);
+  font-size: 1.0625rem;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+.featured .cta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.featured .cta:hover {
+  color: var(--color-link-hover);
+}
+
+/* Editorial entries — shared pattern for Businesses and Projects.
+   Plex Serif title + muted Plex Serif description, hairline dividers. */
+.entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 72ch;
+}
+.entries > li {
+  padding: 1.125rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.entries > li:last-child {
+  border-bottom: none;
+}
+.entry {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.375rem;
+}
+.entry-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.2;
+  color: var(--color-foreground);
+  margin: 0;
+  letter-spacing: -0.005em;
+  transition: color 150ms;
+  display: inline-block;
+  text-decoration: none;
+}
+a.entry-title:hover {
+  color: var(--color-link-hover);
+}
+.entry-desc {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  color: var(--color-muted);
+  margin: 0;
+  max-width: 65ch;
+  line-height: 1.5;
+}
+
+/* Infrastructure — categorically distinct from editorial entries.
+   Indented tree with left hairline + inward tick-mark + Plex Mono
+   metadata strip + sans-serif title. Signals "technical tooling that
+   runs the work," not "editorial product." */
+.infra-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 72ch;
+}
+.infra-list > li {
+  padding: 1.25rem 0 1.375rem 1.5rem;
+  border-left: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+}
+.infra-list > li:last-child {
+  border-bottom: none;
+}
+.infra-list > li::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 1.75rem;
+  width: 14px;
+  height: 1px;
+  background: var(--color-border);
+}
+.infra-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.125rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+  margin: 0 0 0.625rem;
+}
+.infra-meta .k {
+  color: var(--color-subtle);
+}
+.infra-meta .v {
+  color: var(--color-muted);
+  margin-left: 0.375rem;
+}
+.infra-meta .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 0.4375rem;
+  vertical-align: 1px;
+  background: var(--color-muted);
+}
+/* Status dots use existing palette — amber for live, subtle for private.
+   No new colors admitted; differentiation comes from existing tokens. */
+.infra-meta .dot.live {
+  background: var(--color-link);
+}
+.infra-meta .dot.private {
+  background: var(--color-subtle);
+}
+.infra-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.2;
+  color: var(--color-foreground);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.005em;
+  transition: color 150ms;
+  display: inline-block;
+  text-decoration: none;
+}
+a.infra-title:hover {
+  color: var(--color-link-hover);
+}
+.infra-desc {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  color: var(--color-muted);
+  margin: 0;
+  max-width: 62ch;
+  line-height: 1.5;
+}
+
+/* Music — shorter block, no nested list */
+.music-block {
+  max-width: 65ch;
+}
+.music-block p {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  color: var(--color-foreground);
+  margin: 0;
+  line-height: 1.5;
+}
+.music-block .muted {
+  color: var(--color-muted);
+  font-style: italic;
+}
+.music-block .follow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 0.875rem;
+  display: inline-block;
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.music-block .follow:hover {
+  color: var(--color-link-hover);
+}
+
+/* Grouped sidebar nav */
+.nav-group {
+  margin-bottom: 1.75rem;
+}
+.nav-group-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-subtle);
+  padding: 0 0 0.625rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0.625rem;
+}
+.nav-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-group li {
+  margin: 0;
+}
+.nav-group a {
+  display: block;
+  padding: 0.3125rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+  border-left: 2px solid transparent;
+  margin-left: -2px;
+  line-height: 1.4;
+  text-decoration: none;
+  transition:
+    color 150ms,
+    border-color 150ms;
+}
+.nav-group a:hover {
+  color: var(--color-foreground);
+}
+.nav-group a[aria-current="page"] {
+  color: var(--color-foreground);
+  border-left-color: var(--color-link);
+}
