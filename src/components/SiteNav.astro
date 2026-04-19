@@ -20,10 +20,7 @@ const flatItems = navGroups.flatMap((g) => g.items);
           <ul>
             {group.items.map(({ href, label }) => (
               <li>
-                <a
-                  href={href}
-                  aria-current={isActive(href, currentPath) ? 'page' : undefined}
-                >
+                <a href={href} aria-current={isActive(href, currentPath) ? 'page' : undefined}>
                   {label}
                 </a>
               </li>
@@ -47,7 +44,7 @@ const flatItems = navGroups.flatMap((g) => g.items);
               class:list={[
                 'inline-block border-b-2 pb-1 transition-colors',
                 isActive(href, currentPath)
-                  ? 'border-accent text-foreground'
+                  ? 'border-link text-foreground'
                   : 'border-transparent text-muted hover:text-foreground',
               ]}
             >

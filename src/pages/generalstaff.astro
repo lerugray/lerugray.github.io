@@ -1,0 +1,194 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="GeneralStaff | Ray Weiss"
+  description="Open-source autonomous engineering for solo founders. Verification-gated, BYOK, local-first. An open-source alternative to Polsia with the anti-slop architecture Polsia doesn't have."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl">
+        GeneralStaff
+      </h1>
+      <p class="mt-6 font-serif text-lg italic text-muted">
+        Open-source autonomous engineering for solo founders.
+      </p>
+      <p class="mt-3 font-serif text-lg text-foreground">Your code. Your keys. Your control.</p>
+
+      <div class="mt-10 max-w-[72ch]">
+        <div class="infra-meta">
+          <span
+            ><span class="dot live"></span><span class="k">Status</span><span class="v"
+              >Phases 1–4 shipped</span
+            ></span
+          >
+          <span><span class="k">License</span><span class="v">MIT</span></span>
+          <span><span class="k">Access</span><span class="v">BYOK · local-first</span></span>
+        </div>
+      </div>
+
+      <div class="prose-body mt-12">
+        <p>
+          A meta-dispatcher that runs Claude Code agents on your local projects with a verification
+          gate that cannot be prompted around, mandatory hands-off lists, and a full audit log of
+          every prompt, response, and diff. The principled alternative to closed-source SaaS bot
+          platforms.
+        </p>
+
+        <h2>The problem</h2>
+
+        <p>
+          Autonomous coding agents fail in one predictable way: they are
+          <strong>industrious without judgment</strong>. Closed SaaS platforms and naive <code
+            >claude -p</code
+          > loops let agents confidently mark tasks as done when tests fail, diffs are empty, or scope
+          was hallucinated. Polsia's top one-star review complaint on Trustpilot is false task completions.
+          The damage compounds quietly because nobody is checking the bot's work against reality.
+        </p>
+
+        <h2>The approach</h2>
+
+        <p>
+          <code>dispatcher → engineer → verification gate → reviewer → audit log</code>
+        </p>
+
+        <p>
+          <strong>Verification gate.</strong> A Boolean check in the dispatcher. Tests must pass, diff
+          must be non-empty, reviewer must confirm scope match. A cycle is not marked <code
+            >done</code
+          > until all three hold. This is not a prompt — it is code, and it fires on every cycle.
+        </p>
+        <p>
+          <strong>Hands-off lists.</strong> Per-project glob patterns the bot must not touch. Violations
+          are caught by the reviewer and surfaced as true negatives. Empty list equals no registration.
+        </p>
+        <p>
+          <strong>Worktree isolation.</strong> The bot works in
+          <code>.bot-worktree</code> on a <code>bot/work</code> branch. Your interactive work on <code
+            >master</code
+          > never conflicts with autonomous cycles. You review any cycle's diff before merging.
+        </p>
+        <p>
+          <strong>BYOK billing.</strong> You pay Anthropic, OpenRouter, or whoever directly. No platform
+          credits, no SaaS middleman, no revenue share.
+        </p>
+        <p>
+          <strong>Open audit log.</strong> Every prompt, response, tool call, and diff in <code
+            >state/&lt;project&gt;/PROGRESS.jsonl</code
+          >. Fully reviewable after the fact.
+        </p>
+
+        <h2>The Hammerstein framing</h2>
+
+        <p>
+          The name is borrowed from Kurt von Hammerstein-Equord's officer typology. A general staff
+          handles execution and dispatch on behalf of command — they don't make strategy, they make
+          sure strategy gets executed without dropping the plates. Hammerstein's warning was about
+          the <em>stupid-plus-industrious</em> quadrant: confident officers without judgment. He argued
+          they must be dismissed at once, because they cause unbounded damage. Autonomous coding agents
+          without verification gates live in that quadrant. GeneralStaff's architecture — verification
+          gate, hands-off lists, default-off creative roles, open audit log — structurally prevents it.
+          The architecture is the philosophy.
+        </p>
+
+        <p>
+          Full framework: <a href="/writing/hammerstein">Von Hammerstein's Ghost, In Daily Use</a>.
+        </p>
+
+        <h2>Hard rules</h2>
+
+        <p>
+          All ten rules are enforced either in code or by convention. They cannot be relaxed without
+          an explicit rule-relaxation log file committed alongside the change.
+        </p>
+
+        <ol>
+          <li>
+            <strong>No creative work delegation by default.</strong>
+            Engineering and correctness work only. Creative agents are opt-in plugins with explicit warnings.
+          </li>
+          <li>
+            <strong>File-based state as single source of truth.</strong>
+            No databases, no SaaS orchestration. A local desktop UI is permitted as a viewer and controller.
+          </li>
+          <li>
+            <strong>Sequential cycles by default.</strong>
+            Parallel worktrees are opt-in per project via
+            <code>max_parallel_slots</code>.
+          </li>
+          <li>
+            <strong>Auto-merge off by default.</strong>
+            Users opt in per project after five clean verification-passing cycles.
+          </li>
+          <li>
+            <strong>Mandatory hands-off lists.</strong>
+            Empty list equals no registration.
+          </li>
+          <li>
+            <strong>Verification gate is load-bearing.</strong>
+            A cycle is not done until tests pass, the diff is non-empty, and the reviewer confirms scope
+            match.
+          </li>
+          <li>
+            <strong>Code ownership.</strong>
+            The bot only pushes to <code>bot/work</code> on your own git remote. Export equals <code
+              >git clone</code
+            >.
+          </li>
+          <li>
+            <strong>BYOK for LLM providers.</strong>
+            API-key default; subscription support is opt-in personal-use only.
+          </li>
+          <li>
+            <strong>Open audit log.</strong>
+            Full prompts, responses, tool calls, and diffs in
+            <code>PROGRESS.jsonl</code> per cycle.
+          </li>
+          <li>
+            <strong>Local-first.</strong>
+            No SaaS tier, no managed offering, no GeneralStaff-the-company hosting.
+          </li>
+        </ol>
+
+        <h2>Roadmap</h2>
+
+        <ol>
+          <li>
+            <strong>Phase 1 — Sequential MVP.</strong> Verification gate, reviewer, open audit log. Closed
+            2026-04-17.
+          </li>
+          <li>
+            <strong>Phase 2 — Multi-provider routing.</strong> Ollama, OpenRouter, Claude. Digest narrative,
+            provider registry. Closed 2026-04-17.
+          </li>
+          <li>
+            <strong>Phase 3 — Dispatcher generality.</strong> Second managed project (<code
+              >gamr</code
+            >), five generality gaps surfaced and shipped same-day. Closed 2026-04-18.
+          </li>
+          <li>
+            <strong>Phase 4 — Parallel worktrees.</strong> Round-based concurrency, per-provider reviewer
+            semaphore, efficiency observability. Default <code>max_parallel_slots: 1</code>
+            preserves Phase 1–3 behaviour. Closed 2026-04-18.
+          </li>
+          <li>
+            <strong>Phase 5 — Local desktop UI.</strong> Tauri shell for control and audit. In progress.
+          </li>
+          <li>
+            <strong>Phase 7 — Public launch.</strong>
+          </li>
+        </ol>
+
+        <h2>How to follow</h2>
+
+        <p>
+          The repository is currently private. Public launch in preparation; the target platform is <a
+            href="https://github.com/lerugray">github.com/lerugray</a
+          >. Until then, the fastest way to reach me is
+          <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a>.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

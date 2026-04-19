@@ -230,8 +230,16 @@ Rule of thumb: if Ray should be able to read and edit it, it goes in the vault. 
 
 ---
 
-## Current status (as of 2026-04-15)
+## Current status (as of 2026-04-18, session 05)
 
-Project is at **scaffolding stage**. Conventions, CLAUDE.md, docs skeleton, and vault skeleton exist. **Astro is not yet scaffolded.** **No site code has been written.**
+**Fifteen pages live** at `lerugray.github.io`. Home + About + Writing index + Hammerstein essay + 4 business pages (CSL umbrella with 2 detail pages, Devforge, CatalogDNA, Retrogaze) + 2 infrastructure pages (GeneralStaff, RayBrain) + 2 project pages (Auftragstaktik, Buddies) + Music.
 
-**Next confirmed step:** resolve the open tooling questions (styling, linter, domain, repo name, curated project slate) in the kickoff decision doc, then scaffold the Astro project. Do NOT run `npm create astro@latest` or generate boilerplate before those questions are answered — that would be stupid-industrious by definition on this project.
+**Design system** — v1 token foundation (IBM Plex + Ink on Parchment warm-dark palette + wargame-counter accent + paper grain overlay) locked in session 2. Session 05 layered the Claude Design anchor vocabulary on top: named component classes (`.hero`, `.bio`, `.featured`, `.entries`, `.infra-list`, `.infra-meta`, `.section-head` + `.section-label` + `.section-count` + `.section-subhead`, `.music-block`, `.nav-group`) defined in `src/styles/global.css`. Full rationale in [`vault/decisions/2026-04-18-landing-redesign-anchor.md`](vault/decisions/2026-04-18-landing-redesign-anchor.md).
+
+**Taxonomy** — Writing · Businesses (4) · **Infrastructure (2)** · Projects (2) · Music. The Infrastructure section (GeneralStaff + RayBrain) was introduced in session 05 to hold the open-source tools Ray built to run the four businesses. Distinct from Businesses (not products for sale) and Projects (not personal side-projects).
+
+**Stack** — Astro static + Tailwind 4 (`@theme` directive) + `@fontsource/ibm-plex-*` self-hosted fonts + plain CSS component classes for the anchor vocabulary. TypeScript strict. Biome ignored in favor of Prettier. `pnpm` is not in use; `npm` scripts drive everything.
+
+**Build command** — `npm run build` (static output). Dev: `npm run dev` (Astro dev server on `localhost:4321`). Visual audit: `node scripts/audit-site.mjs` (Playwright headless, outputs to `audit-screenshots/`). Production deploy is GitHub Pages via GitHub Actions.
+
+**Open polish items** (carried across sessions, none blocking): per-page OG-image variants, Plex fonts in the OG template, Auftragstaktik screenshots (Ray needs to retake with current UI). Session-05 handoff adds: optional surgical extensions of anchor vocabulary to `/writing` index (swap to `.entries`) and CSL umbrella credential strip (swap to `.infra-meta` styling).

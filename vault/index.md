@@ -9,6 +9,7 @@ ADR-style records of architectural and product decisions. Date-prefixed.
 - [2026-04-15 — project kickoff](decisions/2026-04-15-project-kickoff.md)
 - [2026-04-15 — tooling resolution](decisions/2026-04-15-tooling-resolution.md)
 - [2026-04-15 — design system v1](decisions/2026-04-15-design-system-v1.md) — IBM Plex + Ink on Parchment palette + multi-page routing, Ray-approved in session 2
+- [2026-04-18 — landing redesign anchor + Infrastructure section](decisions/2026-04-18-landing-redesign-anchor.md) — Claude Design anchor, Addendum-3 extension discipline, accent-scarcity cardinality rule, Infrastructure taxonomy
 
 ## Sessions
 
@@ -18,6 +19,7 @@ Per-session working notes. Date-prefixed.
 - [2026-04-15 — session 02: design exploration + foundation build](sessions/2026-04-15-session-02.md)
 - [2026-04-15 — session 03: portal landing page + social previews](sessions/2026-04-15-session-03.md)
 - [2026-04-16 — session 04: Retrogaze rewrite + CSL imagery + open-item sweep](sessions/2026-04-16-session-04.md)
+- [2026-04-18 — session 05: landing anchor + Infrastructure section + GS/RB pages](sessions/2026-04-18-session-05.md)
 
 ## Hammerstein log
 
@@ -39,6 +41,13 @@ Public positioning source-of-truth — site copy pulls from these:
 - [CatalogDNA](businesses/catalogdna.md)
 - [Retrogaze](businesses/retrogaze.md)
 - [Conflict Simulations LLC](businesses/conflict-simulations.md)
+
+## Infrastructure
+
+The open-source tools Ray built to run the four businesses. New taxonomy introduced in the Phase 22 landing redesign (2026-04-18) — these are not products for sale, they are load-bearing apparatus.
+
+- [GeneralStaff](infrastructure/generalstaff.md) — Open-source autonomous engineering for solo founders. Phases 1–4 shipped, public launch in preparation.
+- [RayBrain](infrastructure/raybrain.md) — Retrieval-only second brain. Refusal is the feature. Private corpus; architecture will be published. **IP boundary:** strictly architectural content only, never §0 of `raybrain/CLAUDE.md`.
 
 ## Projects
 

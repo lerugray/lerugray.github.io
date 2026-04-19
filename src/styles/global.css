@@ -1,13 +1,13 @@
-@import "@fontsource/ibm-plex-serif/400.css";
-@import "@fontsource/ibm-plex-serif/400-italic.css";
-@import "@fontsource/ibm-plex-serif/600.css";
-@import "@fontsource/ibm-plex-serif/600-italic.css";
-@import "@fontsource/ibm-plex-sans/400.css";
-@import "@fontsource/ibm-plex-sans/500.css";
-@import "@fontsource/ibm-plex-sans/600.css";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/ibm-plex-mono/500.css";
-@import "tailwindcss";
+@import '@fontsource/ibm-plex-serif/400.css';
+@import '@fontsource/ibm-plex-serif/400-italic.css';
+@import '@fontsource/ibm-plex-serif/600.css';
+@import '@fontsource/ibm-plex-serif/600-italic.css';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import 'tailwindcss';
 
 @theme {
   /* Ink on Parchment — warm-dark palette.
@@ -25,14 +25,13 @@
   --color-link-hover: #f0c38a;
   --color-accent: #c9484e;
 
-  --font-serif:
-    "IBM Plex Serif", ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-serif: 'IBM Plex Serif', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
   --font-sans:
-    "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", sans-serif;
+    'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    sans-serif;
   --font-mono:
-    "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+    monospace;
 }
 
 /* Shared long-form prose styling.
@@ -133,7 +132,7 @@
    project pages (Veridian, DOAE, Auftragstaktik, Buddies, Devforge) so
    their Stack / Buy / Try-it / similar h2s read as terminal output. */
 .terminal-section h2::before {
-  content: "▸ ";
+  content: '▸ ';
   font-family: var(--font-mono);
   color: var(--color-muted);
   font-weight: 400;
@@ -144,11 +143,11 @@
    instead of solid warm-dark. pointer-events: none so it never blocks
    clicks; mix-blend-mode: overlay so it interacts with content below. */
 body::after {
-  content: "";
+  content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: url("/grain.svg");
+  background-image: url('/grain.svg');
   opacity: 0.06;
   mix-blend-mode: overlay;
   z-index: 9999;
@@ -351,7 +350,7 @@ a.entry-title:hover {
   border-bottom: none;
 }
 .infra-list > li::before {
-  content: "";
+  content: '';
   position: absolute;
   left: -1px;
   top: 1.75rem;
@@ -490,7 +489,7 @@ a.infra-title:hover {
 .nav-group a:hover {
   color: var(--color-foreground);
 }
-.nav-group a[aria-current="page"] {
+.nav-group a[aria-current='page'] {
   color: var(--color-foreground);
   border-left-color: var(--color-link);
 }

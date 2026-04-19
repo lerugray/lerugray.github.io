@@ -1,0 +1,158 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="RayBrain | Ray Weiss"
+  description="Retrieval-only second brain. Built on Karpathy's three-layer LLM-Wiki pattern with four enforced invariants. Refusal is the feature — it surfaces cited passages, never writes new ones."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl">
+        RayBrain
+      </h1>
+      <p class="mt-6 font-serif text-lg italic text-muted">Retrieval-only second brain.</p>
+      <p class="mt-3 font-serif text-lg text-foreground">Refusal is the feature.</p>
+
+      <div class="mt-10 max-w-[72ch]">
+        <div class="infra-meta">
+          <span
+            ><span class="dot private"></span><span class="k">Status</span><span class="v"
+              >Private</span
+            ></span
+          >
+          <span><span class="k">Pattern</span><span class="v">Three-layer LLM-Wiki</span></span>
+          <span><span class="k">Invariants</span><span class="v">Four, enforced</span></span>
+        </div>
+      </div>
+
+      <div class="prose-body mt-12">
+        <p>
+          A second brain built over a private personal corpus. It surfaces cited passages from prior
+          user output. It does not synthesize. It does not rephrase. In the query path it does not
+          generate text at all — it retrieves, cites, and stops.
+        </p>
+
+        <p>
+          Most second-brain tools conflate two jobs: <em>finding</em>
+          what you already wrote and <em>generating</em> new text on top of it. The second job contaminates
+          the first: once the tool starts writing, the user stops reading. RayBrain separates them architecturally.
+          The query engine cannot import a generative LLM client — it's enforced by a module-boundary
+          AST scan, not a prompt.
+        </p>
+
+        <h2>The architecture</h2>
+
+        <p>RayBrain follows Andrej Karpathy's three-layer LLM-Wiki pattern:</p>
+
+        <ol>
+          <li>
+            <strong>Raw sources.</strong> A folder of documents — the authoritative corpus. Nothing is
+            ever rewritten here.
+          </li>
+          <li>
+            <strong>Wiki.</strong> LLM-maintained markdown pages that synthesize across the sources. Every
+            paragraph carries a citation marker pointing back to a specific passage.
+          </li>
+          <li>
+            <strong>Schema.</strong> A single file the ingest LLM reads as in-context instruction before
+            emitting any wiki page. The schema encodes the retrieval-only and citation-first invariants
+            as rules the model cannot bypass.
+          </li>
+        </ol>
+
+        <p>
+          Ingest is the only phase where the LLM generates. Query does not generate. Lint does not
+          generate.
+        </p>
+
+        <h2>The four invariants</h2>
+
+        <p>
+          Each invariant maps to a code-enforced rule plus a named test. The test failing is the
+          verification gate rejecting the change. Prompts can be ignored; Boolean gates cannot.
+        </p>
+
+        <ol>
+          <li>
+            <strong>Citation floor.</strong> Every non-empty paragraph in every wiki page contains at
+            least one well-formed citation marker. Headings and code blocks are exempt — they do not make
+            claims. A citation-less paragraph is a hallucination by definition and will not be written.
+          </li>
+          <li>
+            <strong>Idempotent regeneration.</strong> Running ingest twice over the same corpus and config
+            produces byte-identical output. There is no hidden state in the synthesis layer; the raw corpus
+            remains the single source of truth.
+          </li>
+          <li>
+            <strong>User-editable, user-rejectable.</strong> Hand edits to wiki pages live in a sibling
+            overlay file. The next ingest never clobbers them. Hand edits are the source of truth on synthesis
+            quality; the LLM defers.
+          </li>
+          <li>
+            <strong>Query-time co-visibility.</strong> The query API always returns both the synthesized
+            wiki page and its raw citations. There is no endpoint that surfaces a page without its supporting
+            anchors. A result containing a page but an empty citation list is broken by definition.
+          </li>
+        </ol>
+
+        <h2>Refusal is the feature</h2>
+
+        <p>
+          If a query asks RayBrain to synthesize — <em>"summarize my three takes on X"</em> — the right
+          response is:
+        </p>
+
+        <blockquote>
+          <p>
+            Retrieval returned N passages across M sources. Here they are, each with its citation.
+            Synthesis is out of scope by design — read the passages and decide.
+          </p>
+        </blockquote>
+
+        <p>
+          Refusal preserves the thing the tool is for: surfacing what the user actually wrote, so
+          the user can read it and think. The moment the tool starts paraphrasing, the user stops
+          doing the thinking. That failure mode is load-bearing enough to justify architectural
+          refusal, not a configurable setting.
+        </p>
+
+        <h2>Citation grammar</h2>
+
+        <p>
+          Every claim in every wiki page carries a marker of the form
+          <code>[ref:&lt;source_id&gt;:&lt;locator&gt;]</code>, where the locator is one of a line
+          range, a page number, an audio timestamp, or a structured paragraph anchor. Multiple
+          citations per paragraph are allowed and encouraged. One anchor per paragraph is the
+          <strong>floor</strong>, not the target.
+        </p>
+
+        <h2>Relationship to GeneralStaff</h2>
+
+        <p>
+          RayBrain and <a href="/generalstaff">GeneralStaff</a> are the two sides of the same infrastructure.
+          GeneralStaff handles
+          <em>execution</em> — autonomous coding cycles with a verification gate that catches false completions.
+          RayBrain handles
+          <em>memory</em> — retrieval that refuses to hallucinate on top of the corpus. Both answer the
+          same Hammerstein question from different angles: how do you prevent industrious-without-judgment
+          failure when the industrious agent is a language model?
+        </p>
+
+        <p>
+          Full framework: <a href="/writing/hammerstein">Von Hammerstein's Ghost, In Daily Use</a>.
+        </p>
+
+        <h2>How to follow</h2>
+
+        <p>
+          The corpus is private and will remain so. The architecture — schema, invariants,
+          enforcement sites, test harness — will be published as an open-source reference
+          implementation once the four invariants are stable against my own ingest runs. Until then,
+          the fastest way to reach me is
+          <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a>.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
