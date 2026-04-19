@@ -82,6 +82,17 @@ Candidates that WOULD earn one:
 
 The burden of proof is on "existing vocabulary genuinely cannot express this," not "want something new."
 
+## Examined and rejected for anchor-vocabulary retrofit (2026-04-18)
+
+After the anchor + GS/RB landed, two existing pages were flagged as candidate surgical upgrades. On closer inspection both were rejected:
+
+- **`/writing` index → `.entries` pattern** — writing items are "title + metadata" (date + reading time), not the anchor's "title + description." Mapping would require either stripping the metadata (information loss) or inventing a metadata-instead-of-desc variant class. Two entries on the page do not justify the new class. Kept the existing H2-serif + mono-metadata treatment.
+- **`/conflict-simulations-llc` credential strip → `.infra-meta` styling** — the existing strip uses `border-y` top/bottom hairlines around three unlabeled achievements. `.infra-meta` is unbordered flex and assumes key-value `.k` / `.v` pairs. The CSL achievements are not key-value (they are three unlabeled credentials), and the borders are more distinctive than `.infra-meta`'s pure flex. Forcing the swap would strip the borders AND require fake key-value wrappers. Kept the existing strip.
+
+Both decisions follow the Addendum-3 rule: extend the vocabulary rather than replace existing patterns. Existing patterns are already coherent with the anchor via the shared `@theme` tokens (same type stack, same palette, same spacing). Forced retrofit would have been premature abstraction.
+
+The general rule this sharpens: **a candidate page earns anchor-vocabulary retrofit only when (a) the semantic fit is exact and (b) the existing treatment is less distinctive or less reusable than the anchor primitive. If either fails, leave the page alone.**
+
 ## What this updates in design system v1
 
 v1 stays the token foundation. v1's §4 component patterns list (A through G) is **superseded** by the anchor-vocabulary table above. v1's "NOT decisions" list (no animated hero, no card grid, no cursor trails, no custom paid display typeface) stays in force.
