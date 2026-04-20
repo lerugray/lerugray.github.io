@@ -20,12 +20,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <div class="infra-meta">
           <span
             ><span class="dot live"></span><span class="k">Status</span><span class="v"
-              >Phases 1–4 shipped</span
+              >v0.1.0 shipped</span
             ></span
           >
           <span><span class="k">License</span><span class="v">AGPL-3.0</span></span>
           <span><span class="k">Access</span><span class="v">BYOK · local-first</span></span>
         </div>
+        <p class="mt-6 font-serif text-sm text-muted">
+          Repo: <a href="https://github.com/lerugray/generalstaff">github.com/lerugray/generalstaff</a>.
+          Tagged v0.1.0 on 2026-04-19 after a four-day build. 1,613 passing tests across 47 files.
+          Six managed projects cycling.
+        </p>
       </div>
 
       <div class="prose-body mt-12">
@@ -157,12 +162,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
         <ol>
           <li>
-            <strong>Phase 1 — Sequential MVP.</strong> Verification gate, reviewer, open audit log. Closed
-            2026-04-17.
+            <strong>Phase 1 — Sequential MVP.</strong> Verification gate, reviewer, open audit log.
+            Closed 2026-04-17.
           </li>
           <li>
-            <strong>Phase 2 — Multi-provider routing.</strong> Ollama, OpenRouter, Claude. Digest narrative,
-            provider registry. Closed 2026-04-17.
+            <strong>Phase 2 — Multi-provider routing.</strong> Ollama, OpenRouter, Claude. Digest
+            narrative, provider registry. Closed 2026-04-17.
           </li>
           <li>
             <strong>Phase 3 — Dispatcher generality.</strong> Second managed project (<code
@@ -170,24 +175,34 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             >), five generality gaps surfaced and shipped same-day. Closed 2026-04-18.
           </li>
           <li>
-            <strong>Phase 4 — Parallel worktrees.</strong> Round-based concurrency, per-provider reviewer
-            semaphore, efficiency observability. Default <code>max_parallel_slots: 1</code>
+            <strong>Phase 4 — Parallel worktrees.</strong> Round-based concurrency, per-provider
+            reviewer semaphore, efficiency observability. Default <code>max_parallel_slots: 1</code>
             preserves Phase 1–3 behaviour. Closed 2026-04-18.
           </li>
           <li>
-            <strong>Phase 5 — Local desktop UI.</strong> Tauri shell for control and audit. In progress.
+            <strong>Phase 5 — Terminal dashboards.</strong> Visual anchor for multi-project state.
+            Closed 2026-04-19.
           </li>
           <li>
-            <strong>Phase 7 — Public launch.</strong>
+            <strong>Phase 6 — Local web dashboard.</strong>
+            <code>generalstaff serve</code> — fleet overview, per-project drill-down, single-cycle detail,
+            live session tail via SSE, attention inbox. Closed 2026-04-19.
+          </li>
+          <li>
+            <strong>Phase 7 — Pluggable engineer.</strong> <code>engineer_provider: aider</code> routes
+            cycles through aider + OpenRouter (Qwen 3.6+ Plus) instead of <code>claude -p</code>. 10-task
+            benchmark cleared 80% verified. Closed 2026-04-20.
           </li>
         </ol>
 
         <h2>How to follow</h2>
 
         <p>
-          The repository is currently private. Public launch in preparation; the target platform is <a
-            href="https://github.com/lerugray">github.com/lerugray</a
-          >. Until then, the fastest way to reach me is
+          The repository is public at
+          <a href="https://github.com/lerugray/generalstaff">github.com/lerugray/generalstaff</a>.
+          For context on the four-day build, see
+          <a href="/writing/gs-launch-post">GeneralStaff, from the agent side</a> — Claude's
+          report from inside the verification gate on launch day. The fastest way to reach me is
           <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a>.
         </p>
       </div>
