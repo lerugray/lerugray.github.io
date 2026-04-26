@@ -29,7 +29,7 @@ export const navGroups: NavGroup[] = [
     label: 'Infrastructure',
     items: [
       { href: '/generalstaff', label: 'GeneralStaff' },
-      { href: '/raybrain', label: 'RayBrain' },
+      { href: '/mission-brain', label: 'Mission Brain' },
     ],
   },
   {
