@@ -30,6 +30,9 @@ export const navGroups: NavGroup[] = [
     items: [
       { href: '/generalstaff', label: 'GeneralStaff' },
       { href: '/mission-brain', label: 'Mission Brain' },
+      { href: 'https://github.com/lerugray/mission-bullet-oss', label: 'mission-bullet-oss' },
+      { href: 'https://github.com/lerugray/mission-swarm', label: 'mission-swarm' },
+      { href: 'https://github.com/lerugray/mission-chess', label: 'mission-chess' },
     ],
   },
   {
