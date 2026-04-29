@@ -16,7 +16,10 @@ const flatItems = navGroups.flatMap((g) => g.items);
     <nav aria-label="Primary">
       {navGroups.map((group) => (
         <div class="nav-group">
-          <div class="nav-group-label">{group.label}</div>
+          <div class="nav-group-label">
+            <span>{group.label}</span>
+            <span class="pl">{group.plate}</span>
+          </div>
           <ul>
             {group.items.map(({ href, label }) => (
               <li>
