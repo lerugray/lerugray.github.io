@@ -1,0 +1,29 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 24" width="240" height="24" role="img" aria-hidden="true">
+  <g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="8" fill="#1f1b14" stroke="none">
+    <text x="0" y="22" letter-spacing="0.6">0</text>
+    <text x="60" y="22" letter-spacing="0.6" text-anchor="middle">1</text>
+    <text x="120" y="22" letter-spacing="0.6" text-anchor="middle">2</text>
+    <text x="180" y="22" letter-spacing="0.6" text-anchor="middle">3</text>
+    <text x="240" y="22" letter-spacing="0.6" text-anchor="end">4</text>
+  </g>
+  
+  <g stroke="#1f1b14" stroke-width="0.7">
+    <rect x="0" y="2" width="30" height="6" fill="#1f1b14"></rect>
+    <rect x="30" y="2" width="30" height="6" fill="none"></rect>
+    <rect x="60" y="2" width="30" height="6" fill="#1f1b14"></rect>
+    <rect x="90" y="2" width="30" height="6" fill="none"></rect>
+    <rect x="120" y="2" width="30" height="6" fill="#1f1b14"></rect>
+    <rect x="150" y="2" width="30" height="6" fill="none"></rect>
+    <rect x="180" y="2" width="30" height="6" fill="#1f1b14"></rect>
+    <rect x="210" y="2" width="30" height="6" fill="none"></rect>
+  </g>
+  
+  <g stroke="#1f1b14" stroke-width="0.7">
+    <line x1="0" y1="0" x2="0" y2="2"></line>
+    <line x1="60" y1="0" x2="60" y2="2"></line>
+    <line x1="120" y1="0" x2="120" y2="2"></line>
+    <line x1="180" y1="0" x2="180" y2="2"></line>
+    <line x1="240" y1="0" x2="240" y2="2"></line>
+  </g>
+</svg>
