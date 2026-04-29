@@ -8,11 +8,14 @@ const projectRoot = resolve(__dirname, '..');
 const out = resolve(projectRoot, 'public/og-image.png');
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#0c0b09"/>
-  <text x="96" y="340" font-family="Arial" font-size="148" font-weight="500" fill="#f5f0e6">Ray Weiss</text>
-  <text x="96" y="430" font-family="Georgia" font-size="38" font-style="italic" fill="#f5f0e6">Brooklyn wargame designer,</text>
-  <text x="96" y="478" font-family="Georgia" font-size="38" font-style="italic" fill="#f5f0e6">running four businesses.</text>
-  <text x="1104" y="572" font-family="Consolas" font-size="22" fill="#a8a095" text-anchor="end">lerugray.github.io</text>
+  <rect width="1200" height="630" fill="#e8dfc8"/>
+  <rect x="0" y="0" width="1200" height="36" fill="#6b2d2d"/>
+  <text x="96" y="24" font-family="Consolas, monospace" font-size="13" letter-spacing="0.35em" fill="#e8dfc8" text-transform="uppercase">PL. I.A — Frontispiece</text>
+  <text x="96" y="330" font-family="Georgia, serif" font-size="132" font-weight="400" fill="#1f1b14">Ray Weiss</text>
+  <text x="96" y="418" font-family="Georgia, serif" font-size="34" font-style="italic" fill="#1f1b14">Brooklyn wargame designer,</text>
+  <text x="96" y="462" font-family="Georgia, serif" font-size="34" font-style="italic" fill="#1f1b14">running four businesses.</text>
+  <rect x="96" y="508" width="1008" height="1" fill="#6b6356" opacity="0.55"/>
+  <text x="1104" y="572" font-family="Consolas, monospace" font-size="21" fill="#6b6356" text-anchor="end">lerugray.github.io</text>
 </svg>`;
 
 const resvg = new Resvg(svg, {
