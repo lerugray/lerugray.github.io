@@ -317,6 +317,38 @@ a:hover {
   line-height: 1.5;
 }
 
+/* =============================================================
+   Generic page H1 default — Didot face, page-title scale.
+   Applies to bare <h1> on pages that don't opt into a structural
+   header context (.hero / .essay-header / .detail-header). Those
+   wrap their h1 in a more specific class selector and win on
+   specificity, keeping their counter-anchored / atlas double-rule
+   treatments intact. This rule only governs the type face + scale
+   so non-structural pages share the display register without
+   inheriting the full sheet-id / meta-strip apparatus.
+
+   Selector is .shell main h1 (specificity 0,1,2) so it overrides
+   the per-page Tailwind utility chain (`font-sans text-4xl
+   font-medium tracking-tight`) currently inlined on most page
+   h1s, without us touching those pages. Property-by-property
+   override: font-family, font-size (incl. responsive), font-weight,
+   letter-spacing all carried by this rule.
+   ============================================================= */
+.shell main h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+  margin: 0 0 1rem;
+  color: var(--color-foreground);
+}
+@media (min-width: 1024px) {
+  .shell main h1 {
+    font-size: 56px;
+  }
+}
+
 .hero {
   display: grid;
   grid-template-columns: 96px 1fr;
@@ -331,7 +363,7 @@ a:hover {
   margin-top: 14px;
   display: block;
 }
-.hero h1 {
+.shell main .hero h1 {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 64px;
@@ -861,7 +893,7 @@ a.infra-title:hover {
   background: var(--color-foreground);
   opacity: 0.4;
 }
-.essay-header h1 {
+.shell main .essay-header h1 {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 56px;
@@ -911,7 +943,7 @@ a.infra-title:hover {
   height: 72px;
   margin-top: 6px;
 }
-.detail-header h1 {
+.shell main .detail-header h1 {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 52px;
