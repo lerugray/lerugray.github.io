@@ -45,11 +45,19 @@ desktop.ini
 # pricing margins, internal methodology, or unpublished book chapters in ANY vault file.
 
 # Claude Code working state (permissions, local session data) — not for public repo.
-.claude/
+# SKILLs are tracked cross-machine so coding agents on every PC inherit them;
+# everything else (settings.local.json, session caches) stays local.
+.claude/*
+!.claude/skills/
+
+# Claude Design preview output (extracted reference HTMLs + assets + uploads/
+# mirror). Local working reference; canonical artifact lives in the private
+# repo at design-payloads/<id>/.
+claude-design-output/
 
 # Visual audit artifacts — local screenshot output from scripts/audit-site.mjs
 audit-screenshots/
 
-# 2026-04-24 overnight-bot sanity cleanup � untracked artifacts that were blocking GS dispatcher clean-tree preflight
+# 2026-04-24 overnight-bot sanity cleanup � untracked artifacts that were blocking GS dispatcher clean-tree preflight
 drafts/
 
