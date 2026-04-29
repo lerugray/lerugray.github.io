@@ -3,17 +3,31 @@
 Paste-ready prompt for **Cursor IDE Auto** (NOT cursor-agent CLI —
 the CLI sandbox blocks the shell commands this task needs).
 
-Open Cursor on `personal site/`, switch to a fresh branch
-(`cursor/kriegspiel-round-2` recommended), paste the prompt
-below, accept Auto routing, let it run.
+Open Cursor IDE on `personal site/`, paste the prompt below
+(everything between the `---` markers), accept Auto routing,
+let it run. The prompt handles its own branch creation, commits,
+and push — no manual git work needed.
 
 ---
-
-## The prompt to paste
 
 You are implementing round 2 of a design pass on Ray's personal
 site (Astro 6 + Tailwind v4 + IBM Plex). Claude Design has
 shipped a complete design package; your job is to integrate it.
+
+### Step 0 — branch setup (do this FIRST, before any reads or edits)
+
+Run in the repo root:
+
+```
+git checkout main
+git pull --ff-only
+git checkout -b cursor/kriegspiel-round-2
+```
+
+If the branch already exists locally, switch to it instead:
+`git checkout cursor/kriegspiel-round-2`. All work in this task
+must land on `cursor/kriegspiel-round-2`. Do **not** commit to
+`main` directly. Ray reviews the branch diff before merging.
 
 ### Context — read first
 
@@ -248,8 +262,10 @@ When all gates pass:
    c. `og: regenerate social preview to match round 2 palette + type`
       (includes both `scripts/build-og-image.mjs` source change AND the
       regenerated `public/og-image.png` binary).
-2. Branch is `cursor/kriegspiel-round-2` per the prep step
-   above — push with `-u` so origin tracks it.
+2. You're already on `cursor/kriegspiel-round-2` from Step 0.
+   After all three commits land, push with
+   `git push -u origin cursor/kriegspiel-round-2` so origin
+   tracks the branch.
 3. **Do not merge to main.** Ray reviews the diff visually
    first (open the URL after pushing, walk the page on
    desktop + mobile breakpoints).
