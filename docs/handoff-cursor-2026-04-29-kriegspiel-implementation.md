@@ -110,6 +110,41 @@ Also read for context, but don't change them yet:
      legend-box structure (the SKILL renames `.infra-meta .dot`
      classes — verify against site.css lines 539-540).
 
+6. **Regenerate the social-share OG image.** The site's
+   Open Graph / Twitter preview is generated from
+   `scripts/build-og-image.mjs` (a small @resvg/resvg-js
+   SVG-to-PNG renderer that writes `public/og-image.png`,
+   1200×630). The current script has the old dark palette
+   hardcoded in its SVG template (background `#0c0b09`,
+   text `#f5f0e6`, fonts Arial / Georgia / Consolas). Update
+   it to:
+   - Background `#e8dfc8` (oat parchment), text `#1f1b14`
+     (iron-gall ink), URL strip `#6b6356` (subtle).
+   - Heading face `GFS Didot` (or fallback `Georgia` if
+     resvg can't load Bunny-hosted Didot at runtime — system
+     fonts only, per the `loadSystemFonts: true` flag).
+   - Italic dek face `IBM Plex Serif` (or system fallback
+     `Georgia` italic — same caveat).
+   - URL face `IBM Plex Mono` (or fallback `Consolas`).
+   - Optionally add a small `PL. I.A — FRONTISPIECE` band
+     across the top in oxblood (`#6b2d2d`) + IBM Plex Mono
+     small-caps to extend the atlas register into the
+     preview, AND/OR drop the wargame-counter graphic
+     (load `public/counter-rw.svg` content inline) in a
+     corner. Both optional — only add if they read clean
+     at 1200×630 thumbnail scale (most social previews
+     downscale to ~200px wide). If you can't verify
+     legibility, skip the ornaments and keep the OG
+     image text-only.
+   - Run `node scripts/build-og-image.mjs` to regenerate
+     `public/og-image.png`.
+   - Verify the new PNG opens cleanly + the text is
+     readable at 25% zoom (proxy for thumbnail scale).
+   - The OG meta tags in `src/layouts/BaseLayout.astro`
+     (lines 33-42) already point at `/og-image.png` and
+     do not need to change. Same applies if Twitter card
+     meta tags are present.
+
 **Out of scope (DO NOT touch this round):**
 
 - Other 13 `.astro` page files in `src/pages/`. They will
@@ -197,14 +232,22 @@ Before reporting done:
 4. Lighthouse / contrast spot-check: run a quick contrast
    probe on the index hero — the body text must read AAA
    against the new palette.
+5. Open `public/og-image.png` at 25% zoom (or in any image
+   viewer that downscales). The "Ray Weiss" headline must
+   stay legible; the dek + URL must remain readable; the
+   palette must be the new oat-parchment + ink, not the
+   old dark.
 
 ### Commit + push
 
 When all gates pass:
 
-1. Commit the change as **two commits** for cleanliness:
+1. Commit the change as **three commits** for cleanliness:
    a. `design: round 2 General Staff Atlas — global.css + assets + GFS Didot`
    b. `index: compose with round 2 atlas vocabulary (PL. I.A frontispiece, slug, hex-rule)`
+   c. `og: regenerate social preview to match round 2 palette + type`
+      (includes both `scripts/build-og-image.mjs` source change AND the
+      regenerated `public/og-image.png` binary).
 2. Branch is `cursor/kriegspiel-round-2` per the prep step
    above — push with `-u` so origin tracks it.
 3. **Do not merge to main.** Ray reviews the diff visually
