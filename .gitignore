@@ -61,3 +61,13 @@ audit-screenshots/
 # 2026-04-24 overnight-bot sanity cleanup � untracked artifacts that were blocking GS dispatcher clean-tree preflight
 drafts/
 
+# GS state junction (private-state safety; defensive add 2026-04-30 per
+# cross-project gitignore audit. personal-site migrated to private-state
+# 2026-04-28; state/<id>/ junction may not exist locally yet, but if a
+# bot cycle or Cursor session creates it later, git add -A would leak
+# private MISSION.md / tasks.json content).
+state/
+
+# GS dispatcher per-project worktree — bot scratch space, never tracked.
+.bot-worktree/
+
