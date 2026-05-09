@@ -15,6 +15,7 @@ export const navGroups: NavGroup[] = [
     label: 'Writing',
     plate: 'Pl. II',
     items: [
+      { href: '/writing/i-am-the-gate', label: 'I Am the Gate' },
       { href: '/writing/gs-launch-post', label: 'GeneralStaff, from the agent side' },
       { href: '/writing/hammerstein', label: "Von Hammerstein's Ghost" },
       { href: '/writing/boolean-gates', label: 'Boolean Gates, Not Prompts' },
@@ -35,6 +36,8 @@ export const navGroups: NavGroup[] = [
     plate: 'Pl. IV',
     items: [
       { href: '/generalstaff', label: 'GeneralStaff' },
+      { href: '/hammerstein', label: 'Hammerstein' },
+      { href: '/hammerstein-model', label: 'Hammerstein-7B' },
       { href: '/mission-brain', label: 'Mission Brain' },
       { href: 'https://github.com/lerugray/mission-bullet-oss', label: 'mission-bullet-oss' },
       { href: 'https://github.com/lerugray/mission-swarm', label: 'mission-swarm' },
