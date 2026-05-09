@@ -20,7 +20,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <div class="infra-meta">
           <span
             ><span class="dot live"></span><span class="k">Status</span><span class="v"
-              >v0.1.0 shipped</span
+              >v0.3.0 shipped</span
             ></span
           >
           <span><span class="k">License</span><span class="v">AGPL-3.0</span></span>
@@ -28,8 +28,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         </div>
         <p class="mt-6 font-serif text-sm text-muted">
           Repo: <a href="https://github.com/lerugray/generalstaff">github.com/lerugray/generalstaff</a>.
-          Tagged v0.1.0 on 2026-04-19 after a four-day build. 1,613 passing tests across 47 files.
-          Six managed projects cycling.
+          Tagged v0.1.0 on 2026-04-19 after a four-day build. v0.2.0 added the usage-budget
+          gate and multi-agent orchestration tooling. v0.3.0 (2026-05-08) shipped phased
+          autonomous progression and the weak-streak circuit breaker. 2,030 passing tests
+          across 69 files. Thirty-plus managed projects in rotation.
         </p>
       </div>
 
@@ -194,6 +196,54 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             benchmark cleared 80% verified. Closed 2026-04-20.
           </li>
         </ol>
+
+        <h2>Post-launch</h2>
+
+        <p>
+          Work after v0.1.0 stopped fitting the phase-numbered narrative; subsequent
+          features are organized by release. The full enumeration is in the
+          <a href="https://github.com/lerugray/generalstaff/blob/master/CHANGELOG.md">CHANGELOG</a>.
+          Headline additions:
+        </p>
+
+        <ul>
+          <li>
+            <strong>v0.2.0 (2026-05-02).</strong> Usage-budget gate (per-project + fleet
+            <code>session_budget</code>; reads Claude Code's own 5-hour blocks via
+            <code>ccusage</code>). Multi-agent orchestration tooling (four tiers from
+            in-process subagents through detached visible cmd windows). AGENTS.md wizard
+            (the cross-platform agent-config standard adopted by Claude Code, Cursor, Aider,
+            Codex, and others). <code>gs welcome</code> first-run wizard. Claude
+            subscription auth (Pro / Max users no longer require a separate API key).
+            Mac / Linux session launcher. <code>gs</code> shim install to <code>~/.local/bin</code>.
+          </li>
+          <li>
+            <strong>v0.3.0 (2026-05-08).</strong> Phased autonomous progression
+            (<code>gs phase</code>, <code>ROADMAP.yaml</code> schema, opt-in auto-advance,
+            multi-phase rollback, task templates with placeholder expansion, dashboard
+            <code>/phase</code> route + commander advance button, plus phase evaluators
+            <code>launch_gate</code> / <code>git_tag</code> / <code>lifecycle_transition</code>).
+            Weak-streak circuit breaker plus <code>gs inventory-audit</code> CLI for fleet
+            starvation diagnosis. Configurable consecutive-empty limits, structured engineer
+            task-claim, greenfield work-detection fallback, full usage-budget integration test
+            coverage. Plus <code>QUICKSTART.md</code> and <code>SECURITY.md</code> for
+            external adopters.
+          </li>
+        </ul>
+
+        <h2>The Hammerstein companion</h2>
+
+        <p>
+          The framework that names this project also has a working executable. The
+          <a href="/hammerstein">Hammerstein CLI</a> is a strategic-reasoning advisor that
+          pressure-tests a plan before it ships. I run it before firing any plan with
+          multi-file scope or cross-repo blast radius. Its small-model companion, the
+          <a href="/hammerstein-model">Hammerstein-7B QLoRA</a> on Qwen2.5-7B-Instruct,
+          bakes the framework's voice into the weights of an 8 GB-Mac-runnable artifact.
+          Both are optional. GeneralStaff runs cleanly without them. The pairing is what
+          lets the verification gate be paired with a strategic gate at the plan-firing
+          step, instead of catching only the failures the gate sees inside a cycle.
+        </p>
 
         <h2>How to follow</h2>
 

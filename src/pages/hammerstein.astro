@@ -1,0 +1,175 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Hammerstein | Ray Weiss"
+  description="Strategic-reasoning advisor tuned to the Hammerstein-Equord officer typology. The CLI Ray uses to audit a plan before firing it."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl">
+        Hammerstein
+      </h1>
+      <p class="mt-6 font-serif text-lg italic text-muted">
+        Strategic-reasoning advisor tuned to the Hammerstein-Equord officer typology.
+      </p>
+      <p class="mt-3 font-serif text-lg text-foreground">Pause. Audit. Then ship.</p>
+
+      <div class="mt-10 max-w-[72ch]">
+        <div class="infra-meta">
+          <span
+            ><span class="dot live"></span><span class="k">Status</span><span class="v"
+              >In daily use</span
+            ></span
+          >
+          <span><span class="k">Surface</span><span class="v">CLI · slash command</span></span>
+          <span><span class="k">Backends</span><span class="v">OpenRouter · DeepSeek · Ollama</span></span>
+          <span><span class="k">Cost</span><span class="v">~$0.01 per audit</span></span>
+        </div>
+        <p class="mt-6 font-serif text-sm text-muted">
+          Repo: <a href="https://github.com/lerugray/hammerstein">github.com/lerugray/hammerstein</a>.
+          Framework essay: <a href="/writing/hammerstein">Von Hammerstein's Ghost, In Daily Use</a>.
+          The companion model: <a href="/hammerstein-model">Hammerstein-7B</a>.
+        </p>
+      </div>
+
+      <div class="prose-body mt-12">
+        <p>
+          Hammerstein is a command-line advisor I run before firing any plan with a
+          non-trivial blast radius. It takes the plan as input and returns adversarial
+          review: failure modes, verification gates, structural-fix candidates, a
+          recommendation, and a counter-observation. The framework underneath is
+          ninety years old. The execution layer is small.
+        </p>
+
+        <h2>What it is</h2>
+
+        <p>
+          A retrieval-augmented prompt around an operator-curated corpus of operating
+          principles. Ask it about a plan; it pressure-tests the shape of the work
+          against the corpus. The framework's central distinction — clever-lazy
+          versus stupid-industrious — is encoded in the templates rather than asked
+          for. The output reads as if the framework were watching the work.
+        </p>
+
+        <p>
+          This is not a chatbot, not a coach, not a productivity tool. It is a single
+          structured query: <em>here is a plan, audit it</em>. The query returns one
+          page of text. You read it, decide whether the audit shifts the plan, and
+          either ship or revise.
+        </p>
+
+        <h2>The templates</h2>
+
+        <p>
+          Five templates, each shaped against a different decision moment:
+        </p>
+
+        <ul>
+          <li>
+            <strong><code>audit-this-plan</code></strong> — the most-used. Multi-file
+            plan goes in; failure modes, verification gates, structural-fix
+            candidates, and a recommendation come out. This is the one wired to the
+            <code>/audit</code> slash command in my interactive sessions.
+          </li>
+          <li>
+            <strong><code>scope-this-idea</code></strong> — pre-plan stage. Idea goes
+            in; the framework returns a bounded scope, the things that must stay out,
+            and the smallest verifiable next step.
+          </li>
+          <li>
+            <strong><code>is-this-worth-doing</code></strong> — opportunity cost
+            check. Returns the cheapest way to falsify the premise before committing
+            time.
+          </li>
+          <li>
+            <strong><code>what-should-we-do-next</code></strong> — for moments
+            between landing one piece of work and starting the next, when the
+            obvious next item is not actually the best one.
+          </li>
+          <li>
+            <strong><code>review-from-different-angle</code></strong> — invokes the
+            framework against a draft or decision through a deliberately rotated
+            lens.
+          </li>
+        </ul>
+
+        <h2>How I use it</h2>
+
+        <p>
+          The pre-flight audit rule is the load-bearing one. Before I fire any plan
+          with multi-file scope, external dependencies, or cross-repo blast radius,
+          I run <code>hammerstein "&lt;plan&gt;" --template audit-this-plan</code>.
+          Cost is rounding error. The catch-rate is not.
+        </p>
+
+        <p>
+          Recent landings the audit changed materially:
+        </p>
+
+        <ul>
+          <li>
+            A launch-post sequencing plan flipped from unified-Tuesday fire to
+            phased Sunday-r/LL smoke-test → Tuesday HN, after the audit flagged
+            single-point-failure risk on the unified path.
+          </li>
+          <li>
+            A "framework adherence is in the weights" claim got the marketing word
+            <em>moat</em> stripped out across every draft, after the audit pointed
+            out that calling honest disclosure a competitive moat invites adversarial
+            testing rather than respect.
+          </li>
+          <li>
+            A 30-project portfolio scoring schema added a required
+            <code>next_review_trigger</code> field after the audit caught that
+            <code>last_reviewed</code> alone records history without forcing action.
+          </li>
+        </ul>
+
+        <p>
+          None of those catches required an LLM smarter than the framework. They
+          required the framework, applied at the moment of plan-firing, against
+          the specific shape of the work.
+        </p>
+
+        <h2>The corpus</h2>
+
+        <p>
+          The framework lives in a curated corpus of operating principles, drawn
+          from a few years of working with AI tools and keeping append-only logs of
+          where the framework fired and where it did not. The corpus is what gives
+          the audit its specificity: not generic advice, but the particular
+          structural moves that have repeatedly mattered. The corpus is the IP. The
+          retrieval and templating layer is small.
+        </p>
+
+        <h2>Backends</h2>
+
+        <p>
+          Default routing is OpenRouter (Qwen 3.6 Plus class), with DeepSeek as a
+          fallback and Ollama as the local-only path. Per-call latency is on the
+          order of a minute; per-call cost is on the order of a cent. The framework
+          is the constraint, not the model.
+        </p>
+
+        <p>
+          For people who want to run the framework offline or self-host, the
+          <a href="/hammerstein-model">Hammerstein-7B model</a> is a QLoRA on
+          Qwen2.5-7B-Instruct that bakes the framework's voice into the weights.
+          The CLI is the primary surface; the model is the offline companion.
+        </p>
+
+        <h2>Where to get it</h2>
+
+        <p>
+          The repository is public at
+          <a href="https://github.com/lerugray/hammerstein">github.com/lerugray/hammerstein</a>.
+          Install via <code>pipx install -e .</code> from a clone (it is a small
+          Python package). For the framework itself, the essay is here:
+          <a href="/writing/hammerstein">Von Hammerstein's Ghost, In Daily Use</a>.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

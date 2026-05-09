@@ -1,0 +1,162 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Hammerstein-7B | Ray Weiss"
+  description="A 7B QLoRA on Qwen2.5-7B-Instruct that bakes the Hammerstein-Equord framework into the weights. Trained for $4. Runs on 8 GB Mac via Ollama."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl">
+        Hammerstein-7B
+      </h1>
+      <p class="mt-6 font-serif text-lg italic text-muted">
+        A 7B model that learned a strategic-reasoning framework.
+      </p>
+      <p class="mt-3 font-serif text-lg text-foreground">
+        Framework adherence in the weights, not in the prompt.
+      </p>
+
+      <div class="mt-10 max-w-[72ch]">
+        <div class="infra-meta">
+          <span
+            ><span class="dot live"></span><span class="k">Status</span><span class="v"
+              >Public on HuggingFace</span
+            ></span
+          >
+          <span><span class="k">Base</span><span class="v">Qwen2.5-7B-Instruct</span></span>
+          <span><span class="k">Method</span><span class="v">QLoRA · rank 32</span></span>
+          <span><span class="k">Quant</span><span class="v">Q4_K_M · 4.68 GB</span></span>
+        </div>
+        <p class="mt-6 font-serif text-sm text-muted">
+          HuggingFace:
+          <a href="https://huggingface.co/lerugray/hammerstein-7b-lora"
+            >huggingface.co/lerugray/hammerstein-7b-lora</a
+          >. Repo:
+          <a href="https://github.com/lerugray/hammerstein-model"
+            >github.com/lerugray/hammerstein-model</a
+          >. The CLI it pairs with: <a href="/hammerstein">Hammerstein</a>.
+        </p>
+      </div>
+
+      <div class="prose-body mt-12">
+        <p>
+          The <a href="/hammerstein">Hammerstein CLI</a> wraps the framework in
+          retrieval-augmented prompting. This model bakes the framework into the
+          weights of a small open base. The point is not the model's raw
+          intelligence. The point is that an 8 GB-Mac-runnable artifact, trained
+          for the cost of a sandwich, behaves as if the framework were watching
+          the work — without a system prompt, without a retrieval layer, without
+          any external context at all.
+        </p>
+
+        <h2>How to run it</h2>
+
+        <p>
+          One command on a Mac with at least 8 GB of unified memory and Ollama
+          installed:
+        </p>
+
+        <p>
+          <code>ollama run hf.co/lerugray/hammerstein-7b-lora:Q4_K_M</code>
+        </p>
+
+        <p>
+          The Modelfile and Q4_K_M GGUF are on the HuggingFace page. Total
+          download is 4.68 GB. No system prompt — the framework adherence comes
+          from training, not from prompting.
+        </p>
+
+        <h2>How it was trained</h2>
+
+        <p>
+          QLoRA on Qwen2.5-7B-Instruct, rank 32, Unsloth + TRL pipeline. The
+          training set was 308 (query, response) pairs synthesized from a teacher
+          model against the framework corpus. Single training run on a RunPod
+          RTX 4090, about fifty minutes, about fifty cents. End-to-end cost
+          including data generation and pipeline iteration was $4.05.
+          Anthropic spend during training was $0.
+        </p>
+
+        <p>
+          Reproducible. <code>tools/distill/</code> in the repository contains
+          <code>train.py</code>, <code>setup_pod.sh</code>, and
+          <code>HOWTO-CLOUD.md</code> with the full RunPod and Kaggle paths.
+          Anyone with $5 of cloud credit can clone the approach against their
+          own corpus.
+        </p>
+
+        <h2>Eval design</h2>
+
+        <p>
+          Four conditions: <em>gold</em> (teacher), <em>student</em> (the trained
+          adapter), <em>ablation</em> (same base + framework prompt, no
+          fine-tune), and <em>vanilla</em> (same base, no framework, no
+          fine-tune). The headline finding is the student-versus-ablation delta:
+          <strong>Δ = +0.206</strong> on the same base model. That is the
+          framework-portability signal — same weights as ablation except for the
+          LoRA, framework adherence improved measurably.
+        </p>
+
+        <p>
+          The student-versus-gold ratio of 1.01 looks like a tie but is
+          a saturated tie at the form-only ceiling of the eval. That number
+          should be read as a known limitation of the evaluation design, not
+          a win.
+        </p>
+
+        <h2>Documented OOD boundary</h2>
+
+        <p>
+          The forgetting check is the part of the model card I want people to
+          read. Out-of-distribution prompts trigger framework vocabulary
+          leakage in the trained adapter at <strong>0.312</strong>, against
+          <strong>0.625</strong> for the prompted ablation and <strong>0.000</strong> for vanilla.
+          Materially healthier than prompt-only on OOD, not pristine. The
+          number is in the card because hiding it would falsify the eval's
+          claim. This is a documented boundary, not a moat.
+        </p>
+
+        <h2>What this is and isn't</h2>
+
+        <ul>
+          <li>
+            <strong>Is:</strong> a small open model that demonstrates a custom
+            strategic-reasoning framework can be encoded in weights cheaply,
+            with the failure modes documented.
+          </li>
+          <li>
+            <strong>Is:</strong> a portfolio artifact for the framework — anyone
+            who wants to compare framework adherence on their own prompts can
+            run it against base Qwen2.5-7B-Instruct in a few minutes.
+          </li>
+          <li>
+            <strong>Isn't:</strong> a general-purpose model. It speaks the
+            framework. It will speak it when you do not want it to (see OOD
+            section above).
+          </li>
+          <li>
+            <strong>Isn't:</strong> a replacement for the
+            <a href="/hammerstein">Hammerstein CLI</a>. The CLI ships the
+            full retrieval layer and templates. The model is the offline-runnable
+            companion.
+          </li>
+        </ul>
+
+        <h2>Where to get it</h2>
+
+        <p>
+          HuggingFace:
+          <a href="https://huggingface.co/lerugray/hammerstein-7b-lora"
+            >huggingface.co/lerugray/hammerstein-7b-lora</a
+          >. Source repo:
+          <a href="https://github.com/lerugray/hammerstein-model"
+            >github.com/lerugray/hammerstein-model</a
+          >. Model card has the full eval table including the OOD numbers.
+          The reproducibility pipeline is in <code>tools/distill/</code>.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

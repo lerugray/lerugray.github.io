@@ -164,7 +164,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <h2 class="section-label" id="infrastructure">
           <span class="pl">PL. IV</span>Infrastructure
         </h2>
-        <span class="section-count">04 entries ——</span>
+        <span class="section-count">06 entries ——</span>
       </div>
       <p class="section-subhead">How the work actually gets done.</p>
       <ol class="infra-list">
@@ -172,7 +172,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <div class="infra-meta">
             <span
               ><span class="dot live"></span><span class="k">Status</span><span class="v"
-                >v0.1.0 shipped</span
+                >v0.3.0 shipped</span
               ></span
             >
             <span><span class="k">License</span><span class="v">AGPL-3.0</span></span>
@@ -181,10 +181,50 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           </div>
           <a href="/generalstaff" class="infra-title">GeneralStaff</a>
           <p class="infra-desc">
-            Open-source autonomous engineering for solo founders. My scheme to democratize Polsia
-            while keeping four businesses running sanely. Verification-gated, BYOK, local-first.
-            Tagged v0.1.0 on 2026-04-19 after a four-day build. Repo is public at
+            Open-source autonomous engineering for solo founders. Verification-gated, BYOK,
+            local-first. Tagged v0.1.0 on 2026-04-19 after a four-day build; v0.3.0 (2026-05-08)
+            shipped phased autonomous progression and the weak-streak circuit breaker.
+            2,030 passing tests across 69 files. Thirty-plus managed projects in rotation.
+            Repo at
             <a href="https://github.com/lerugray/generalstaff">github.com/lerugray/generalstaff</a>.
+          </p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span
+              ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                >In daily use</span
+              ></span
+            >
+            <span><span class="k">Surface</span><span class="v">CLI · slash command</span></span>
+            <span><span class="k">Cost</span><span class="v">~$0.01 per audit</span></span>
+          </div>
+          <a href="/hammerstein" class="infra-title">Hammerstein</a>
+          <p class="infra-desc">
+            Strategic-reasoning advisor tuned to the Hammerstein-Equord officer typology.
+            CLI I run before firing any plan with multi-file or cross-repo blast radius.
+            The framework essay it embodies is at
+            <a href="/writing/hammerstein">Von Hammerstein's Ghost, In Daily Use</a>;
+            repo at <a href="https://github.com/lerugray/hammerstein">github.com/lerugray/hammerstein</a>.
+          </p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span
+              ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                >Public on HuggingFace</span
+              ></span
+            >
+            <span><span class="k">Base</span><span class="v">Qwen2.5-7B-Instruct</span></span>
+            <span><span class="k">Method</span><span class="v">QLoRA · rank 32</span></span>
+          </div>
+          <a href="/hammerstein-model" class="infra-title">Hammerstein-7B</a>
+          <p class="infra-desc">
+            A 7B QLoRA that bakes the strategic-reasoning framework into the weights of a
+            small open base. Trained for $4 in a single day; runs on 8 GB Mac via
+            <code>ollama run hf.co/lerugray/hammerstein-7b-lora:Q4_K_M</code>. Eval design
+            and documented OOD boundary on the
+            <a href="https://huggingface.co/lerugray/hammerstein-7b-lora">model card</a>.
           </p>
         </li>
         <li>
