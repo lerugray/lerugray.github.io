@@ -15,6 +15,7 @@ export const navGroups: NavGroup[] = [
     label: 'Writing',
     plate: 'Pl. II',
     items: [
+      { href: '/writing/hundred-percent-then-broke-it', label: '100%, then I tried to break it' },
       { href: '/writing/i-am-the-gate', label: 'I Am the Gate' },
       { href: '/writing/gs-launch-post', label: 'GeneralStaff, from the agent side' },
       { href: '/writing/hammerstein', label: "Von Hammerstein's Ghost" },

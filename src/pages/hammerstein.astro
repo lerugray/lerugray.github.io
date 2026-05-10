@@ -23,14 +23,18 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
               >In daily use</span
             ></span
           >
-          <span><span class="k">Surface</span><span class="v">CLI · slash command</span></span>
+          <span><span class="k">Surface</span><span class="v">CLI · slash command · hosted</span></span>
           <span><span class="k">Backends</span><span class="v">OpenRouter · DeepSeek · Ollama</span></span>
           <span><span class="k">Cost</span><span class="v">~$0.01 per audit</span></span>
         </div>
         <p class="mt-6 font-serif text-sm text-muted">
           Repo: <a href="https://github.com/lerugray/hammerstein">github.com/lerugray/hammerstein</a>.
+          Hosted: <a href="https://hammerstein.ai">hammerstein.ai</a>.
           Framework essay: <a href="/writing/hammerstein">Von Hammerstein's Ghost, In Daily Use</a>.
           The companion model: <a href="/hammerstein-model">Hammerstein-7B</a>.
+        </p>
+        <p class="mt-3 font-serif text-sm text-muted">
+          Latest: <a href="/writing/hundred-percent-then-broke-it">100%, then I tried to break it</a> — the day I ran the benchmark, got 100%, then ran a Diplomacy game to falsify it.
         </p>
       </div>
 
@@ -41,6 +45,21 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           review: failure modes, verification gates, structural-fix candidates, a
           recommendation, and a counter-observation. The framework underneath is
           ninety years old. The execution layer is small.
+        </p>
+
+        <h2>What I learned on 2026-05-10</h2>
+
+        <p>
+          A 2,400-token system prompt, applied to any frontier model, makes that model's
+          strategic-reasoning output preferred by blind LLM judges 100% of the time over
+          the same model without it. I expanded the test in three directions to control
+          for length bias, rubric tautology, and out-of-domain generalization. The
+          headline held. I then ran a Diplomacy matched pair to try to falsify it on an
+          adversarial multi-agent task; the wrap shaped reasoning style observably but
+          did not change game outcome. Both Austrias ended at 2 supply centers. The
+          claim is bounded: the wrap is a force multiplier on reasoning <em>output</em>,
+          not on every downstream task involving strategic reasoning. Full writeup at
+          <a href="/writing/hundred-percent-then-broke-it">100%, then I tried to break it</a>.
         </p>
 
         <h2>What it is</h2>
@@ -158,6 +177,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <a href="/hammerstein-model">Hammerstein-7B model</a> is a QLoRA on
           Qwen2.5-7B-Instruct that bakes the framework's voice into the weights.
           The CLI is the primary surface; the model is the offline companion.
+        </p>
+
+        <h2>Hosted: hammerstein.ai</h2>
+
+        <p>
+          For the wargame-specific application, there's a hosted version at
+          <a href="https://hammerstein.ai">hammerstein.ai</a>. It takes a board photo
+          and a rulebook PDF, reads what's on the board (with a confirm-or-flag step
+          to catch misreads), and returns kriegspiel-style Auftragstaktik orders
+          structured by section: situation, intent, main effort, supporting effort,
+          end-state. Same framework as the CLI, applied to a different surface.
         </p>
 
         <h2>Where to get it</h2>
