@@ -7,13 +7,31 @@ description: "A Sunday: a 100% benchmark result, then a Diplomacy game I ran to 
 
 Holy fuck, what a Sunday. Three things landed today and I want to walk you through them in the order I learned them, because that order matters. Skip ahead if you want, but the honest version of what's going on requires the sequence.
 
-![Stylized period portrait of Kurt von Hammerstein-Equord](/images/hammerstein-sunday/01-hammerstein-portrait.png)
+<figure class="mt-8">
+  <img
+    src="/images/hammerstein-sunday/01-hammerstein-portrait.png"
+    alt="Colorized painterly portrait of Kurt von Hammerstein-Equord in Reichswehr uniform, Pour le Mérite at the collar."
+    width="800"
+  />
+  <figcaption class="mt-3 font-mono text-xs text-subtle">
+    Kurt von Hammerstein-Equord. Chef der Heeresleitung 1930 to 1934. Fired for refusing to enforce Nazi orders.
+  </figcaption>
+</figure>
 
 ## What the thing is
 
 I built a system prompt. That's the whole product. Not a fine-tuned model, not a complicated pipeline, just a chunk of text you paste in front of any LLM call. The text describes a framework I borrowed from Kurt von Hammerstein-Equord, the Prussian officer who got fired in 1934 for refusing Hitler. He divided his officers into four types: clever-lazy, clever-industrious, stupid-industrious, stupid-lazy. Put the clever-lazy in command. Remove the stupid-industrious immediately because they work hard in the wrong direction and bring nothing but disaster.
 
-![The four-quadrant typology: clever-lazy command, clever-industrious staff, stupid-lazy troops, stupid-industrious remove immediately](/images/hammerstein-sunday/02-typology-quadrant.png)
+<figure class="mt-8">
+  <img
+    src="/images/hammerstein-sunday/02-typology-quadrant.png"
+    alt="Four-quadrant typology diagram on tan parchment. Clever-lazy labeled COMMAND, clever-industrious STAFF, stupid-lazy TROOPS, stupid-industrious REMOVE IMMEDIATELY."
+    width="800"
+  />
+  <figcaption class="mt-3 font-mono text-xs text-subtle">
+    The four quadrants. Clever-lazy in command. Stupid-industrious removed immediately.
+  </figcaption>
+</figure>
 
 I've been using this typology as an operating principle for AI-assisted work for months. Keep the clever-lazy moves. Refuse the stupid-industrious ones. ([Longer piece on what the framework is](https://lerugray.github.io/writing/hammerstein) if you want the philosophy version.) Today I finally got around to running the actual benchmark.
 
@@ -29,7 +47,16 @@ I almost wrote the celebration post right there.
 
 ## The falsification I owed myself
 
-![Italian units staged adjacent to Austrian home centers, red arrows showing the stab pattern](/images/hammerstein-sunday/03-diplomacy-stab.png)
+<figure class="mt-8">
+  <img
+    src="/images/hammerstein-sunday/03-diplomacy-stab.png"
+    alt="Vintage board-game view of Central Europe. Italian wooden blocks in BOH and VEN with red arrows pointing at Austrian centers in Trieste. Question marks over the Austrian positions."
+    width="800"
+  />
+  <figcaption class="mt-3 font-mono text-xs text-subtle">
+    Italian units in BOH and VEN held adjacent to Austrian centers for two game-years, denied intent every turn, then struck.
+  </figcaption>
+</figure>
 
 Before publishing anything, I ran my own framework against the conclusion. The audit flagged a risk I had been waving away: the benchmark measures *response preference on Q&A*. It does not measure *task performance on adversarial multi-agent games*. The framework could be excellent at producing-better-Q&A-output and useless or actively harmful when an actual game requires reading deception.
 
@@ -59,7 +86,16 @@ The repo is [github.com/lerugray/hammerstein](https://github.com/lerugray/hammer
 
 There's also a hosted version at [hammerstein.ai](https://hammerstein.ai) for the wargame-specific application. It runs the same framework against board photos and rulebook PDFs and returns kriegspiel-style orders. Useful if you'd rather not bring your own keys.
 
-![Hammerstein wargamer-mode orders panel: board photo plus rulebook in, structured Auftragstaktik orders out](/images/hammerstein-sunday/04-wargame-orders-panel.png)
+<figure class="mt-8">
+  <img
+    src="/images/hammerstein-sunday/04-wargame-orders-panel.png"
+    alt="Hammerstein wargamer-mode UI screenshot. Top panel reads What I See On The Board with confirm-or-flag-misread buttons. Below: Situation, Intent, Main Effort sections with Auftragstaktik orders for a 2022 Ukraine wargame."
+    width="800"
+  />
+  <figcaption class="mt-3 font-mono text-xs text-subtle">
+    Hammerstein wargamer-mode at hammerstein.ai. Board photo and rulebook PDF in. Sectioned Auftragstaktik orders out, with a confirm-or-flag step to catch misreads before they propagate.
+  </figcaption>
+</figure>
 
 Full benchmark data is in `eval/`. Diplomacy demo state files are in `eval/diplomacy/`. Every transcript is checked in, every score is reproducible for under $20 of OpenRouter calls.
 
