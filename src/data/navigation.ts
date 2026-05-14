@@ -28,8 +28,8 @@ export const navGroups: NavGroup[] = [
     items: [
       { href: '/conflict-simulations-llc', label: 'Conflict Simulations LLC' },
       { href: '/devforge', label: 'Devforge' },
-      { href: '/catalogdna', label: 'CatalogDNA' },
       { href: '/retrogaze', label: 'Retrogaze' },
+      { href: '/hammerstein-ai', label: 'Hammerstein.ai' },
     ],
   },
   {

@@ -1,0 +1,114 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Hammerstein.ai | Ray Weiss"
+  description="Strategic-reasoning AI for tabletop wargames. Paste your board state, get back Auftragstaktik orders. $15 / month."
+>
+  <main class="px-6 py-24 lg:px-16">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl">
+        Hammerstein.ai
+      </h1>
+      <p class="mt-6 font-serif text-lg italic text-muted">
+        Strategic-reasoning AI for tabletop wargames, built around the Hammerstein-Equord doctrine.
+      </p>
+      <p class="mt-3 font-serif text-lg text-foreground">
+        Paste your board state, a status report, and the turn question. Get back Auftragstaktik orders.
+      </p>
+
+      <div class="mt-10 max-w-[72ch]">
+        <div class="infra-meta">
+          <span
+            ><span class="dot live"></span><span class="k">Status</span><span class="v"
+              >Live &middot; early access</span
+            ></span
+          >
+          <span><span class="k">Price</span><span class="v">$15 / month</span></span>
+          <span><span class="k">Limit</span><span class="v">120 turns / month</span></span>
+          <span><span class="k">Demo</span><span class="v">5 turns / IP / day &middot; free</span></span>
+        </div>
+        <p class="mt-6 font-serif text-sm text-muted">
+          Live: <a href="https://hammerstein.ai">hammerstein.ai</a>.
+          Benchmark: <a href="https://hammerstein.ai/benchmark/">hammerstein.ai/benchmark</a>.
+          Journal: <a href="https://hammerstein.ai/journal/">hammerstein.ai/journal</a>.
+          The framework underneath: <a href="/hammerstein">the CLI</a> &middot; <a href="/hammerstein-model">the 7B model</a>.
+        </p>
+      </div>
+
+      <div class="prose-body mt-12">
+        <h2>What it does</h2>
+
+        <p>
+          Wargamer mode is the live surface. Paste your board state, a short
+          status report, and the turn question you're trying to decide. The model
+          returns kriegspiel-style Auftragstaktik orders &mdash; situation,
+          intent, main effort, supporting effort, end-state &mdash; for the side
+          you're playing. Same framework as <a href="/hammerstein">the
+          open-source CLI</a>, applied to wargame turns instead of plan audits.
+        </p>
+
+        <h2>What's shipped</h2>
+
+        <ul>
+          <li>
+            <strong>Text-input turns</strong> &mdash; board state + status +
+            question &rarr; Auftragstaktik orders. Sonnet 4.6 wrapped in the
+            Hammerstein system prompt. The primary surface.
+          </li>
+          <li>
+            <strong>Board-photo upload</strong> &mdash; JPG or PNG resized to
+            1600px in your browser with EXIF rotation preserved, attached as a
+            multimodal reference image per turn.
+          </li>
+          <li>
+            <strong>Rulebook ingest</strong> &mdash; paste rules text or drop a
+            PDF; parsed client-side via pdf.js, never uploaded. Cited when a
+            specific rule shapes the order.
+          </li>
+          <li>
+            <strong>Persistent campaign memory across machines</strong> &mdash;
+            paid-tier campaigns sync server-side via Cloudflare D1. Start a
+            campaign on your laptop, resume on your phone.
+          </li>
+          <li>
+            <strong>Anti-metagame ethical constraint</strong> &mdash; the model
+            does not card-count or game hidden information; the constraint is a
+            hard rule in the system prompt, not a courtesy. Challenge mode
+            toggles it off when you want the AI playing without that restraint.
+          </li>
+        </ul>
+
+        <h2>Benchmark</h2>
+
+        <p>
+          On the framework-discipline benchmark, the system prompt wins across
+          model scales &mdash; frontier wraps (Opus 4.7 / Sonnet 4.6 / GPT-5),
+          out-of-domain question sets, and a 7B distilled local model. v0.7
+          human-judge results compiling. Methodology, per-generation results,
+          and the replication kit live at
+          <a href="https://hammerstein.ai/benchmark/">hammerstein.ai/benchmark</a>.
+        </p>
+
+        <h2>Pricing</h2>
+
+        <p>
+          $15 / month for 120 turns &mdash; sized for a real campaign cadence,
+          not metered by the day. First 50 subscribers; pricing rises after.
+          The free demo runs at 5 turns per IP per day for anyone who wants to
+          test the surface before subscribing.
+        </p>
+
+        <h2>Try it</h2>
+
+        <p>
+          Live at <a href="https://hammerstein.ai">hammerstein.ai</a>. The free
+          demo doesn't require a subscription &mdash; just paste a turn and see
+          what comes back. The subscriber tier unlocks the 120-turn-per-month
+          cap and cross-machine persistent campaign memory.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
