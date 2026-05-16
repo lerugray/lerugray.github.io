@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Veridian Contraption | Ray Weiss"
-  description="Veridian Contraption. An autonomous ASCII world-simulator of considerable density and dubious intent. Released on itch under Conflict Simulations LLC."
+  description="Veridian Contraption — an autonomous ASCII world-simulator of considerable density and dubious intent. Playable web demo; released on itch under Conflict Simulations LLC."
 >
   <main class="px-6 py-24 lg:px-16">
     <div class="mx-auto max-w-3xl">
@@ -25,7 +25,21 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         A World-Simulator of Considerable Density and Dubious Intent.
       </p>
 
-      <div class="prose-body mt-16">
+      <blockquote
+        class="mt-10 border-l-2 border-border pl-6 font-serif text-lg italic text-muted"
+      >
+        <p>
+          The gates of Weneld-Uck admitted Ist-Wedilk in the usual manner,
+          which is to say: with neither welcome nor objection.
+        </p>
+        <footer
+          class="mt-3 font-mono text-xs not-italic uppercase tracking-wider"
+        >
+          In-game annals &middot; tick 14,802
+        </footer>
+      </blockquote>
+
+      <div class="prose-body mt-12">
         <p>
           An autonomous ASCII world-simulator. Settlements glow amber.
           Caravans crawl along trade routes. Forgotten beasts patrol in
@@ -33,20 +47,48 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           bureaucrat who has absorbed too much Borges.
         </p>
         <p>
-          Civilizations rise, splinter, and develop baroque bureaucracies
-          while you're doing something else. Come back later and there's
-          always more to read. The simulation runs whether you watch it or
-          not.
+          Civilizations rise and decline. Factions schism. Wars start over
+          insults. Cults emerge, persecute, escalate, or fizzle. Eschatons
+          arrive and reshape the map without ending the simulation. The world
+          is doing something on its own, and you are watching it happen — come
+          back later and there is always more to read.
         </p>
         <p>
           Built for the audience that liked Dwarf Fortress's narrative layer
           more than the colony management. Players who thought <em>Dune</em>'s
-          appendices were the best part. The kind of person whose ideal
-          Saturday is running a simulation and reading the output.
+          appendices were the best part. You are spectator, occasional nudge,
+          curator of emergent absurdity.
         </p>
       </div>
 
-      <div class="mt-12 overflow-x-auto">
+      <div class="prose-body terminal-section mt-16">
+        <h2>Play it in your browser</h2>
+        <p>
+          The genuine simulation engine, compiled to WebAssembly — the same
+          Rust worldgen, 196+ event types, and procedural bureaucratic prose
+          as the full game. It runs autonomously: the world proceeds whether
+          you watch or not. It opens fullscreen in a new tab —
+          <span class="font-mono">Space</span> to pause,
+          <span class="font-mono">L</span> for the map legend,
+          <span class="font-mono">?</span> for help.
+        </p>
+      </div>
+
+      <a
+        href="/veridian-contraption-demo/index.html"
+        target="_blank"
+        rel="noopener"
+        class="mt-5 flex flex-col items-center justify-center gap-2 rounded border border-border px-6 py-20 text-center transition-colors hover:border-muted"
+      >
+        <span class="font-serif text-xl italic text-foreground"
+          >&#9658;&nbsp; Play the web demo</span
+        >
+        <span class="font-mono text-xs uppercase tracking-wider text-muted"
+          >opens fullscreen, in a new tab</span
+        >
+      </a>
+
+      <div class="mt-16 overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead>
             <tr class="border-b border-border">
@@ -64,7 +106,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             <tr class="border-b border-border">
               <td class="py-4 pr-6 font-medium text-foreground">Simulation core</td>
               <td class="py-4 text-muted">
-                170+ event types in five prose registers (Clinical, Lyrical,
+                196+ event types in five prose registers (Clinical, Lyrical,
                 Bureaucratic, Ominous, Conspiratorial). 21 quest types pursued
                 autonomously by agents.
               </td>
@@ -144,22 +186,60 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
 
       <div class="prose-body terminal-section mt-12">
+        <h2>Soundtrack</h2>
+        <p>
+          Fourteen original tracks, written, performed, and recorded by Ray
+          Weiss. The title piece, <em>Movement 2</em>, opens the game and
+          sits in a shuffle-without-replacement pool — it recurs about once a
+          cycle, like any other track. Normalized to &minus;16 LUFS and mixed
+          low: the music sits under whatever else you are doing.
+        </p>
+        <pre
+          class="my-5 overflow-x-auto font-mono text-sm text-muted"
+        >&#9601;&#9602;&#9603;&#9605;&#9606;&#9607;&#9608;&#9607;&#9606;&#9605;&#9603;&#9604;&#9606;&#9607;&#9608;&#9607;&#9606;&#9604;&#9603;&#9602;&#9601;&#9602;&#9603;&#9605;&#9606;&#9607;&#9606;&#9605;&#9604;&#9603;&#9602;&#9601;&#9602;&#9603;&#9604;&#9605;&#9606;&#9607;&#9608;&#9607;&#9606;&#9605;&#9604;&#9603;&#9602;&#9601;</pre>
+        <p>
+          The composition matches the register the simulation has been
+          gesturing at: slow accretion, dense detail, occasional bursts of
+          weirdness, the sense that the world is doing something on its own.
+        </p>
+
         <h2>Stack</h2>
         <p>
-          Rust 2021 edition, terminal with truecolor support. Variable world
-          size from Small to Huge with scrollable viewport and minimap. Full
-          save/load, multiple named worlds, autosave, eleven document report
-          types, TXT history export.
+          Rust 2021, a terminal with truecolor support. Variable world size
+          from Small to Huge, scrollable viewport and minimap. Byte-identical
+          save/load — resume from any saved tick and the world history is
+          bit-for-bit identical — backed by a 25,000-tick determinism gate in
+          the test suite. Multiple named worlds, autosave, eleven document
+          report types, TXT history export.
+        </p>
+
+        <h2>Lineage</h2>
+        <p>
+          The aesthetic: Dwarf Fortress, Caves of Qud, <em>The Illuminatus!
+          Trilogy</em>, early D&amp;D modules, Nabokov. Read into the design:
+          Engels, Dupuy, Clausewitz, Kafka, the <em>Principia Discordia</em>,
+          Norman Cohn, Thomas M&uuml;ntzer, Lovecraft, and Shea &amp; Wilson.
         </p>
 
         <h2>Buy</h2>
         <p>
-          Released on itch under Conflict Simulations LLC at $3. <a
+          On itch under Conflict Simulations LLC at $3 — <a
             href="https://conflict-simulations-llc.itch.io/veridian-contraption"
             >conflict-simulations-llc.itch.io/veridian-contraption</a
-          >.
+          >. Buy in now and you are done paying: when Veridian Contraption
+          debuts on Steam at $9.99, existing itch owners get free Steam keys,
+          no repurchase. The itch price rises to $9.99 in lockstep with the
+          Steam launch — but anyone who bought early stays at the price they
+          paid.
         </p>
       </div>
+
+      <p class="prose-body mt-12 font-serif text-lg italic text-muted">
+        If you played along through Early Access — thank you. The bug
+        reports, the world screenshots, and the occasional message about a
+        strange Eschaton playthrough turned this into a real release rather
+        than a research project.<br />&mdash; Ray
+      </p>
     </div>
   </main>
 </BaseLayout>

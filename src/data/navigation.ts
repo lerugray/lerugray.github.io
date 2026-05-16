@@ -50,7 +50,7 @@ export const navGroups: NavGroup[] = [
     plate: 'Pl. V',
     items: [
       { href: '/auftragstaktik', label: 'Auftragstaktik' },
-      { href: '/buddies', label: 'Buddies' },
+      { href: '/conflict-simulations-llc/veridian-contraption', label: 'Veridian Contraption' },
     ],
   },
   {
