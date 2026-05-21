@@ -59,6 +59,11 @@ export const navGroups: NavGroup[] = [
     items: [{ href: '/music', label: 'Le Rug' }],
   },
   {
+    label: 'Works',
+    plate: 'Pl. VII',
+    items: [{ href: '/works', label: 'Complete Catalog' }],
+  },
+  {
     label: 'Contact',
     plate: 'App.',
     items: [{ href: 'mailto:lerugray@gmail.com', label: 'lerugray@gmail.com' }],

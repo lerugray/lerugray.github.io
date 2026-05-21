@@ -1,0 +1,793 @@
+[
+  {
+    "id": "c-0001",
+    "title": "1950 Korea: The Forgotten War",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2018,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "First game in the Procedural Combat System (PCS). Strategic scale, the Korean War.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0002",
+    "title": "1995: Milosevic's Last Gamble",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2019,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "PCS. A hypothetical NATO vs Russia/Serbia ground war.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0003",
+    "title": "1973",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2021,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "PCS. The Yom Kippur War across the Sinai and Syria.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0004",
+    "title": "2022: Ukraine",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2023,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "PCS. The Russian invasion of Ukraine; the most event-driven game in the series.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0005",
+    "title": "We Were Not Cowards: Sedan 1870",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2020,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "First game in the Imperial Bayonets series. The Franco-Prussian War.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0006",
+    "title": "For Liberty & Lombardy: 1859",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2024,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "Imperial Bayonets. The Second Italian War of Independence.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0007",
+    "title": "1854: The Alma",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2023,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "A simplified solitaire Imperial Bayonets variant. The Crimean War.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0008",
+    "title": "Barbarossa Deluxe",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2020,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "Destroy All Monsters Operational Series (DAMOS). The 1941 German invasion of the USSR.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0009",
+    "title": "Afrika Army Korps",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2025,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "DAMOS. The North Africa campaign, 1940-43.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0010",
+    "title": "1916",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2018,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "Verdun. Administrative Points as the central resource. Version 2.0 released 2021.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0011",
+    "title": "Sedan 1940",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2021,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "Grand-tactical. The 1940 Battle of Sedan. Dedicated to John Tiller.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0012",
+    "title": "Koniggratz",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2022,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "Herman-lineage system. The 1866 Battle of Koniggratz.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0013",
+    "title": "Marathon",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2023,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "First game in the Violent Schoolmaster Tactical Series. The Battle of Marathon, 490 BC.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0014",
+    "title": "At Villers Cotterets: Mons 1914",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Tactical, purely fire-based. The 1914 Battle of Mons. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0015",
+    "title": "Prigozhin's March of Justice",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2023,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Solitaire. The June 2023 Wagner Group mutiny. Year approximate — verify.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0016",
+    "title": "The Great Northern War",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Card-driven trick-taking using a standard deck. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0017",
+    "title": "With the Hammer",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "An asymmetric area-movement game on the German Peasants' War, 1524-25. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0018",
+    "title": "1914: East Prussia: The World Undone",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "The World Undone series. The Tannenberg campaign. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0019",
+    "title": "1914: Galicia: The World Undone",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "The World Undone series. The 1914 Galician battles. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0020",
+    "title": "1914: Serbia: The World Undone",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "year": 2021,
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed"
+    ],
+    "notes": "The World Undone series. The 1914 Austro-Serbian front. Completed 2021 per contemporaneous record.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0021",
+    "title": "The World Undone East Front Trilogy",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Campaign rules linking East Prussia, Galicia, and Serbia. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0022",
+    "title": "Risorgimento",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Long Century Operations Series. The 1859 Italian war. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0023",
+    "title": "Mars La Tour",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Conflict Simulations LLC",
+    "venue": "Conflict Simulations LLC",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Herman-lineage system. The 1870 Battle of Mars-la-Tour. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0024",
+    "title": "Rostov 41",
+    "medium": "wargame",
+    "status": "released",
+    "alias": "Ray Weiss",
+    "year": 2018,
+    "venue": "Multi-Man Publishing",
+    "tags": [
+      "seed"
+    ],
+    "notes": "The one wargame published by a company other than CSL. Went to pre-order with MMP in 2018.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0025",
+    "title": "Guns of the Americas: American Front 1914-1919",
+    "medium": "wargame",
+    "status": "unpublished",
+    "alias": "Ray Weiss",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Alternate-history game — a transposed First World War across North America. Received a publisher contract in 2018; publication never materialized.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0026",
+    "title": "Shellfire & Fury",
+    "medium": "wargame",
+    "status": "unpublished",
+    "alias": "Ray Weiss",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "A pre-WWI naval gunnery design, also worked under the title Steam & Shell. Submitted and rejected in 2018.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0027",
+    "title": "1705: Along the Dyle",
+    "medium": "wargame",
+    "status": "unpublished",
+    "alias": "Ray Weiss",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Designed as an expansion for OSG's Napoleon's Last Gamble series; publication did not materialize. Verify.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0028",
+    "title": "C R E E P",
+    "medium": "album",
+    "status": "released",
+    "alias": "Le Rug",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Le Rug album. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0029",
+    "title": "Swelling",
+    "medium": "album",
+    "status": "released",
+    "alias": "Le Rug",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Le Rug album. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0030",
+    "title": "Goodnight",
+    "medium": "album",
+    "status": "released",
+    "alias": "Le Rug",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Le Rug release. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0031",
+    "title": "Game Over",
+    "medium": "album",
+    "status": "released",
+    "alias": "Le Rug",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Le Rug album. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0032",
+    "title": "Party With Peter Burns",
+    "medium": "album",
+    "status": "released",
+    "alias": "Le Rug",
+    "year": 2021,
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "A previously unreleased 2017 Le Rug record, released in 2021.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0033",
+    "title": "Cut Off Your Dick And Turn Into Slime",
+    "medium": "album",
+    "status": "released",
+    "alias": "Le Rug",
+    "year": 2014,
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Tracked and completed in early 2014. Band attribution unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0034",
+    "title": "True Crime",
+    "medium": "album",
+    "status": "released",
+    "alias": "Butter The Children",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Butter The Children album. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0035",
+    "title": "Butter The Children EP",
+    "medium": "ep",
+    "status": "released",
+    "alias": "Butter The Children",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Butter The Children EP. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0036",
+    "title": "Bleenex",
+    "medium": "album",
+    "status": "released",
+    "alias": "Bleenex",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "A 13-track album from the Le Rug / Bleenex material. Verify title and band.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0037",
+    "title": "Defenestrator",
+    "medium": "ep",
+    "status": "released",
+    "alias": "Defenestrator",
+    "year": 2021,
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "A noisy/ambient EP recorded during 2021. Verify.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0038",
+    "title": "Bozo",
+    "medium": "ep",
+    "status": "released",
+    "alias": "Defenestrator",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Defenestrator release. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0039",
+    "title": "I Can Fight This Feeling",
+    "medium": "album",
+    "status": "released",
+    "alias": "Living Serious",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Living Serious release. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0040",
+    "title": "Anyone But Hindenburg",
+    "medium": "album",
+    "status": "released",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "A 13-track album opening with 'Der Netanyahu'. Band and year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0041",
+    "title": "Tell Your Parents You Want Ballz This Christmas",
+    "medium": "album",
+    "status": "released",
+    "alias": "Red Dwarf",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Red Dwarf album. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0042",
+    "title": "Flabby Wings",
+    "medium": "album",
+    "status": "released",
+    "alias": "Ray Weiss",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Solo release. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0043",
+    "title": "Big Bird at Nuremburg EP",
+    "medium": "ep",
+    "status": "released",
+    "alias": "Ray Weiss",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Solo EP. Release year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0044",
+    "title": "America",
+    "medium": "album",
+    "status": "released",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Album opening with 'Pat Buchanan'. Band and year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0045",
+    "title": "Sex Reduction Flower",
+    "medium": "album",
+    "status": "released",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Band and year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0046",
+    "title": "She Said",
+    "medium": "album",
+    "status": "released",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Band and year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0047",
+    "title": "Sticky Buns",
+    "medium": "album",
+    "status": "released",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Band and year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0049",
+    "title": "Nuke Whales",
+    "medium": "album",
+    "status": "released",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "An album with a U.S.-presidents song cycle (George Washington, John Adams, Thomas Jefferson...). Band and year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0050",
+    "title": "Ersatz EP",
+    "medium": "ep",
+    "status": "released",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Band and year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0051",
+    "title": "Dead In A Hole EP",
+    "medium": "ep",
+    "status": "released",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Band and year unverified.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0053",
+    "title": "Untitled 2021 album",
+    "medium": "album",
+    "status": "lost",
+    "alias": "Le Rug",
+    "year": 2021,
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "Roughly 30 songs lost to a hard-drive failure in early 2021; MP3 versions of some tracks were recovered later. The clearest single illustration of why this catalog exists.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0054",
+    "title": "SoundCloud instrumental demos",
+    "medium": "single",
+    "status": "released",
+    "alias": "Ray Weiss",
+    "venue": "SoundCloud",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "A large body of instrumental demos posted to SoundCloud over many years. Individual tracks not yet catalogued.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0055",
+    "title": "Cyberpanky N.O.W.",
+    "medium": "rpg",
+    "status": "released",
+    "alias": "Ray Weiss",
+    "year": 2018,
+    "venue": "DriveThruRPG",
+    "tags": [
+      "seed"
+    ],
+    "notes": "An OSR cyberpunk tabletop RPG, written years earlier and released pay-what-you-want in December 2018.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0056",
+    "title": "Pickett",
+    "medium": "game",
+    "status": "abandoned",
+    "year": 2014,
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "A summer-camp-set narrative PC game announced in 2014. Abandoned.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0057",
+    "title": "Untitled NES game",
+    "medium": "game",
+    "status": "abandoned",
+    "year": 2014,
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "An NES homebrew built in Python compiling to 6502 assembly, with collaborator Tom Ritchford. Abandoned.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0058",
+    "title": "Flappy Snoop",
+    "medium": "game",
+    "status": "abandoned",
+    "year": 2014,
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "A quick mobile game announced in 2014. Abandoned.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0059",
+    "title": "The Bird Didn't Run",
+    "medium": "essay",
+    "status": "released",
+    "alias": "Ray Weiss",
+    "year": 2026,
+    "venue": "lerugray.github.io",
+    "tags": [
+      "seed"
+    ],
+    "notes": "An essay published on the personal site.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0060",
+    "title": "Clever Lazy: The Hammerstein Method",
+    "medium": "book",
+    "status": "in-progress",
+    "alias": "Ray Weiss",
+    "tags": [
+      "seed"
+    ],
+    "notes": "A book on the Hammerstein method, in progress for Kindle Direct Publishing.",
+    "added": "2026-05-16"
+  },
+  {
+    "id": "c-0061",
+    "title": "Veridian Contraption",
+    "medium": "game",
+    "status": "in-progress",
+    "year": 2025,
+    "venue": "itch.io",
+    "tags": [
+      "seed",
+      "unverified"
+    ],
+    "notes": "A Rust terminal world-simulation game, in Early Access on itch.io. Year and status verify.",
+    "added": "2026-05-16"
+  }
+]

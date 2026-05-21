@@ -1,0 +1,303 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import canonData from '@/data/canon.json';
+
+interface CanonEntry {
+  id: string;
+  title: string;
+  medium: string;
+  status: string;
+  alias?: string;
+  year?: number;
+  venue?: string;
+  url?: string;
+  tags?: string[];
+  notes?: string;
+  added: string;
+}
+
+const canon = canonData as CanonEntry[];
+
+// Medium display order + labels
+const mediumOrder: Record<string, string> = {
+  wargame: 'Wargames',
+  album: 'Albums',
+  ep: 'EPs',
+  single: 'Singles',
+  rpg: 'RPG',
+  game: 'Games',
+  essay: 'Essays',
+  book: 'Books',
+  software: 'Software',
+  other: 'Other',
+};
+
+// Status display
+const statusLabel: Record<string, string> = {
+  released: 'released',
+  'in-progress': 'in progress',
+  unpublished: 'unpublished',
+  abandoned: 'abandoned',
+  lost: 'lost',
+};
+
+// Group entries by medium, preserving order
+const grouped = Object.keys(mediumOrder).reduce<Record<string, CanonEntry[]>>((acc, med) => {
+  const entries = canon.filter((e) => e.medium === med);
+  if (entries.length > 0) acc[med] = entries;
+  return acc;
+}, {});
+
+// Count totals for header
+const totalReleased = canon.filter((e) => e.status === 'released').length;
+const totalEntries = canon.length;
+---
+
+<BaseLayout
+  title="Works | Ray Weiss"
+  description="Ray Weiss's complete body of work. Wargames published under Conflict Simulations LLC, music released as Le Rug and other projects, games, essays, and a book in progress."
+  colophon={{ sheet: 'VII', edition: '2026.05', loc: 'Brooklyn, NY', scale: 'Complete' }}
+>
+  <div
+    slot="sheet-id"
+    class="sheet-id"
+    aria-label="Sheet identification"
+  >
+    <div class="plate">
+      <span class="num">PL. VII</span> Works · Complete Catalog
+    </div>
+    <div class="edition">Edition 2026.05 · Brooklyn, NY</div>
+  </div>
+
+  <div class="mx-auto max-w-3xl px-0">
+    <h1>Works</h1>
+    <p class="works-lede">
+      Every wargame, album, game, RPG, essay, and book in one place.
+      Sourced from <a href="https://github.com/lerugray/mission-canon">mission-canon</a>
+      — a personal ledger Ray maintains as a living record of his creative output.
+      Unverified entries (year or attribution uncertain) are marked with a
+      <span class="unverified-mark">?</span>.
+    </p>
+
+    <div class="works-stats">
+      <span><span class="stat-num">{totalReleased}</span> released</span>
+      <span class="stat-sep">·</span>
+      <span><span class="stat-num">{totalEntries}</span> total entries</span>
+    </div>
+
+    {
+      Object.entries(grouped).map(([medium, entries]) => (
+        <section class="works-section">
+          <div class="section-head">
+            <h2 class="section-label">{mediumOrder[medium]}</h2>
+            <span class="section-count">{entries.length} {entries.length === 1 ? 'entry' : 'entries'} ——</span>
+          </div>
+
+          <ol class="works-list">
+            {entries.map((entry) => {
+              const isUnverified = entry.tags?.includes('unverified');
+              const statusText = statusLabel[entry.status] ?? entry.status;
+              const statusIsNeutral = entry.status === 'released';
+              return (
+                <li class="works-entry">
+                  <div class="works-year">
+                    {entry.year ? (
+                      <span class={isUnverified ? 'unverified' : ''}>{entry.year}{isUnverified && <span class="unverified-mark">?</span>}</span>
+                    ) : (
+                      <span class="unverified-mark">?</span>
+                    )}
+                  </div>
+                  <div class="works-body">
+                    {entry.url ? (
+                      <a href={entry.url} class="works-title">{entry.title}</a>
+                    ) : (
+                      <span class="works-title">{entry.title}</span>
+                    )}
+                    <div class="works-meta">
+                      {entry.alias && (
+                        <span class="works-alias">{entry.alias}</span>
+                      )}
+                      {entry.venue && entry.venue !== entry.alias && (
+                        <>
+                          <span class="works-sep">·</span>
+                          <span class="works-venue">{entry.venue}</span>
+                        </>
+                      )}
+                      {!statusIsNeutral && (
+                        <>
+                          <span class="works-sep">·</span>
+                          <span class={`works-status works-status--${entry.status}`}>{statusText}</span>
+                        </>
+                      )}
+                    </div>
+                    {entry.notes && (
+                      <p class="works-notes">{entry.notes}</p>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  h1 {
+    margin-bottom: 1.25rem;
+  }
+
+  .works-lede {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    color: var(--color-muted);
+    line-height: 1.6;
+    max-width: 60ch;
+    margin: 0 0 1.5rem;
+  }
+
+  .unverified-mark {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-rule);
+    margin-left: 2px;
+    vertical-align: super;
+  }
+
+  .works-stats {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    margin: 0 0 3.5rem;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: 10px 0;
+  }
+
+  .stat-num {
+    color: var(--color-foreground);
+    font-weight: 600;
+  }
+
+  .stat-sep {
+    color: var(--color-rule);
+  }
+
+  .works-section {
+    margin-bottom: 3rem;
+  }
+
+  .works-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 72ch;
+  }
+
+  .works-entry {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-border);
+    align-items: baseline;
+  }
+
+  .works-entry:last-child {
+    border-bottom: none;
+  }
+
+  .works-year {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--color-rule);
+    padding-top: 4px;
+    text-align: right;
+  }
+
+  .works-year .unverified {
+    color: var(--color-subtle);
+  }
+
+  .works-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .works-title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.3;
+    color: var(--color-foreground);
+    letter-spacing: -0.005em;
+    text-decoration: none;
+  }
+
+  a.works-title:hover {
+    color: var(--color-link);
+  }
+
+  .works-meta {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 6px;
+    align-items: baseline;
+  }
+
+  .works-alias {
+    color: var(--color-muted);
+  }
+
+  .works-venue {
+    color: var(--color-subtle);
+  }
+
+  .works-sep {
+    color: var(--color-rule);
+  }
+
+  .works-status {
+    color: var(--color-subtle);
+  }
+
+  .works-status--abandoned,
+  .works-status--lost {
+    color: var(--color-rule);
+  }
+
+  .works-status--in-progress {
+    color: var(--color-blue-tick);
+  }
+
+  .works-status--unpublished {
+    color: var(--color-subtle);
+  }
+
+  .works-notes {
+    font-family: var(--font-serif);
+    font-size: 14.5px;
+    color: var(--color-subtle);
+    margin: 2px 0 0;
+    line-height: 1.5;
+    max-width: 58ch;
+    font-style: italic;
+  }
+</style>
