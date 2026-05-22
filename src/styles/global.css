@@ -1010,7 +1010,14 @@ a.infra-title:hover {
   color: var(--color-rule);
 }
 
-.data-table {
+/* Data tables. `.data-table` is the explicit-class form used on
+   standalone pages; `.prose-body table` gives Markdown-authored
+   tables inside essay bodies the identical Officer's Atlas look
+   without needing a class on the <table> element (raw block HTML
+   inside Astro Markdown is fragile — Markdown table syntax is
+   first-class and produces real <table> elements reliably). */
+.data-table,
+.prose-body table {
   width: 100%;
   max-width: 72ch;
   border-collapse: collapse;
@@ -1018,7 +1025,8 @@ a.infra-title:hover {
   font-size: 16px;
   margin: 0 0 36px;
 }
-.data-table thead th {
+.data-table thead th,
+.prose-body table thead th {
   font-family: var(--font-mono);
   font-size: 10.5px;
   font-weight: 500;
@@ -1029,7 +1037,8 @@ a.infra-title:hover {
   padding: 8px 16px 10px 0;
   border-bottom: 1px solid var(--color-foreground);
 }
-.data-table tbody td {
+.data-table tbody td,
+.prose-body table tbody td {
   padding: 14px 16px 14px 0;
   border-bottom: 1px solid var(--color-border);
   vertical-align: top;
@@ -1037,6 +1046,11 @@ a.infra-title:hover {
   line-height: 1.4;
 }
 .data-table tbody td.title {
+  font-weight: 600;
+}
+/* Markdown tables can't put classes on cells; the first column of
+   an essay-body table reads as the row label, so style it bold. */
+.prose-body table tbody td:first-child {
   font-weight: 600;
 }
 .data-table tbody td.price,
@@ -1050,21 +1064,27 @@ a.infra-title:hover {
   color: var(--color-muted);
   font-size: 15.5px;
 }
-.data-table tbody tr:last-child td {
+.data-table tbody tr:last-child td,
+.prose-body table tbody tr:last-child td {
   border-bottom: 1px solid var(--color-foreground);
 }
 
 /* Scorecard treatment cells — at-a-glance read of how the official
    DNC report handled each factor. Existing Officer's Atlas palette
    only: accent burgundy for omissions, muted for distorted/partial,
-   foreground for fully covered. */
-.data-table td.treat-omitted strong {
+   foreground for fully covered. Works whether the treat-* class is
+   on a <td> (.data-table) or on an inline <strong> inside a
+   Markdown table cell (.prose-body). */
+.data-table td.treat-omitted strong,
+.prose-body .treat-omitted {
   color: var(--color-accent);
 }
-.data-table td.treat-distorted strong {
+.data-table td.treat-distorted strong,
+.prose-body .treat-distorted {
   color: var(--color-muted);
 }
-.data-table td.treat-covered strong {
+.data-table td.treat-covered strong,
+.prose-body .treat-covered {
   color: var(--color-foreground);
 }
 

@@ -53,52 +53,15 @@ the Brookings Institution records the 1.5-point margin as the
 College, Wisconsin, Michigan, and Pennsylvania, were lost by a combined
 **~230,000 votes**:
 
-<table class="data-table">
-  <thead>
-    <tr>
-      <th>State</th>
-      <th>Trump margin</th>
-      <th>Vote margin</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="title">Wisconsin</td>
-      <td>0.86%</td>
-      <td class="format">~29,400</td>
-    </tr>
-    <tr>
-      <td class="title">Michigan</td>
-      <td>1.42%</td>
-      <td class="format">~80,100</td>
-    </tr>
-    <tr>
-      <td class="title">Pennsylvania</td>
-      <td>1.71%</td>
-      <td class="format">~120,300</td>
-    </tr>
-    <tr>
-      <td class="title">Georgia</td>
-      <td>2.20%</td>
-      <td class="format">~115,100</td>
-    </tr>
-    <tr>
-      <td class="title">Nevada</td>
-      <td>3.10%</td>
-      <td class="format">~46,000</td>
-    </tr>
-    <tr>
-      <td class="title">North Carolina</td>
-      <td>3.21%</td>
-      <td class="format">~183,000</td>
-    </tr>
-    <tr>
-      <td class="title">Arizona</td>
-      <td>~5.5%</td>
-      <td class="format">~187,400</td>
-    </tr>
-  </tbody>
-</table>
+| State | Trump margin | Vote margin |
+| --- | --- | --- |
+| Wisconsin | 0.86% | ~29,400 |
+| Michigan | 1.42% | ~80,100 |
+| Pennsylvania | 1.71% | ~120,300 |
+| Georgia | 2.20% | ~115,100 |
+| Nevada | 3.10% | ~46,000 |
+| North Carolina | 3.21% | ~183,000 |
+| Arizona | ~5.5% | ~187,400 |
 
 Every state moved right relative to 2020, an aggregate national swing of
 roughly six points, the largest toward either party since 2008. But the
@@ -612,72 +575,19 @@ and the late-and-seasonal organizing model are real contributions.
 The failure is one of structure and scope. Measured against the evidence
 assembled above:
 
-<table class="data-table">
-  <thead>
-    <tr>
-      <th>Cause of the 2024 loss</th>
-      <th>Evidence weight</th>
-      <th>DNC report's treatment</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="title">Inflation / cost-of-living</td>
-      <td>Largest single issue</td>
-      <td class="treat-distorted"><strong>Minimized</strong>: near-silent on the substance</td>
-    </tr>
-    <tr>
-      <td class="title">The global anti-incumbent environment</td>
-      <td>Dominant baseline force</td>
-      <td class="treat-omitted"><strong>Largely absent</strong></td>
-    </tr>
-    <tr>
-      <td class="title">The Biden decision to seek re-election</td>
-      <td>Largest controllable error</td>
-      <td class="treat-omitted"><strong>Omitted</strong></td>
-    </tr>
-    <tr>
-      <td class="title">The late switch / 107-day compression</td>
-      <td>Major aggravating error</td>
-      <td class="treat-distorted"><strong>Distorted</strong>: framed only as a Harris-prep failure</td>
-    </tr>
-    <tr>
-      <td class="title">Gaza / Israel</td>
-      <td>Real second-tier; plausibly decisive in Michigan</td>
-      <td class="treat-omitted"><strong>Omitted entirely</strong></td>
-    </tr>
-    <tr>
-      <td class="title">Immigration</td>
-      <td>Strong second-tier</td>
-      <td class="treat-distorted"><strong>Distorted</strong>: framed as a labeling problem</td>
-    </tr>
-    <tr>
-      <td class="title">Campaign strategy and execution</td>
-      <td>Secondary multiplier</td>
-      <td class="treat-covered"><strong>Covered</strong>: the report's strongest ground</td>
-    </tr>
-    <tr>
-      <td class="title">The transgender / culture-war attack ad</td>
-      <td>Second-order tactical liability</td>
-      <td class="treat-covered"><strong>Covered</strong>: pollster account calls it "very effective"</td>
-    </tr>
-    <tr>
-      <td class="title">Campaign debt and financial control</td>
-      <td>Low-weight management symptom</td>
-      <td class="treat-distorted"><strong>Covered in part</strong>: finances documented, not framed as a failure</td>
-    </tr>
-    <tr>
-      <td class="title">The class realignment / diploma divide</td>
-      <td>Durable structural current</td>
-      <td class="treat-distorted"><strong>Covered in slogan form</strong></td>
-    </tr>
-    <tr>
-      <td class="title">The new-media environment</td>
-      <td>Real force multiplier</td>
-      <td class="treat-omitted"><strong>Omitted</strong></td>
-    </tr>
-  </tbody>
-</table>
+| Cause of the 2024 loss | Evidence weight | DNC report's treatment |
+| --- | --- | --- |
+| Inflation / cost-of-living | Largest single issue | <strong class="treat-distorted">Minimized</strong>: near-silent on the substance |
+| The global anti-incumbent environment | Dominant baseline force | <strong class="treat-omitted">Largely absent</strong> |
+| The Biden decision to seek re-election | Largest controllable error | <strong class="treat-omitted">Omitted</strong> |
+| The late switch / 107-day compression | Major aggravating error | <strong class="treat-distorted">Distorted</strong>: framed only as a Harris-prep failure |
+| Gaza / Israel | Real second-tier; plausibly decisive in Michigan | <strong class="treat-omitted">Omitted entirely</strong> |
+| Immigration | Strong second-tier | <strong class="treat-distorted">Distorted</strong>: framed as a labeling problem |
+| Campaign strategy and execution | Secondary multiplier | <strong class="treat-covered">Covered</strong>: the report's strongest ground |
+| The transgender / culture-war attack ad | Second-order tactical liability | <strong class="treat-covered">Covered</strong>: pollster account calls it "very effective" |
+| Campaign debt and financial control | Low-weight management symptom | <strong class="treat-distorted">Covered in part</strong>: finances documented, not framed as a failure |
+| The class realignment / diploma divide | Durable structural current | <strong class="treat-distorted">Covered in slogan form</strong> |
+| The new-media environment | Real force multiplier | <strong class="treat-omitted">Omitted</strong> |
 
 The pattern is not random. The report covers, and covers competently, the
 factors that point toward *campaign tactics and party mechanics*:
