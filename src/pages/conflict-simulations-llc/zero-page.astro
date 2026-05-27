@@ -65,20 +65,21 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <div class="prose-body terminal-section mt-16">
         <h2>Play it in your browser</h2>
         <p>
-          A curated two-puzzle demo of the assembly editor, the memory grid,
-          the 6502 instruction subset. Same engine as the full standalone.
-          Keyboard-first; mouse supported.
+          The free web build runs in any modern browser. The original
+          fifteen main missions, the assembly editor, the memory grid, the
+          6502 instruction subset, the sandbox. Same engine as the
+          standalone. Keyboard-first; mouse supported.
         </p>
       </div>
 
       <a
-        href="/zero-page-demo/index.html"
+        href="https://lerugray.github.io/ZERO-PAGE/"
         target="_blank"
         rel="noopener"
         class="mt-5 flex flex-col items-center justify-center gap-2 rounded border border-border px-6 py-20 text-center transition-colors hover:border-muted"
       >
         <span class="font-serif text-xl italic text-foreground"
-          >&#9658;&nbsp; Play the web demo</span
+          >&#9658;&nbsp; Play the web build</span
         >
         <span class="font-mono text-xs uppercase tracking-wider text-muted"
           >opens fullscreen, in a new tab</span
@@ -88,48 +89,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <div class="prose-body terminal-section mt-16">
         <h2>Sandbox mode</h2>
         <p>
-          Write freeform 6502 assembly outside the campaign. The same memory
-          model, the same instruction subset, no mission tests, no time
-          pressure. Useful for the curious; load whatever you want into the
-          zero page and watch what happens.
+          Inside the web build, press <span class="font-mono">S</span> from
+          the title screen or any puzzle to enter sandbox mode. Freeform
+          6502 outside the campaign, same memory model, no mission tests,
+          no time pressure. Useful for the curious; load whatever you want
+          into the zero page and watch what happens.
         </p>
-      </div>
-
-      <a
-        href="/zero-page-sandbox/index.html"
-        target="_blank"
-        rel="noopener"
-        class="mt-5 flex flex-col items-center justify-center gap-2 rounded border border-border px-6 py-20 text-center transition-colors hover:border-muted"
-      >
-        <span class="font-serif text-xl italic text-foreground"
-          >&#9658;&nbsp; Open sandbox</span
-        >
-        <span class="font-mono text-xs uppercase tracking-wider text-muted"
-          >opens fullscreen, in a new tab</span
-        >
-      </a>
-
-      <div class="prose-body terminal-section mt-16">
-        <h2>My Malfunction</h2>
-        <p>
-          Somewhere late in the campaign the program plays itself a music
-          video. Original composition, lo-fi visualizer, phosphor green. A
-          thirty-second teaser is below; the full sequence unlocks in the
-          standalone.
-        </p>
-      </div>
-
-      <div
-        class="mt-5 overflow-hidden rounded border border-border"
-      >
-        <video
-          class="w-full"
-          src="/zero-page-music-video.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-          controls></video>
       </div>
 
       <div class="prose-body terminal-section mt-16">
