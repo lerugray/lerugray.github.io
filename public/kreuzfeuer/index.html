@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KREUZFEUER — A Reformation Roguelike</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=UnifrakturCook:wght@700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --parchment:#E8DCC0; --parch-deep:#D9CCAB; --parch-pale:#F1E7CF;
+    --walnut:#1A1208; --walnut-soft:#3A2A1A;
+    --gold:#D9A441; --gold-shadow:#A37C2A;
+    --crimson:#7A2A20; --stone:#6E665A; --ash:#8A8275;
+    --frak:'UnifrakturMaguntia', serif;
+    --frak-bold:'UnifrakturCook', serif;
+    --serif:'IM Fell English', Georgia, serif;
+    --sc:'IM Fell English SC', Georgia, serif;
+    --pica:'IM Fell DW Pica', Georgia, serif;
+    --measure:1080px;
+  }
+  *{box-sizing:border-box;}
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0; background:var(--parch-deep);
+    color:var(--walnut); font-family:var(--serif);
+    font-size:20px; line-height:1.55;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* paper fibre texture */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:9999; pointer-events:none;
+    opacity:.45; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+  }
+  img{ display:block; max-width:100%; image-rendering:pixelated; }
+  a{ color:var(--crimson); text-decoration:none; }
+
+  /* ---- sheet frame ---- */
+  .sheet{
+    max-width:var(--measure); margin:0 auto; background:var(--parchment);
+    position:relative;
+    border:3px solid var(--walnut);
+    box-shadow:0 0 0 7px var(--parchment), 0 0 0 9px var(--walnut);
+  }
+  .mat{ padding:26px clamp(10px,2.4vw,30px) 40px; }
+  .corner{ position:absolute; width:42px; height:42px; z-index:5; }
+  .corner.tl{ top:-6px; left:-6px; }
+  .corner.tr{ top:-6px; right:-6px; transform:scaleX(-1); }
+  .corner.bl{ bottom:-6px; left:-6px; transform:scaleY(-1); }
+  .corner.br{ bottom:-6px; right:-6px; transform:scale(-1,-1); }
+
+  /* ---- ornament bands ---- */
+  .band{ width:100%; line-height:0; }
+  .band svg{ width:100%; height:24px; display:block; }
+  .band.tall svg{ height:30px; }
+  .divider{
+    display:flex; align-items:center; gap:18px; margin:46px clamp(0px,3vw,60px);
+    color:var(--walnut-soft);
+  }
+  .divider::before, .divider::after{
+    content:""; flex:1; height:0; border-top:1.5px solid var(--walnut);
+  }
+  .divider svg{ height:26px; width:auto; flex:0 0 auto; }
+
+  /* ---- section label ---- */
+  .label{
+    font-family:var(--sc); letter-spacing:.16em; text-transform:uppercase;
+    font-size:15px; color:var(--walnut-soft);
+    display:flex; align-items:center; gap:.7em; justify-content:center;
+  }
+  .label .pip{ width:7px; height:7px; background:var(--walnut-soft); transform:rotate(45deg); display:inline-block; }
+
+  /* ---- hero ---- */
+  .kicker{
+    text-align:center; font-family:var(--sc); text-transform:uppercase;
+    letter-spacing:.34em; font-size:14px; color:var(--walnut-soft);
+    margin:8px 0 6px;
+  }
+  h1.title{
+    font-family:var(--frak-bold); font-weight:700;
+    text-align:center; margin:0; color:var(--walnut);
+    font-size:clamp(58px,11vw,128px); line-height:.92;
+    letter-spacing:.01em;
+  }
+  .tagline{
+    text-align:center; font-style:italic; font-size:clamp(19px,2.4vw,25px);
+    color:var(--walnut-soft); margin:14px auto 0; max-width:760px;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(20px,3vw,46px);
+    align-items:center; margin-top:34px;
+  }
+  .hero-copy p.blurb{
+    font-size:clamp(19px,1.5vw,22px); line-height:1.6; margin:0 0 22px;
+  }
+  .hero-art{ position:relative; }
+  .plate{
+    border:2.5px solid var(--walnut); padding:6px; background:var(--parch-deep);
+    box-shadow:7px 7px 0 var(--walnut);
+  }
+  .plate img{ border:1px solid var(--gold-shadow); }
+  .plate .cap{
+    font-family:var(--sc); text-transform:uppercase; letter-spacing:.12em;
+    font-size:12px; color:var(--walnut-soft); text-align:center; padding:7px 4px 3px;
+  }
+  .hook{
+    display:inline-block; border:2px solid var(--walnut); background:var(--parch-pale);
+    padding:11px 18px 13px; font-family:var(--pica); font-style:italic; font-size:18px;
+    line-height:1.45; margin:6px 0 24px; box-shadow:4px 4px 0 var(--walnut);
+  }
+
+  /* ---- buttons / badges ---- */
+  .cta-row{ display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-top:6px; }
+  .btn{
+    font-family:var(--sc); text-transform:uppercase; letter-spacing:.1em;
+    font-size:17px; padding:13px 26px; border:2.5px solid var(--walnut);
+    background:var(--parch-pale); color:var(--walnut); cursor:pointer;
+    box-shadow:5px 5px 0 var(--walnut); transition:transform .05s, box-shadow .05s;
+    display:inline-flex; align-items:center; gap:.6em;
+  }
+  .btn:hover{ transform:translate(2px,2px); box-shadow:3px 3px 0 var(--walnut); }
+  .btn:active{ transform:translate(5px,5px); box-shadow:0 0 0 var(--walnut); }
+  .btn.gold{ background:var(--gold); border-color:var(--walnut); }
+  .btn .di{ width:9px; height:9px; background:var(--walnut); transform:rotate(45deg); }
+  .btn.gold .di{ background:var(--walnut); }
+  .badges{ display:flex; gap:12px; flex-wrap:wrap; margin-top:20px; align-items:center; }
+  .badge{
+    display:inline-flex; align-items:center; gap:.5em;
+    font-family:var(--sc); text-transform:uppercase; letter-spacing:.1em; font-size:13px;
+    color:var(--walnut-soft); border:2px solid var(--walnut-soft); padding:7px 13px;
+    background:var(--parchment);
+  }
+  .badge .gl{ width:13px; height:13px; border:2px solid var(--walnut-soft); position:relative; }
+  .badge .gl::before,.badge .gl::after{ content:""; position:absolute; background:var(--walnut-soft); }
+  .badge.win .gl::before{ left:4.5px; top:0; bottom:0; width:1.5px; }
+  .badge.win .gl::after{ top:4.5px; left:0; right:0; height:1.5px; }
+  .badge.mac .gl{ border-radius:0; }
+  .badge.mac .gl::before{ inset:2px; border:1.5px solid var(--walnut-soft); content:""; }
+  .ea-note{
+    font-family:var(--sc); text-transform:uppercase; letter-spacing:.12em;
+    font-size:13px; color:var(--crimson); margin-top:16px;
+  }
+
+  /* ---- prose / what-is-it ---- */
+  .prose{ max-width:760px; margin:0 auto; }
+  .prose.lead p{ font-size:clamp(20px,1.7vw,24px); line-height:1.62; }
+  .dropcap::first-letter{
+    font-family:var(--frak-bold); font-size:5.2em; line-height:.72;
+    float:left; padding:6px 12px 0 0; color:var(--crimson);
+  }
+  h2.sec{
+    font-family:var(--frak); font-size:clamp(34px,4.6vw,52px); line-height:1;
+    text-align:center; margin:14px 0 0; color:var(--walnut);
+  }
+  .sec-sub{ text-align:center; font-style:italic; color:var(--walnut-soft); margin:6px 0 0; font-size:18px; }
+
+  /* ---- feature rows ---- */
+  .feature{
+    display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,56px);
+    align-items:center; margin:8px clamp(0px,2vw,30px);
+  }
+  .feature.flip .f-art{ order:2; }
+  .f-eyebrow{
+    font-family:var(--sc); text-transform:uppercase; letter-spacing:.14em;
+    font-size:13px; color:var(--gold-shadow); margin-bottom:6px;
+    display:flex; align-items:center; gap:.6em;
+  }
+  .f-eyebrow .num{ font-family:var(--frak-bold); font-size:22px; color:var(--walnut); letter-spacing:0; }
+  .feature h3{
+    font-family:var(--frak); font-size:clamp(30px,3.6vw,42px); line-height:1.02;
+    margin:0 0 14px; color:var(--walnut);
+  }
+  .feature p{ margin:0 0 14px; font-size:18.5px; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .chip{
+    font-family:var(--sc); text-transform:uppercase; letter-spacing:.08em; font-size:12.5px;
+    border:1.5px solid var(--walnut-soft); padding:5px 11px; color:var(--walnut-soft);
+    background:var(--parch-pale);
+  }
+
+  /* ---- the hidden thread (dark inset) ---- */
+  .thread{
+    margin:8px clamp(0px,2vw,30px); border:3px solid var(--walnut);
+    background:var(--walnut); color:var(--parch-pale);
+    box-shadow:8px 8px 0 var(--gold-shadow);
+    padding:clamp(34px,5vw,64px) clamp(24px,5vw,72px); position:relative; overflow:hidden;
+  }
+  .thread::before{
+    content:""; position:absolute; inset:0; opacity:.10; mix-blend-mode:screen; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n2)'/%3E%3C/svg%3E");
+  }
+  .thread .f-eyebrow{ color:var(--gold); justify-content:center; }
+  .thread .f-eyebrow .num{ color:var(--gold); }
+  .thread h3{ font-family:var(--frak); color:var(--gold); text-align:center;
+    font-size:clamp(32px,4.4vw,50px); margin:6px 0 18px; }
+  .thread p{ text-align:center; max-width:680px; margin:0 auto; font-size:20px;
+    color:#E8DCC0; line-height:1.62; position:relative; }
+  .thread .sigil{ display:block; width:46px; height:46px; margin:0 auto 14px; }
+
+  /* ---- gallery ---- */
+  .gallery{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(16px,2.4vw,30px);
+    margin:8px clamp(0px,2vw,20px); }
+  .shot{ border:2.5px solid var(--walnut); background:var(--parch-deep); padding:6px;
+    box-shadow:6px 6px 0 var(--walnut); }
+  .shot img{ border:1px solid var(--gold-shadow); width:100%; }
+  .shot .cap{ font-family:var(--sc); text-transform:uppercase; letter-spacing:.1em;
+    font-size:12px; color:var(--walnut-soft); padding:7px 4px 2px; text-align:center; }
+
+  /* ---- footer ---- */
+  footer{ text-align:center; margin-top:18px; }
+  .colophon{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; align-items:center;
+    font-family:var(--sc); text-transform:uppercase; letter-spacing:.1em; font-size:14px;
+    color:var(--walnut-soft); margin:18px 0; }
+  .colophon a{ color:var(--walnut); border-bottom:1.5px solid var(--gold-shadow); padding-bottom:1px; }
+  .colophon .sep{ width:6px; height:6px; background:var(--walnut-soft); transform:rotate(45deg); }
+  .manual{ font-style:italic; color:var(--walnut-soft); max-width:620px; margin:8px auto 0; font-size:17px; }
+  .imprint{ font-family:var(--frak); font-size:26px; color:var(--walnut); margin:18px 0 4px; }
+  .fineprint{ font-family:var(--sc); letter-spacing:.08em; font-size:12px; color:var(--ash);
+    text-transform:uppercase; margin:6px 0 4px; }
+
+  @media(max-width:820px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-art{ order:-1; max-width:520px; margin:0 auto; }
+    .feature{ grid-template-columns:1fr; }
+    .feature.flip .f-art{ order:0; }
+    .f-art{ max-width:560px; margin:0 auto; }
+    .gallery{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== shared svg defs ====== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="diamondband" width="34" height="24" patternUnits="userSpaceOnUse">
+      <path d="M0 6 H34 M0 18 H34" stroke="#1A1208" stroke-width="1.3"/>
+      <path d="M17 7 L24 12 L17 17 L10 12 Z" fill="#1A1208"/>
+      <path d="M17 9.4 L20.6 12 L17 14.6 L13.4 12 Z" fill="#E8DCC0"/>
+      <rect x="1.5" y="9" width="3" height="6" fill="#1A1208"/>
+      <rect x="29.5" y="9" width="3" height="6" fill="#1A1208"/>
+    </pattern>
+  </defs>
+</svg>
+
+<div class="sheet">
+  <svg class="corner tl" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 14 V2 H14" fill="none" stroke="#1A1208" stroke-width="3"/><path d="M8 20 V8 H20" fill="none" stroke="#1A1208" stroke-width="2"/><path d="M9 9 L15 4 L20 9 L15 14 Z" fill="#1A1208"/><path d="M15 7 L17.5 9 L15 11 L12.5 9 Z" fill="#E8DCC0"/></svg>
+  <svg class="corner tr" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 14 V2 H14" fill="none" stroke="#1A1208" stroke-width="3"/><path d="M8 20 V8 H20" fill="none" stroke="#1A1208" stroke-width="2"/><path d="M9 9 L15 4 L20 9 L15 14 Z" fill="#1A1208"/><path d="M15 7 L17.5 9 L15 11 L12.5 9 Z" fill="#E8DCC0"/></svg>
+  <svg class="corner bl" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 14 V2 H14" fill="none" stroke="#1A1208" stroke-width="3"/><path d="M8 20 V8 H20" fill="none" stroke="#1A1208" stroke-width="2"/><path d="M9 9 L15 4 L20 9 L15 14 Z" fill="#1A1208"/><path d="M15 7 L17.5 9 L15 11 L12.5 9 Z" fill="#E8DCC0"/></svg>
+  <svg class="corner br" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 14 V2 H14" fill="none" stroke="#1A1208" stroke-width="3"/><path d="M8 20 V8 H20" fill="none" stroke="#1A1208" stroke-width="2"/><path d="M9 9 L15 4 L20 9 L15 14 Z" fill="#1A1208"/><path d="M15 7 L17.5 9 L15 11 L12.5 9 Z" fill="#E8DCC0"/></svg>
+
+  <div class="band tall"><svg preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#diamondband)"/></svg></div>
+
+  <div class="mat">
+
+    <!-- ============ HERO ============ -->
+    <header>
+      <div class="kicker">Anno Domini MDXXIV · The Holy Roman Empire</div>
+      <h1 class="title">Kreuzfeuer</h1>
+      <p class="tagline">A roguelike of faith, steel, and the year the world turned over.</p>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="blurb">The Holy Roman Empire, 1524. Lead a band of the desperate and the devout across a Germany splitting along the fault lines of faith — through tavern and battlefield, plague road and burning village — while something older stirs beneath the wars of men.</p>
+          <div class="hook">Darklands, reforged for the Reformation.</div>
+          <div class="cta-row">
+            <a class="btn gold" href="#" data-link="itch"><span class="di"></span> Get it on itch.io</a>
+            <a class="btn" href="#" data-link="steam">Wishlist on Steam — soon</a>
+          </div>
+          <div class="badges">
+            <span class="badge win"><span class="gl"></span> Windows</span>
+            <span class="badge mac"><span class="gl"></span> macOS</span>
+            <span class="badge">Price · [TBD]</span>
+          </div>
+          <div class="ea-note">✦ Early Access — coming soon</div>
+        </div>
+        <div class="hero-art">
+          <figure class="plate" style="margin:0">
+            <img src="images/title.png" alt="KREUZFEUER title screen — Fraktur title on a woodcut parchment broadsheet" />
+            <figcaption class="cap">Plate I · The Title, as printed</figcaption>
+          </figure>
+        </div>
+      </div>
+    </header>
+
+    <div class="band"><svg preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#diamondband)"/></svg></div>
+
+    <!-- ============ WHAT IS IT ============ -->
+    <section>
+      <div class="label"><span class="pip"></span> Of the Game <span class="pip"></span></div>
+      <div class="prose lead" style="margin-top:18px">
+        <p class="dropcap">Kreuzfeuer is a roguelike CRPG of the German Reformation — the spiritual heir to <em>Darklands</em> (MicroProse, 1992), built anew in the age of its successors. You take a band of ordinary people — a miner's son, a defrocked monk, a soldier home from the Italian wars — and walk them through a country coming apart. Towns close their gates by their faith. Roads turn to ambush. Every run is a chronicle: written as it is lived, closed under the date it ends.</p>
+      </div>
+    </section>
+
+    <div class="divider"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="M30 3 L40 13 L30 23 L20 13 Z" fill="#1A1208"/><path d="M30 8 L35 13 L30 18 L25 13 Z" fill="#E8DCC0"/><path d="M30 11 L32 13 L30 15 L28 13 Z" fill="#1A1208"/><circle cx="9" cy="13" r="3" fill="#3A2A1A"/><circle cx="51" cy="13" r="3" fill="#3A2A1A"/></svg></div>
+
+    <!-- ============ FEATURES ============ -->
+    <div class="label" style="margin-bottom:8px"><span class="pip"></span> The Systems, Set Down in Order <span class="pip"></span></div>
+
+    <!-- 1 -->
+    <section class="feature" style="margin-top:34px">
+      <div class="f-art">
+        <figure class="plate" style="margin:0">
+          <img src="images/chargen.png" alt="Character creation screen — choosing party size" />
+          <figcaption class="cap">Of the Life Now Inscribed · Character Creation</figcaption>
+        </figure>
+      </div>
+      <div class="f-copy">
+        <div class="f-eyebrow"><span class="num">I</span> Of Character</div>
+        <h3>The life now inscribed</h3>
+        <p>Build a party from backgrounds, occupations, and faith. Who they were — where they were born, the trade they kept, the church they answered to — shapes what they can do, and what the world will let them attempt.</p>
+        <p>Four souls is the standard road. Take fewer, and the road turns harder.</p>
+        <div class="chips"><span class="chip">Life-path origins</span><span class="chip">Trade &amp; skill</span><span class="chip">Faith chosen</span></div>
+      </div>
+    </section>
+
+    <div class="divider"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="M30 3 L40 13 L30 23 L20 13 Z" fill="#1A1208"/><path d="M30 8 L35 13 L30 18 L25 13 Z" fill="#E8DCC0"/><path d="M30 11 L32 13 L30 15 L28 13 Z" fill="#1A1208"/><circle cx="9" cy="13" r="3" fill="#3A2A1A"/><circle cx="51" cy="13" r="3" fill="#3A2A1A"/></svg></div>
+
+    <!-- 2 -->
+    <section class="feature flip">
+      <div class="f-art">
+        <figure class="plate" style="margin:0">
+          <img src="images/overworld.png" alt="Overworld map of the Holy Roman Empire with towns, party and faction standings" />
+          <figcaption class="cap">The Empire, Walked on Foot · Overworld</figcaption>
+        </figure>
+      </div>
+      <div class="f-copy">
+        <div class="f-eyebrow"><span class="num">II</span> Of the Empire Divided</div>
+        <h3>A living Germany, splitting along its faith</h3>
+        <p>Five powers contend for the soul of the land, and their fortunes shift with the historical tide. Your standing with each opens some doors and bars others — a Lutheran town that welcomes you is a Church abbey that will not.</p>
+        <div class="chips"><span class="chip">Imperial Church</span><span class="chip">Lutherans</span><span class="chip">Peasant League</span><span class="chip">Anabaptists</span><span class="chip">The Nobility</span></div>
+      </div>
+    </section>
+
+    <div class="divider"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="M30 3 L40 13 L30 23 L20 13 Z" fill="#1A1208"/><path d="M30 8 L35 13 L30 18 L25 13 Z" fill="#E8DCC0"/><path d="M30 11 L32 13 L30 15 L28 13 Z" fill="#1A1208"/><circle cx="9" cy="13" r="3" fill="#3A2A1A"/><circle cx="51" cy="13" r="3" fill="#3A2A1A"/></svg></div>
+
+    <!-- 3 -->
+    <section class="feature">
+      <div class="f-art">
+        <figure class="plate" style="margin:0">
+          <img src="images/combat.png" alt="Turn-based tactical combat on a grid with a period combat chronicle" />
+          <figcaption class="cap">The Lots Are Cast · Tactical Combat</figcaption>
+        </figure>
+      </div>
+      <div class="f-copy">
+        <div class="f-eyebrow"><span class="num">III</span> Of Steel &amp; Death</div>
+        <h3>Tactical, and lethal</h3>
+        <p>Turn-based skirmishes where reach, armour, and morale decide the day. A blade meeting a gambeson is not a blade meeting plate; a man whose nerve breaks runs. Death, once dealt, is not undone.</p>
+        <p>The chronicle records each blow as it falls — "the lots are cast; God keep the just."</p>
+        <div class="chips"><span class="chip">Reach &amp; armour</span><span class="chip">Morale</span><span class="chip">Permanent death</span></div>
+      </div>
+    </section>
+
+    <div class="divider"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="M30 3 L40 13 L30 23 L20 13 Z" fill="#1A1208"/><path d="M30 8 L35 13 L30 18 L25 13 Z" fill="#E8DCC0"/><path d="M30 11 L32 13 L30 15 L28 13 Z" fill="#1A1208"/><circle cx="9" cy="13" r="3" fill="#3A2A1A"/><circle cx="51" cy="13" r="3" fill="#3A2A1A"/></svg></div>
+
+    <!-- 4 -->
+    <section class="feature flip">
+      <div class="f-art">
+        <figure class="plate" style="margin:0">
+          <img src="images/location.png" alt="A town-gate event: pay the gate tax, argue the rate, or turn back" />
+          <figcaption class="cap">Beneath the Arch · Choice</figcaption>
+        </figure>
+      </div>
+      <div class="f-copy">
+        <div class="f-eyebrow"><span class="num">IV</span> Of Choices Made</div>
+        <h3>Choices with weight</h3>
+        <p>Period-grounded events without clean answers. Pay the gate tax or argue the rate; intervene at the burning village or pass it by. The road remembers what you chose.</p>
+        <p>And a hidden <em>Witness</em> keeps its own ledger — of the cruelties you allow to stand.</p>
+        <div class="chips"><span class="chip">Grounded events</span><span class="chip">The Witness</span><span class="chip">Consequence</span></div>
+      </div>
+    </section>
+
+    <div class="band"><svg preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#diamondband)"/></svg></div>
+
+    <!-- 5 — hidden thread (dark inset) -->
+    <section class="thread">
+      <svg class="sigil" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="20" fill="none" stroke="#D9A441" stroke-width="1.5"/><path d="M23 6 L40 23 L23 40 L6 23 Z" fill="none" stroke="#D9A441" stroke-width="1.5"/><path d="M23 14 L32 23 L23 32 L14 23 Z" fill="#7A2A20"/><circle cx="23" cy="23" r="3" fill="#D9A441"/></svg>
+      <div class="f-eyebrow"><span class="num">V</span> Of the Thing Beneath</div>
+      <h3>A hidden thread</h3>
+      <p>Under the wars of men runs a low, creeping mystery — easy to miss, hard to unsee once seen. It gathers, year upon year, toward the siege of Münster. Some who walk the road never notice. Some notice too late.</p>
+    </section>
+
+    <div class="band"><svg preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#diamondband)"/></svg></div>
+
+    <!-- 6 -->
+    <section class="feature" style="margin-top:34px">
+      <div class="f-art">
+        <figure class="plate" style="margin:0">
+          <img src="images/gluckshaus_board.png" alt="Glückshaus — a period dice game played on a numbered board" />
+          <figcaption class="cap">The House of Fortune · Glückshaus</figcaption>
+        </figure>
+      </div>
+      <div class="f-copy">
+        <div class="f-eyebrow"><span class="num">VI</span> Of Texture &amp; Play</div>
+        <h3>Period to the grain</h3>
+        <p>Dürer-woodcut art throughout, and a companion manual in the Darklands tradition — written to be read. In the taverns, sit down to <em>Glückshaus</em>: a real game of dice across a numbered board, with charms to win and coin to wager against a sly pardoner.</p>
+        <div class="chips"><span class="chip">Woodcut art</span><span class="chip">Companion manual</span><span class="chip">Glückshaus dice</span></div>
+      </div>
+    </section>
+
+    <div class="divider"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="M30 3 L40 13 L30 23 L20 13 Z" fill="#1A1208"/><path d="M30 8 L35 13 L30 18 L25 13 Z" fill="#E8DCC0"/><path d="M30 11 L32 13 L30 15 L28 13 Z" fill="#1A1208"/><circle cx="9" cy="13" r="3" fill="#3A2A1A"/><circle cx="51" cy="13" r="3" fill="#3A2A1A"/></svg></div>
+
+    <!-- 7 -->
+    <section class="feature flip">
+      <div class="f-art">
+        <figure class="plate" style="margin:0">
+          <img src="images/runend.png" alt="End-of-run chronicle and final score in a dark amber palette" />
+          <figcaption class="cap">A Chronicle of the Road · Run's End</figcaption>
+        </figure>
+      </div>
+      <div class="f-copy">
+        <div class="f-eyebrow"><span class="num">VII</span> Of the Run</div>
+        <h3>Each run a fresh telling</h3>
+        <p>Play <em>Journeyman</em> and keep your saves, or <em>Ironman</em> and be granted one life only. Either way the road claims all who walk it long enough — and writes them down: days survived, foes felled, where they stood with the factions, how far the thing beneath had stirred.</p>
+        <div class="chips"><span class="chip">Journeyman · saves</span><span class="chip">Ironman · one life</span><span class="chip">The chronicle &amp; score</span></div>
+      </div>
+    </section>
+
+    <div class="band tall"><svg preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#diamondband)"/></svg></div>
+
+    <!-- ============ GALLERY ============ -->
+    <section>
+      <h2 class="sec">The Broadsheet Plates</h2>
+      <p class="sec-sub">Six impressions from the press.</p>
+      <div class="gallery" style="margin-top:30px">
+        <div class="shot"><img src="images/overworld.png" alt="Overworld map" /><div class="cap">The Empire, Walked on Foot</div></div>
+        <div class="shot"><img src="images/combat.png" alt="Tactical combat" /><div class="cap">The Lots Are Cast</div></div>
+        <div class="shot"><img src="images/location.png" alt="Town-gate choice" /><div class="cap">Beneath the Arch</div></div>
+        <div class="shot"><img src="images/runend.png" alt="Run's-end chronicle" /><div class="cap">A Chronicle of the Road</div></div>
+        <div class="shot"><img src="images/gluckshaus_intro.png" alt="Glückshaus introduction" /><div class="cap">The House of Fortune</div></div>
+        <div class="shot"><img src="images/chargen.png" alt="Character creation" /><div class="cap">The Life Now Inscribed</div></div>
+      </div>
+    </section>
+
+    <div class="band"><svg preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#diamondband)"/></svg></div>
+
+    <!-- ============ CLOSING CTA ============ -->
+    <section style="text-align:center; padding:18px 0 4px">
+      <h2 class="sec">Walk the Road</h2>
+      <p class="sec-sub" style="max-width:560px;margin-left:auto;margin-right:auto">Windows &amp; macOS. Approaching Early Access.</p>
+      <div class="cta-row" style="justify-content:center;margin-top:24px">
+        <a class="btn gold" href="#" data-link="itch"><span class="di"></span> Get it on itch.io</a>
+        <a class="btn" href="#" data-link="steam">Wishlist on Steam — soon</a>
+      </div>
+      <div class="ea-note" style="text-align:center">✦ Price [TBD] · Early Access — coming soon</div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+      <div class="divider"><svg viewBox="0 0 60 26" aria-hidden="true"><path d="M30 3 L40 13 L30 23 L20 13 Z" fill="#1A1208"/><path d="M30 8 L35 13 L30 18 L25 13 Z" fill="#E8DCC0"/><path d="M30 11 L32 13 L30 15 L28 13 Z" fill="#1A1208"/><circle cx="9" cy="13" r="3" fill="#3A2A1A"/><circle cx="51" cy="13" r="3" fill="#3A2A1A"/></svg></div>
+      <div class="imprint">Conflict Simulations Limited</div>
+      <p class="manual">A Reformation-era roguelike CRPG, built in Godot 4. Ships with a companion manual in the Darklands tradition — meant to be kept beside the screen.</p>
+      <div class="colophon">
+        <a href="#" data-link="itch">itch.io [TBD]</a><span class="sep"></span>
+        <a href="#" data-link="steam">Steam wishlist [TBD]</a><span class="sep"></span>
+        <a href="#" data-link="site">Developer [TBD]</a><span class="sep"></span>
+        <a href="#" data-link="manual">The Manual</a>
+      </div>
+      <div class="fineprint">© Conflict Simulations Limited · KREUZFEUER · Windows &amp; macOS · Early Access — coming soon</div>
+    </footer>
+
+  </div>
+
+  <div class="band tall"><svg preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#diamondband)"/></svg></div>
+</div>
+
+</body>
+</html>
