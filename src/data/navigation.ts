@@ -15,6 +15,7 @@ export const navGroups: NavGroup[] = [
     label: 'Writing',
     plate: 'Pl. II',
     items: [
+      { href: '/writing/the-model-that-hangs-up', label: 'The Model That Hangs Up' },
       {
         href: '/writing/democratic-defeat-counter-autopsy',
         label: 'The 2024 Democratic Defeat',
