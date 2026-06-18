@@ -789,5 +789,19 @@
     ],
     "notes": "A Rust terminal world-simulation game, in Early Access on itch.io. Year and status verify.",
     "added": "2026-05-16"
+  },
+  {
+    "id": "c-0062",
+    "title": "The Elect",
+    "medium": "software",
+    "status": "released",
+    "alias": "Ray Weiss",
+    "year": 2026,
+    "venue": "lerugray.github.io/the-elect",
+    "tags": [
+      "seed"
+    ],
+    "notes": "A roster of small local language models, each trained on the public-domain words of a historical figure to carry that figure's register. Public-domain corpora only, released openly under CC-BY-NC. Train the register, not the man.",
+    "added": "2026-06-18"
   }
 ]

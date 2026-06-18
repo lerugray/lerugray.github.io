@@ -15,6 +15,8 @@ export const navGroups: NavGroup[] = [
     label: 'Writing',
     plate: 'Pl. II',
     items: [
+      { href: '/writing/the-register-not-the-man', label: 'The Register, Not the Man' },
+      { href: '/writing/judgment-does-not-transfer', label: 'Judgment Does Not Transfer' },
       { href: '/writing/the-model-that-hangs-up', label: 'The Model That Hangs Up' },
       {
         href: '/writing/democratic-defeat-counter-autopsy',
@@ -54,6 +56,7 @@ export const navGroups: NavGroup[] = [
     label: 'Projects',
     plate: 'Pl. V',
     items: [
+      { href: 'https://lerugray.github.io/the-elect/', label: 'The Elect' },
       { href: '/auftragstaktik', label: 'Auftragstaktik' },
       { href: '/conflict-simulations-llc/veridian-contraption', label: 'Veridian Contraption' },
     ],
