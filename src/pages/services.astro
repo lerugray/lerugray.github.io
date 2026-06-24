@@ -1,0 +1,125 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Work With Me · Ray Weiss"
+  description="Select commissions from Ray Weiss: custom AI voice models, AI workflow builds, and game-design consultation. I direct, and the tools implement."
+>
+  <div
+    slot="sheet-id"
+    class="sheet-id"
+    aria-label="Sheet identification"
+  >
+    <div class="plate">
+      <span class="num">PL. I.B</span> Commissions · Open to Select Work
+    </div>
+    <div class="edition">Edition 2026.06 · Brooklyn, NY</div>
+  </div>
+
+  <div class="mx-auto max-w-4xl">
+    <header class="hero">
+      <img
+        src="/counter-rw.svg"
+        alt="Ray Weiss unit counter"
+        class="counter"
+        width="96"
+        height="72"
+      />
+      <div>
+        <h1>Work With Me</h1>
+        <p class="dek">A small number of commissions a year.</p>
+        <div class="slug" aria-label="Identification">
+          <span><strong>UNIT</strong> RW / 26</span>
+          <span class="sep">/</span>
+          <span><strong>TYPE</strong> Designer-Director</span>
+          <span class="sep">/</span>
+          <span><strong>STATUS</strong> Open, selective</span>
+          <span class="sep">/</span>
+          <span><strong>SCALE</strong> Solo + tools</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="bio">
+      <p>
+        Same method as everything else on this site: I direct, and the tools implement. I take on a
+        small number of projects a year, in the three places where this division of labor holds. The
+        design judgment is mine. The implementation is fast and cheap because the tools got good.
+      </p>
+    </div>
+
+    <section aria-labelledby="commissions">
+      <div class="section-head">
+        <h2 class="section-label" id="commissions">
+          <span class="pl">PL. I.B</span>Commissions
+        </h2>
+        <span class="section-count">03 services ——</span>
+      </div>
+      <ol class="infra-list">
+        <li>
+          <div class="infra-meta">
+            <span><span class="k">Delivery</span><span class="v">2 to 3 weeks</span></span>
+            <span><span class="k">Runs</span><span class="v">Locally</span></span>
+            <span><span class="k">Weights</span><span class="v">Yours</span></span>
+          </div>
+          <a href="https://lerugray.github.io/the-elect/" class="infra-title">
+            Custom voice &amp; persona models &rarr;
+          </a>
+          <p class="infra-desc">
+            A small open model fine-tuned to one register: a historical figure, a brand, a house
+            style, your own notes. The Elect is the public demonstration, trained on public-domain
+            text with clear provenance. You bring the corpus. I direct the training, and I decide
+            what stays in and what gets cut. The output carries your register, not the model's
+            defaults.
+          </p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span><span class="k">Setup</span><span class="v">$1,200 fixed</span></span>
+            <span><span class="k">Retainer</span><span class="v">$750 / mo</span></span>
+            <span><span class="k">Advisory</span><span class="v">$100 / hr</span></span>
+            <span><span class="k">Turnaround</span><span class="v">7 to 14 days</span></span>
+          </div>
+          <a href="/generalstaff" class="infra-title">AI workflow &amp; automation builds</a>
+          <p class="infra-desc">
+            Automation for the unglamorous parts of a workflow: email triage, intake routing,
+            template-driven document generation, scheduled follow-ups. I build the system, write the
+            documentation, and run a handover until your team operates it alone. I operate AI agents.
+            I do not write traditional code. The architecture is GeneralStaff, the framework I run my
+            own work on: thirty-plus projects under a reviewer gate that rejects about one change in
+            ten before it ships.
+          </p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span><span class="k">Scope</span><span class="v">Per project</span></span>
+            <span><span class="k">Domain</span><span class="v">Tabletop + digital</span></span>
+          </div>
+          <a href="/conflict-simulations-llc" class="infra-title">Game-design consultation</a>
+          <p class="infra-desc">
+            System design, rules audits, development, editorial passes. Tabletop and digital.
+            Conflict Simulations is more than two dozen published wargames since 2017, three Charles
+            S. Roberts nominations, and a release through Multi-Man Publishing. One of my AI tools
+            found structural gaps in an already-published rulebook that human playtesting had missed.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <div class="hex-rule" aria-hidden="true">
+      <img src="/hex-ornament.svg" alt="" width="96" height="32" />
+    </div>
+
+    <aside class="featured" aria-labelledby="start">
+      <span class="section-label" id="start">Start</span>
+      <h3>One email starts it</h3>
+      <p class="desc">
+        Email <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a>. State what you are building
+        and the one problem you need solved. If the work fits, I reply with scope and price. If it
+        does not, I say so.
+      </p>
+      <a href="mailto:lerugray@gmail.com" class="cta">Email me &rarr;</a>
+    </aside>
+  </div>
+</BaseLayout>

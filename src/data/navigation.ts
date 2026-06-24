@@ -12,6 +12,11 @@ export interface NavGroup {
 
 export const navGroups: NavGroup[] = [
   {
+    label: 'Work With Me',
+    plate: 'Pl. I',
+    items: [{ href: '/services', label: 'Commissions' }],
+  },
+  {
     label: 'Writing',
     plate: 'Pl. II',
     items: [
