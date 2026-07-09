@@ -14,7 +14,10 @@ export const navGroups: NavGroup[] = [
   {
     label: 'Work With Me',
     plate: 'Pl. I',
-    items: [{ href: '/services', label: 'Commissions' }],
+    items: [
+      { href: '/services', label: 'Commissions' },
+      { href: '/wargame-modules', label: 'Wargame Modules' },
+    ],
   },
   {
     label: 'Writing',

@@ -1,0 +1,225 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Wargame Modules · Ray Weiss"
+  description="Commissioned digital modules of print wargames: rules-enforced engines, real maps and counters, playable in a browser from a double-click. $400 to $800 by scope."
+>
+  <div
+    slot="sheet-id"
+    class="sheet-id"
+    aria-label="Sheet identification"
+  >
+    <div class="plate">
+      <span class="num">PL. I.C</span> Wargame Modules · Commissions Open
+    </div>
+    <div class="edition">Edition 2026.07 · Brooklyn, NY</div>
+  </div>
+
+  <div class="mx-auto max-w-4xl">
+    <header class="hero">
+      <img
+        src="/counter-rw.svg"
+        alt="Ray Weiss unit counter"
+        class="counter"
+        width="96"
+        height="72"
+      />
+      <div>
+        <h1>Wargame Modules</h1>
+        <p class="dek">Print wargames. Running locally in a browser.</p>
+        <div class="slug" aria-label="Identification">
+          <span><strong>UNIT</strong> RW / 26</span>
+          <span class="sep">/</span>
+          <span><strong>TYPE</strong> Digital modules</span>
+          <span class="sep">/</span>
+          <span><strong>STATUS</strong> Open, selective</span>
+          <span class="sep">/</span>
+          <span><strong>SCALE</strong> $400 to monster</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="bio">
+      <p>
+        I build digital modules of print wargames on commission. The map, the counters, and the
+        procedures are translated into a local engine. You unzip a folder and double-click
+        index.html. It runs in your browser. No installs, no accounts, no internet connection
+        required.
+      </p>
+    </div>
+
+    <section aria-labelledby="module-includes">
+      <div class="section-head">
+        <h2 class="section-label" id="module-includes">
+          <span class="pl">PL. I.C</span>What a module includes
+        </h2>
+      </div>
+      <div class="prose-body mt-6">
+        <p>
+          Automated bookkeeping and chart lookups. Hotseat play with information masking for cards
+          and hidden movement. Every roll logs the cited rule. Games save to local files.
+          Programmed opponents available as an add-on where the system supports them.
+        </p>
+      </div>
+
+      <figure class="mt-8">
+        <img
+          src="/images/wargame-modules/nab-crop.webp"
+          alt="Napoleon at Bay digital module. Hex map of the Champagne countryside with marshal counters, and a turn control panel showing weather, morale, and the segment sequence."
+          width="800"
+          class="w-full rounded"
+          loading="eager"
+        />
+        <figcaption class="mt-3 font-mono text-xs text-subtle">
+          Napoleon at Bay. Turn control, weather, morale, and the segment sequence on the digitized
+          map.
+        </figcaption>
+      </figure>
+
+      <figure class="mt-8">
+        <img
+          src="/images/wargame-modules/flattop-crop.webp"
+          alt="Flattop digital module. Search-board hexes over the Solomons with an umpire traffic panel reporting air operations by teletype."
+          width="800"
+          class="w-full rounded"
+          loading="lazy"
+        />
+        <figcaption class="mt-3 font-mono text-xs text-subtle">
+          Flattop. The umpire reports contacts by teletype. Hidden movement stays hidden.
+        </figcaption>
+      </figure>
+
+      <figure class="mt-8">
+        <img
+          src="/images/wargame-modules/pog-crop.webp"
+          alt="Paths of Glory digital module. The Central Powers card hand beside the eastern map edge, each card offering operations or event play."
+          width="800"
+          class="w-full rounded"
+          loading="lazy"
+        />
+        <figcaption class="mt-3 font-mono text-xs text-subtle">
+          Paths of Glory. The Central Powers hand, each card playable for ops or event through the
+          engine.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="track-record" class="mt-16">
+      <div class="section-head">
+        <h2 class="section-label" id="track-record">
+          <span class="pl">PL. I.C</span>Track record
+        </h2>
+      </div>
+      <div class="prose-body mt-6">
+        <p>
+          Four modules built over five weeks. Napoleon at Bay, Flattop, Paths of Glory, For the
+          People. A single client commissioned the set and ordered the second pair after testing
+          the first. Card-driven engines pass six hundred automated rules checks before delivery.
+          Playable previews arrive within two days of commission.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="demo" class="mt-16">
+      <div class="section-head">
+        <h2 class="section-label" id="demo">
+          <span class="pl">PL. I.C</span>Try one
+        </h2>
+      </div>
+      <div class="prose-body mt-6">
+        <p>
+          1914: East Prussia: The World Undone is my own published design through Conflict
+          Simulations. The link below opens the public playtest build. It demonstrates the exact
+          product class I deliver for commissions: a rules-enforced engine, hex map, counters, and
+          hotseat play. Open it in your browser and play.
+        </p>
+      </div>
+      <figure class="mt-8">
+        <a href="https://twu-ep-pt-dba90a.pages.dev/" target="_blank" rel="noopener">
+          <img
+            src="/images/wargame-modules/twu-demo.webp"
+            alt="1914: East Prussia: The World Undone in play. Full hex map of East Prussia with German and Russian counters, turn track, victory point track, and combat results table."
+            width="800"
+            class="w-full rounded"
+            loading="lazy"
+          />
+        </a>
+        <figcaption class="mt-3 font-mono text-xs text-subtle">
+          <a href="https://twu-ep-pt-dba90a.pages.dev/" target="_blank" rel="noopener">
+            Play the East Prussia 1914 playtest &rarr;
+          </a>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="pricing" class="mt-16">
+      <div class="section-head">
+        <h2 class="section-label" id="pricing">
+          <span class="pl">PL. I.C</span>Pricing
+        </h2>
+        <span class="section-count">04 tiers ——</span>
+      </div>
+      <ol class="infra-list">
+        <li>
+          <div class="infra-meta">
+            <span><span class="k">Price</span><span class="v">$400</span></span>
+            <span><span class="k">Scope</span><span class="v">Smaller games</span></span>
+          </div>
+          <span class="infra-title">Single map, limited counter mix</span>
+          <p class="infra-desc">Chart-driven procedures. No card deck.</p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span><span class="k">Price</span><span class="v">$600</span></span>
+            <span><span class="k">Scope</span><span class="v">Standard operational</span></span>
+          </div>
+          <span class="infra-title">Full map, card deck or comparable subsystems</span>
+          <p class="infra-desc">The Napoleon at Bay and Flattop class.</p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span><span class="k">Price</span><span class="v">$800</span></span>
+            <span><span class="k">Scope</span><span class="v">Large card-driven</span></span>
+          </div>
+          <span class="infra-title">Extensive decks, layered mechanics, multi-front</span>
+          <p class="infra-desc">The Paths of Glory and For the People class.</p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span><span class="k">Price</span><span class="v">Quoted</span></span>
+            <span><span class="k">Scope</span><span class="v">Monster games</span></span>
+          </div>
+          <span class="infra-title">Monster games quoted per project</span>
+          <p class="infra-desc">Multiple maps, thousands of counters, campaign scale.</p>
+        </li>
+      </ol>
+      <div class="prose-body mt-6">
+        <p>
+          You pay half up front to reserve the build spot, half on completion. Thirty days of
+          reasonable feature requests and bug fixes after delivery are included.
+        </p>
+        <p>
+          These are private builds for owners of print copies. Publishers may commission licensed
+          editions under separate terms.
+        </p>
+      </div>
+    </section>
+
+    <div class="hex-rule" aria-hidden="true">
+      <img src="/hex-ornament.svg" alt="" width="96" height="32" />
+    </div>
+
+    <aside class="featured" aria-labelledby="start">
+      <span class="section-label" id="start">Start</span>
+      <h3>One email starts it</h3>
+      <p class="desc">
+        Email <a href="mailto:rweiss@consimsltd.com">rweiss@consimsltd.com</a>. Provide the game
+        title, edition, and any specific technical requirements. If the work fits, I reply with
+        scope and price. If it does not, I say so.
+      </p>
+      <a href="mailto:rweiss@consimsltd.com" class="cta">Email me &rarr;</a>
+    </aside>
+  </div>
+</BaseLayout>
