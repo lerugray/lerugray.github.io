@@ -248,12 +248,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </ol>
     </section>
 
-    <section aria-labelledby="infrastructure">
+    <section aria-labelledby="tools">
       <div class="section-head">
-        <h2 class="section-label" id="infrastructure">
-          <span class="pl">PL. IV</span>Infrastructure
+        <h2 class="section-label" id="tools">
+          <span class="pl">PL. IV</span>Tools
         </h2>
-        <span class="section-count">06 entries ——</span>
+        <span class="section-count">04 entries ——</span>
       </div>
       <p class="section-subhead">How the work actually gets done.</p>
       <ol class="infra-list">
@@ -261,7 +261,25 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <div class="infra-meta">
             <span
               ><span class="dot live"></span><span class="k">Status</span><span class="v"
-                >v0.4.1 shipped</span
+                >Public</span
+              ></span
+            >
+            <span><span class="k">License</span><span class="v">MIT</span></span>
+            <span><span class="k">Format</span><span class="v">Plain JSON · local-first</span></span>
+          </div>
+          <a href="/kit" class="infra-title">wright-kit</a>
+          <p class="infra-desc">
+            A wargame construction kit. Digitize the map with hexwright, build the order of
+            battle with musterwright, keep the whole game in plain JSON files you own. These
+            are the tools behind the commissioned modules on this site. Full page at
+            <a href="/kit">/kit</a>.
+          </p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span
+              ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                >Public</span
               ></span
             >
             <span><span class="k">License</span><span class="v">AGPL-3.0</span></span>
@@ -271,11 +289,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <a href="/generalstaff" class="infra-title">GeneralStaff</a>
           <p class="infra-desc">
             Open-source autonomous engineering for solo founders. Verification-gated, BYOK,
-            local-first. Tagged v0.1.0 on 2026-04-19 after a four-day build; v0.3.0 (2026-05-08)
-            shipped phased autonomous progression and the weak-streak circuit breaker;
-            v0.4.1 (2026-05-14) added 24/7 heartbeat dispatch and an optional Hammerstein
-            advisor layer. 2,030+ passing tests, thirty-plus managed projects in rotation.
-            Repo at
+            local-first. Repo at
             <a href="https://github.com/lerugray/generalstaff">github.com/lerugray/generalstaff</a>.
           </p>
         </li>
@@ -315,58 +329,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             <code>ollama run hf.co/lerugray/hammerstein-7b-lora:Q4_K_M</code>. Eval design
             and documented OOD boundary on the
             <a href="https://huggingface.co/lerugray/hammerstein-7b-lora">model card</a>.
-          </p>
-        </li>
-        <li>
-          <div class="infra-meta">
-            <span
-              ><span class="dot live"></span><span class="k">Status</span><span class="v"
-                >Public</span
-              ></span
-            >
-            <span><span class="k">Pattern</span><span class="v">Three-layer LLM-Wiki</span></span>
-            <span><span class="k">Invariants</span><span class="v">Four, enforced</span></span>
-          </div>
-          <a href="/mission-brain" class="infra-title">Mission Brain</a>
-          <p class="infra-desc">
-            Open-source second-brain template. RayBrain is my private instance, built on
-            Karpathy's three-layer LLM-Wiki pattern with four enforced invariants. Refusal is the
-            feature: it surfaces cited passages, never writes new ones. Repo is public at
-            <a href="https://github.com/lerugray/mission-brain">github.com/lerugray/mission-brain</a>.
-          </p>
-        </li>
-        <li>
-          <div class="infra-meta">
-            <span
-              ><span class="dot live"></span><span class="k">Status</span><span class="v"
-                >Public</span
-              ></span
-            >
-            <span><span class="k">Access</span><span class="v">Template</span></span>
-          </div>
-          <a href="https://github.com/lerugray/mission-bullet-oss" class="infra-title">
-            mission-bullet-oss
-          </a>
-          <p class="infra-desc">
-            AI-assisted bullet journal in the Ryder Carroll method. Open-source template; Ray runs
-            his own private instance.
-          </p>
-        </li>
-        <li>
-          <div class="infra-meta">
-            <span
-              ><span class="dot live"></span><span class="k">Status</span><span class="v"
-                >Public</span
-              ></span
-            >
-            <span><span class="k">Pattern</span><span class="v">Simulation</span></span>
-          </div>
-          <a href="https://github.com/lerugray/mission-swarm" class="infra-title">
-            mission-swarm
-          </a>
-          <p class="infra-desc">
-            Swarm-simulation engine that generates plausible audience reactions for kriegspiel
-            and document drafts.
           </p>
         </li>
       </ol>

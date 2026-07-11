@@ -1,0 +1,152 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="wright-kit · Ray Weiss"
+  description="wright-kit is a wargame construction kit. Local-first tools for digitizing hex maps and building orders of battle, working in plain JSON files you own. MIT licensed, no commercial-rights gating."
+  colophon={{ sheet: 'IV.A', edition: '2026.07' }}
+>
+  <div
+    slot="sheet-id"
+    class="sheet-id"
+    aria-label="Sheet identification"
+  >
+    <div class="plate">
+      <span class="num">PL. IV.A</span> wright-kit · Wargame Construction Kit
+    </div>
+    <div class="edition">Edition 2026.07 · Brooklyn, NY</div>
+  </div>
+
+  <div class="mx-auto max-w-4xl">
+    <header class="hero">
+      <img
+        src="/counter-rw.svg"
+        alt="Ray Weiss unit counter"
+        class="counter"
+        width="96"
+        height="72"
+      />
+      <div>
+        <h1>wright-kit</h1>
+        <p class="dek">A wargame construction kit.</p>
+        <div class="slug" aria-label="Identification">
+          <span><strong>UNIT</strong> RW / 26</span>
+          <span class="sep">/</span>
+          <span><strong>TYPE</strong> Construction kit</span>
+          <span class="sep">/</span>
+          <span><strong>LICENSE</strong> MIT</span>
+          <span class="sep">/</span>
+          <span><strong>FORMAT</strong> Plain JSON</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="bio">
+      <p>
+        wright-kit is the set of tools I use to build digital wargames. Everything is
+        local-first: the tools run on your machine, and the work lives in plain JSON files
+        you own and can read. The kit is MIT licensed with no commercial-rights gating. A
+        game you build with it is yours, including one you sell.
+      </p>
+    </div>
+
+    <section aria-labelledby="pillars">
+      <div class="section-head">
+        <h2 class="section-label" id="pillars">
+          <span class="pl">PL. IV.A</span>The three pillars
+        </h2>
+        <span class="section-count">03 entries ——</span>
+      </div>
+      <ol class="infra-list">
+        <li>
+          <div class="infra-meta">
+            <span
+              ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                >Public</span
+              ></span
+            >
+            <span><span class="k">Tools</span><span class="v">hexwright · wargame-map-parser</span></span>
+            <span><span class="k">Output</span><span class="v">hexgrid JSON</span></span>
+          </div>
+          <span class="infra-title">Digitize</span>
+          <p class="infra-desc">
+            Turn a printed map into data. <a href="https://github.com/lerugray/hexwright"
+            >hexwright</a> is a hex-map editor for assigning terrain, hexsides, and features
+            by hand, where the judgment calls live. wargame-map-parser reads a scanned map
+            and produces a first pass for hexwright to refine. The output is one hexgrid
+            file that any engine can consume.
+          </p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span
+              ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                >Public</span
+              ></span
+            >
+            <span><span class="k">Tool</span><span class="v">musterwright</span></span>
+            <span><span class="k">Output</span><span class="v">force-layer JSON</span></span>
+          </div>
+          <span class="infra-title">Muster</span>
+          <p class="infra-desc">
+            Build the order of battle. <a href="https://github.com/lerugray/musterwright"
+            >musterwright</a> handles unit rosters, factor sets, and setup positions, and it
+            follows hexwright's conventions, so the force layer and the map layer speak the
+            same format.
+          </p>
+        </li>
+        <li>
+          <div class="infra-meta">
+            <span
+              ><span class="k">Status</span><span class="v">In design</span></span
+            >
+            <span><span class="k">Scope</span><span class="v">Art · export</span></span>
+          </div>
+          <span class="infra-title">Publish</span>
+          <p class="infra-desc">
+            The art and export layer: turning a digitized map and muster into counters,
+            printable sheets, and a playable module. This pillar is in design and has not
+            shipped. The first two pillars work today; this one is being shaped by the
+            commission work that uses them.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="repositories" class="mt-16">
+      <div class="section-head">
+        <h2 class="section-label" id="repositories">
+          <span class="pl">PL. IV.A</span>Repositories
+        </h2>
+      </div>
+      <div class="prose-body mt-6">
+        <p>
+          The umbrella repo is
+          <a href="https://github.com/lerugray/wright-kit">github.com/lerugray/wright-kit</a>.
+          It holds the kit's conventions and points at the tools:
+          <a href="https://github.com/lerugray/hexwright">github.com/lerugray/hexwright</a>
+          for the map layer and
+          <a href="https://github.com/lerugray/musterwright">github.com/lerugray/musterwright</a>
+          for the force layer. Each tool stands alone; the kit is the shared file format
+          between them.
+        </p>
+      </div>
+    </section>
+
+    <div class="hex-rule" aria-hidden="true">
+      <img src="/hex-ornament.svg" alt="" width="96" height="32" />
+    </div>
+
+    <aside class="featured" aria-labelledby="commissions">
+      <span class="section-label" id="commissions">Proof of work</span>
+      <h3>These tools built these commissions</h3>
+      <p class="desc">
+        The commissioned digital modules on this site, Napoleon at Bay, Flattop, Paths of
+        Glory, and For the People, were built with wright-kit. If you want a finished module
+        rather than the tools, commissions are open.
+      </p>
+      <a href="/wargame-modules" class="cta">See the wargame modules &rarr;</a>
+    </aside>
+  </div>
+</BaseLayout>

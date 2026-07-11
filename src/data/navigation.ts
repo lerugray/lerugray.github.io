@@ -49,15 +49,13 @@ export const navGroups: NavGroup[] = [
     ],
   },
   {
-    label: 'Infrastructure',
+    label: 'Tools',
     plate: 'Pl. IV',
     items: [
+      { href: '/kit', label: 'wright-kit' },
       { href: '/generalstaff', label: 'GeneralStaff' },
       { href: '/hammerstein', label: 'Hammerstein' },
       { href: '/hammerstein-model', label: 'Hammerstein-7B' },
-      { href: '/mission-brain', label: 'Mission Brain' },
-      { href: 'https://github.com/lerugray/mission-bullet-oss', label: 'mission-bullet-oss' },
-      { href: 'https://github.com/lerugray/mission-swarm', label: 'mission-swarm' },
     ],
   },
   {
