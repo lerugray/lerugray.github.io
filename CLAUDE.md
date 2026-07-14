@@ -243,3 +243,28 @@ Rule of thumb: if Ray should be able to read and edit it, it goes in the vault. 
 **Build command** — `npm run build` (static output). Dev: `npm run dev` (Astro dev server on `localhost:4321`). Visual audit: `node scripts/audit-site.mjs` (Playwright headless, outputs to `audit-screenshots/`). Production deploy is GitHub Pages via GitHub Actions.
 
 **Open polish items** (carried across sessions, none blocking): per-page OG-image variants, Plex fonts in the OG template, Auftragstaktik screenshots (Ray needs to retake with current UI). Session-05 handoff adds: optional surgical extensions of anchor vocabulary to `/writing` index (swap to `.entries`) and CSL umbrella credential strip (swap to `.infra-meta` styling).
+
+---
+
+## PUBLISHING A NEW WRITING POST — THE FOUR SURFACES (added 2026-07-14 after the columbo incident)
+
+Adding a markdown file to `src/content/writing/` publishes the post at `/writing/<slug>`
+and on the `/writing/` index — and NOWHERE ELSE. Three more surfaces are hand-curated
+and MUST be updated by hand or the post is invisible where Ray actually looks:
+
+1. **`src/content/writing/<slug>.md`** — the post itself (frontmatter: title,
+   publishDate, readingTime, description). Auto-appears at /writing/ only.
+2. **Homepage entries list** — `src/pages/index.astro`, the Writing `<ol class="entries">`:
+   add a new `<li>` at the top, renumber the roman numerals (SCOPED to this list only —
+   other sections use the same `<em>i.</em>` markup), bump the "NN entries ——" count.
+3. **Left sidebar nav** — `src/data/navigation.ts`, the `Writing` group's `items`:
+   add `{ href, label }` at the top.
+4. **Featured "start here" hero** — `src/pages/index.astro` `<aside class="featured">`:
+   a deliberate flagship pick, NOT auto-latest. Ask Ray whether the new post takes the
+   slot; do not assume.
+
+Verification standard: after deploy, fetch the LIVE homepage and confirm the post
+appears in the entries list, the sidebar, and (if swapped) the hero — "the direct URL
+returns 200" is not "published" for this site. 2026-07-14 incident: a post went live on
+three deploys in a row while each hand-curated surface was discovered one frustrated
+operator report at a time.
