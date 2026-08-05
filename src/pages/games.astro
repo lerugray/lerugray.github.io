@@ -19,6 +19,9 @@ interface FieldTrialGame {
   url: string;
   /** Status line, e.g. "field trial — active development". */
   status: string;
+  /** Specimen figure — a framed screenshot plate on the card. Optional so a
+   *  game can be listed the day it deploys and get its plate after. */
+  figure?: { src: string; alt: string; caption: string };
 }
 
 const games: FieldTrialGame[] = [
@@ -30,15 +33,19 @@ const games: FieldTrialGame[] = [
     register: 'First-person grid crawler',
     url: 'https://lerugray.github.io/chp-preview/',
     status: 'Field trial — active development',
+    figure: {
+      src: '/field-trials/chapel-perilous-fig.png',
+      alt: 'Chapel Perilous title screen: phosphor-green terminal text reading "a recovered operations manual" beside a party panel',
+      caption: 'FIG. 1 — recovered operations manual, build 2026.08',
+    },
   },
 ];
 
-// FEEDBACK ENDPOINT — PLACEHOLDER. Points nowhere until
-// workers/field-trials-feedback is deployed (see that directory's
-// SETUP.md). Until then, fetches against it fail and every feedback box
-// degrades in place to "Feedback wire not yet connected." — the page
-// stays fully presentable either way. Swap this one line once the worker
-// has a real *.workers.dev (or custom) URL.
+// FEEDBACK ENDPOINT — LIVE (worker deployed 2026-08-05, probe-verified).
+// If it's ever unreachable, each feedback box degrades in place to
+// "Feedback wire not yet connected." and the page stays presentable.
+// Note: local dev renders show the degraded state (CORS allowlists the
+// production origin) — that's expected, not a defect.
 const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
 ---
 
@@ -96,22 +103,48 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
         {
           games.map((game) => (
             <li class="field-trial-card">
-              <div class="infra-meta">
-                <span>
-                  <span class="dot live" />
-                  <span class="k">Status</span>
-                  <span class="v">{game.status}</span>
-                </span>
-                <span>
-                  <span class="k">Register</span>
-                  <span class="v">{game.register}</span>
-                </span>
+              <div class="ft-grid">
+                <div class="ft-main">
+                  <div class="infra-meta">
+                    <span>
+                      <span class="dot live" />
+                      <span class="k">Status</span>
+                      <span class="v">{game.status}</span>
+                    </span>
+                    <span>
+                      <span class="k">Register</span>
+                      <span class="v">{game.register}</span>
+                    </span>
+                  </div>
+                  <span class="infra-title">{game.name}</span>
+                  <p class="infra-desc">{game.description}</p>
+                  <a
+                    href={game.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="cta field-trial-open"
+                  >
+                    Open the build &rarr;
+                  </a>
+                </div>
+
+                {
+                  game.figure && (
+                    <figure class="ft-figure">
+                      <a href={game.url} target="_blank" rel="noopener noreferrer" tabindex={-1}>
+                        <img
+                          src={game.figure.src}
+                          alt={game.figure.alt}
+                          loading="lazy"
+                          width="1200"
+                          height="750"
+                        />
+                      </a>
+                      <figcaption>{game.figure.caption}</figcaption>
+                    </figure>
+                  )
+                }
               </div>
-              <span class="infra-title">{game.name}</span>
-              <p class="infra-desc">{game.description}</p>
-              <a href={game.url} target="_blank" rel="noopener noreferrer" class="cta field-trial-open">
-                Open the build &rarr;
-              </a>
 
               <div
                 class="feedback-box"
@@ -189,6 +222,46 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
     font-family: var(--font-serif);
     font-weight: 600;
     font-size: 22px;
+  }
+
+  /* Text + specimen-plate layout. Single column below 720px. */
+  .ft-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 42%);
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 719px) {
+    .ft-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* The specimen plate: engraved-book figure framing around a live capture. */
+  .ft-figure {
+    margin: 4px 0 0;
+  }
+  .ft-figure a {
+    display: block;
+    border: 1px solid var(--color-rule);
+    outline: 1px solid var(--color-border);
+    outline-offset: 3px;
+    background: var(--color-surface);
+    padding: 6px;
+  }
+  .ft-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .ft-figure figcaption {
+    margin-top: 9px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
   }
 
   .field-trial-open {
