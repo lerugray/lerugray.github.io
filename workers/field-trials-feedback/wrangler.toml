@@ -1,0 +1,20 @@
+name = "field-trials-feedback"
+main = "src/index.ts"
+compatibility_date = "2026-08-05"
+
+# D1 binding for the Field Trials anonymous comment box (lerugray.github.io/games).
+# NOT PROVISIONED YET — database_id below is a placeholder. See SETUP.md in this
+# directory for the exact `wrangler d1 create` + schema-apply + deploy steps.
+# Binding name "DB" is what src/index.ts expects (env.DB). Schema lives in the
+# plain schema.sql beside this file (applied via `wrangler d1 execute --file`),
+# not a migrations/ directory — there's exactly one table, no migration history yet.
+[[d1_databases]]
+binding = "DB"
+database_name = "field-trials-feedback"
+database_id = "77246984-a9f5-4e6f-984e-9aa0833d8f22"
+
+# Restricts CORS to the live site. Override locally (e.g. `wrangler dev` against
+# http://localhost:4321) via `wrangler dev --var ALLOWED_ORIGIN:http://localhost:4321`
+# or a .dev.vars file (gitignored) — never hardcode a second origin here.
+[vars]
+ALLOWED_ORIGIN = "https://lerugray.github.io"
