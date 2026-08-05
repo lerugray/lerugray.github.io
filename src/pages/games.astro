@@ -1,0 +1,494 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+// FIELD TRIALS ROSTER.
+// One entry per public-preview-ready game. Add a new game here the day its
+// preview build deploys (candidates on deck: innsmouth-2000, oddseedz) —
+// that's the only edit needed; the card, "Open the build" link, status
+// line, and feedback box all render from this array.
+interface FieldTrialGame {
+  /** Stable slug. Sent as the `game` key to the feedback worker — keep it
+   *  once assigned, since it's how existing feedback stays attached. */
+  id: string;
+  name: string;
+  /** One-line description of the game. */
+  description: string;
+  /** Short genre/register tag shown in the card meta strip. */
+  register: string;
+  /** Live preview build URL. */
+  url: string;
+  /** Status line, e.g. "field trial — active development". */
+  status: string;
+}
+
+const games: FieldTrialGame[] = [
+  {
+    id: 'chapel-perilous',
+    name: 'Chapel Perilous',
+    description:
+      'A first-person grid dungeon crawler set in Illuminatus!-trilogy conspiracy static.',
+    register: 'First-person grid crawler',
+    url: 'https://lerugray.github.io/chp-preview/',
+    status: 'Field trial — active development',
+  },
+];
+
+// FEEDBACK ENDPOINT — PLACEHOLDER. Points nowhere until
+// workers/field-trials-feedback is deployed (see that directory's
+// SETUP.md). Until then, fetches against it fail and every feedback box
+// degrades in place to "Feedback wire not yet connected." — the page
+// stays fully presentable either way. Swap this one line once the worker
+// has a real *.workers.dev (or custom) URL.
+const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.PLACEHOLDER.workers.dev';
+---
+
+<BaseLayout
+  title="Field Trials · Ray Weiss"
+  description="Playable preview builds of games in development. Try one, leave feedback, watch it change."
+  colophon={{ sheet: 'VIII', edition: '2026.08', loc: 'Brooklyn, NY', scale: 'Live builds' }}
+>
+  <div
+    slot="sheet-id"
+    class="sheet-id"
+    aria-label="Sheet identification"
+  >
+    <div class="plate">
+      <span class="num">PL. VIII</span> Field Trials · Preview Builds
+    </div>
+    <div class="edition">Edition 2026.08 · Brooklyn, NY</div>
+  </div>
+
+  <div class="mx-auto max-w-4xl">
+    <header class="hero hero--plain">
+      <div>
+        <h1>Field Trials</h1>
+        <p class="dek">Games in development, running live in your browser.</p>
+        <div class="slug" aria-label="Identification">
+          <span><strong>UNIT</strong> RW / 26</span>
+          <span class="sep">/</span>
+          <span><strong>TYPE</strong> Preview builds</span>
+          <span class="sep">/</span>
+          <span><strong>SCALE</strong> {games.length} in trial</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- VOICE PASS PENDING: Ray rewrites -->
+    <div class="bio">
+      <p>
+        These are games I'm still building. Each preview link below opens the current build in
+        your browser. No download, no account. Play, and if something breaks or feels off, tell
+        me in the box under the game. I read every one.
+      </p>
+    </div>
+
+    <section aria-labelledby="roster">
+      <div class="section-head">
+        <h2 class="section-label" id="roster">
+          <span class="pl">PL. VIII</span>Roster
+        </h2>
+        <span class="section-count"
+          >{games.length.toString().padStart(2, '0')} {games.length === 1 ? 'entry' : 'entries'} ——</span
+        >
+      </div>
+
+      <ol class="infra-list field-trials-list">
+        {
+          games.map((game) => (
+            <li class="field-trial-card">
+              <div class="infra-meta">
+                <span>
+                  <span class="dot live" />
+                  <span class="k">Status</span>
+                  <span class="v">{game.status}</span>
+                </span>
+                <span>
+                  <span class="k">Register</span>
+                  <span class="v">{game.register}</span>
+                </span>
+              </div>
+              <span class="infra-title">{game.name}</span>
+              <p class="infra-desc">{game.description}</p>
+              <a href={game.url} target="_blank" rel="noopener noreferrer" class="cta field-trial-open">
+                Open the build &rarr;
+              </a>
+
+              <div
+                class="feedback-box"
+                data-game={game.id}
+                data-endpoint={FEEDBACK_ENDPOINT}
+                data-game-name={game.name}
+              >
+                <p class="sub-head">
+                  <span class="pl">+</span>Feedback
+                </p>
+
+                <p class="feedback-status" hidden />
+
+                <ol class="feedback-list" aria-label={`Feedback for ${game.name}`} />
+
+                <form class="feedback-form" aria-label={`Send feedback for ${game.name}`}>
+                  <div class="feedback-honeypot" aria-hidden="true">
+                    <label>
+                      Leave this field blank
+                      <input type="text" name="website" tabindex={-1} autocomplete="off" />
+                    </label>
+                  </div>
+
+                  <div class="feedback-field">
+                    <label class="feedback-label" for={`ft-name-${game.id}`}>
+                      Name <span class="feedback-optional">(optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      id={`ft-name-${game.id}`}
+                      name="name"
+                      maxlength="40"
+                      class="feedback-input"
+                      autocomplete="name"
+                    />
+                  </div>
+
+                  <div class="feedback-field">
+                    <label class="feedback-label" for={`ft-body-${game.id}`}>Feedback</label>
+                    <textarea
+                      id={`ft-body-${game.id}`}
+                      name="body"
+                      maxlength="1000"
+                      rows="3"
+                      required
+                      class="feedback-textarea"
+                      placeholder="What happened? What would you change?"
+                    />
+                  </div>
+
+                  <div class="feedback-row">
+                    <button type="submit" class="feedback-submit">Send</button>
+                    <p class="feedback-note" role="status" aria-live="polite" />
+                  </div>
+                </form>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <div class="hex-rule" aria-hidden="true">
+      <img src="/hex-ornament.svg" alt="" width="96" height="32" />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .field-trials-list {
+    margin-top: 8px;
+  }
+
+  .field-trial-card .infra-title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 22px;
+  }
+
+  .field-trial-open {
+    display: inline-block;
+    margin-top: 4px;
+  }
+
+  .feedback-box {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .feedback-box .sub-head {
+    margin: 0 0 12px;
+    font-size: 10px;
+  }
+
+  .feedback-status {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-style: italic;
+    color: var(--color-subtle);
+    margin: 0 0 14px;
+  }
+
+  .feedback-list {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    max-width: 62ch;
+  }
+
+  .feedback-comment {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .feedback-comment:last-child {
+    border-bottom: none;
+  }
+
+  .feedback-comment-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+    margin: 0 0 4px;
+  }
+
+  .feedback-comment-body {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-foreground);
+    margin: 0;
+    white-space: pre-wrap;
+    max-width: 60ch;
+  }
+
+  .feedback-empty {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--color-subtle);
+  }
+
+  .feedback-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .feedback-form {
+    max-width: 52ch;
+  }
+
+  .feedback-field {
+    margin-bottom: 12px;
+  }
+
+  .feedback-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-rule);
+    margin-bottom: 5px;
+  }
+
+  .feedback-optional {
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--color-subtle);
+    font-weight: 400;
+  }
+
+  .feedback-input,
+  .feedback-textarea {
+    width: 100%;
+    font-family: var(--font-serif);
+    font-size: 15px;
+    color: var(--color-foreground);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 8px 10px;
+    resize: vertical;
+  }
+  .feedback-input:focus,
+  .feedback-textarea:focus {
+    outline: 2px solid var(--color-link);
+    outline-offset: 1px;
+    border-color: var(--color-link);
+  }
+
+  .feedback-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .feedback-submit {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-background);
+    background: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    padding: 9px 18px;
+    cursor: pointer;
+    transition: opacity 150ms;
+  }
+  .feedback-submit:hover {
+    opacity: 0.85;
+  }
+  .feedback-submit:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .feedback-note {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--color-subtle);
+    margin: 0;
+  }
+  .feedback-note.is-error {
+    color: var(--color-accent);
+  }
+</style>
+
+<script>
+  // Field Trials feedback widget. One shared script wires every
+  // .feedback-box on the page against its own data-game / data-endpoint.
+  // If the endpoint is unreachable (placeholder URL, worker not deployed
+  // yet, network hiccup), each box degrades independently to a quiet
+  // status line and never shows a broken form.
+  interface FeedbackComment {
+    id?: number;
+    name?: string | null;
+    body: string;
+    created?: string;
+  }
+
+  function formatDate(iso?: string): string {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return '';
+    return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+
+  function renderComments(listEl: HTMLOListElement, comments: FeedbackComment[]) {
+    listEl.textContent = '';
+    if (!comments.length) {
+      const empty = document.createElement('li');
+      empty.className = 'feedback-empty';
+      empty.textContent = 'No feedback yet — be the first.';
+      listEl.appendChild(empty);
+      return;
+    }
+    for (const c of comments) {
+      const li = document.createElement('li');
+      li.className = 'feedback-comment';
+
+      const meta = document.createElement('p');
+      meta.className = 'feedback-comment-meta';
+      const who = c.name && c.name.trim() ? c.name.trim() : 'Anonymous';
+      const when = formatDate(c.created);
+      meta.textContent = when ? `${who} · ${when}` : who;
+
+      const body = document.createElement('p');
+      body.className = 'feedback-comment-body';
+      body.textContent = c.body;
+
+      li.appendChild(meta);
+      li.appendChild(body);
+      listEl.appendChild(li);
+    }
+  }
+
+  function degrade(statusEl: HTMLElement, listEl: HTMLElement, formEl: HTMLElement) {
+    statusEl.textContent = 'Feedback wire not yet connected.';
+    statusEl.hidden = false;
+    listEl.hidden = true;
+    formEl.hidden = true;
+  }
+
+  async function init() {
+    const boxes = document.querySelectorAll<HTMLElement>('.feedback-box');
+
+    for (const box of boxes) {
+      const game = box.dataset.game;
+      const endpoint = box.dataset.endpoint;
+      const statusEl = box.querySelector<HTMLElement>('.feedback-status');
+      const listEl = box.querySelector<HTMLOListElement>('.feedback-list');
+      const formEl = box.querySelector<HTMLFormElement>('.feedback-form');
+      const noteEl = box.querySelector<HTMLElement>('.feedback-note');
+      const submitEl = box.querySelector<HTMLButtonElement>('.feedback-submit');
+
+      if (!game || !endpoint || !statusEl || !listEl || !formEl || !noteEl || !submitEl) continue;
+
+      // Fetch the existing thread first. A failure here (unreachable
+      // placeholder endpoint, worker not deployed, network error) is the
+      // signal to degrade — the whole box goes quiet, never broken.
+      let comments: FeedbackComment[] = [];
+      try {
+        const res = await fetch(`${endpoint}/comments?game=${encodeURIComponent(game)}`, {
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(`status ${res.status}`);
+        const data = await res.json();
+        comments = Array.isArray(data) ? data : [];
+      } catch {
+        degrade(statusEl, listEl, formEl);
+        continue;
+      }
+
+      renderComments(listEl, comments);
+
+      formEl.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(formEl);
+        const honeypot = String(data.get('website') || '').trim();
+        const body = String(data.get('body') || '').trim();
+        const name = String(data.get('name') || '').trim();
+
+        if (!body) {
+          noteEl.textContent = 'Say something first.';
+          noteEl.classList.add('is-error');
+          return;
+        }
+
+        submitEl.disabled = true;
+        noteEl.textContent = 'Sending…';
+        noteEl.classList.remove('is-error');
+
+        try {
+          const res = await fetch(`${endpoint}/comments`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ game, name: name || undefined, body, website: honeypot }),
+          });
+          if (!res.ok) throw new Error(`status ${res.status}`);
+          const created: FeedbackComment = await res.json();
+
+          const emptyLi = listEl.querySelector('.feedback-empty');
+          if (emptyLi) emptyLi.remove();
+
+          const li = document.createElement('li');
+          li.className = 'feedback-comment';
+          const meta = document.createElement('p');
+          meta.className = 'feedback-comment-meta';
+          meta.textContent = `${name || 'Anonymous'} · just now`;
+          const bodyEl = document.createElement('p');
+          bodyEl.className = 'feedback-comment-body';
+          bodyEl.textContent = created.body ?? body;
+          li.appendChild(meta);
+          li.appendChild(bodyEl);
+          listEl.insertBefore(li, listEl.firstChild);
+
+          formEl.reset();
+          noteEl.textContent = "Thanks — that's in.";
+        } catch {
+          noteEl.textContent = "Couldn't send that. Try again in a bit.";
+          noteEl.classList.add('is-error');
+        } finally {
+          submitEl.disabled = false;
+        }
+      });
+    }
+  }
+
+  init();
+</script>
