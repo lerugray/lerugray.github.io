@@ -11,7 +11,7 @@ compatibility_date = "2026-08-05"
 [[d1_databases]]
 binding = "DB"
 database_name = "field-trials-feedback"
-database_id = "PLACEHOLDER-run-wrangler-d1-create-and-paste-the-id-here"
+database_id = "77246984-a9f5-4e6f-984e-9aa0833d8f22"
 
 # Restricts CORS to the live site. Override locally (e.g. `wrangler dev` against
 # http://localhost:4321) via `wrangler dev --var ALLOWED_ORIGIN:http://localhost:4321`
