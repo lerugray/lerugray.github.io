@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 // FIELD TRIALS ROSTER.
 // One entry per public-preview-ready game. Add a new game here the day its
-// preview build deploys (candidates on deck: innsmouth-2000, oddseedz) —
+// preview build deploys (candidates on deck: oddseedz) —
 // that's the only edit needed; the card, "Open the build" link, status
 // line, and feedback box all render from this array.
 interface FieldTrialGame {
@@ -37,6 +37,20 @@ const games: FieldTrialGame[] = [
       src: '/field-trials/chapel-perilous-fig.png',
       alt: 'Chapel Perilous title screen: phosphor-green terminal text reading "a recovered operations manual" beside a party panel',
       caption: 'FIG. 1 — recovered operations manual, build 2026.08',
+    },
+  },
+  {
+    id: 'innsmouth-2000',
+    name: 'Innsmouth 2000',
+    description:
+      'A Lovecraftian take on the classic 1993 city-builder: zone a rotting coastal town and appease five gods whose wrath is the disasters menu.',
+    register: 'City builder',
+    url: 'https://lerugray.github.io/i2-preview/',
+    status: 'Field trial — active development',
+    figure: {
+      src: '/field-trials/innsmouth-2000-fig.png',
+      alt: 'Innsmouth 2000 title screen: a beveled verdigris wordmark over a dimmed generated town with lit windows, in front of a system-dialog start menu',
+      caption: 'FIG. 2 — title screen over a generated town, build 2026.08',
     },
   },
 ];
