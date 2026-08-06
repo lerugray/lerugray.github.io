@@ -50,3 +50,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # Pages queue latency spiked 2026-08-06; the default 10min abort was
+          # killing healthy-but-slow deployments. 30min ceiling.
+          timeout: 1800000
