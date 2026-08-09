@@ -1,0 +1,57 @@
+{
+  "updated_at": "2026-08-09T13:09:05.713Z",
+  "roster": [
+    {
+      "name": "Chapel Perilous",
+      "blurb": "A first-person grid dungeon crawler set in Illuminatus!-trilogy conspiracy static.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/chp-preview/"
+    },
+    {
+      "name": "Innsmouth 2000",
+      "blurb": "A Lovecraftian take on the classic 1993 city-builder — zone a rotting coastal town and appease five gods whose wrath is the disasters menu.",
+      "status": "in development",
+      "url": "https://i2-preview.pages.dev/"
+    },
+    {
+      "name": "Stray Squadron",
+      "blurb": "A browser rail shooter in the format of SNES-era Star Fox, rebuilt as a roguelite with code-generated ships and branching sector runs.",
+      "status": "in development",
+      "url": "https://ss-preview.pages.dev/"
+    },
+    {
+      "name": "Oddseedz",
+      "blurb": "A cozy, fully code-generated monster-ranching browser toy with 70 Buddies and no death.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/oddseedz/"
+    }
+  ],
+  "entries": [
+    {
+      "date": "2026-08-09",
+      "game": "Chapel Perilous",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-09",
+      "game": "Oddseedz",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-09",
+      "game": "Stray Squadron",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-06",
+      "game": "Innsmouth 2000",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-05",
+      "game": "Chapel Perilous",
+      "note": "Playable build posted."
+    }
+  ],
+  "workshop_count": 4
+}

@@ -249,6 +249,22 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
       </ol>
     </section>
 
+    <section
+      id="field-notes"
+      class="field-notes"
+      aria-labelledby="field-notes-heading"
+      hidden
+    >
+      <div class="section-head">
+        <h2 class="section-label" id="field-notes-heading">
+          <span class="pl">PL. VIII</span>Field notes
+        </h2>
+        <span class="section-count" data-field-notes-count></span>
+      </div>
+      <ol class="field-notes-list" aria-label="Field Trials development notes"></ol>
+      <p class="field-notes-workshop" data-field-notes-workshop hidden></p>
+    </section>
+
     <div class="hex-rule" aria-hidden="true">
       <img src="/hex-ornament.svg" alt="" width="96" height="32" />
     </div>
@@ -462,9 +478,108 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
   .feedback-note.is-error {
     color: var(--color-accent);
   }
+
+  .field-notes {
+    margin-top: 8px;
+  }
+
+  .field-notes-list {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    max-width: 62ch;
+  }
+
+  .field-notes-row {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--color-foreground);
+    line-height: 1.5;
+  }
+  .field-notes-row:last-child {
+    border-bottom: none;
+  }
+
+  .field-notes-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-subtle);
+  }
+
+  .field-notes-workshop {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--color-subtle);
+    margin: 0;
+  }
 </style>
 
 <script>
+  // Field notes — loads /field-trials/devlog.json. On fetch failure the
+  // section stays hidden (no error text). Notes are fixed-vocabulary only.
+  interface DevlogEntry {
+    date: string;
+    game: string;
+    note: string;
+  }
+  interface DevlogPayload {
+    entries?: DevlogEntry[];
+    workshop_count?: number;
+  }
+
+  async function initFieldNotes() {
+    const section = document.getElementById('field-notes');
+    if (!section) return;
+    const listEl = section.querySelector<HTMLOListElement>('.field-notes-list');
+    const countEl = section.querySelector<HTMLElement>('[data-field-notes-count]');
+    const workshopEl = section.querySelector<HTMLElement>('[data-field-notes-workshop]');
+    if (!listEl || !countEl || !workshopEl) return;
+
+    let data: DevlogPayload;
+    try {
+      const res = await fetch('/field-trials/devlog.json', {
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) return;
+      data = await res.json();
+    } catch {
+      return;
+    }
+
+    const entries = Array.isArray(data.entries) ? data.entries : [];
+    if (!entries.length) return;
+
+    listEl.textContent = '';
+    for (const e of entries) {
+      const li = document.createElement('li');
+      li.className = 'field-notes-row';
+      const meta = document.createElement('span');
+      meta.className = 'field-notes-meta';
+      meta.textContent = `${e.date} — ${e.game}`;
+      li.appendChild(meta);
+      li.appendChild(document.createTextNode(` — ${e.note}`));
+      listEl.appendChild(li);
+    }
+
+    const n = entries.length;
+    countEl.textContent = `${n.toString().padStart(2, '0')} ${n === 1 ? 'note' : 'notes'} ——`;
+
+    const workshop = typeof data.workshop_count === 'number' ? data.workshop_count : 0;
+    if (workshop > 0) {
+      workshopEl.textContent = `${workshop} more in the workshop.`;
+      workshopEl.hidden = false;
+    }
+
+    section.hidden = false;
+  }
+
   // Field Trials feedback widget. One shared script wires every
   // .feedback-box on the page against its own data-game / data-endpoint.
   // If the endpoint is unreachable (placeholder URL, worker not deployed
@@ -606,4 +721,5 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
   }
 
   init();
+  initFieldNotes();
 </script>
