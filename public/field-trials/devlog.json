@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-11T21:17:01.757Z",
+  "updated_at": "2026-08-11T21:53:35.166Z",
   "roster": [
     {
       "name": "Chapel Perilous",
@@ -24,6 +24,12 @@
       "blurb": "A cozy, fully code-generated monster-ranching browser toy with 70 Buddies and no death.",
       "status": "in development",
       "url": "https://lerugray.github.io/field-trials/oddseedz/"
+    },
+    {
+      "name": "THE JACQUARD INDEX",
+      "blurb": "The pattern library of Reedmoor Mill, est. 1889. Nonograms that never ask you to guess — every card proved solvable by deduction alone, one twist per drawer.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/jacquard-index/"
     },
     {
       "name": "SHOELEATHER",
@@ -51,12 +57,22 @@
     {
       "date": "2026-08-11",
       "game": "SHOELEATHER",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "SHOELEATHER",
       "note": "Playable build posted."
     },
     {
       "date": "2026-08-11",
       "game": "Stray Squadron",
       "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "THE JACQUARD INDEX",
+      "note": "Playable build posted."
     },
     {
       "date": "2026-08-09",
