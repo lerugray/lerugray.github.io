@@ -30,12 +30,12 @@ __register("src/boot/browser.js", function(module, exports, __require) {
 // THE JACQUARD INDEX — browser boot shim (the only DOM-touching module).
 //
 // Owns the requestAnimationFrame clock, the canvas, input wiring, error capture, and
-// blitting the native framebuffer to screen with nearest-neighbor integer scaling
-// (hard-rule 3a). Everything above this line is pure and node-tested; this file is kept
+// blitting the native framebuffer to screen with nearest-neighbor screen-fill scaling
+// (hard-rule 3a: fractional-but-nearest where screen-fill wins — fillViewport). Everything above this line is pure and node-tested; this file is kept
 // thin on purpose. Guarded so it is inert when imported without a DOM (bundle tests).
 
 const {App} = __require("src/engine/app.js");
-const {integerViewport, screenToNative} = __require("src/engine/viewport.js");
+const {fillViewport, screenToNative} = __require("src/engine/viewport.js");
 const {makeTitleScene} = __require("src/scenes/titleScene.js");
 const {PALETTE} = __require("src/gfx/palette.js");
 
@@ -68,14 +68,14 @@ function boot(doc, win) {
   native.height = BASE_H;
   const nctx = native.getContext('2d');
 
-  let vp = integerViewport(1, 1, BASE_W, BASE_H);
+  let vp = fillViewport(1, 1, BASE_W, BASE_H);
 
   function resize() {
     canvas.width = win.innerWidth;
     canvas.height = win.innerHeight;
     canvas.style.width = '100%';
     canvas.style.height = '100%';
-    vp = integerViewport(canvas.width, canvas.height, BASE_W, BASE_H);
+    vp = fillViewport(canvas.width, canvas.height, BASE_W, BASE_H);
   }
   win.addEventListener('resize', resize);
   resize();

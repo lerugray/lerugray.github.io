@@ -141,10 +141,25 @@
     background: linear-gradient(180deg, rgba(8,6,5,0.40) 0%, rgba(8,6,5,0.70) 52%, rgba(8,6,5,0.92) 100%);
   }
   .sl-prologue[style*="flex"] { display: flex; }
-  .sl-p-kicker { letter-spacing: 6px; color: #6b7a32; font-size: 13px; text-shadow: 0 2px 6px #000; }
+  .sl-p-card {
+    width: min(660px, 84vw); display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid #8a7050; border-bottom: 1px solid #8a7050; padding: 8px 12px;
+    color: #c8a03c; background: rgba(18,12,8,.68); box-shadow: 0 4px 18px rgba(0,0,0,.7);
+  }
+  .sl-p-act { letter-spacing: 5px; font-size: 12px; }
+  .sl-p-time { letter-spacing: 2px; color: #e0ba78; font-size: 13px; }
+  .sl-p-kicker { letter-spacing: 6px; color: #8a9a5a; font-size: 13px; text-shadow: 0 2px 6px #000; }
   .sl-p-prose { font-size: 19px; line-height: 1.6; max-width: 660px; min-height: 120px; text-shadow: 0 2px 8px #000, 0 0 3px #000; }
   .sl-p-note { color: #8a7050; font-style: italic; font-size: 13px; min-height: 18px; }
   .sl-p-action { margin-top: 12px; font-size: 15px; padding: 8px 20px; }
+  .sl-prologue-kill {
+    background: linear-gradient(180deg, rgba(24,8,5,0.50) 0%, rgba(32,8,4,0.78) 52%, rgba(8,5,4,0.95) 100%);
+    box-shadow: inset 0 0 0 4px rgba(181,86,30,.72), inset 0 0 90px rgba(90,18,6,.42);
+  }
+  .sl-prologue-kill .sl-p-card { border-color: #b5561e; }
+  .sl-prologue-kill .sl-p-kicker { color: #df7b3c; font-size: 21px; font-weight: bold; letter-spacing: 10px; }
+  .sl-prologue-kill .sl-p-prose { font-weight: bold; color: #f2dfc1; }
+  .sl-prologue-kill .sl-p-action { border-color: #b5561e; color: #f0c18c; }
   /* Title / case-select — the front door (M7 ship polish; swappable name layer). */
   .sl-title {
     position: fixed; inset: 0; z-index: 45; flex-direction: column; align-items: center; justify-content: center;
@@ -1355,7 +1370,7 @@ class AccusationBoard {
 const CORE_VERBS = Object.freeze(['look', 'take', 'move', 'use', 'talk', 'challenge']);
 
 class PrologueBeat {
-  constructor({ id, prose, verb, action, prologueKey = false, stakesFree = false }) {
+  constructor({ id, prose, verb, action, prologueKey = false, stakesFree = false, killBeat = false }) {
     if (!id) throw new TypeError('prologue beat needs an id');
     if (!CORE_VERBS.includes(verb)) throw new RangeError(`beat ${id}: unknown verb "${verb}"`);
     this.id = String(id);
@@ -1364,12 +1379,16 @@ class PrologueBeat {
     this.action = String(action || 'Continue');
     this.prologueKey = !!prologueKey;   // this beat plants the asymmetric knowledge
     this.stakesFree = !!stakesFree;     // a rehearsal (e.g. the challenge rep) that cannot fail
+    this.killBeat = !!killBeat;         // presentation-only emphasis; authored prose is untouched
   }
 }
 
 class Prologue {
-  constructor({ id, beats = [] }) {
+  constructor({ id, beats = [], card = null }) {
     this.id = String(id);
+    this.card = card ? Object.freeze({
+      act: String(card.act || ''), timestamp: String(card.timestamp || ''), line: String(card.line || ''),
+    }) : null;
     this.beats = beats.map((b) => (b instanceof PrologueBeat ? b : new PrologueBeat(b)));
     if (this.beats.length === 0) throw new Error(`prologue "${id}" has no beats`);
   }
@@ -3704,6 +3723,7 @@ const CONTROL_HINT = 'arrows/tab cycle   enter select   n notebook   ? help';
 const TEMPO_BPM = 84;              // slow, tired shuffle
 const SWING = 0.62;                // 0.5 straight .. 0.667 triplet; between = worn
 const BASS_DRAG = 0.035;           // fraction of a beat the bass lands late
+const HAT_GAINS = Object.freeze({ onbeat: 0.25, offbeat: 0.14 });
 
 const A4 = 440;
 const NOTE = { C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5, 'F#': 6, G: 7, 'G#': 8, A: 9, 'A#': 10, B: 11 };
@@ -3792,8 +3812,8 @@ function composeBar(barIndex, t0, { bpm = TEMPO_BPM, swing = SWING, section = 'A
     }
 
     // BRUSHED KIT: soft pulse on every beat; a swung offbeat ghost note.
-    events.push({ voice: 'kit', t: beatT, freq: 0, dur: 0.08, gain: 0.5, brushed: true });
-    events.push({ voice: 'kit', t: beatT + off, freq: 0, dur: 0.06, gain: 0.28, brushed: true });
+    events.push({ voice: 'kit', t: beatT, freq: 0, dur: 0.08, gain: HAT_GAINS.onbeat, brushed: true });
+    events.push({ voice: 'kit', t: beatT + off, freq: 0, dur: 0.06, gain: HAT_GAINS.offbeat, brushed: true });
 
     // WAH STAB (comp): the ambiguous chord, hit on the swung offbeat of 2 and 4.
     if (beat === 1 || beat === 3) {
@@ -3846,6 +3866,7 @@ class HouseBandPlayer {
     this.passIndex = 0;
     this.transportTime = 0;
     this.flutterPhase = (this.seed % 6283) / 1000;
+    this._scheduled = new Set();
   }
 
   available() { return !!this.ctx; }
@@ -3877,6 +3898,7 @@ class HouseBandPlayer {
       const bp = ctx.createBiquadFilter ? ctx.createBiquadFilter() : null;
       if (bp) { bp.type = 'highpass'; bp.frequency.value = 6000; src.connect(bp); bp.connect(g); }
       else src.connect(g);
+      this._track(src, bp ? [src, bp, g] : [src, g]);
       src.start(t); src.stop(t + e.dur + rel);
       return;
     }
@@ -3885,13 +3907,27 @@ class HouseBandPlayer {
     osc.type = e.voice === 'bass' ? 'sine' : e.voice === 'stab' ? 'sawtooth' : 'triangle';
     // WOW/FLUTTER: a hair of pitch wobble so the tape never sits still.
     osc.frequency.value = e.freq * flutterMultiplier(e.transportT ?? e.t, this.flutterPhase);
+    let filter = null;
     if (e.wah && ctx.createBiquadFilter) {
       const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = e.freq * 2; f.Q.value = 6;
       osc.connect(f); f.connect(g);
+      filter = f;
     } else {
       osc.connect(g);
     }
+    this._track(osc, filter ? [osc, filter, g] : [osc, g]);
     osc.start(t); osc.stop(t + e.dur + rel);
+  }
+
+  _track(source, nodes) {
+    const scheduled = { source, nodes };
+    this._scheduled.add(scheduled);
+    source.onended = () => {
+      this._scheduled.delete(scheduled);
+      for (const node of nodes) {
+        try { if (node.disconnect) node.disconnect(); } catch (_) { /* already detached */ }
+      }
+    };
   }
 
   _noise() {
@@ -3946,7 +3982,70 @@ class HouseBandPlayer {
   stop() {
     this._stopped = true; this.playing = false;
     if (this._timer) { clearTimeout(this._timer); this._timer = null; }
+    const now = this.ctx ? this.ctx.currentTime : 0;
+    for (const scheduled of this._scheduled) {
+      try { scheduled.source.stop(now); } catch (_) { /* source may have ended naturally */ }
+      for (const node of scheduled.nodes) {
+        try { if (node.disconnect) node.disconnect(); } catch (_) { /* already detached */ }
+      }
+    }
+    this._scheduled.clear();
+    if (this.master) {
+      try { this.master.disconnect(); } catch (_) { /* already detached */ }
+      this.master = null;
+    }
   }
+
+  activeSourceCount() { return this._scheduled.size; }
+}
+
+// Owns the browser-facing score lifecycle. OFF always releases the player handle and
+// closes its AudioContext; ON is idempotent and can therefore create exactly one graph.
+class HouseBandController {
+  constructor(createPlayer) {
+    if (typeof createPlayer !== 'function') throw new TypeError('HouseBandController needs a player factory');
+    this.createPlayer = createPlayer;
+    this.instance = null;
+  }
+
+  start() {
+    if (this.instance && this.instance.playing) return false;
+    if (this.instance) this.stop();
+    const player = this.createPlayer();
+    if (!player) return false;
+    this.instance = player;
+    try {
+      if (player.ctx && player.ctx.resume) player.ctx.resume();
+      if (player.start()) return true;
+    } catch (err) {
+      this.stop();
+      throw err;
+    }
+    this.stop();
+    return false;
+  }
+
+  stop() {
+    const player = this.instance;
+    if (!player) return false;
+    this.instance = null;
+    player.stop();
+    const ctx = player.ctx;
+    if (ctx && ctx.close && ctx.state !== 'closed') {
+      try {
+        const closing = ctx.close();
+        if (closing && typeof closing.catch === 'function') closing.catch(() => {});
+      } catch (_) { /* a browser may already be closing the context */ }
+    }
+    return true;
+  }
+
+  toggle() {
+    if (this.instance && this.instance.playing) { this.stop(); return false; }
+    return this.start();
+  }
+
+  runningCount() { return this.instance && this.instance.playing ? 1 : 0; }
 }
 
 
@@ -4409,6 +4508,7 @@ function buildCase1() {
   c.title = 'A Segment, Taped Early';
   c.prologue = new Prologue({
     id: 'case-1',
+    card: { act: 'COLD OPEN', timestamp: 'THURSDAY • 8:00 P.M.', line: 'THE NIGHT OF THE MURDER' },
     beats: [
       { id: 'p-look', verb: 'look', action: 'Look around',
         prose: 'The restaurant is dark. The books are open on the desk where he left them. He found the second set. Of course he did.' },
@@ -4418,7 +4518,7 @@ function buildCase1() {
         prose: 'Your hand finds the boning knife on the rack. The good one. It sits in the grip the way it always has.' },
       { id: 'p-use', verb: 'use', prologueKey: true, action: 'Set the tape',
         prose: 'Before the staff come in you set the segment to record and date the slate for tomorrow night. Live, the listing will say. You will be on every screen in the city while it happens here.' },
-      { id: 'p-talk', verb: 'talk', action: 'Let him finish',
+      { id: 'p-talk', verb: 'talk', action: 'Let him finish', killBeat: true,
         prose: 'The partner turns. He starts in on the numbers, the way he does. You let him finish. Then you do not.' },
       { id: 'p-challenge', verb: 'challenge', stakesFree: true, action: 'Rehearse the answer',
         prose: 'Rehearse it now, while it is quiet. The valet will ask where you were. You say the studio. You say it flat, and you say it until it is true.' },
@@ -5189,6 +5289,10 @@ function init(doc = document, win = window) {
   // --- prologue (play as the murderer) ------------------------------------
   function renderBeat(beat) {
     if (!beat) return;
+    const card = engine.caseData.prologue && engine.caseData.prologue.card;
+    ui.prologue.className = beat.killBeat ? 'sl-prologue sl-prologue-kill' : 'sl-prologue';
+    ui.prologue.dataset.beat = beat.killBeat ? 'murder' : beat.id;
+    ui.pKicker.textContent = beat.killBeat ? 'THE MURDER' : (card?.line || 'BEFORE');
     ui.pAction.textContent = beat.action;
     ui.pNote.textContent = beat.prologueKey ? 'You will remember this.'
       : beat.stakesFree ? 'A rehearsal. It costs nothing.' : '';
@@ -5204,6 +5308,10 @@ function init(doc = document, win = window) {
   }
   engine.on('prologue-begin', (e) => {
     state.prologueOpen = true; ui.prologue.style.display = 'flex';
+    const card = engine.caseData.prologue.card;
+    ui.pAct.textContent = card?.act || '';
+    ui.pTime.textContent = card?.timestamp || '';
+    ui.pCard.style.display = card ? 'flex' : 'none';
     state.backdropArt = world.backdropArt || null; state.sceneDirty = true; // the murder scene, behind the prose
     renderBeat(e.beat);
   });
@@ -5350,17 +5458,21 @@ function init(doc = document, win = window) {
       if (!band) {
         const AC = win.AudioContext || win.webkitAudioContext;
         if (!AC) { log.warn('audio', 'no WebAudio in this browser'); ui.musicBtn.textContent = 'Music: n/a'; return; }
-        const entropy = win.crypto?.getRandomValues
-          ? win.crypto.getRandomValues(new Uint32Array(1))[0]
-          : Math.floor((win.performance?.now?.() || Date.now()) * 1000);
         const intensityProvider = () => state.endingOpen ? 1
           : state.boardOpen ? 0.85
             : state.interrogationOpen ? 0.6
               : Math.min(0.75, 0.2 + engine.clock.count * 0.15);
-        band = new HouseBandPlayer(new AC(), { bars: 8, seed: sessionSeed(world.caseData.id, entropy), intensityProvider });
+        band = new HouseBandController(() => {
+          const entropy = win.crypto?.getRandomValues
+            ? win.crypto.getRandomValues(new Uint32Array(1))[0]
+            : Math.floor((win.performance?.now?.() || Date.now()) * 1000);
+          return new HouseBandPlayer(new AC(), { bars: 8, seed: sessionSeed(world.caseData.id, entropy), intensityProvider });
+        });
       }
-      if (band.playing) { band.stop(); ui.musicBtn.textContent = 'Music: off'; }
-      else { if (band.ctx.resume) band.ctx.resume(); band.start(); ui.musicBtn.textContent = 'Music: on'; }
+      const on = band.toggle();
+      ui.musicBtn.textContent = on ? 'Music: on' : 'Music: off';
+      ui.root.dataset.musicState = on ? 'on' : 'off';
+      ui.root.dataset.musicInstances = String(band.runningCount());
     } catch (err) { log.capture('audio', err); }
   });
 
@@ -5642,12 +5754,16 @@ function buildDom(doc) {
   // Prologue overlay (play as the murderer; forced-linear).
   const prologue = el(doc, 'div', 'sl-prologue');
   prologue.style.display = 'none';
+  const pCard = el(doc, 'div', 'sl-p-card');
+  const pAct = el(doc, 'div', 'sl-p-act');
+  const pTime = el(doc, 'div', 'sl-p-time');
+  pCard.append(pAct, pTime);
   const pKicker = el(doc, 'div', 'sl-p-kicker'); pKicker.textContent = 'BEFORE';
   const pProse = el(doc, 'div', 'sl-p-prose');
   const pNote = el(doc, 'div', 'sl-p-note');
   const pAction = button(doc, 'Continue');
   pAction.className = 'sl-btn sl-p-action';
-  prologue.append(pKicker, pProse, pNote, pAction);
+  prologue.append(pCard, pKicker, pProse, pNote, pAction);
 
   // Title / case-select overlay (the front door). The name reads from the swappable
   // GAME_TITLE constant; the case buttons are built from CASES (no baked-in name art).
@@ -5675,7 +5791,7 @@ function buildDom(doc) {
     notebook, nbSearch, nbClose, nbFilters, nbPeople, nbBody, nbFoot, toast,
     interro, portrait, iSpeaker, iPosture, iText, iOptions, iChallenge, iLog, challengeBtn, leaveBtn,
     board, bSentence, bDeflect, submitBtn, trapBtn, boardCloseBtn, ending,
-    prologue, pKicker, pProse, pNote, pAction,
+    prologue, pCard, pAct, pTime, pKicker, pProse, pNote, pAction,
     options, oBody, oClose, optionsBtn,
     help, hBody, hClose, helpBtn,
     title, tCases,
