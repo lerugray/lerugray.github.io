@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-11T21:53:35.166Z",
+  "updated_at": "2026-08-11T22:05:38.565Z",
   "roster": [
     {
       "name": "Chapel Perilous",
@@ -36,9 +36,20 @@
       "blurb": "You watch the murder. Then you prove it. A 70s-TV inverted mystery — typed facts, contradiction interrogations, one shot at the gotcha.",
       "status": "in development",
       "url": "https://lerugray.github.io/field-trials/shoeleather/"
+    },
+    {
+      "name": "ALKAHEST",
+      "blurb": "A match-panel machine on an alchemist's bench. Climb the four acts of the Magnum Opus against rival signatures — the register is the physics.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/alkahest/"
     }
   ],
   "entries": [
+    {
+      "date": "2026-08-11",
+      "game": "ALKAHEST",
+      "note": "Playable build posted."
+    },
     {
       "date": "2026-08-11",
       "game": "Chapel Perilous",
@@ -62,11 +73,21 @@
     {
       "date": "2026-08-11",
       "game": "SHOELEATHER",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "SHOELEATHER",
       "note": "Playable build posted."
     },
     {
       "date": "2026-08-11",
       "game": "Stray Squadron",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "THE JACQUARD INDEX",
       "note": "Update published."
     },
     {
