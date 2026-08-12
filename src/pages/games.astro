@@ -1,11 +1,20 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
-// FIELD TRIALS ROSTER.
+// FIELD TRIALS ROSTER — THE CABINET.
 // One entry per public-preview-ready game. Add a new game here the day its
-// preview build deploys (candidates on deck: oddseedz) —
-// that's the only edit needed; the card, "Open the build" link, status
-// line, and feedback box all render from this array.
+// preview build deploys — plus a label SVG in `labelArt` below and a shell
+// color trio — and the cartridge, detail panel, PLAY link, and feedback box
+// all render from this array.
+//
+// CLEAN SEAM FOR PULLED GAMES: ADVERSARY was pulled 2026-08-12 (commit
+// 6b300c1 — title screen/options + enemy-facing defects). When a pulled game
+// returns, re-add its roster entry with its ORIGINAL `id` (feedback threads
+// key off it) + a labelArt entry; nothing else needs touching.
+//
+// Test counts + audit verdicts are copied from the field-trials repo README
+// (the published audit table) and each game's own repo log. Update them when
+// a redeploy changes the suite.
 interface FieldTrialGame {
   /** Stable slug. Sent as the `game` key to the feedback worker — keep it
    *  once assigned, since it's how existing feedback stays attached. */
@@ -13,14 +22,21 @@ interface FieldTrialGame {
   name: string;
   /** One-line description of the game. */
   description: string;
-  /** Short genre/register tag shown in the card meta strip. */
+  /** Short genre/register tag shown in the detail readout. */
   register: string;
   /** Live preview build URL. */
   url: string;
   /** Status line, e.g. "field trial — active development". */
   status: string;
-  /** Specimen figure — a framed screenshot plate on the card. Optional so a
-   *  game can be listed the day it deploys and get its plate after. */
+  /** Passing-test count from the game's published suite. */
+  tests: number;
+  /** Published pre-release audit verdict, abbreviated. Honest, not flattering. */
+  audit: string;
+  /** Cartridge shell plastic + highlight + selection-glow color. */
+  shell: string;
+  shellHi: string;
+  glow: string;
+  /** Specimen figure — the real capture shown on the CRT when selected. */
   figure?: { src: string; alt: string; caption: string };
 }
 
@@ -33,6 +49,11 @@ const games: FieldTrialGame[] = [
     register: 'First-person grid crawler',
     url: 'https://lerugray.github.io/chp-preview/',
     status: 'Field trial — active development',
+    tests: 605,
+    audit: 'Five-role studio audit — the build contract itself was refuted before it was built',
+    shell: '#1b2a20',
+    shellHi: '#2f4636',
+    glow: '#4de37e',
     figure: {
       src: '/field-trials/chapel-perilous-fig.png',
       alt: 'Chapel Perilous title screen: phosphor-green terminal text reading "a recovered operations manual" beside a party panel',
@@ -47,6 +68,11 @@ const games: FieldTrialGame[] = [
     register: 'City builder',
     url: 'https://i2-preview.pages.dev/',
     status: 'Field trial — active development',
+    tests: 417,
+    audit: 'Defects found — 1 blocker, 3 defects, 3 friction, each with a repro',
+    shell: '#2b4347',
+    shellHi: '#3f5c60',
+    glow: '#7fd0c0',
     figure: {
       src: '/field-trials/innsmouth-2000-fig.png',
       alt: 'Innsmouth 2000 title screen: a beveled verdigris wordmark over a dimmed generated town with lit windows, in front of a system-dialog start menu',
@@ -61,6 +87,11 @@ const games: FieldTrialGame[] = [
     register: 'On-rails roguelite shooter',
     url: 'https://ss-preview.pages.dev/',
     status: 'Field trial — active development',
+    tests: 497,
+    audit: 'Genre audit: no silent gaps — independent finishedness audit: NEEDS-A-ROUND',
+    shell: '#4e4a66',
+    shellHi: '#67628a',
+    glow: '#f5c937',
     figure: {
       src: '/field-trials/stray-squadron-fig.png',
       alt: 'Stray Squadron title screen: bold yellow block-letter wordmark over a dark starfield, a low-poly ship beside the run menu',
@@ -75,6 +106,11 @@ const games: FieldTrialGame[] = [
     register: 'Monster-ranching browser toy',
     url: 'https://lerugray.github.io/field-trials/oddseedz/',
     status: 'Field trial · active development',
+    tests: 305,
+    audit: 'NEEDS-A-ROUND, followed by a documented fix round',
+    shell: '#6f9a68',
+    shellHi: '#8db584',
+    glow: '#ffd98a',
     figure: {
       src: '/field-trials/oddseedz-fig-2026-08-10.png',
       alt: 'Oddseedz specimen plate: a green Buddy under a hanging lamp in a lit night toy room, moon at the window, seed vending machine on the right',
@@ -85,10 +121,15 @@ const games: FieldTrialGame[] = [
     id: 'lines-of-advance',
     name: 'Lines of Advance',
     description:
-      'A modern strategy game of supply lines and massed attacks. Symmetric armies, deterministic combat, an engine that fights. Inspired by Guy Debord\u2019s Kriegspiel.',
+      'A modern strategy game of supply lines and massed attacks. Symmetric armies, deterministic combat, an engine that fights. Inspired by Guy Debord’s Kriegspiel.',
     register: 'Strategy engine',
     url: 'https://lerugray.github.io/field-trials/lines-of-advance/',
     status: 'Field trial — released',
+    tests: 156,
+    audit: 'Release audit — all findings verified landed, 156/156 independent re-run',
+    shell: '#b5aa8d',
+    shellHi: '#cdc3a8',
+    glow: '#c65540',
     figure: {
       src: '/field-trials/lines-of-advance/og.png',
       alt: 'Lines of Advance share card: the full 25x20 board at deployment, both armies arrayed, with the unit and supply inspector panels on the right',
@@ -103,6 +144,11 @@ const games: FieldTrialGame[] = [
     register: 'Ascent platformer',
     url: 'https://lerugray.github.io/field-trials/capriole/',
     status: 'Field trial · active development',
+    tests: 188,
+    audit: 'Spawn-safety sweep — 8,000 cases, zero death loops',
+    shell: '#7fa9c9',
+    shellHi: '#9dc2dd',
+    glow: '#f0c948',
     figure: {
       src: '/field-trials/capriole-fig-2026-08-11.png',
       alt: 'Capriole gameplay: the Dawn Fair teaching sphere — floating grass islands and striped clay pots against a dithered blue sky, collectible rings overhead',
@@ -117,6 +163,11 @@ const games: FieldTrialGame[] = [
     register: 'Inverted-mystery deduction',
     url: 'https://lerugray.github.io/field-trials/shoeleather/',
     status: 'Field trial · active development',
+    tests: 373,
+    audit: 'FIX-FIRST — 18 findings, one ship-blocker (the gotcha could be brute-forced; fixed)',
+    shell: '#5f4128',
+    shellHi: '#7a583a',
+    glow: '#e0a458',
     figure: {
       src: '/field-trials/shoeleather-fig-2026-08-11.png',
       alt: 'Shoeleather gameplay: painted character portraits and the typed-fact notebook of an open murder case',
@@ -131,6 +182,11 @@ const games: FieldTrialGame[] = [
     register: 'No-guess nonogram catalog',
     url: 'https://lerugray.github.io/field-trials/jacquard-index/',
     status: 'Field trial · active development',
+    tests: 252,
+    audit: 'FIX-FIRST — 8 findings; 7 fixed, 1 named omission',
+    shell: '#33476e',
+    shellHi: '#475d8a',
+    glow: '#9db8e8',
     figure: {
       src: '/field-trials/jacquard-index-fig-2026-08-12.png',
       alt: 'The Jacquard Index gameplay: an open nonogram pattern card — THE LEAF — with run-length clues and the fill controls',
@@ -145,6 +201,11 @@ const games: FieldTrialGame[] = [
     register: 'Match-panel roguelite',
     url: 'https://lerugray.github.io/field-trials/alkahest/',
     status: 'Field trial · active development',
+    tests: 215,
+    audit: 'FIX-FIRST — 6 findings; 4 fixed, 1 disclosed unfixed',
+    shell: '#1f3a30',
+    shellHi: '#315146',
+    glow: '#d8b25a',
     figure: {
       src: '/field-trials/alkahest-fig-2026-08-11.png',
       alt: 'Alkahest gameplay: two populated panel wells facing off across a VS banner — the player’s bench against the rival Verdigris',
@@ -152,6 +213,236 @@ const games: FieldTrialGame[] = [
     },
   },
 ];
+
+const totalTests = games.reduce((n, g) => n + g.tests, 0);
+const totalTestsFmt = totalTests.toLocaleString('en-US');
+
+// CARTRIDGE LABEL ART — one code-drawn inline SVG per game, keyed by id.
+// Everything on this shelf is drawn by code because everything IN these games
+// is drawn by code; no image assets, ever. Each label channels its own game's
+// register, not the site's. All fills/strokes inline so Astro's scoped-style
+// pass can't strand them.
+const T = 'font-family: var(--font-mono), monospace; font-weight: 500; letter-spacing: 0.08em;';
+const labelArt: Record<string, string> = {
+  'chapel-perilous': `
+<svg viewBox="0 0 132 100" role="img" aria-label="Chapel Perilous cartridge label: a phosphor-green wireframe dungeon corridor" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#070d09"/>
+  <g stroke="#2c7a4d" stroke-width="1" fill="none">
+    <rect x="10" y="8" width="112" height="66"/>
+    <rect x="26" y="18" width="80" height="46"/>
+    <rect x="42" y="27" width="48" height="28"/>
+    <line x1="10" y1="8" x2="42" y2="27"/><line x1="122" y1="8" x2="90" y2="27"/>
+    <line x1="10" y1="74" x2="42" y2="55"/><line x1="122" y1="74" x2="90" y2="55"/>
+  </g>
+  <rect x="58" y="34" width="16" height="21" fill="#4de37e" opacity="0.9"/>
+  <rect x="58" y="34" width="16" height="21" fill="none" stroke="#8fffb8" stroke-width="0.8"/>
+  <g fill="#4de37e" opacity="0.55">
+    <rect x="18" y="14" width="1.6" height="1.6"/><rect x="108" y="22" width="1.6" height="1.6"/>
+    <rect x="32" y="62" width="1.6" height="1.6"/><rect x="96" y="66" width="1.6" height="1.6"/>
+    <rect x="70" y="12" width="1.6" height="1.6"/><rect x="50" y="70" width="1.6" height="1.6"/>
+  </g>
+  <path d="M62 40 l3 -4 3 4 z" fill="#070d09" opacity="0.85"/>
+  <rect x="0" y="80" width="132" height="20" fill="#0c1710"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#4de37e" font-size="9" style="${T}">CHAPEL PERILOUS</text>
+</svg>`,
+  'innsmouth-2000': `
+<svg viewBox="0 0 132 100" role="img" aria-label="Innsmouth 2000 cartridge label: a small coastal town under a system title bar, one tentacle rising" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#233a3e"/>
+  <rect x="0" y="0" width="132" height="12" fill="#b5b2a8"/>
+  <rect x="0" y="11" width="132" height="1" fill="#5c5a52"/>
+  <rect x="4" y="3" width="40" height="2" fill="#5c5a52"/><rect x="4" y="7" width="26" height="2" fill="#5c5a52"/>
+  <rect x="120" y="2.5" width="7" height="7" fill="#8a877d" stroke="#4a4840" stroke-width="1"/>
+  <path d="M121.5 4 l4 4 m0 -4 l-4 4" stroke="#2e2c26" stroke-width="1"/>
+  <g>
+    <rect x="14" y="40" width="14" height="26" fill="#31494d"/><rect x="34" y="32" width="16" height="34" fill="#3a555a"/>
+    <rect x="56" y="44" width="12" height="22" fill="#2c4246"/><rect x="94" y="38" width="15" height="28" fill="#354f54"/>
+    <g fill="#e8d27a">
+      <rect x="17" y="44" width="3" height="3"/><rect x="23" y="52" width="3" height="3"/>
+      <rect x="38" y="36" width="3" height="3"/><rect x="44" y="44" width="3" height="3"/><rect x="38" y="56" width="3" height="3"/>
+      <rect x="59" y="48" width="3" height="3"/><rect x="98" y="42" width="3" height="3"/><rect x="103" y="54" width="3" height="3"/>
+    </g>
+  </g>
+  <path d="M78 66 C74 52 84 50 82 40 C81 34 74 32 72 36 C70 39 74 40 75 38" fill="none" stroke="#5ea895" stroke-width="4" stroke-linecap="round"/>
+  <rect x="0" y="66" width="132" height="14" fill="#1d5a5e"/>
+  <path d="M0 66 l8 3 8 -3 8 3 8 -3 8 3 8 -3 8 3 8 -3 8 3 8 -3 8 3 8 -3 8 3 8 -3 8 3 8 -3 4 1.5 v4 H0 z" fill="#2a7276"/>
+  <rect x="0" y="80" width="132" height="20" fill="#16282b"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#7fd0c0" font-size="9.5" style="${T}">INNSMOUTH 2000</text>
+</svg>`,
+  'stray-squadron': `
+<svg viewBox="0 0 132 100" role="img" aria-label="Stray Squadron cartridge label: a flat-shaded low-poly fighter over a purple horizon grid" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#120f1e"/>
+  <g fill="#e8e4f4">
+    <rect x="12" y="10" width="1.5" height="1.5"/><rect x="30" y="22" width="1.5" height="1.5"/><rect x="52" y="8" width="1.5" height="1.5"/>
+    <rect x="80" y="16" width="1.5" height="1.5"/><rect x="104" y="9" width="1.5" height="1.5"/><rect x="118" y="26" width="1.5" height="1.5"/>
+    <rect x="22" y="38" width="1.5" height="1.5"/><rect x="96" y="34" width="1.5" height="1.5"/>
+  </g>
+  <g stroke="#6a4f9e" stroke-width="1" fill="none" opacity="0.9">
+    <line x1="0" y1="58" x2="132" y2="58"/>
+    <line x1="66" y1="58" x2="10" y2="80"/><line x1="66" y1="58" x2="40" y2="80"/><line x1="66" y1="58" x2="66" y2="80"/>
+    <line x1="66" y1="58" x2="92" y2="80"/><line x1="66" y1="58" x2="122" y2="80"/>
+    <line x1="8" y1="64" x2="124" y2="64"/><line x1="16" y1="72" x2="116" y2="72"/>
+  </g>
+  <g>
+    <polygon points="66,26 50,52 82,52" fill="#b9bdd4"/>
+    <polygon points="66,26 66,52 82,52" fill="#8e93b3"/>
+    <polygon points="50,52 40,58 66,52" fill="#3f9d8f"/>
+    <polygon points="82,52 92,58 66,52" fill="#2e7a70"/>
+    <polygon points="66,32 61,44 71,44" fill="#f5c937"/>
+  </g>
+  <rect x="0" y="80" width="132" height="20" fill="#241f38"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#f5c937" font-size="9.5" style="${T}">STRAY SQUADRON</text>
+</svg>`,
+  oddseedz: `
+<svg viewBox="0 0 132 100" role="img" aria-label="Oddseedz cartridge label: a round green Buddy under a hanging lamp, a sprouting seed beside it" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#1d2b1f"/>
+  <polygon points="66,4 36,60 96,60" fill="#ffd98a" opacity="0.14"/>
+  <line x1="66" y1="0" x2="66" y2="10" stroke="#8b7e5d" stroke-width="1.5"/>
+  <path d="M58 10 h16 l-3 6 h-10 z" fill="#e0a458"/>
+  <circle cx="66" cy="14.5" r="1.5" fill="#fff3d0"/>
+  <ellipse cx="60" cy="52" rx="17" ry="15" fill="#9ed08c"/>
+  <ellipse cx="60" cy="56" rx="12" ry="8" fill="#8ac077" opacity="0.7"/>
+  <circle cx="54" cy="48" r="4.6" fill="#ffffff"/><circle cx="67" cy="48" r="4.6" fill="#ffffff"/>
+  <circle cx="55" cy="49" r="2" fill="#25301f"/><circle cx="68" cy="49" r="2" fill="#25301f"/>
+  <path d="M56 59 q4 3.4 8 0" stroke="#25301f" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  <path d="M52 37 q-2 -7 4 -8" stroke="#6f9a68" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M67 37 q3 -6 -1 -9" stroke="#6f9a68" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M96 62 q-6 -1 -5.4 -8 q0.6 -6 6.4 -6 q6 0 6 6.6 q0 6.6 -7 7.4 z" fill="#a5713e"/>
+  <path d="M97 48 q0 -7 6 -9" stroke="#8ac077" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="105" cy="38" rx="3.4" ry="2.2" fill="#8ac077" transform="rotate(-30 105 38)"/>
+  <rect x="20" y="64" width="92" height="2" fill="#31402f"/>
+  <rect x="0" y="80" width="132" height="20" fill="#28381f"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#f3ecd6" font-size="11" style="${T}">ODDSEEDZ</text>
+</svg>`,
+  'lines-of-advance': `
+<svg viewBox="0 0 132 100" role="img" aria-label="Lines of Advance cartridge label: ranked blue and red unit blocks with crossing arrows of attack on a bone board" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#ded6c2"/>
+  <g stroke="#c2b89e" stroke-width="0.7">
+    <line x1="0" y1="16" x2="132" y2="16"/><line x1="0" y1="32" x2="132" y2="32"/><line x1="0" y1="48" x2="132" y2="48"/><line x1="0" y1="64" x2="132" y2="64"/>
+    <line x1="22" y1="0" x2="22" y2="80"/><line x1="44" y1="0" x2="44" y2="80"/><line x1="66" y1="0" x2="66" y2="80"/><line x1="88" y1="0" x2="88" y2="80"/><line x1="110" y1="0" x2="110" y2="80"/>
+  </g>
+  <g fill="#2b3f66">
+    <rect x="14" y="10" width="14" height="9"/><rect x="32" y="10" width="14" height="9"/><rect x="50" y="10" width="14" height="9"/>
+    <rect x="23" y="24" width="14" height="9"/><rect x="41" y="24" width="14" height="9"/>
+  </g>
+  <g fill="#a8402f">
+    <rect x="72" y="62" width="14" height="9"/><rect x="90" y="62" width="14" height="9"/><rect x="108" y="62" width="14" height="9"/>
+    <rect x="81" y="48" width="14" height="9"/><rect x="99" y="48" width="14" height="9"/>
+  </g>
+  <path d="M38 36 L74 58" stroke="#2b3f66" stroke-width="2.6" fill="none"/>
+  <path d="M74 58 l-7.5 -1 3.4 -6.8 z" fill="#2b3f66"/>
+  <path d="M94 46 L60 22" stroke="#a8402f" stroke-width="2.6" fill="none"/>
+  <path d="M60 22 l7.6 0.4 -2.8 7 z" fill="#a8402f"/>
+  <rect x="0" y="80" width="132" height="20" fill="#1f1b14"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#ded6c2" font-size="8.5" style="${T}">LINES OF ADVANCE</text>
+</svg>`,
+  capriole: `
+<svg viewBox="0 0 132 100" role="img" aria-label="Capriole cartridge label: a white goat leaping up a dithered blue sky toward gold rings, striped clay pots below" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#a8cbe3"/>
+  <g fill="#c3ddef">
+    <rect x="10" y="8" width="2" height="2"/><rect x="26" y="20" width="2" height="2"/><rect x="44" y="6" width="2" height="2"/>
+    <rect x="86" y="12" width="2" height="2"/><rect x="112" y="20" width="2" height="2"/><rect x="18" y="40" width="2" height="2"/>
+    <rect x="118" y="44" width="2" height="2"/><rect x="98" y="34" width="2" height="2"/><rect x="8" y="58" width="2" height="2"/>
+  </g>
+  <g stroke="#e0a83c" stroke-width="2.6" fill="none">
+    <circle cx="96" cy="14" r="6"/><circle cx="74" cy="28" r="5"/>
+  </g>
+  <g fill="#fdfaf2">
+    <ellipse cx="58" cy="46" rx="13" ry="8" transform="rotate(-34 58 46)"/>
+    <circle cx="68" cy="32" r="5"/>
+    <path d="M70 28 q5 -6 2 -10 q6 3 2 11 z"/>
+    <path d="M66 27 q1 -6 -3 -8 q7 0 6 8 z"/>
+    <path d="M50 52 l-6 8 2 1.5 6 -7 z"/><path d="M56 55 l-3 9 2.4 0.8 4 -8 z"/>
+    <path d="M64 44 l6 7 2 -1.4 -5 -8 z"/>
+    <path d="M47 42 q-5 0 -6 -4 q3 1 6 0.6 z"/>
+  </g>
+  <path d="M72 33.5 h2.4" stroke="#25301f" stroke-width="1.2"/>
+  <g>
+    <path d="M20 80 l3 -16 h18 l3 16 z" fill="#c07848"/>
+    <path d="M22.4 68 h19.2 M21.4 73 h21.2" stroke="#f3ecd6" stroke-width="2.4"/>
+    <path d="M92 80 l2.6 -12 h14 l2.6 12 z" fill="#b06a3e"/>
+    <path d="M95 72 h13.4" stroke="#f3ecd6" stroke-width="2.2"/>
+  </g>
+  <rect x="0" y="80" width="132" height="20" fill="#2b4d68"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#f3ecd6" font-size="11" style="${T}">CAPRIOLE</text>
+</svg>`,
+  shoeleather: `
+<svg viewBox="0 0 132 100" role="img" aria-label="Shoeleather cartridge label: a 1970s television with rabbit ears, a chalk outline on the screen" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#241812"/>
+  <line x1="56" y1="22" x2="40" y2="6" stroke="#8b7e5d" stroke-width="1.6"/>
+  <line x1="70" y1="22" x2="88" y2="4" stroke="#8b7e5d" stroke-width="1.6"/>
+  <circle cx="40" cy="6" r="1.8" fill="#8b7e5d"/><circle cx="88" cy="4" r="1.8" fill="#8b7e5d"/>
+  <rect x="22" y="22" width="88" height="52" rx="6" fill="#6e4a2f"/>
+  <rect x="22" y="22" width="88" height="52" rx="6" fill="none" stroke="#3c2417" stroke-width="1.6"/>
+  <rect x="29" y="28" width="56" height="40" rx="4" fill="#1c2434"/>
+  <rect x="29" y="28" width="56" height="40" rx="4" fill="none" stroke="#0e1119" stroke-width="1.2"/>
+  <g stroke="#e8e4da" stroke-width="1.4" fill="none" stroke-linejoin="round">
+    <path d="M48 62 l3 -9 -4 -5 3 -6 6 -1 5 3 1 6 6 2 -2 6 -6 -2 -2 8"/>
+    <circle cx="57" cy="37" r="3.6"/>
+  </g>
+  <rect x="29" y="28" width="56" height="3" fill="#e0a458" opacity="0.25"/>
+  <circle cx="97" cy="38" r="5" fill="#3c2417"/><circle cx="97" cy="38" r="5" fill="none" stroke="#241207" stroke-width="1"/>
+  <line x1="97" y1="34.4" x2="97" y2="38" stroke="#e0a458" stroke-width="1.2"/>
+  <circle cx="97" cy="54" r="5" fill="#3c2417"/><circle cx="97" cy="54" r="5" fill="none" stroke="#241207" stroke-width="1"/>
+  <line x1="97" y1="54" x2="100" y2="52" stroke="#e0a458" stroke-width="1.2"/>
+  <rect x="46" y="74" width="40" height="3" fill="#3c2417"/>
+  <rect x="0" y="80" width="132" height="20" fill="#38251a"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#e0a458" font-size="10" style="${T}">SHOELEATHER</text>
+</svg>`,
+  'jacquard-index': `
+<svg viewBox="0 0 132 100" role="img" aria-label="The Jacquard Index cartridge label: an index card bearing a nonogram whose filled cells form a leaf, brass drawer pull below" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#33476e"/>
+  <rect x="10" y="8" width="112" height="66" fill="#e6dcbf"/>
+  <rect x="10" y="8" width="112" height="66" fill="none" stroke="#b8a87f" stroke-width="1"/>
+  <g fill="#33476e" opacity="0.85" style="${T} font-size:5px;">
+    <text x="46" y="18" text-anchor="middle">2</text><text x="54" y="18" text-anchor="middle">4</text>
+    <text x="62" y="18" text-anchor="middle">6</text><text x="70" y="18" text-anchor="middle">6</text>
+    <text x="78" y="18" text-anchor="middle">4</text><text x="86" y="18" text-anchor="middle">2</text>
+    <text x="38" y="28" text-anchor="end">1</text><text x="38" y="36" text-anchor="end">3</text>
+    <text x="38" y="44" text-anchor="end">5</text><text x="38" y="52" text-anchor="end">5</text>
+    <text x="38" y="60" text-anchor="end">3</text><text x="38" y="68" text-anchor="end">1</text>
+  </g>
+  <g stroke="#9aa8c4" stroke-width="0.7" fill="none">
+    <rect x="42" y="21" width="48" height="48"/>
+    <line x1="50" y1="21" x2="50" y2="69"/><line x1="58" y1="21" x2="58" y2="69"/><line x1="66" y1="21" x2="66" y2="69"/><line x1="74" y1="21" x2="74" y2="69"/><line x1="82" y1="21" x2="82" y2="69"/>
+    <line x1="42" y1="29" x2="90" y2="29"/><line x1="42" y1="37" x2="90" y2="37"/><line x1="42" y1="45" x2="90" y2="45"/><line x1="42" y1="53" x2="90" y2="53"/><line x1="42" y1="61" x2="90" y2="61"/>
+  </g>
+  <g fill="#2c3c5c">
+    <rect x="66" y="21" width="8" height="8"/>
+    <rect x="58" y="29" width="8" height="8"/><rect x="66" y="29" width="8" height="8"/><rect x="74" y="29" width="8" height="8"/>
+    <rect x="50" y="37" width="8" height="8"/><rect x="58" y="37" width="8" height="8"/><rect x="66" y="37" width="8" height="8"/><rect x="74" y="37" width="8" height="8"/><rect x="82" y="37" width="8" height="8"/>
+    <rect x="50" y="45" width="8" height="8"/><rect x="58" y="45" width="8" height="8"/><rect x="66" y="45" width="8" height="8"/><rect x="74" y="45" width="8" height="8"/><rect x="82" y="45" width="8" height="8"/>
+    <rect x="58" y="53" width="8" height="8"/><rect x="66" y="53" width="8" height="8"/><rect x="74" y="53" width="8" height="8"/>
+    <rect x="66" y="61" width="8" height="8"/>
+  </g>
+  <g>
+    <rect x="54" y="74" width="24" height="3" fill="#8f7a48"/>
+    <path d="M56 77 q10 7 20 0" stroke="#b99b5e" stroke-width="2.4" fill="none"/>
+  </g>
+  <rect x="0" y="80" width="132" height="20" fill="#22314e"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#c9d6ee" font-size="8" style="${T}">THE JACQUARD INDEX</text>
+</svg>`,
+  alkahest: `
+<svg viewBox="0 0 132 100" role="img" aria-label="Alkahest cartridge label: a flask on an alchemist's bench, gold glyphs above the liquor" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#10201a"/>
+  <line x1="8" y1="70" x2="124" y2="70" stroke="#2c4438" stroke-width="2"/>
+  <path d="M60 22 h12 v14 l14 28 a4 4 0 0 1 -3.6 6 h-32.8 a4 4 0 0 1 -3.6 -6 l14 -28 z" fill="none" stroke="#d8b25a" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M52 56 l6.2 -12.4 h15.6 l6.2 12.4 a4 4 0 0 1 -3.6 6 h-20.8 a4 4 0 0 1 -3.6 -6 z" fill="#2e6b5e"/>
+  <circle cx="63" cy="52" r="1.6" fill="#7fd0c0"/><circle cx="70" cy="57" r="1.3" fill="#7fd0c0"/><circle cx="66" cy="46" r="1.1" fill="#7fd0c0"/>
+  <rect x="58" y="18" width="16" height="4" fill="#d8b25a"/>
+  <g stroke="#d8b25a" stroke-width="1.4" fill="none">
+    <path d="M26 26 l7 12 h-14 z"/>
+    <circle cx="104" cy="24" r="6"/><circle cx="104" cy="24" r="1" fill="#d8b25a"/>
+    <path d="M100 46 a6 6 0 1 0 8 -8 a7 7 0 0 1 -8 8 z"/>
+    <line x1="22" y1="52" x2="36" y2="52"/><line x1="29" y1="45" x2="29" y2="59"/>
+  </g>
+  <g fill="#d8b25a" opacity="0.8">
+    <rect x="86" y="64" width="5" height="5"/><rect x="93" y="64" width="5" height="5"/>
+    <rect x="86" y="57" width="5" height="5" opacity="0.5"/><rect x="93" y="57" width="5" height="5" opacity="0.5"/>
+  </g>
+  <rect x="0" y="80" width="132" height="20" fill="#1a2f26"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#d8b25a" font-size="11" style="${T}">ALKAHEST</text>
+</svg>`,
+};
 
 // FEEDBACK ENDPOINT — LIVE (worker deployed 2026-08-05, probe-verified).
 // If it's ever unreachable, each feedback box degrades in place to
@@ -163,7 +454,7 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
 
 <BaseLayout
   title="Field Trials · Ray Weiss"
-  description="Playable preview builds of games in development. Try one, leave feedback, watch it change."
+  description={`Playable preview builds of games in development. Pick a cartridge, press play. ${totalTestsFmt} tests and every audit published.`}
   colophon={{ sheet: 'VIII', edition: '2026.08', loc: 'Brooklyn, NY', scale: 'Live builds' }}
 >
   <div
@@ -195,13 +486,15 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
     <!-- VOICE PASS PENDING: Ray rewrites -->
     <div class="bio">
       <p>
-        These are games I'm still building. Each preview link below opens the current build in
+        These are games I'm still building. Pick a cartridge below — the current build opens in
         your browser. No download, no account. Play, and if something breaks or feels off, tell
         me in the box under the game. I read every one.
       </p>
     </div>
+  </div>
 
-    <section aria-labelledby="roster">
+  <section aria-labelledby="roster" class="cabinet-section">
+    <div class="mx-auto max-w-4xl">
       <div class="section-head">
         <h2 class="section-label" id="roster">
           <span class="pl">PL. VIII</span>Roster
@@ -210,115 +503,191 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
           >{games.length.toString().padStart(2, '0')} {games.length === 1 ? 'entry' : 'entries'} ——</span
         >
       </div>
+    </div>
 
-      <ol class="infra-list field-trials-list">
-        {
-          games.map((game) => (
-            <li class="field-trial-card">
-              <div class="ft-grid">
-                <div class="ft-main">
-                  <div class="infra-meta">
-                    <span>
-                      <span class="dot live" />
-                      <span class="k">Status</span>
-                      <span class="v">{game.status}</span>
-                    </span>
-                    <span>
-                      <span class="k">Register</span>
-                      <span class="v">{game.register}</span>
-                    </span>
+    <!-- THE CABINET. This plate deliberately breaks the atlas paper register
+         (Ray's call, 2026-08-12): the games deserve an arcade, not a ledger.
+         The seam is framed as an atlas plate; everything inside is dark. -->
+    <div class="cabinet" id="cabinet" data-count={games.length}>
+      <div class="cab-rail" aria-hidden="true">
+        <span class="cab-rail-left">SPECIMEN CABINET — SELECT A CARTRIDGE</span>
+        <span class="cab-rail-right">{totalTestsFmt} TESTS ACROSS {games.length} BUILDS · AUDITS PUBLISHED</span>
+      </div>
+
+      <div class="cab-body">
+        <div class="cab-shelf-col">
+          <div
+            class="cab-shelf"
+            role="group"
+            aria-label="Cartridge shelf. Arrow keys browse, Enter plays the selected game."
+          >
+            {
+              games.map((game, i) => (
+                <button
+                  type="button"
+                  class="cart"
+                  id={`cart-${game.id}`}
+                  data-game={game.id}
+                  data-index={i}
+                  aria-pressed={i === 0 ? 'true' : 'false'}
+                  aria-describedby={`panel-${game.id}`}
+                  style={`--shell:${game.shell}; --shell-hi:${game.shellHi}; --glow:${game.glow};`}
+                >
+                  <span class="cart-grip" aria-hidden="true" />
+                  <span class="cart-no" aria-hidden="true">No.{(i + 1).toString().padStart(2, '0')}</span>
+                  <span class="cart-label" set:html={labelArt[game.id]} />
+                  <span class="cart-led" aria-hidden="true" />
+                  <span class="sr-only">{game.name}</span>
+                </button>
+              ))
+            }
+          </div>
+          <p class="cab-hint" aria-hidden="true">&larr; &uarr; &darr; &rarr; BROWSE &nbsp;·&nbsp; ENTER PLAYS</p>
+          <p class="sr-only" role="status" aria-live="polite" data-cab-status></p>
+        </div>
+
+        <div class="cab-detail">
+          {
+            games.map((game, i) => (
+              <article
+                class="cab-panel"
+                id={`panel-${game.id}`}
+                data-panel={game.id}
+                data-active={i === 0 ? 'true' : null}
+                hidden={i !== 0}
+                aria-label={`${game.name} — details`}
+              >
+                <div class="crt">
+                  <div class="crt-top" aria-hidden="true">
+                    <span class="crt-power" />
+                    <span class="crt-ch">SLOT {(i + 1).toString().padStart(2, '0')}</span>
                   </div>
-                  <span class="infra-title">{game.name}</span>
-                  <p class="infra-desc">{game.description}</p>
+                  {game.figure ? (
+                    <figure class="crt-fig">
+                      <div class="crt-screen">
+                        <img
+                          src={game.figure.src}
+                          alt={game.figure.alt}
+                          loading={i === 0 ? 'eager' : 'lazy'}
+                          width="1200"
+                          height="750"
+                        />
+                      </div>
+                      <figcaption>{game.figure.caption}</figcaption>
+                    </figure>
+                  ) : (
+                    <div class="crt-screen crt-screen--empty">
+                      <span>NO SIGNAL — capture pending</span>
+                    </div>
+                  )}
+                </div>
+
+                <div class="cab-readout">
+                  <h3 class="cab-title">{game.name}</h3>
+                  <p class="cab-desc">{game.description}</p>
+
+                  <dl class="cab-meta">
+                    <div>
+                      <dt>Register</dt>
+                      <dd>{game.register}</dd>
+                    </div>
+                    <div>
+                      <dt>Status</dt>
+                      <dd>{game.status}</dd>
+                    </div>
+                    <div>
+                      <dt>Suite</dt>
+                      <dd>
+                        <strong class="cab-tests">{game.tests}</strong> tests passing
+                      </dd>
+                    </div>
+                  </dl>
+
+                  <p class="cab-audit">
+                    <span class="k">Pre-release audit</span>
+                    {game.audit}
+                  </p>
+
                   <a
                     href={game.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="cta field-trial-open"
+                    class="cab-play"
+                    data-play={game.id}
                   >
-                    Open the build &rarr;
+                    <span class="tri" aria-hidden="true">&#9654;</span> PLAY
+                    <span class="cab-play-sub">opens the build in a new tab</span>
                   </a>
+
+                  <details class="cab-feedback">
+                    <summary>Field report — leave feedback</summary>
+                    <div
+                      class="feedback-box"
+                      data-game={game.id}
+                      data-endpoint={FEEDBACK_ENDPOINT}
+                      data-game-name={game.name}
+                    >
+                      <p class="feedback-status" hidden />
+                      <ol class="feedback-list" aria-label={`Feedback for ${game.name}`} />
+                      <form class="feedback-form" aria-label={`Send feedback for ${game.name}`}>
+                        <div class="feedback-honeypot" aria-hidden="true">
+                          <label>
+                            Leave this field blank
+                            <input type="text" name="website" tabindex={-1} autocomplete="off" />
+                          </label>
+                        </div>
+                        <div class="feedback-field">
+                          <label class="feedback-label" for={`ft-name-${game.id}`}>
+                            Name <span class="feedback-optional">(optional)</span>
+                          </label>
+                          <input
+                            type="text"
+                            id={`ft-name-${game.id}`}
+                            name="name"
+                            maxlength="40"
+                            class="feedback-input"
+                            autocomplete="name"
+                          />
+                        </div>
+                        <div class="feedback-field">
+                          <label class="feedback-label" for={`ft-body-${game.id}`}>Feedback</label>
+                          <textarea
+                            id={`ft-body-${game.id}`}
+                            name="body"
+                            maxlength="1000"
+                            rows="3"
+                            required
+                            class="feedback-textarea"
+                            placeholder="What happened? What would you change?"
+                          />
+                        </div>
+                        <div class="feedback-row">
+                          <button type="submit" class="feedback-submit">Send</button>
+                          <p class="feedback-note" role="status" aria-live="polite" />
+                        </div>
+                      </form>
+                    </div>
+                  </details>
                 </div>
-
-                {
-                  game.figure && (
-                    <figure class="ft-figure">
-                      <a href={game.url} target="_blank" rel="noopener noreferrer" tabindex={-1}>
-                        <img
-                          src={game.figure.src}
-                          alt={game.figure.alt}
-                          loading="lazy"
-                          width="1200"
-                          height="750"
-                        />
-                      </a>
-                      <figcaption>{game.figure.caption}</figcaption>
-                    </figure>
-                  )
-                }
-              </div>
-
-              <div
-                class="feedback-box"
-                data-game={game.id}
-                data-endpoint={FEEDBACK_ENDPOINT}
-                data-game-name={game.name}
-              >
-                <p class="sub-head">
-                  <span class="pl">+</span>Feedback
-                </p>
-
-                <p class="feedback-status" hidden />
-
-                <ol class="feedback-list" aria-label={`Feedback for ${game.name}`} />
-
-                <form class="feedback-form" aria-label={`Send feedback for ${game.name}`}>
-                  <div class="feedback-honeypot" aria-hidden="true">
-                    <label>
-                      Leave this field blank
-                      <input type="text" name="website" tabindex={-1} autocomplete="off" />
-                    </label>
-                  </div>
-
-                  <div class="feedback-field">
-                    <label class="feedback-label" for={`ft-name-${game.id}`}>
-                      Name <span class="feedback-optional">(optional)</span>
-                    </label>
-                    <input
-                      type="text"
-                      id={`ft-name-${game.id}`}
-                      name="name"
-                      maxlength="40"
-                      class="feedback-input"
-                      autocomplete="name"
-                    />
-                  </div>
-
-                  <div class="feedback-field">
-                    <label class="feedback-label" for={`ft-body-${game.id}`}>Feedback</label>
-                    <textarea
-                      id={`ft-body-${game.id}`}
-                      name="body"
-                      maxlength="1000"
-                      rows="3"
-                      required
-                      class="feedback-textarea"
-                      placeholder="What happened? What would you change?"
-                    />
-                  </div>
-
-                  <div class="feedback-row">
-                    <button type="submit" class="feedback-submit">Send</button>
-                    <p class="feedback-note" role="status" aria-live="polite" />
-                  </div>
-                </form>
-              </div>
-            </li>
-          ))
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <noscript>
+      <style>
+        .cab-panel[hidden] {
+          display: block !important;
         }
-      </ol>
-    </section>
+        .cab-hint {
+          display: none;
+        }
+      </style>
+    </noscript>
+  </section>
 
+  <div class="mx-auto max-w-4xl">
     <section
       id="field-notes"
       class="field-notes"
@@ -342,120 +711,548 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
 </BaseLayout>
 
 <style>
-  .field-trials-list {
+  /* ============================================================
+     THE CABINET — deliberate register break for this plate only.
+     Decision record: vault/decisions/2026-08-12-arcade-shelf-games-page.md
+     Cabinet palette tokens (scoped here, not in the site theme):
+       ink-box   #14120e   cabinet ground (kin to --color-foreground)
+       plank     #241d14 / #0c0a07   shelf wood-dark
+       lamp      #e8a13c   power amber — PLAY, LEDs, selection heat
+       paper     #e8dfc8   the site's parchment, used as light
+     ============================================================ */
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .cabinet-section {
     margin-top: 8px;
   }
 
-  .field-trial-card .infra-title {
-    font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: 22px;
+  /* The plate frame — same engraved double-frame the specimen figures used,
+     so the dark cabinet reads as an atlas plate, not a foreign website. */
+  .cabinet {
+    max-width: 1160px;
+    margin: 14px auto 0;
+    border: 1px solid var(--color-rule);
+    outline: 1px solid var(--color-border);
+    outline-offset: 3px;
+    background: #14120e;
+    color: #e8dfc8;
   }
 
-  /* Text + specimen-plate layout. Single column below 720px. */
-  .ft-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 42%);
-    gap: 24px;
-    align-items: start;
+  .cab-rail {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    border-bottom: 1px solid #2c261b;
+    background: linear-gradient(to bottom, #1b1812, #14120e);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: #8f8468;
   }
-  @media (max-width: 719px) {
-    .ft-grid {
+  .cab-rail-left::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 9px;
+    background: #e8a13c;
+    box-shadow: 0 0 6px 1px rgb(232 161 60 / 0.55);
+  }
+
+  .cab-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr);
+    gap: 0;
+  }
+  @media (max-width: 979px) {
+    .cab-body {
       grid-template-columns: minmax(0, 1fr);
     }
   }
 
-  /* The specimen plate: engraved-book figure framing around a live capture. */
-  .ft-figure {
-    margin: 4px 0 0;
+  /* ---------------- Shelf ---------------- */
+
+  .cab-shelf-col {
+    padding: 26px 22px 14px;
+    border-right: 1px solid #2c261b;
+    background:
+      radial-gradient(120% 55% at 50% 0%, rgb(232 161 60 / 0.07), transparent 60%),
+      #14120e;
   }
-  .ft-figure a {
+  @media (max-width: 979px) {
+    .cab-shelf-col {
+      border-right: none;
+      border-bottom: 1px solid #2c261b;
+    }
+  }
+
+  .cab-shelf {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 18px;
+    row-gap: 30px;
+  }
+  @media (max-width: 560px) {
+    .cab-shelf {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 14px;
+      row-gap: 26px;
+    }
+  }
+
+  /* The cartridge. Chassis is pure CSS; the label is the game's own SVG. */
+  .cart {
+    appearance: none;
+    position: relative;
     display: block;
-    border: 1px solid var(--color-rule);
-    outline: 1px solid var(--color-border);
-    outline-offset: 3px;
-    background: var(--color-surface);
-    padding: 6px;
+    width: 100%;
+    margin: 0;
+    padding: 15px 9px 11px;
+    background: linear-gradient(to bottom, var(--shell-hi), var(--shell) 26%);
+    border: 1px solid rgb(0 0 0 / 0.65);
+    border-radius: 9px 9px 5px 5px;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.14),
+      inset 0 -4px 0 rgb(0 0 0 / 0.3);
+    cursor: pointer;
+    text-align: left;
   }
-  .ft-figure img {
+  /* shelf plank each cart stands on */
+  .cart::after {
+    content: '';
+    position: absolute;
+    left: -9px;
+    right: -9px;
+    bottom: -13px;
+    height: 7px;
+    background: linear-gradient(to bottom, #2b2417, #17130c);
+    border-top: 1px solid #3a3120;
+    border-bottom: 1px solid #060504;
+    border-radius: 1px;
+    pointer-events: none;
+  }
+  /* under-shelf glow when lit */
+  .cart::before {
+    content: '';
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    bottom: -12px;
+    height: 10px;
+    background: radial-gradient(50% 100% at 50% 100%, var(--glow), transparent 72%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cart-grip {
+    display: block;
+    height: 7px;
+    margin: -9px 14px 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0 7px,
+      rgb(0 0 0 / 0.34) 7px 10px
+    );
+    border-radius: 0 0 3px 3px;
+  }
+
+  .cart-no {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: rgb(255 255 255 / 0.55);
+    text-shadow: 0 1px 0 rgb(0 0 0 / 0.4);
+  }
+
+  .cart-label {
+    display: block;
+    border: 1px solid rgb(0 0 0 / 0.6);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+    background: #0c0a07;
+  }
+  .cart-label :global(svg) {
     display: block;
     width: 100%;
     height: auto;
   }
-  .ft-figure figcaption {
-    margin-top: 9px;
+
+  .cart-led {
+    position: absolute;
+    left: 12px;
+    top: 5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 0.45);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 0.6);
+  }
+
+  .cart[aria-pressed='true'] {
+    border-color: var(--glow);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.14),
+      inset 0 -4px 0 rgb(0 0 0 / 0.3),
+      0 0 0 1px var(--glow),
+      0 0 22px -2px var(--glow);
+  }
+  .cart[aria-pressed='true']::before {
+    opacity: 0.5;
+  }
+  .cart[aria-pressed='true'] .cart-led {
+    background: var(--glow);
+    box-shadow: 0 0 7px 1px var(--glow);
+  }
+
+  .cart:focus-visible {
+    outline: 2px solid #e8a13c;
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cart {
+      transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        border-color 140ms ease;
+    }
+    .cart:hover {
+      transform: translateY(-4px);
+    }
+    .cart[aria-pressed='true'] {
+      transform: translateY(-4px);
+    }
+    .cart:active {
+      transform: translateY(-1px);
+    }
+  }
+
+  .cab-hint {
+    margin: 26px 2px 6px;
     font-family: var(--font-mono);
     font-size: 10px;
     font-weight: 500;
+    letter-spacing: 0.18em;
+    color: #6b6350;
+  }
+  @media (max-width: 979px) {
+    .cab-hint {
+      display: none;
+    }
+  }
+
+  /* ---------------- Detail / CRT ---------------- */
+
+  .cab-detail {
+    padding: 26px 24px 24px;
+    min-width: 0;
+  }
+  @media (min-width: 980px) {
+    .cab-detail {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+  }
+
+  .cab-panel[hidden] {
+    display: none;
+  }
+
+  .crt {
+    background: #0b0908;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 12px 12px 10px;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+  }
+
+  .crt-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 2px 9px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: #7a7157;
+  }
+  .crt-power {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e8a13c;
+    box-shadow: 0 0 6px 1px rgb(232 161 60 / 0.6);
+  }
+
+  .crt-screen {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: #000;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .crt-screen img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* scanlines + corner shading — the one screen effect, kept quiet */
+  .crt-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, rgb(0 0 0 / 0.16) 0 1px, transparent 1px 3px),
+      radial-gradient(115% 115% at 50% 50%, transparent 62%, rgb(0 0 0 / 0.4) 100%);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .cab-panel[data-active] .crt-screen img {
+      animation: crt-on 260ms ease-out;
+    }
+    @keyframes crt-on {
+      from {
+        filter: brightness(2.4) saturate(0.2);
+        transform: scale(1.012);
+      }
+      to {
+        filter: none;
+        transform: none;
+      }
+    }
+  }
+
+  .crt-screen--empty {
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: #59503c;
+  }
+
+  .crt-fig {
+    margin: 0;
+  }
+  .crt-fig figcaption {
+    margin: 8px 2px 0;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--color-subtle);
+    color: #7a7157;
   }
 
-  .field-trial-open {
-    display: inline-block;
-    margin-top: 4px;
+  .cab-readout {
+    padding: 18px 2px 0;
   }
 
-  .feedback-box {
-    margin-top: 22px;
-    padding-top: 18px;
-    border-top: 1px dashed var(--color-border);
+  .cab-title {
+    margin: 0 0 8px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    color: #f3ecd6;
   }
 
-  .feedback-box .sub-head {
+  .cab-desc {
+    margin: 0 0 16px;
+    font-family: var(--font-serif);
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: #cfc5a9;
+    max-width: 58ch;
+  }
+
+  .cab-meta {
     margin: 0 0 12px;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .cab-meta > div {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .cab-meta dt {
+    flex: 0 0 76px;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #8f8468;
+  }
+  .cab-meta dd {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: #d8cfb4;
+  }
+  .cab-tests {
+    color: #e8a13c;
+    font-weight: 500;
+  }
+
+  .cab-audit {
+    margin: 0 0 18px;
+    padding: 9px 11px;
+    border: 1px solid #332c1d;
+    background: #191510;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.55;
+    letter-spacing: 0.03em;
+    color: #bdb294;
+    max-width: 58ch;
+  }
+  .cab-audit .k {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #e8a13c;
+  }
+
+  .cab-play {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 13px 22px;
+    background: #e8a13c;
+    border: 1px solid #f6c477;
+    border-bottom-color: #9c6a1e;
+    color: #14120e;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-decoration: none;
+    box-shadow: 0 0 18px -4px rgb(232 161 60 / 0.7);
+  }
+  .cab-play .tri {
+    font-size: 12px;
+  }
+  .cab-play-sub {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    color: #4a3812;
+  }
+  .cab-play:hover {
+    background: #f0b355;
+    color: #14120e;
+  }
+  .cab-play:focus-visible {
+    outline: 2px solid #f3ecd6;
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .cab-play {
+      transition: background 120ms ease, transform 120ms ease;
+    }
+    .cab-play:active {
+      transform: translateY(1px);
+    }
+  }
+
+  /* ---------------- Feedback (dark re-skin of the live widget) ------- */
+
+  .cab-feedback {
+    margin-top: 20px;
+    border-top: 1px dashed #3a3120;
+    padding-top: 12px;
+  }
+  .cab-feedback summary {
+    cursor: pointer;
+    font-family: var(--font-mono);
     font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8f8468;
+  }
+  .cab-feedback summary:hover {
+    color: #d8cfb4;
+  }
+  .cab-feedback[open] summary {
+    margin-bottom: 12px;
   }
 
   .feedback-status {
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 11.5px;
     font-style: italic;
-    color: var(--color-subtle);
-    margin: 0 0 14px;
+    color: #8f8468;
+    margin: 0 0 12px;
   }
 
   .feedback-list {
     list-style: none;
-    margin: 0 0 16px;
+    margin: 0 0 14px;
     padding: 0;
-    max-width: 62ch;
+    max-width: 58ch;
   }
-
-  .feedback-comment {
-    padding: 10px 0;
-    border-bottom: 1px solid var(--color-border);
+  .feedback-list :global(.feedback-comment) {
+    padding: 9px 0;
+    border-bottom: 1px solid #2c261b;
   }
-  .feedback-comment:last-child {
+  .feedback-list :global(.feedback-comment:last-child) {
     border-bottom: none;
   }
-
-  .feedback-comment-meta {
+  .feedback-list :global(.feedback-comment-meta) {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-subtle);
-    margin: 0 0 4px;
+    color: #8f8468;
+    margin: 0 0 3px;
   }
-
-  .feedback-comment-body {
+  .feedback-list :global(.feedback-comment-body) {
     font-family: var(--font-serif);
-    font-size: 15px;
+    font-size: 14.5px;
     line-height: 1.5;
-    color: var(--color-foreground);
+    color: #d8cfb4;
     margin: 0;
     white-space: pre-wrap;
-    max-width: 60ch;
+    max-width: 56ch;
   }
-
-  .feedback-empty {
+  .feedback-list :global(.feedback-empty) {
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 14px;
-    color: var(--color-subtle);
+    font-size: 13.5px;
+    color: #8f8468;
   }
 
   .feedback-honeypot {
@@ -469,98 +1266,90 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
   .feedback-form {
     max-width: 52ch;
   }
-
   .feedback-field {
-    margin-bottom: 12px;
+    margin-bottom: 11px;
   }
-
   .feedback-label {
     display: block;
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-rule);
+    color: #8f8468;
     margin-bottom: 5px;
   }
-
   .feedback-optional {
     text-transform: none;
     letter-spacing: 0;
-    color: var(--color-subtle);
+    color: #6b6350;
     font-weight: 400;
   }
-
   .feedback-input,
   .feedback-textarea {
     width: 100%;
     font-family: var(--font-serif);
-    font-size: 15px;
-    color: var(--color-foreground);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
+    font-size: 14.5px;
+    color: #e8dfc8;
+    background: #0f0d0a;
+    border: 1px solid #3a3120;
     padding: 8px 10px;
     resize: vertical;
   }
   .feedback-input:focus,
   .feedback-textarea:focus {
-    outline: 2px solid var(--color-link);
+    outline: 2px solid #e8a13c;
     outline-offset: 1px;
-    border-color: var(--color-link);
+    border-color: #e8a13c;
   }
-
   .feedback-row {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     flex-wrap: wrap;
   }
-
   .feedback-submit {
     font-family: var(--font-mono);
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-background);
-    background: var(--color-accent);
-    border: 1px solid var(--color-accent);
-    padding: 9px 18px;
+    color: #14120e;
+    background: #bdb294;
+    border: 1px solid #d8cfb4;
+    padding: 8px 16px;
     cursor: pointer;
-    transition: opacity 150ms;
   }
   .feedback-submit:hover {
-    opacity: 0.85;
+    background: #d8cfb4;
   }
   .feedback-submit:disabled {
     opacity: 0.5;
     cursor: default;
   }
-
   .feedback-note {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10.5px;
     letter-spacing: 0.06em;
-    color: var(--color-subtle);
+    color: #8f8468;
     margin: 0;
   }
   .feedback-note.is-error {
-    color: var(--color-accent);
+    color: #e08a5a;
   }
+
+  /* ---------------- Field notes (unchanged register) ---------------- */
 
   .field-notes {
-    margin-top: 8px;
+    margin-top: 34px;
   }
-
   .field-notes-list {
     list-style: none;
     margin: 0 0 16px;
     padding: 0;
     max-width: 62ch;
   }
-
-  .field-notes-row {
+  .field-notes-list :global(.field-notes-row) {
     padding: 10px 0;
     border-bottom: 1px solid var(--color-border);
     font-family: var(--font-mono);
@@ -569,11 +1358,10 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
     color: var(--color-foreground);
     line-height: 1.5;
   }
-  .field-notes-row:last-child {
+  .field-notes-list :global(.field-notes-row:last-child) {
     border-bottom: none;
   }
-
-  .field-notes-meta {
+  .field-notes-list :global(.field-notes-meta) {
     font-family: var(--font-mono);
     font-size: 10px;
     font-weight: 500;
@@ -581,7 +1369,6 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
     text-transform: uppercase;
     color: var(--color-subtle);
   }
-
   .field-notes-workshop {
     font-family: var(--font-serif);
     font-style: italic;
@@ -590,6 +1377,101 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
     margin: 0;
   }
 </style>
+
+<script>
+  // THE CABINET — cartridge selection.
+  // Click selects. Arrow keys browse (selection follows focus, UFO 50 style).
+  // Enter/Space on the already-selected cart fires its PLAY link. All nine
+  // detail panels are server-rendered; JS only toggles `hidden`, so with
+  // scripts off the page degrades to the full stacked list (see <noscript>).
+  function initCabinet() {
+    const cabinet = document.getElementById('cabinet');
+    if (!cabinet) return;
+    const carts = Array.from(cabinet.querySelectorAll<HTMLButtonElement>('.cart'));
+    const panels = Array.from(cabinet.querySelectorAll<HTMLElement>('.cab-panel'));
+    const status = cabinet.querySelector<HTMLElement>('[data-cab-status]');
+    const shelf = cabinet.querySelector<HTMLElement>('.cab-shelf');
+    if (!carts.length || !panels.length || !shelf) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let selected = 0;
+
+    function select(i: number, opts: { scroll?: boolean } = {}) {
+      selected = i;
+      carts.forEach((c, j) => {
+        c.setAttribute('aria-pressed', j === i ? 'true' : 'false');
+        c.tabIndex = j === i ? 0 : -1;
+      });
+      panels.forEach((p, j) => {
+        if (j === i) {
+          p.hidden = false;
+          // retrigger the power-on blip
+          p.removeAttribute('data-active');
+          void p.offsetWidth;
+          p.setAttribute('data-active', 'true');
+        } else {
+          p.hidden = true;
+          p.removeAttribute('data-active');
+        }
+      });
+      const id = carts[i].dataset.game;
+      const name = carts[i].querySelector('.sr-only')?.textContent ?? id ?? '';
+      if (status) status.textContent = `Selected ${name}`;
+      if (id) history.replaceState(null, '', `#${id}`);
+      // On narrow screens the panel sits below the shelf — bring it up.
+      if (opts.scroll && window.matchMedia('(max-width: 979px)').matches) {
+        panels[i].scrollIntoView({
+          behavior: reduceMotion.matches ? 'auto' : 'smooth',
+          block: 'nearest',
+        });
+      }
+    }
+
+    function play(i: number) {
+      const id = carts[i].dataset.game;
+      const link = id
+        ? cabinet.querySelector<HTMLAnchorElement>(`[data-play="${id}"]`)
+        : null;
+      link?.click();
+    }
+
+    carts.forEach((cart, i) => {
+      cart.addEventListener('click', () => {
+        if (i === selected && cart.getAttribute('aria-pressed') === 'true') {
+          // second activation on the lit cart = play, arcade-style
+          play(i);
+          return;
+        }
+        select(i, { scroll: true });
+      });
+    });
+
+    shelf.addEventListener('keydown', (e: KeyboardEvent) => {
+      const cols =
+        getComputedStyle(shelf).gridTemplateColumns.split(' ').filter(Boolean).length || 3;
+      let next = -1;
+      if (e.key === 'ArrowRight') next = Math.min(selected + 1, carts.length - 1);
+      else if (e.key === 'ArrowLeft') next = Math.max(selected - 1, 0);
+      else if (e.key === 'ArrowDown') next = Math.min(selected + cols, carts.length - 1);
+      else if (e.key === 'ArrowUp') next = Math.max(selected - cols, 0);
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = carts.length - 1;
+      else return;
+      e.preventDefault();
+      if (next !== selected) {
+        select(next);
+        carts[next].focus();
+      }
+    });
+
+    // Deep link: /games#<id> selects that cart on load.
+    const hash = location.hash.replace('#', '');
+    const fromHash = carts.findIndex((c) => c.dataset.game === hash);
+    select(fromHash >= 0 ? fromHash : 0);
+  }
+
+  initCabinet();
+</script>
 
 <script>
   // Field notes — loads /field-trials/devlog.json. On fetch failure the
