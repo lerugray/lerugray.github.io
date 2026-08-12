@@ -4450,15 +4450,15 @@ function buildToyCase() {
         id: 'chef', root: 'open',
         nodes: [
           { id: 'open', speaker: 'chef', text: 'Lieutenant. This is a restaurant, not a precinct.', options: [
-            { id: 'ask', text: 'Where were you Thursday at eight?', to: 'alibi', effects: [{ type: 'revealStatement', statement: 's-chef-alibi' }] },
+            { id: 'ask', text: 'Sorry. I skipped lunch and that smell is not helping. Thursday at eight. Where were you?', to: 'alibi', effects: [{ type: 'revealStatement', statement: 's-chef-alibi' }] },
             { id: 'leave-1', text: 'I will not keep you.', to: null },
           ] },
           { id: 'alibi', speaker: 'chef', text: 'The studio. Taping the segment. It ran late.', options: [
-            { id: 'press', text: 'The valet says otherwise.', to: 'corner', guards: [{ type: 'factKnown', fact: 'f-chef-at-restaurant' }] },
-            { id: 'leave-2', text: 'For now.', to: null },
+            { id: 'press', text: 'Sorry, my pencil. It is in the other coat. The valet puts your car here at 7.52.', to: 'corner', guards: [{ type: 'factKnown', fact: 'f-chef-at-restaurant' }] },
+            { id: 'leave-2', text: 'That is my fault. I will straighten it out.', to: null },
           ] },
-          { id: 'corner', speaker: 'chef', text: 'A parking ticket. That proves nothing.', options: [
-            { id: 'leave-3', text: 'We will see.', to: null },
+          { id: 'corner', speaker: 'chef', text: 'A parking ticket. That proves nothing. You are out of your depth here, Lieutenant.', options: [
+            { id: 'leave-3', text: 'You are probably right. It usually is nothing.', to: null },
           ] },
         ],
       }),
@@ -4466,7 +4466,7 @@ function buildToyCase() {
         id: 'waiter', root: 'w-open',
         nodes: [
           { id: 'w-open', speaker: 'waiter', text: 'I already told the uniforms everything.', options: [
-            { id: 'w-ask', text: 'Tell me anyway.', to: 'w-home', effects: [{ type: 'revealStatement', statement: 's-waiter-home' }] },
+            { id: 'w-ask', text: 'They write it up better than I do. Would you mind going again?', to: 'w-home', effects: [{ type: 'revealStatement', statement: 's-waiter-home' }] },
             { id: 'w-leave', text: 'Fair enough.', to: null },
           ] },
           { id: 'w-home', speaker: 'waiter', text: 'Straight home. I was done with that place.', options: [
@@ -4801,15 +4801,15 @@ function buildCase2() {
         id: 'purser', root: 'open',
         nodes: [
           { id: 'open', speaker: 'purser', text: 'Lieutenant. You have no standing on this ship. Speak to the master-at-arms.', options: [
-            { id: 'ask', text: 'Where were you at ten?', to: 'alibi', effects: [{ type: 'revealStatement', statement: 's-purser-alibi' }] },
+            { id: 'ask', text: 'I will do that. My stomach is still back at the dock. Where were you at ten?', to: 'alibi', effects: [{ type: 'revealStatement', statement: 's-purser-alibi' }] },
             { id: 'leave-1', text: 'I will not keep you.', to: null },
           ] },
           { id: 'alibi', speaker: 'purser', text: 'The card table, in the lounge. Ten to eleven. A dozen people will tell you so.', options: [
-            { id: 'press', text: 'The night steward puts you on B-deck.', to: 'corner', guards: [{ type: 'factKnown', fact: 'f-purser-corridor' }] },
-            { id: 'leave-2', text: 'For now.', to: null },
+            { id: 'press', text: 'This is where I get lost. The night steward has you on B-deck. Is he wrong?', to: 'corner', guards: [{ type: 'factKnown', fact: 'f-purser-corridor' }] },
+            { id: 'leave-2', text: 'That is me being slow. I will read it again.', to: null },
           ] },
           { id: 'corner', speaker: 'purser', text: 'The steward cannot tell one hour from the next. Neither, it seems, can you.', options: [
-            { id: 'leave-3', text: 'We make port at dawn. We will see.', to: null },
+            { id: 'leave-3', text: 'We make port at dawn, they tell me. I have never been good with clocks.', to: null },
           ] },
         ],
       }),
@@ -4817,7 +4817,7 @@ function buildCase2() {
         id: 'bandleader', root: 'b-open',
         nodes: [
           { id: 'b-open', speaker: 'bandleader', text: 'You heard about dinner. Everyone did.', options: [
-            { id: 'b-ask', text: 'Tell me your side.', to: 'b-stand', effects: [{ type: 'revealStatement', statement: 's-bandleader-stand' }] },
+            { id: 'b-ask', text: 'I would rather have it from you.', to: 'b-stand', effects: [{ type: 'revealStatement', statement: 's-bandleader-stand' }] },
             { id: 'b-leave', text: 'Fair enough.', to: null },
           ] },
           { id: 'b-stand', speaker: 'bandleader', text: 'On the bandstand all night. The whole room saw me.', options: [
@@ -5249,7 +5249,7 @@ function init(doc = document, win = window) {
   engine.on('interrogation-end', () => { state.interrogationOpen = false; ui.interro.style.display = 'none'; });
   engine.on('dialogue', () => { if (state.interrogationOpen) interro.render(); });
   engine.on('challenge', () => { if (state.interrogationOpen) interro.render(); });
-  engine.on('afterthought', () => toast('There is one more thing. The suspect has had time to think.'));
+  engine.on('afterthought', () => toast('You are halfway out the door before the question comes back to you. They are at ease now.'));
   ui.challengeBtn.addEventListener('click', () => interro.toggleChallenge());
   ui.leaveBtn.addEventListener('click', () => engine.endInterrogation());
 
