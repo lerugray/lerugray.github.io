@@ -708,6 +708,63 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
 
 <style>
   /* ============================================================
+     PAGE GROUND — full dark room for this plate only.
+     Decision: vault/decisions/2026-08-12-games-page-dark-ground.md
+     Scoping: these :global(:root)/html/body rules ship ONLY on /games
+     (Astro emits this <style> solely for this page). No BaseLayout or
+     global.css changes; other pages keep the paper register.
+     ============================================================ */
+  :global(:root) {
+    --color-background: #0c0b09;
+    --color-surface: #14120e;
+    --color-frame: #1f1b14;
+    --color-border: #2c261b;
+    --color-rule: #6b6350;
+    --color-foreground: #e8dfc8;
+    --color-muted: #cfc5a9;
+    --color-subtle: #8f8468;
+    --color-link: #d4c49a;
+    --color-link-hover: #f3ecd6;
+    --color-accent: #e8a13c;
+    --color-blue-tick: #9db8e8;
+  }
+  :global(html) {
+    background: #0c0b09;
+    color: #e8dfc8;
+  }
+  /* Multiply grain on parchment goes black on near-black; soft-light keeps texture. */
+  :global(body::after) {
+    opacity: 0.2;
+    mix-blend-mode: soft-light;
+  }
+  :global(body::before) {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    background: radial-gradient(
+      ellipse 85% 70% at 50% 30%,
+      transparent 45%,
+      rgb(0 0 0 / 0.4) 100%
+    );
+  }
+
+  /* Outermost plate seams only — soften the atlas double-frame that
+     existed to sit on parchment. Nothing inside the cabinet changes. */
+  .cabinet,
+  .field-report {
+    border-color: #2c261b;
+    outline-color: #1a1712;
+  }
+
+  /* Hex ornament strokes are ink (#1f1b14); invert so they read on dark. */
+  .hex-rule :global(img) {
+    filter: invert(1);
+    opacity: 0.45;
+  }
+
+  /* ============================================================
      THE CABINET — deliberate register break for this plate only.
      Decision record: vault/decisions/2026-08-12-arcade-shelf-games-page.md
      Cabinet palette tokens (scoped here, not in the site theme):
