@@ -861,7 +861,7 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
   .cart-grip {
     display: block;
     height: 7px;
-    margin: -9px 14px 8px;
+    margin: -9px 48px 8px 14px;
     background: repeating-linear-gradient(
       90deg,
       transparent 0 7px,
@@ -870,16 +870,20 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
     border-radius: 0 0 3px 3px;
   }
 
+  /* inventory sticker — cream chip so it reads on every shell color */
   .cart-no {
     position: absolute;
     top: 4px;
     right: 8px;
+    padding: 1px 4px 0;
+    background: #e8dfc8;
+    color: #1f1b14;
     font-family: var(--font-mono);
-    font-size: 8.5px;
+    font-size: 8px;
     font-weight: 500;
-    letter-spacing: 0.1em;
-    color: rgb(255 255 255 / 0.55);
-    text-shadow: 0 1px 0 rgb(0 0 0 / 0.4);
+    letter-spacing: 0.08em;
+    border-radius: 1px;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 0.35);
   }
 
   .cart-label {
@@ -1385,8 +1389,9 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
   // detail panels are server-rendered; JS only toggles `hidden`, so with
   // scripts off the page degrades to the full stacked list (see <noscript>).
   function initCabinet() {
-    const cabinet = document.getElementById('cabinet');
-    if (!cabinet) return;
+    const cabinetEl = document.getElementById('cabinet');
+    if (!cabinetEl) return;
+    const cabinet = cabinetEl; // non-null alias (function decls below hoist past the guard)
     const carts = Array.from(cabinet.querySelectorAll<HTMLButtonElement>('.cart'));
     const panels = Array.from(cabinet.querySelectorAll<HTMLElement>('.cab-panel'));
     const status = cabinet.querySelector<HTMLElement>('[data-cab-status]');
