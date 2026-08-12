@@ -455,6 +455,7 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
 <BaseLayout
   title="Field Trials · Ray Weiss"
   description={`Playable preview builds of games in development. Pick a cartridge, press play. ${totalTestsFmt} tests and every audit published.`}
+  image="/og-games.png"
   colophon={{ sheet: 'VIII', edition: '2026.08', loc: 'Brooklyn, NY', scale: 'Live builds' }}
 >
   <div
@@ -735,6 +736,15 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
   .cabinet-section {
     margin-top: 8px;
   }
+  @media (min-width: 1024px) {
+    /* Break the cabinet out of the 920px prose column: main is left-aligned
+       against the sidebar, so the unused space is all on the right — grow
+       into it (viewport - 280px sidebar - main's 64px+64px padding), capped. */
+    .cabinet-section {
+      width: min(1160px, calc(100vw - 280px - 128px));
+      max-width: none;
+    }
+  }
 
   /* The plate frame — same engraved double-frame the specimen figures used,
      so the dark cabinet reads as an atlas plate, not a foreign website. */
@@ -971,11 +981,11 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
   }
   @media (min-width: 980px) {
     .cab-detail {
+      /* Sticky, NOT its own scroll region: the page owns the only scroll
+         context (Ray, 2026-08-12 — the inner overflow made a wheel trap). */
       position: sticky;
-      top: 0;
+      top: 12px;
       align-self: start;
-      max-height: 100vh;
-      overflow-y: auto;
     }
   }
 
