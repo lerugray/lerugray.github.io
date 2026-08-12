@@ -488,7 +488,7 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
       <p>
         These are games I'm still building. Pick a cartridge below — the current build opens in
         your browser. No download, no account. Play, and if something breaks or feels off, tell
-        me in the box under the game. I read every one.
+        me in the field report under the cabinet. I read every one.
       </p>
     </div>
   </div>
@@ -619,55 +619,6 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
                     <span class="cab-play-sub">opens the build in a new tab</span>
                   </a>
 
-                  <details class="cab-feedback">
-                    <summary>Field report — leave feedback</summary>
-                    <div
-                      class="feedback-box"
-                      data-game={game.id}
-                      data-endpoint={FEEDBACK_ENDPOINT}
-                      data-game-name={game.name}
-                    >
-                      <p class="feedback-status" hidden />
-                      <ol class="feedback-list" aria-label={`Feedback for ${game.name}`} />
-                      <form class="feedback-form" aria-label={`Send feedback for ${game.name}`}>
-                        <div class="feedback-honeypot" aria-hidden="true">
-                          <label>
-                            Leave this field blank
-                            <input type="text" name="website" tabindex={-1} autocomplete="off" />
-                          </label>
-                        </div>
-                        <div class="feedback-field">
-                          <label class="feedback-label" for={`ft-name-${game.id}`}>
-                            Name <span class="feedback-optional">(optional)</span>
-                          </label>
-                          <input
-                            type="text"
-                            id={`ft-name-${game.id}`}
-                            name="name"
-                            maxlength="40"
-                            class="feedback-input"
-                            autocomplete="name"
-                          />
-                        </div>
-                        <div class="feedback-field">
-                          <label class="feedback-label" for={`ft-body-${game.id}`}>Feedback</label>
-                          <textarea
-                            id={`ft-body-${game.id}`}
-                            name="body"
-                            maxlength="1000"
-                            rows="3"
-                            required
-                            class="feedback-textarea"
-                            placeholder="What happened? What would you change?"
-                          />
-                        </div>
-                        <div class="feedback-row">
-                          <button type="submit" class="feedback-submit">Send</button>
-                          <p class="feedback-note" role="status" aria-live="polite" />
-                        </div>
-                      </form>
-                    </div>
-                  </details>
                 </div>
               </article>
             ))
@@ -675,6 +626,51 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
         </div>
       </div>
     </div>
+    <section class="field-report" aria-labelledby="fr-heading">
+      <div class="fr-rail">
+        <h3 class="fr-title" id="fr-heading">FIELD REPORT — TELL ME WHAT BROKE</h3>
+        <label class="fr-select-wrap">
+          <span class="fr-select-label">FILED UNDER</span>
+          <select id="fr-game" class="fr-select">
+            {games.map((g) => <option value={g.id}>{g.name}</option>)}
+          </select>
+        </label>
+      </div>
+      <div class="feedback-box" data-endpoint={FEEDBACK_ENDPOINT} data-game={games[0].id}>
+        <p class="feedback-status" hidden />
+        <ol class="feedback-list" aria-label="Feedback for the selected game" />
+        <form class="feedback-form" aria-label="Send feedback for the selected game">
+          <div class="feedback-honeypot" aria-hidden="true">
+            <label>
+              Leave this field blank
+              <input type="text" name="website" tabindex={-1} autocomplete="off" />
+            </label>
+          </div>
+          <div class="feedback-field">
+            <label class="feedback-label" for="ft-name">
+              Name <span class="feedback-optional">(optional)</span>
+            </label>
+            <input type="text" id="ft-name" name="name" maxlength="40" class="feedback-input" autocomplete="name" />
+          </div>
+          <div class="feedback-field">
+            <label class="feedback-label" for="ft-body">Feedback</label>
+            <textarea
+              id="ft-body"
+              name="body"
+              maxlength="1000"
+              rows="3"
+              required
+              class="feedback-textarea"
+              placeholder="What happened? What would you change?"
+            />
+          </div>
+          <div class="feedback-row">
+            <button type="submit" class="feedback-submit">Send</button>
+            <p class="feedback-note" role="status" aria-live="polite" />
+          </div>
+        </form>
+      </div>
+    </section>
     <noscript>
       <style>
         .cab-panel[hidden] {
@@ -1201,25 +1197,65 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
 
   /* ---------------- Feedback (dark re-skin of the live widget) ------- */
 
-  .cab-feedback {
-    margin-top: 20px;
-    border-top: 1px dashed #3a3120;
-    padding-top: 12px;
+  .field-report {
+    margin-top: 22px;
+    border: 1px solid var(--color-rule);
+    outline: 1px solid var(--color-border);
+    outline-offset: 3px;
+    background: #14120e;
+    color: #e8dfc8;
   }
-  .cab-feedback summary {
-    cursor: pointer;
+  .fr-rail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    border-bottom: 1px solid #2c261b;
+    background: linear-gradient(to bottom, #1b1812, #14120e);
     font-family: var(--font-mono);
     font-size: 10px;
     font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    letter-spacing: 0.16em;
     color: #8f8468;
   }
-  .cab-feedback summary:hover {
-    color: #d8cfb4;
+  .fr-title {
+    margin: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
   }
-  .cab-feedback[open] summary {
-    margin-bottom: 12px;
+  .fr-title::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 9px;
+    background: #e8a13c;
+    box-shadow: 0 0 6px 1px rgb(232 161 60 / 0.55);
+  }
+  .fr-select-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .fr-select {
+    background: #0b0908;
+    color: #e8dfc8;
+    border: 1px solid #2c261b;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 4px 8px;
+  }
+  .fr-select:focus-visible {
+    outline: 2px solid #e8a13c;
+    outline-offset: 1px;
+  }
+  .field-report .feedback-box {
+    padding: 18px 20px 20px;
   }
 
   .feedback-status {
@@ -1432,6 +1468,7 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
       const name = carts[i].querySelector('.sr-only')?.textContent ?? id ?? '';
       if (status) status.textContent = `Selected ${name}`;
       if (id) history.replaceState(null, '', `#${id}`);
+      if (id) cabinet.dispatchEvent(new CustomEvent('cab:select', { detail: { id } }));
       // On narrow screens the panel sits below the shelf — bring it up.
       if (opts.scroll && window.matchMedia('(max-width: 979px)').matches) {
         panels[i].scrollIntoView({
@@ -1602,88 +1639,121 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
   }
 
   async function init() {
-    const boxes = document.querySelectorAll<HTMLElement>('.feedback-box');
+    // ONE field-report box for the whole cabinet (Ray, 2026-08-12): the game
+    // dropdown replaces the old per-panel boxes; selecting a cartridge files
+    // the report under that game automatically.
+    const box = document.querySelector<HTMLElement>('.feedback-box');
+    const gameSelect = document.querySelector<HTMLSelectElement>('#fr-game');
+    if (!box || !gameSelect) return;
 
-    for (const box of boxes) {
-      const game = box.dataset.game;
-      const endpoint = box.dataset.endpoint;
-      const statusEl = box.querySelector<HTMLElement>('.feedback-status');
-      const listEl = box.querySelector<HTMLOListElement>('.feedback-list');
-      const formEl = box.querySelector<HTMLFormElement>('.feedback-form');
-      const noteEl = box.querySelector<HTMLElement>('.feedback-note');
-      const submitEl = box.querySelector<HTMLButtonElement>('.feedback-submit');
+    const endpoint = box.dataset.endpoint;
+    const statusEl = box.querySelector<HTMLElement>('.feedback-status');
+    const listEl = box.querySelector<HTMLOListElement>('.feedback-list');
+    const formEl = box.querySelector<HTMLFormElement>('.feedback-form');
+    const noteEl = box.querySelector<HTMLElement>('.feedback-note');
+    const submitEl = box.querySelector<HTMLButtonElement>('.feedback-submit');
+    if (!endpoint || !statusEl || !listEl || !formEl || !noteEl || !submitEl) return;
 
-      if (!game || !endpoint || !statusEl || !listEl || !formEl || !noteEl || !submitEl) continue;
+    let game = gameSelect.value;
+    let loadSeq = 0;
 
-      // Fetch the existing thread first. A failure here (unreachable
-      // placeholder endpoint, worker not deployed, network error) is the
-      // signal to degrade — the whole box goes quiet, never broken.
-      let comments: FeedbackComment[] = [];
+    const fetchThread = async (id: string): Promise<FeedbackComment[]> => {
+      const res = await fetch(`${endpoint}/comments?game=${encodeURIComponent(id)}`, {
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      const data = await res.json();
+      return Array.isArray(data) ? data : [];
+    };
+
+    // The first load gates degrade — endpoint unreachable means the whole
+    // plate goes quiet, never broken.
+    try {
+      renderComments(listEl, await fetchThread(game));
+    } catch {
+      degrade(statusEl, listEl, formEl);
+      gameSelect.disabled = true;
+      return;
+    }
+
+    const showThread = async (id: string) => {
+      game = id;
+      const seq = ++loadSeq;
       try {
-        const res = await fetch(`${endpoint}/comments?game=${encodeURIComponent(game)}`, {
-          headers: { Accept: 'application/json' },
-        });
-        if (!res.ok) throw new Error(`status ${res.status}`);
-        const data = await res.json();
-        comments = Array.isArray(data) ? data : [];
+        const comments = await fetchThread(id);
+        if (seq === loadSeq) renderComments(listEl, comments);
       } catch {
-        degrade(statusEl, listEl, formEl);
-        continue;
+        if (seq !== loadSeq) return;
+        listEl.textContent = '';
+        const li = document.createElement('li');
+        li.className = 'feedback-empty';
+        li.textContent = "Couldn't load this thread right now.";
+        listEl.appendChild(li);
+      }
+    };
+
+    gameSelect.addEventListener('change', () => {
+      void showThread(gameSelect.value);
+    });
+
+    document.getElementById('cabinet')?.addEventListener('cab:select', ((e: Event) => {
+      const id = (e as CustomEvent).detail?.id as string | undefined;
+      if (!id || id === gameSelect.value) return;
+      if (![...gameSelect.options].some((o) => o.value === id)) return;
+      gameSelect.value = id;
+      void showThread(id);
+    }) as EventListener);
+
+    formEl.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(formEl);
+      const honeypot = String(data.get('website') || '').trim();
+      const body = String(data.get('body') || '').trim();
+      const name = String(data.get('name') || '').trim();
+
+      if (!body) {
+        noteEl.textContent = 'Say something first.';
+        noteEl.classList.add('is-error');
+        return;
       }
 
-      renderComments(listEl, comments);
+      submitEl.disabled = true;
+      noteEl.textContent = 'Sending…';
+      noteEl.classList.remove('is-error');
 
-      formEl.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const data = new FormData(formEl);
-        const honeypot = String(data.get('website') || '').trim();
-        const body = String(data.get('body') || '').trim();
-        const name = String(data.get('name') || '').trim();
+      try {
+        const res = await fetch(`${endpoint}/comments`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ game, name: name || undefined, body, website: honeypot }),
+        });
+        if (!res.ok) throw new Error(`status ${res.status}`);
+        const created: FeedbackComment = await res.json();
 
-        if (!body) {
-          noteEl.textContent = 'Say something first.';
-          noteEl.classList.add('is-error');
-          return;
-        }
+        const emptyLi = listEl.querySelector('.feedback-empty');
+        if (emptyLi) emptyLi.remove();
 
-        submitEl.disabled = true;
-        noteEl.textContent = 'Sending…';
-        noteEl.classList.remove('is-error');
+        const li = document.createElement('li');
+        li.className = 'feedback-comment';
+        const meta = document.createElement('p');
+        meta.className = 'feedback-comment-meta';
+        meta.textContent = `${name || 'Anonymous'} · just now`;
+        const bodyEl = document.createElement('p');
+        bodyEl.className = 'feedback-comment-body';
+        bodyEl.textContent = created.body ?? body;
+        li.appendChild(meta);
+        li.appendChild(bodyEl);
+        listEl.insertBefore(li, listEl.firstChild);
 
-        try {
-          const res = await fetch(`${endpoint}/comments`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ game, name: name || undefined, body, website: honeypot }),
-          });
-          if (!res.ok) throw new Error(`status ${res.status}`);
-          const created: FeedbackComment = await res.json();
-
-          const emptyLi = listEl.querySelector('.feedback-empty');
-          if (emptyLi) emptyLi.remove();
-
-          const li = document.createElement('li');
-          li.className = 'feedback-comment';
-          const meta = document.createElement('p');
-          meta.className = 'feedback-comment-meta';
-          meta.textContent = `${name || 'Anonymous'} · just now`;
-          const bodyEl = document.createElement('p');
-          bodyEl.className = 'feedback-comment-body';
-          bodyEl.textContent = created.body ?? body;
-          li.appendChild(meta);
-          li.appendChild(bodyEl);
-          listEl.insertBefore(li, listEl.firstChild);
-
-          formEl.reset();
-          noteEl.textContent = "Thanks — that's in.";
-        } catch {
-          noteEl.textContent = "Couldn't send that. Try again in a bit.";
-          noteEl.classList.add('is-error');
-        } finally {
-          submitEl.disabled = false;
-        }
-      });
-    }
+        formEl.reset();
+        noteEl.textContent = "Thanks — that's in.";
+      } catch {
+        noteEl.textContent = "Couldn't send that. Try again in a bit.";
+        noteEl.classList.add('is-error');
+      } finally {
+        submitEl.disabled = false;
+      }
+    });
   }
 
   init();
