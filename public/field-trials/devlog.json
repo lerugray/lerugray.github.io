@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-12T11:20:00.000Z",
+ "updated_at": "2026-08-12T12:05:00.000Z",
  "roster": [
   {
    "name": "Chapel Perilous",
@@ -42,15 +42,14 @@
    "blurb": "A match-panel machine on an alchemist's bench. Climb the four acts of the Magnum Opus against rival signatures — the register is the physics.",
    "status": "in development",
    "url": "https://lerugray.github.io/field-trials/alkahest/"
-  },
-  {
-   "name": "ADVERSARY",
-   "blurb": "A dark action-RPG death loop: six stages, XP at stake at the marker, gear never lost.",
-   "status": "released",
-   "url": "https://lerugray.github.io/field-trials/adversary/"
   }
  ],
  "entries": [
+  {
+   "date": "2026-08-12",
+   "game": "ADVERSARY",
+   "note": "Build pulled for fixes."
+  },
   {
    "date": "2026-08-12",
    "game": "ADVERSARY",
