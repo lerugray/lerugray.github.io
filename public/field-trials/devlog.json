@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-12T12:05:00.000Z",
+ "updated_at": "2026-08-12T12:55:00.000Z",
  "roster": [
   {
    "name": "Chapel Perilous",
@@ -45,6 +45,11 @@
   }
  ],
  "entries": [
+  {
+   "date": "2026-08-12",
+   "game": "Capriole",
+   "note": "Spawn-camping death loop fixed (spawn-safety zone)."
+  },
   {
    "date": "2026-08-12",
    "game": "ADVERSARY",
