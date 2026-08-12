@@ -1126,8 +1126,10 @@
   };
 
   /* ---- swap: the only material verb (STUDY §2) ----
-   * exchanges (x,y) and (x+1,y). Empty is a valid partner (slide). Dross and
-   * mid-clear cells cannot be swapped. Returns true if the swap committed. */
+   * exchanges (x,y) and (x+1,y). Empty is a valid partner (slide): a lone live
+   * panel can be moved into an adjacent legal empty cell with the same input.
+   * Dross and mid-clear cells cannot be swapped. Returns true if the swap
+   * committed. */
   Grid.prototype.swap = function (x, y) {
     if (!this.inBounds(x, y) || !this.inBounds(x + 1, y)) return false;
     var a = this.cells[y][x], b = this.cells[y][x + 1];
@@ -1137,6 +1139,15 @@
     this.cells[y][x] = b;
     this.cells[y][x + 1] = a;
     return true;
+  };
+
+  /* true when the cursor at (x,y) covers exactly one live panel and one empty
+   * cell -- the ratified single-block adjacent move is available here. */
+  Grid.prototype.canSlide = function (x, y) {
+    if (!this.inBounds(x, y) || !this.inBounds(x + 1, y)) return false;
+    var a = this.cells[y][x], b = this.cells[y][x + 1];
+    function live(c) { return c && c.st === "idle" && !c.dross; }
+    return (live(a) && b === null) || (a === null && live(b));
   };
 
   /* ---- gravity: rigid unit-based settle (STUDY-machine §3, STUDY-duel §1) ----
@@ -2707,7 +2718,7 @@
   var STEPS = [
     {
       id: "SWAP",
-      hint: ["SWAP is the only verb.", "Line up three of a kind", "to dissolve them."],
+      hint: ["A lone block slides into", "an empty neighbor.", "Line up three to clear."],
       target: { x: 2, y: 0 },
       build: function (seed) {
         var m = new AL.Machine({ seed: seed, seedRows: 0, risePerSec: 0, warnRow: 99 });
