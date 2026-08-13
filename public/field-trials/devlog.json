@@ -1,145 +1,151 @@
 {
- "updated_at": "2026-08-12T12:55:00.000Z",
- "roster": [
-  {
-   "name": "Chapel Perilous",
-   "blurb": "A first-person grid dungeon crawler set in Illuminatus!-trilogy conspiracy static.",
-   "status": "in development",
-   "url": "https://lerugray.github.io/chp-preview/"
-  },
-  {
-   "name": "Innsmouth 2000",
-   "blurb": "A Lovecraftian take on the classic 1993 city-builder — zone a rotting coastal town and appease five gods whose wrath is the disasters menu.",
-   "status": "in development",
-   "url": "https://i2-preview.pages.dev/"
-  },
-  {
-   "name": "Stray Squadron",
-   "blurb": "A browser rail shooter in the format of SNES-era Star Fox, rebuilt as a roguelite with code-generated ships and branching sector runs.",
-   "status": "in development",
-   "url": "https://ss-preview.pages.dev/"
-  },
-  {
-   "name": "Oddseedz",
-   "blurb": "A cozy, fully code-generated monster-ranching browser toy with 70 Buddies and no death.",
-   "status": "in development",
-   "url": "https://lerugray.github.io/field-trials/oddseedz/"
-  },
-  {
-   "name": "THE JACQUARD INDEX",
-   "blurb": "The pattern library of Reedmoor Mill, est. 1889. Nonograms that never ask you to guess — every card proved solvable by deduction alone, one twist per drawer.",
-   "status": "in development",
-   "url": "https://lerugray.github.io/field-trials/jacquard-index/"
-  },
-  {
-   "name": "SHOELEATHER",
-   "blurb": "You watch the murder. Then you prove it. A 70s-TV inverted mystery — typed facts, contradiction interrogations, one shot at the gotcha.",
-   "status": "in development",
-   "url": "https://lerugray.github.io/field-trials/shoeleather/"
-  },
-  {
-   "name": "ALKAHEST",
-   "blurb": "A match-panel machine on an alchemist's bench. Climb the four acts of the Magnum Opus against rival signatures — the register is the physics.",
-   "status": "in development",
-   "url": "https://lerugray.github.io/field-trials/alkahest/"
-  }
- ],
- "entries": [
-  {
-   "date": "2026-08-12",
-   "game": "Capriole",
-   "note": "Spawn-camping death loop fixed (spawn-safety zone)."
-  },
-  {
-   "date": "2026-08-12",
-   "game": "ADVERSARY",
-   "note": "Build pulled for fixes."
-  },
-  {
-   "date": "2026-08-12",
-   "game": "ADVERSARY",
-   "note": "Playable build posted."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "ALKAHEST",
-   "note": "Playable build posted."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "Chapel Perilous",
-   "note": "Update published."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "Innsmouth 2000",
-   "note": "Update published."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "Oddseedz",
-   "note": "Update published."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "SHOELEATHER",
-   "note": "Update published."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "SHOELEATHER",
-   "note": "Update published."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "SHOELEATHER",
-   "note": "Playable build posted."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "Stray Squadron",
-   "note": "Update published."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "THE JACQUARD INDEX",
-   "note": "Update published."
-  },
-  {
-   "date": "2026-08-11",
-   "game": "THE JACQUARD INDEX",
-   "note": "Playable build posted."
-  },
-  {
-   "date": "2026-08-09",
-   "game": "Chapel Perilous",
-   "note": "Update published."
-  },
-  {
-   "date": "2026-08-09",
-   "game": "Chapel Perilous",
-   "note": "Update published."
-  },
-  {
-   "date": "2026-08-09",
-   "game": "Oddseedz",
-   "note": "Playable build posted."
-  },
-  {
-   "date": "2026-08-09",
-   "game": "Stray Squadron",
-   "note": "Playable build posted."
-  },
-  {
-   "date": "2026-08-06",
-   "game": "Innsmouth 2000",
-   "note": "Playable build posted."
-  },
-  {
-   "date": "2026-08-05",
-   "game": "Chapel Perilous",
-   "note": "Playable build posted."
-  }
- ],
- "workshop_count": 7
+  "updated_at": "2026-08-13T16:45:00.000Z",
+  "roster": [
+    {
+      "name": "Chapel Perilous",
+      "blurb": "A first-person grid dungeon crawler set in Illuminatus!-trilogy conspiracy static.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/chp-preview/"
+    },
+    {
+      "name": "Innsmouth 2000",
+      "blurb": "A Lovecraftian take on the classic 1993 city-builder \u2014 zone a rotting coastal town and appease five gods whose wrath is the disasters menu.",
+      "status": "in development",
+      "url": "https://i2-preview.pages.dev/"
+    },
+    {
+      "name": "Stray Squadron",
+      "blurb": "A browser rail shooter in the format of SNES-era Star Fox, rebuilt as a roguelite with code-generated ships and branching sector runs.",
+      "status": "in development",
+      "url": "https://ss-preview.pages.dev/"
+    },
+    {
+      "name": "Oddseedz",
+      "blurb": "A cozy, fully code-generated monster-ranching browser toy with 70 Buddies and no death.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/oddseedz/"
+    },
+    {
+      "name": "THE JACQUARD INDEX",
+      "blurb": "The pattern library of Reedmoor Mill, est. 1889. Nonograms that never ask you to guess \u2014 every card proved solvable by deduction alone, one twist per drawer.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/jacquard-index/"
+    },
+    {
+      "name": "SHOELEATHER",
+      "blurb": "You watch the murder. Then you prove it. A 70s-TV inverted mystery \u2014 typed facts, contradiction interrogations, one shot at the gotcha.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/shoeleather/"
+    },
+    {
+      "name": "ALKAHEST",
+      "blurb": "A match-panel machine on an alchemist's bench. Climb the four acts of the Magnum Opus against rival signatures \u2014 the register is the physics.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/alkahest/"
+    },
+    {
+      "name": "The Office of the Road",
+      "blurb": "You are the desk the heroes report to. The party marches itself; your interventions are filed in tarot.",
+      "status": "released",
+      "url": "https://lerugray.github.io/field-trials/office-of-the-road/"
+    }
+  ],
+  "entries": [
+    {
+      "date": "2026-08-12",
+      "game": "Capriole",
+      "note": "Spawn-camping death loop fixed (spawn-safety zone)."
+    },
+    {
+      "date": "2026-08-12",
+      "game": "ADVERSARY",
+      "note": "Build pulled for fixes."
+    },
+    {
+      "date": "2026-08-12",
+      "game": "ADVERSARY",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "ALKAHEST",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "Chapel Perilous",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "Innsmouth 2000",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "Oddseedz",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "SHOELEATHER",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "SHOELEATHER",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "SHOELEATHER",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "Stray Squadron",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "THE JACQUARD INDEX",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-11",
+      "game": "THE JACQUARD INDEX",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-09",
+      "game": "Chapel Perilous",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-09",
+      "game": "Chapel Perilous",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-09",
+      "game": "Oddseedz",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-09",
+      "game": "Stray Squadron",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-06",
+      "game": "Innsmouth 2000",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-05",
+      "game": "Chapel Perilous",
+      "note": "Playable build posted."
+    }
+  ],
+  "workshop_count": 7
 }

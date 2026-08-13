@@ -212,14 +212,33 @@ const games: FieldTrialGame[] = [
       caption: 'FIG. 9 · First bout, NIGREDO act, build 2026.08',
     },
   },
+  {
+    id: 'office-of-the-road',
+    name: 'The Office of the Road',
+    description:
+      'You are the desk the heroes report to. An expedition is issued, the party marches itself, and tarot from the hand is your only intervention.',
+    register: 'Expedition ledger sim',
+    url: 'https://lerugray.github.io/field-trials/office-of-the-road/',
+    status: 'Field trial — released',
+    tests: 187,
+    audit: 'Release gate — 9-step run; QA verdict SHIP, 3 disclosed blemishes, in-gate fixes landed',
+    shell: '#8f8868',
+    shellHi: '#a9a284',
+    glow: '#d8c66a',
+    figure: {
+      src: '/field-trials/office-of-the-road/og.png',
+      alt: 'The Office of the Road share card: four pixel battlers and tarot cards over the dark ledger ground',
+      caption: 'FIG. 10 · field resolution, build 2026.08',
+    },
+  },
 ];
 
 const totalTests = games.reduce((n, g) => n + g.tests, 0);
 const totalTestsFmt = totalTests.toLocaleString('en-US');
 
 // CARTRIDGE LABEL ART — one code-drawn inline SVG per game, keyed by id.
-// Everything on this shelf is drawn by code because everything IN these games
-// is drawn by code; no image assets, ever. Each label channels its own game's
+// Labels are code-drawn as a shelf convention (in-game art is code-drawn or
+// licensed + credited, per the field-trials README). Each label channels its own game's
 // register, not the site's. All fills/strokes inline so Astro's scoped-style
 // pass can't strand them.
 const T = 'font-family: var(--font-mono), monospace; font-weight: 500; letter-spacing: 0.08em;';
@@ -441,6 +460,32 @@ const labelArt: Record<string, string> = {
   </g>
   <rect x="0" y="80" width="132" height="20" fill="#1a2f26"/>
   <text x="66" y="93.5" text-anchor="middle" fill="#d8b25a" font-size="11" style="${T}">ALKAHEST</text>
+</svg>`,
+  'office-of-the-road': `
+<svg viewBox="0 0 132 100" role="img" aria-label="The Office of the Road cartridge label: a stamped mandate document, a tarot card, and four marchers on a ruled ledger ground" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#14140d"/>
+  <g stroke="#3a382a" stroke-width="1">
+    <line x1="8" y1="20" x2="124" y2="20"/><line x1="8" y1="32" x2="124" y2="32"/>
+    <line x1="8" y1="44" x2="124" y2="44"/><line x1="8" y1="56" x2="124" y2="56"/>
+  </g>
+  <rect x="20" y="16" width="52" height="44" fill="#e8e0c4"/>
+  <g stroke="#8f8868" stroke-width="1.2" fill="none">
+    <line x1="26" y1="26" x2="66" y2="26"/><line x1="26" y1="33" x2="66" y2="33"/>
+    <line x1="26" y1="40" x2="58" y2="40"/><line x1="26" y1="47" x2="62" y2="47"/>
+  </g>
+  <circle cx="58" cy="50" r="7" fill="none" stroke="#a8402f" stroke-width="1.6"/>
+  <g transform="rotate(12 96 38)">
+    <rect x="84" y="18" width="24" height="40" fill="#2b3350" stroke="#e8e0c4" stroke-width="1.5"/>
+    <circle cx="96" cy="30" r="5" fill="#d8c66a"/>
+    <path d="M88 50 l6 -8 5 5 5 -9" stroke="#d8c66a" stroke-width="1.3" fill="none"/>
+  </g>
+  <line x1="8" y1="72" x2="124" y2="72" stroke="#3a382a" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <g fill="#d8c66a">
+    <rect x="30" y="65" width="4" height="6"/><rect x="40" y="65" width="4" height="6"/>
+    <rect x="50" y="65" width="4" height="6"/><rect x="60" y="65" width="4" height="6"/>
+  </g>
+  <rect x="0" y="80" width="132" height="20" fill="#22211a"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#d8c66a" font-size="8.5" style="${T}">OFFICE OF THE ROAD</text>
 </svg>`,
 };
 
