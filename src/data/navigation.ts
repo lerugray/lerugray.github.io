@@ -12,8 +12,13 @@ export interface NavGroup {
 
 export const navGroups: NavGroup[] = [
   {
-    label: 'Work With Me',
+    label: 'Field Trials',
     plate: 'Pl. I',
+    items: [{ href: '/games', label: 'Field Trials' }],
+  },
+  {
+    label: 'Work With Me',
+    plate: 'Pl. II',
     items: [
       { href: '/services', label: 'Commissions' },
       { href: '/wargame-modules', label: 'Wargame Modules' },
@@ -21,7 +26,7 @@ export const navGroups: NavGroup[] = [
   },
   {
     label: 'Writing',
-    plate: 'Pl. II',
+    plate: 'Pl. III',
     items: [
       { href: '/writing/columbo-needed-a-confession', label: 'Columbo Needed a Confession' },
       { href: '/writing/the-register-not-the-man', label: 'The Register, Not the Man' },
