@@ -564,7 +564,7 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
           <div
             class="cab-shelf"
             role="group"
-            aria-label="Cartridge shelf. Arrow keys browse, Enter plays the selected game."
+            aria-label="Cartridge shelf. Click a cartridge to select it; click again to play."
           >
             {
               games.map((game, i) => (
@@ -1530,9 +1530,10 @@ const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
 </style>
 
 <script>
-  // THE CABINET — cartridge selection.
-  // Click selects. Arrow keys browse (selection follows focus, UFO 50 style).
-  // Enter/Space on the already-selected cart fires its PLAY link. All nine
+  // THE CABINET — cartridge selection. Mouse-first by operator ruling (2026-08-14):
+  // arrows only ever worked once a cart had focus, so the page scrolled instead —
+  // the keyboard path stays as a focused-shelf enhancement but is not advertised.
+  // Click selects. Enter/Space on the already-selected cart fires its PLAY link. All nine
   // detail panels are server-rendered; JS only toggles `hidden`, so with
   // scripts off the page degrades to the full stacked list (see <noscript>).
   function initCabinet() {
