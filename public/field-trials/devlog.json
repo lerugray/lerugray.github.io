@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T12:01:49.792Z",
+  "updated_at": "2026-08-17T23:26:53.607Z",
   "roster": [
     {
       "name": "Chapel Perilous",
@@ -24,6 +24,12 @@
       "blurb": "A cozy, fully code-generated monster-ranching browser toy with 70 Buddies and no death.",
       "status": "in development",
       "url": "https://lerugray.github.io/field-trials/oddseedz/"
+    },
+    {
+      "name": "Lines of Advance",
+      "blurb": "A digitization of the mechanics of Debord's A Game of War, presented as a sleek modern chess-style program.",
+      "status": "in development",
+      "url": ""
     },
     {
       "name": "The Office of the Road",
@@ -64,6 +70,16 @@
     },
     {
       "date": "2026-08-17",
+      "game": "ALKAHEST",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "Capriole",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
       "game": "Capriole",
       "note": "Update published."
     },
@@ -74,7 +90,27 @@
     },
     {
       "date": "2026-08-17",
+      "game": "Chapel Perilous",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
       "game": "Innsmouth 2000",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "Innsmouth 2000",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "Lines of Advance",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "Oddseedz",
       "note": "Update published."
     },
     {
@@ -89,7 +125,17 @@
     },
     {
       "date": "2026-08-17",
+      "game": "SHOELEATHER",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
       "game": "Stray Squadron",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "THE JACQUARD INDEX",
       "note": "Update published."
     },
     {
@@ -266,42 +312,7 @@
       "date": "2026-08-11",
       "game": "THE JACQUARD INDEX",
       "note": "Update published."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "THE JACQUARD INDEX",
-      "note": "Playable build posted."
-    },
-    {
-      "date": "2026-08-09",
-      "game": "Chapel Perilous",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-09",
-      "game": "Chapel Perilous",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-09",
-      "game": "Oddseedz",
-      "note": "Playable build posted."
-    },
-    {
-      "date": "2026-08-09",
-      "game": "Stray Squadron",
-      "note": "Playable build posted."
-    },
-    {
-      "date": "2026-08-06",
-      "game": "Innsmouth 2000",
-      "note": "Playable build posted."
-    },
-    {
-      "date": "2026-08-05",
-      "game": "Chapel Perilous",
-      "note": "Playable build posted."
     }
   ],
-  "workshop_count": 30
+  "workshop_count": 29
 }
