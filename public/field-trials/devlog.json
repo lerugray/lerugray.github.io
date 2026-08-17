@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-13T16:45:00.000Z",
+  "updated_at": "2026-08-17T12:01:49.792Z",
   "roster": [
     {
       "name": "Chapel Perilous",
@@ -9,7 +9,7 @@
     },
     {
       "name": "Innsmouth 2000",
-      "blurb": "A Lovecraftian take on the classic 1993 city-builder \u2014 zone a rotting coastal town and appease five gods whose wrath is the disasters menu.",
+      "blurb": "A Lovecraftian take on the classic 1993 city-builder — zone a rotting coastal town and appease five gods whose wrath is the disasters menu.",
       "status": "in development",
       "url": "https://i2-preview.pages.dev/"
     },
@@ -26,44 +26,200 @@
       "url": "https://lerugray.github.io/field-trials/oddseedz/"
     },
     {
+      "name": "The Office of the Road",
+      "blurb": "A streamlined JRPG roguelite — the party marches itself through FF3-style jobs and tarot-card interventions, and the player is the desk it reports to.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/office-of-the-road/"
+    },
+    {
+      "name": "Capriole",
+      "blurb": "A first-person hop-and-bop roguelite — a clockwork goat triple-jumps up a vault of flat-shaded floating islands, the way a 1995 PlayStation dreamed.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/capriole/"
+    },
+    {
       "name": "THE JACQUARD INDEX",
-      "blurb": "The pattern library of Reedmoor Mill, est. 1889. Nonograms that never ask you to guess \u2014 every card proved solvable by deduction alone, one twist per drawer.",
+      "blurb": "The pattern library of Reedmoor Mill, est. 1889. Nonograms that never ask you to guess — every card proved solvable by deduction alone, one twist per drawer.",
       "status": "in development",
       "url": "https://lerugray.github.io/field-trials/jacquard-index/"
     },
     {
       "name": "SHOELEATHER",
-      "blurb": "You watch the murder. Then you prove it. A 70s-TV inverted mystery \u2014 typed facts, contradiction interrogations, one shot at the gotcha.",
+      "blurb": "You watch the murder. Then you prove it. A 70s-TV inverted mystery — typed facts, contradiction interrogations, one shot at the gotcha.",
       "status": "in development",
       "url": "https://lerugray.github.io/field-trials/shoeleather/"
     },
     {
       "name": "ALKAHEST",
-      "blurb": "A match-panel machine on an alchemist's bench. Climb the four acts of the Magnum Opus against rival signatures \u2014 the register is the physics.",
+      "blurb": "A match-panel machine on an alchemist's bench. Climb the four acts of the Magnum Opus against rival signatures — the register is the physics.",
       "status": "in development",
       "url": "https://lerugray.github.io/field-trials/alkahest/"
-    },
-    {
-      "name": "The Office of the Road",
-      "blurb": "You are the desk the heroes report to. The party marches itself; your interventions are filed in tarot.",
-      "status": "released",
-      "url": "https://lerugray.github.io/field-trials/office-of-the-road/"
     }
   ],
   "entries": [
     {
-      "date": "2026-08-12",
+      "date": "2026-08-17",
+      "game": "ALKAHEST",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
       "game": "Capriole",
-      "note": "Spawn-camping death loop fixed (spawn-safety zone)."
+      "note": "Update published."
     },
     {
-      "date": "2026-08-12",
-      "game": "ADVERSARY",
-      "note": "Build pulled for fixes."
+      "date": "2026-08-17",
+      "game": "Chapel Perilous",
+      "note": "Update published."
     },
     {
-      "date": "2026-08-12",
-      "game": "ADVERSARY",
+      "date": "2026-08-17",
+      "game": "Innsmouth 2000",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "Oddseedz",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "SHOELEATHER",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "Stray Squadron",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "THE JACQUARD INDEX",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-17",
+      "game": "The Office of the Road",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-16",
+      "game": "ALKAHEST",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-16",
+      "game": "Capriole",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-16",
+      "game": "Chapel Perilous",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-16",
+      "game": "Innsmouth 2000",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-16",
+      "game": "Oddseedz",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-16",
+      "game": "Stray Squadron",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-16",
+      "game": "The Office of the Road",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "ALKAHEST",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "ALKAHEST",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "Capriole",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "Chapel Perilous",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "Chapel Perilous",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "Innsmouth 2000",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "Innsmouth 2000",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "Oddseedz",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "Oddseedz",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "SHOELEATHER",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "SHOELEATHER",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "Stray Squadron",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "Stray Squadron",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "THE JACQUARD INDEX",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "THE JACQUARD INDEX",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "The Office of the Road",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-15",
+      "game": "The Office of the Road",
       "note": "Playable build posted."
     },
     {
@@ -147,5 +303,5 @@
       "note": "Playable build posted."
     }
   ],
-  "workshop_count": 7
+  "workshop_count": 30
 }
