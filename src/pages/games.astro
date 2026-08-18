@@ -237,6 +237,45 @@ const games: FieldTrialGame[] = [
       caption: 'FIG. 10 · field resolution, build 2026.08',
     },
   },
+  {
+    id: 'popinjay',
+    name: 'Popinjay',
+    description:
+      "A single-screen arcade roguelite on Pang's bouncing-balloon core — a 1900s World's Fair sharpshooter, wire-as-wall commitment, hand-tinted poster idiom.",
+    register: 'Arcade sharpshooter',
+    url: 'https://lerugray.github.io/field-trials/popinjay/',
+    status: 'Field trial · active development',
+    tests: 281,
+    audit: 'FIX-FIRST — skeptical pre-release 2026-08-12; 281/281 battery',
+    shell: '#6a2317',
+    shellHi: '#b0432f',
+    glow: '#e7c76b',
+    figure: {
+      src: '/field-trials/popinjay-fig-2026-08-18.png',
+      alt: 'Popinjay gameplay: a World\'s Fair sharpshooter stage with balloons in flight against a hand-tinted poster ground',
+      caption: 'FIG. 11 · balloons in flight, build 2026.08',
+    },
+  },
+  {
+    id: 'material-breach',
+    name: 'Material Breach',
+    description:
+      'You run the dungeon. Adventurers are an occupational incident, filed with a root-cause analysis and a corrective-action owner.',
+    register: 'Reverse dungeon admin',
+    url: 'https://lerugray.github.io/field-trials/material-breach/',
+    status: 'Field trial — released',
+    tests: 205,
+    audit:
+      'Release gate — 9-step run 2026-08-18; a save-brick blocker and a phantom notice fix caught and closed in-gate; 205/205',
+    shell: '#2b2820',
+    shellHi: '#4d4738',
+    glow: '#a53a2e',
+    figure: {
+      src: '/field-trials/material-breach-fig-2026-08-18.png',
+      alt: 'Material Breach opening: the CHARTER OF APPOINTMENT masthead printed on a desk document, MATERIAL BREACH as the letterhead',
+      caption: 'FIG. 12 · masthead on the desk, build 2026.08',
+    },
+  },
 ];
 
 const totalTests = games.reduce((n, g) => n + g.tests, 0);
@@ -492,6 +531,52 @@ const labelArt: Record<string, string> = {
   </g>
   <rect x="0" y="80" width="132" height="20" fill="#22211a"/>
   <text x="66" y="93.5" text-anchor="middle" fill="#d8c66a" font-size="8.5" style="${T}">OFFICE OF THE ROAD</text>
+</svg>`,
+  popinjay: `
+<svg viewBox="0 0 132 100" role="img" aria-label="Popinjay cartridge label: a teal bird in a gold roundel, rust balloons and a climbing wire on cream poster ground" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#f2e4c4"/>
+  <g fill="#d8bd8a">
+    <rect x="8" y="6" width="2" height="2"/><rect x="28" y="18" width="2" height="2"/><rect x="118" y="10" width="2" height="2"/>
+    <rect x="104" y="32" width="2" height="2"/><rect x="16" y="52" width="2" height="2"/>
+  </g>
+  <circle cx="38" cy="28" r="11" fill="#b0432f"/>
+  <circle cx="38" cy="28" r="11" fill="none" stroke="#c8912f" stroke-width="1.8"/>
+  <ellipse cx="38" cy="30" rx="6" ry="5" fill="#2f6d6a"/>
+  <ellipse cx="40" cy="32" rx="4" ry="2.4" fill="#b0432f"/>
+  <circle cx="41" cy="28" r="1.3" fill="#fdf6e4"/>
+  <path d="M44 30 l6 -1 -4 3 z" fill="#c8912f"/>
+  <circle cx="78" cy="22" r="9" fill="#d16a4a"/>
+  <circle cx="78" cy="22" r="9" fill="none" stroke="#6a2317" stroke-width="1.2"/>
+  <circle cx="104" cy="40" r="7" fill="#e79877"/>
+  <circle cx="104" cy="40" r="7" fill="none" stroke="#6a2317" stroke-width="1"/>
+  <circle cx="58" cy="48" r="5.5" fill="#b0432f"/>
+  <line x1="66" y1="78" x2="66" y2="14" stroke="#2a2622" stroke-width="1.6"/>
+  <line x1="66" y1="14" x2="66" y2="6" stroke="#c8912f" stroke-width="1.6"/>
+  <path d="M54 78 h24 v-6 h-24 z" fill="#6b3e1c"/>
+  <rect x="62" y="68" width="8" height="10" fill="#1a4643"/>
+  <rect x="0" y="80" width="132" height="20" fill="#6a2317"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#fbeab0" font-size="11" style="${T}">POPINJAY</text>
+</svg>`,
+  'material-breach': `
+<svg viewBox="0 0 132 100" role="img" aria-label="Material Breach cartridge label: a letterhead masthead on manila paper, a red stamp, and a small dungeon cutaway" xmlns="http://www.w3.org/2000/svg">
+  <rect width="132" height="100" fill="#100f0c"/>
+  <rect x="10" y="8" width="112" height="66" fill="#e0d0b4"/>
+  <line x1="18" y1="16" x2="114" y2="16" stroke="#1d1b15" stroke-width="2.4"/>
+  <line x1="18" y1="28" x2="114" y2="28" stroke="#1d1b15" stroke-width="1.6"/>
+  <line x1="18" y1="31" x2="114" y2="31" stroke="#1d1b15" stroke-width="0.8"/>
+  <g fill="#1d1b15" opacity="0.85">
+    <rect x="20" y="38" width="52" height="1.4"/><rect x="20" y="44" width="48" height="1.4"/>
+    <rect x="20" y="50" width="50" height="1.4"/><rect x="20" y="56" width="40" height="1.4"/>
+  </g>
+  <g fill="#2d3038">
+    <rect x="86" y="40" width="14" height="10"/><rect x="102" y="40" width="10" height="10"/>
+    <rect x="86" y="52" width="10" height="10"/><rect x="98" y="52" width="14" height="10"/>
+  </g>
+  <rect x="88" y="42" width="10" height="6" fill="none" stroke="#72b0a4" stroke-width="1.2"/>
+  <circle cx="108" cy="62" r="8" fill="none" stroke="#a53a2e" stroke-width="2"/>
+  <path d="M104 62 l3 3 6 -7" stroke="#a53a2e" stroke-width="1.6" fill="none"/>
+  <rect x="0" y="80" width="132" height="20" fill="#1d1b15"/>
+  <text x="66" y="93.5" text-anchor="middle" fill="#ece4cc" font-size="8" style="${T}">MATERIAL BREACH</text>
 </svg>`,
 };
 

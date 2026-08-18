@@ -60,6 +60,18 @@
       "blurb": "A match-panel machine on an alchemist's bench. Climb the four acts of the Magnum Opus against rival signatures — the register is the physics.",
       "status": "in development",
       "url": "https://lerugray.github.io/field-trials/alkahest/"
+    },
+    {
+      "name": "Popinjay",
+      "blurb": "A single-screen arcade roguelite on Pang's bouncing-balloon core — a 1900s World's Fair sharpshooter, wire-as-wall commitment, hand-tinted poster idiom.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/popinjay/"
+    },
+    {
+      "name": "Material Breach",
+      "blurb": "You run the dungeon. Adventurers are an occupational incident, filed with a root-cause analysis and a corrective-action owner.",
+      "status": "in development",
+      "url": "https://lerugray.github.io/field-trials/material-breach/"
     }
   ],
   "entries": [
