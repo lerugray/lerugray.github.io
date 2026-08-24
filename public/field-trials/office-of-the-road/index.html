@@ -1046,9 +1046,30 @@ function spendSupplies(party, amount) {
 // campRest: recover a fraction of each living frame's MISSING HP, paid for in
 // supplies. No-op (returns false) if the reserve can't cover it — recovery is
 // never free and never silent (the caller surfaces the result).
+/**
+ * What a rest at this camp WOULD do, without doing it. One source of truth for
+ * the verb, the chip that offers it and the caption that prices it: they used
+ * to disagree, and a party already at full strength was billed the full supply
+ * cost for zero hp — a purchase of nothing, with nothing on screen saying so.
+ * `restorable` is computed with the same rounding the heal loop uses, so the
+ * preview and the rest can never differ by a point.
+ */
+function restPreview(party) {
+  const cost = TUNING.campRecoverSupplyCost;
+  let restorable = 0;
+  for (const f of party.frames) {
+    if (!f.alive) continue;
+    restorable += Math.round((f.max.hp - f.hp) * TUNING.campRecoverHpFrac);
+  }
+  if (restorable <= 0) return { ok: false, reason: 'nothing-to-restore', cost, restorable: 0 };
+  if (party.supplies < cost) return { ok: false, reason: 'insufficient-supplies', cost, restorable };
+  return { ok: true, reason: null, cost, restorable };
+}
+
 function campRest(party) {
-  if (party.supplies < TUNING.campRecoverSupplyCost) return { rested: false, restored: 0, cost: 0 };
-  const cost = spendSupplies(party, TUNING.campRecoverSupplyCost);
+  const offer = restPreview(party);
+  if (!offer.ok) return { rested: false, restored: 0, cost: 0, reason: offer.reason };
+  const cost = spendSupplies(party, offer.cost);
   let restored = 0;
   for (const f of party.frames) {
     if (!f.alive) continue;
@@ -1057,7 +1078,7 @@ function campRest(party) {
     f.hp = Math.min(f.max.hp, f.hp + heal);
     restored += heal;
   }
-  return { rested: true, restored, cost };
+  return { rested: true, restored, cost, reason: null };
 }
 
 // applyDamage / applyHeal: HP mutation with death bookkeeping (combat uses these
@@ -2647,8 +2668,9 @@ function simulateCVD(type, r, g, b) {
 // band.js — THE BAND KIT. A portable procedural WebAudio band: synthesised
 // instruments, a bus architecture with a send reverb, and a lookahead step
 // scheduler. Zero assets, zero fetches, zero dependencies (hard rule 2: all
-// assets code-generated). Nothing here is Chapel-Perilous-specific — CHP's own
-// score lives in score.js and is the reference consumer.
+// assets code-generated). The kit is register-neutral. This game's score lives
+// in score.js. Voice and bus values below are THIS GAME's ratified tunings —
+// not leftovers from another title, and not to be stripped on a kit sync.
 //
 // ============================================================================
 // THE API (this header is the kit's documentation — other games adopt this file
@@ -2662,7 +2684,14 @@ function simulateCVD(type, r, g, b) {
 // real dependency list registers as a bogus extra dependency and breaks the
 // single-file build. Pull createBand / noteFreq / chord out the usual way.
 //
-//   const band = createBand({ ctx, destination: someGainNode, seed: worldSeed });
+//   const band = createBand({
+//     ctx, destination: someGainNode, seed: worldSeed,
+//     performance: { // optional; omitted is exactly neutral
+//       humanize: { timingMs: [-8, 8], velocity: [-0.05, 0.05], swing: 0.12 },
+//       releaseTail: 0.4, // added to pad/drone note releases
+//       voices: { pad: { releaseTail: 0.8 } }, // per-voice overrides
+//     },
+//   });
 //
 //   band.registerTrack('cellar', {
 //     bpm: 40,          // a STEP is a sixteenth: stepSeconds = 60 / bpm / 4
@@ -2675,8 +2704,10 @@ function simulateCVD(type, r, g, b) {
 //   });
 //
 //   band.setTrack('cellar');   // crossfades: old track's bus down, new one up
+//   band.setTrack('cellar', { now: 12.5, fadeIn: 0.05 }); // optional clock override
+//                              // for OfflineAudioContext (currentTime frozen until render)
 //   band.start();              // drive the scheduler off a timer
-//   band.setParams({ dread: 0.7 });  // live intensity, no track restart
+//   band.setParams({ dread: 0.7 });  // live params, no track restart
 //
 // `step(i, t, s)` receives a step context `s`:
 //   s.v        the instrument voices (see below) — call them with an absolute
@@ -2701,8 +2732,7 @@ function simulateCVD(type, r, g, b) {
 //   bass   (t, freq, dur, o)  saw + sub through a resonant lowpass — pulse/weight
 //   lead   (t, freq, dur, o)  square/triangle + vibrato — melody
 //   air    (t, dur, o)        filtered noise with a swept band — texture/breath
-//   kick / snare / hat        (t, o) percussion; CHP's ambient score does not use
-//                            these, they are here because the kit is portable
+//   kick / snare / hat        (t, o) percussion voices
 // Common opts: vol, wave, cut (filter Hz), sweep (cut multiplier by end), q,
 // a/d/s/r (envelope, seconds), verb (send amount 0..1), det (detune cents),
 // ratios (bell partials), glide (drone end freq), hp/bp (air band).
@@ -2713,7 +2743,7 @@ function simulateCVD(type, r, g, b) {
 //
 // HEADLESS SAFETY. Nothing at module-load time touches `window`. createBand needs a
 // real AudioContext; callers that may not have one guard the call (see
-// audio.js). tick(now) is callable by hand, which is how the tests drive the
+// main.js). tick(now) is callable by hand, which is how the tests drive the
 // scheduler without timers or a browser.
 
 
@@ -2723,9 +2753,12 @@ function simulateCVD(type, r, g, b) {
 const SEMI = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
 
 function noteFreq(name) {
-  if (typeof name === 'number') return name;
+  if (typeof name === 'number') {
+    if (Number.isFinite(name) && name > 0) return name;
+    throw new TypeError(`noteFreq: expected a positive finite frequency, got ${name}`);
+  }
   const m = /^([A-G])([#b]?)(-?\d)$/.exec(String(name));
-  if (!m) return 440;
+  if (!m) throw new TypeError(`noteFreq: invalid note name "${name}"`);
   const s = SEMI[m[1]] + (m[2] === '#' ? 1 : m[2] === 'b' ? -1 : 0);
   const oct = parseInt(m[3], 10);
   return 440 * Math.pow(2, (s - 9) / 12 + (oct - 4));
@@ -2737,20 +2770,176 @@ function chord(names) { return names.map(noteFreq); }
 // A tiny positive floor — exponential ramps cannot reach or cross zero.
 const EPS = 0.0001;
 const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+const PERFORMANCE_VOICE_NAMES = Object.freeze(['pad', 'drone', 'bell', 'pluck', 'bass', 'lead', 'air', 'kick', 'snare', 'hat']);
+const PERFORMANCE_VOICE_INDEX = Object.freeze(Object.fromEntries(PERFORMANCE_VOICE_NAMES.map((name, index) => [name, index])));
+const VOICE_OPTION_INDEX = Object.freeze({ pad: 3, drone: 3, bell: 3, pluck: 3, bass: 3, lead: 3, air: 2, kick: 1, snare: 1, hat: 1 });
+const RELEASE_VOICES = new Set(['pad', 'drone']);
+const normalizedPerformanceConfigs = new WeakSet();
+
+function normalizeRange(value, name) {
+  if (value === undefined) return Object.freeze([0, 0]);
+  if (!Array.isArray(value) || value.length !== 2
+    || value.some((entry) => typeof entry !== 'number' || !Number.isFinite(entry))
+    || value[0] > value[1]) {
+    throw new TypeError(`${name}: expected [min, max] finite numbers with min <= max`);
+  }
+  return Object.freeze([value[0], value[1]]);
+}
+
+function normalizeHumanize(value = {}, name = 'performance.humanize') {
+  if (value === null || typeof value !== 'object' || Array.isArray(value)) throw new TypeError(`${name}: expected an object`);
+  for (const key of Object.keys(value)) {
+    if (!['timingMs', 'velocity', 'swing'].includes(key)) throw new TypeError(`${name}.${key}: unknown field`);
+  }
+  const timingMs = normalizeRange(value.timingMs, `${name}.timingMs`);
+  const velocity = normalizeRange(value.velocity, `${name}.velocity`);
+  if (timingMs[0] < -50 || timingMs[1] > 50) throw new RangeError(`${name}.timingMs: values must be between -50 and 50`);
+  if (velocity[0] < -1 || velocity[1] > 1) throw new RangeError(`${name}.velocity: values must be between -1 and 1`);
+  const swing = value.swing ?? 0;
+  if (typeof swing !== 'number' || !Number.isFinite(swing) || swing < 0 || swing > 1) {
+    throw new RangeError(`${name}.swing: must be between 0 and 1`);
+  }
+  return Object.freeze({ timingMs, velocity, swing });
+}
+
+/** Validate and normalize the register-neutral performance tool configuration. */
+function normalizePerformance(performance) {
+  if (performance === undefined) return null;
+  if (performance && normalizedPerformanceConfigs.has(performance)) return performance;
+  if (performance === null || typeof performance !== 'object' || Array.isArray(performance)) {
+    throw new TypeError('performance: expected an object');
+  }
+  for (const key of Object.keys(performance)) {
+    if (!['humanize', 'releaseTail', 'voices'].includes(key)) throw new TypeError(`performance.${key}: unknown field`);
+  }
+  const releaseTail = performance.releaseTail ?? 0;
+  if (typeof releaseTail !== 'number' || !Number.isFinite(releaseTail) || releaseTail < 0 || releaseTail > 30) {
+    throw new RangeError('performance.releaseTail: must be between 0 and 30 seconds');
+  }
+  const humanize = normalizeHumanize(performance.humanize);
+  const givenVoices = performance.voices ?? {};
+  if (givenVoices === null || typeof givenVoices !== 'object' || Array.isArray(givenVoices)) {
+    throw new TypeError('performance.voices: expected an object');
+  }
+  const voices = {};
+  for (const [voice, value] of Object.entries(givenVoices)) {
+    if (!PERFORMANCE_VOICE_NAMES.includes(voice)) throw new TypeError(`performance.voices.${voice}: unknown voice`);
+    if (value === null || typeof value !== 'object' || Array.isArray(value)) throw new TypeError(`performance.voices.${voice}: expected an object`);
+    for (const key of Object.keys(value)) {
+      if (!['humanize', 'releaseTail'].includes(key)) throw new TypeError(`performance.voices.${voice}.${key}: unknown field`);
+    }
+    if (value.releaseTail !== undefined && !RELEASE_VOICES.has(voice)) {
+      throw new TypeError(`performance.voices.${voice}.releaseTail: release tails are supported only for pad and drone`);
+    }
+    const voiceRelease = value.releaseTail ?? releaseTail;
+    if (typeof voiceRelease !== 'number' || !Number.isFinite(voiceRelease) || voiceRelease < 0 || voiceRelease > 30) {
+      throw new RangeError(`performance.voices.${voice}.releaseTail: must be between 0 and 30 seconds`);
+    }
+    let ownHumanize = humanize;
+    if (value.humanize !== undefined) {
+      if (value.humanize === null || typeof value.humanize !== 'object' || Array.isArray(value.humanize)) {
+        throw new TypeError(`performance.voices.${voice}.humanize: expected an object`);
+      }
+      ownHumanize = normalizeHumanize({
+        timingMs: value.humanize.timingMs ?? humanize.timingMs,
+        velocity: value.humanize.velocity ?? humanize.velocity,
+        swing: value.humanize.swing ?? humanize.swing,
+      }, `performance.voices.${voice}.humanize`);
+    }
+    voices[voice] = Object.freeze({ humanize: ownHumanize, releaseTail: voiceRelease });
+  }
+  const normalized = Object.freeze({ humanize, releaseTail, voices: Object.freeze(voices) });
+  normalizedPerformanceConfigs.add(normalized);
+  return normalized;
+}
+
+function performanceForVoice(performance, voice) {
+  return performance?.voices[voice] ?? Object.freeze({
+    humanize: performance?.humanize ?? Object.freeze({ timingMs: Object.freeze([0, 0]), velocity: Object.freeze([0, 0]), swing: 0 }),
+    releaseTail: performance?.releaseTail ?? 0,
+  });
+}
+
+/** Largest additional release requested by a score, used to retain render tails. */
+function performanceReleaseTail(performance) {
+  const normalized = normalizePerformance(performance);
+  if (!normalized) return 0;
+  return Math.max(...[...RELEASE_VOICES].map((voice) => performanceForVoice(normalized, voice).releaseTail));
+}
+
+/** Pure deterministic adjustment shared by synth scheduling and sample custody. */
+function performanceAdjustment(performance, { seed, absoluteStep, stepIndex, stepSeconds, voice, call = 0 }) {
+  const normalized = normalizePerformance(performance);
+  const resolved = performanceForVoice(normalized, voice);
+  const { timingMs, velocity, swing } = resolved.humanize;
+  const lane = (PERFORMANCE_VOICE_INDEX[voice] ?? PERFORMANCE_VOICE_NAMES.length) * 0x10000 + call;
+  const timingDraw = hash2(absoluteStep, lane * 2 + 0x1000, (seed >>> 0) || 1);
+  const velocityDraw = hash2(absoluteStep, lane * 2 + 0x1001, (seed >>> 0) || 1);
+  const jitterSeconds = (timingMs[0] + (timingMs[1] - timingMs[0]) * timingDraw) / 1000;
+  const swingSeconds = (stepIndex & 1) ? swing * stepSeconds * 0.5 : 0;
+  return Object.freeze({
+    timeSeconds: jitterSeconds + swingSeconds,
+    velocity: velocity[0] + (velocity[1] - velocity[0]) * velocityDraw,
+    releaseTail: RELEASE_VOICES.has(voice) ? resolved.releaseTail : 0,
+  });
+}
+
+/**
+ * Register-neutral kit shape + THIS GAME's ratified local tunings (long reverb
+ * tail, slow crossfade, generous retire tail, snare/hat wet sends). Other games
+ * adopting the kit must not treat these values as another title's leftovers to
+ * strip on sync — that mislabel already reset OOR's percussion verb once.
+ */
+const NEUTRAL_DEFAULTS = Object.freeze({
+  band: Object.freeze({
+    gain: 0.5,
+    reverb: Object.freeze({ seconds: 3.4, decay: 2.6 }),
+    reverbReturnGain: 0.55,
+    lookahead: 0.22,
+    tickMs: 25,
+    fadeOut: 1.1,
+    fadeIn: 2.2,
+    retireTail: 4.0,
+  }),
+  voices: Object.freeze({
+    pad: Object.freeze({ verb: 0.5, cut: 700, sweep: 1.5, q: 1.2, det: 7, vol: 0.10, wave: 'sawtooth', a: 1.2, d: 1.0, s: 0.7, r: 2.0 }),
+    drone: Object.freeze({ verb: 0.25, cut: 320, q: 0.8, vol: 0.11, beat: 0, wave: 'sine', a: 2.2, d: 0.8, s: 0.85, r: 3.0 }),
+    bell: Object.freeze({ verb: 0.8, ratios: Object.freeze([1, 2.01, 3.03, 4.78]), levels: Object.freeze([1, 0.4, 0.22, 0.1]), vol: 0.07, a: 0.006, dScale: 0.85, s: 0.02, r: 1.4, holdScale: 0.4 }),
+    pluck: Object.freeze({ verb: 0.4, cut: 2400, wave: 'triangle', a: 0.005, dScale: 0.6, s: 0.06, r: 0.3, vol: 0.07, holdScale: 0.5 }),
+    bass: Object.freeze({ verb: 0.1, cut: 400, q: 2.5, vol: 0.13, wave: 'sawtooth', a: 0.02, dScale: 0.4, s: 0.5, r: 0.25, holdScale: 0.85 }),
+    lead: Object.freeze({ verb: 0.45, cut: 2000, q: 1.8, wave: 'square', vibrato: 4.8, vibratoDepth: 0.005, a: 0.06, d: 0.2, s: 0.7, r: 0.4, vol: 0.08 }),
+    air: Object.freeze({ verb: 0.5, type: 'bandpass', bp: 500, sweep: 2.2, q: 1.4, attackScale: 0.4, decayScale: 0.3, s: 0.7, r: 1.6, vol: 0.05 }),
+    kick: Object.freeze({ f0: 130, f1: 40, dur: 0.24, vol: 0.3 }),
+    snare: Object.freeze({ bp: 1900, q: 0.8, dur: 0.15, vol: 0.11, verb: 0.35 }),
+    hat: Object.freeze({ hp: 7000, dur: 0.05, vol: 0.04, verb: 0.20 }),
+  }),
+});
 
 // Scheduler constants. LOOKAHEAD is how far ahead of currentTime we schedule;
 // TICK_MS how often the driver wakes. MAX_STEPS_PER_TICK stops a pathological
 // clock jump (tab wake, breakpoint) from scheduling thousands of notes at once.
-const LOOKAHEAD = 0.22;
-const TICK_MS = 25;
+const LOOKAHEAD = NEUTRAL_DEFAULTS.band.lookahead;
+const TICK_MS = NEUTRAL_DEFAULTS.band.tickMs;
 const MAX_STEPS_PER_TICK = 64;
 
-// Crossfade defaults, tuned long for an ambient register (see score.js).
-const FADE_OUT = 1.1;
-const FADE_IN = 2.2;
+// Crossfade and retirement defaults, tuned long for the ambient register.
+const FADE_OUT = NEUTRAL_DEFAULTS.band.fadeOut;
+const FADE_IN = NEUTRAL_DEFAULTS.band.fadeIn;
 // How long a retired track bus lingers before disconnect — long enough for the
 // longest voice release to finish under the fade.
-const RETIRE_TAIL = 4.0;
+const RETIRE_TAIL = NEUTRAL_DEFAULTS.band.retireTail;
+
+class BandStepError extends Error {
+  constructor({ track, index, absoluteStep, scheduledTime, cause }) {
+    super(`track "${track}" step ${index} (absolute ${absoluteStep}, t=${scheduledTime.toFixed(6)}): ${cause?.message || cause}`);
+    this.name = 'BandStepError';
+    this.track = track;
+    this.index = index;
+    this.absoluteStep = absoluteStep;
+    this.scheduledTime = scheduledTime;
+    this.cause = cause;
+  }
+}
 
 /**
  * Build a band on an existing AudioContext.
@@ -2760,20 +2949,47 @@ const RETIRE_TAIL = 4.0;
  * @param {number}   [o.seed]           seeds the reverb IR, the noise buffer, and s.rand
  * @param {number}   [o.gain]           the band's output level
  * @param {object}   [o.reverb]         { seconds, decay } of the generated IR
+ * @param {Function} [o.nowFn]          scheduler clock (default ctx.currentTime)
+ * @param {boolean}  [o.strict]         collect step failures for authoring renders
+ * @param {boolean}  [o.disconnectRetired] disconnect expired buses (disable while pre-scheduling offline)
+ * @param {object}   [o.performance]    deterministic humanize/release tools; omitted is neutral
  */
 function createBand({
   ctx,
   destination = null,
   seed = 1,
-  gain = 0.5,
-  reverb = { seconds: 3.4, decay: 2.6 },
+  gain = NEUTRAL_DEFAULTS.band.gain,
+  reverb = NEUTRAL_DEFAULTS.band.reverb,
+  reverbReturnGain = NEUTRAL_DEFAULTS.band.reverbReturnGain,
   lookahead = LOOKAHEAD,
   tickMs = TICK_MS,
   fadeOut = FADE_OUT,
   fadeIn = FADE_IN,
+  retireTail = RETIRE_TAIL,
+  voiceDefaults = {},
+  performance = undefined,
+  nowFn = () => ctx.currentTime,
+  strict = false,
+  disconnectRetired = true,
 } = {}) {
   if (!ctx) throw new Error('createBand: needs an AudioContext');
+  if (typeof nowFn !== 'function') throw new Error('createBand: nowFn must be a function');
   const rngSeed = (seed >>> 0) || 1;
+  const resolvedVoiceDefaults = Object.fromEntries(
+    Object.entries(NEUTRAL_DEFAULTS.voices).map(([name, defaults]) => [
+      name,
+      { ...defaults, ...(voiceDefaults[name] || {}) },
+    ]),
+  );
+  const resolvedPerformance = normalizePerformance(performance);
+
+  function readNow(explicitNow) {
+    const now = explicitNow === undefined ? nowFn() : explicitNow;
+    if (typeof now !== 'number' || !Number.isFinite(now) || now < 0) {
+      throw new Error('band clock: expected a finite non-negative time');
+    }
+    return now;
+  }
 
   // -- bus architecture ------------------------------------------------------
   //   voices -> trackBus.out ---------------------\
@@ -2799,7 +3015,7 @@ function createBand({
 
   const verb = makeVerb(ctx, reverb, rngSeed);
   const verbReturn = ctx.createGain();
-  verbReturn.gain.value = 0.55;
+  verbReturn.gain.value = reverbReturnGain;
   if (verb) { verb.connect(verbReturn); verbReturn.connect(out); }
 
   const noiseBuf = makeNoise(ctx, rngSeed ^ 0x5bf03635);
@@ -2808,27 +3024,34 @@ function createBand({
   let bus = null;        // the live track's { out, send, vol }
   const retiring = [];   // buses fading out, disposed on a later tick
 
-  function makeBus(vol) {
+  function makeBus(vol, now, fadeSeconds) {
     const o = ctx.createGain();
     o.gain.value = EPS;
     o.connect(out);
     const s = ctx.createGain();
     s.gain.value = EPS;
     if (verb) s.connect(verb);
-    return { out: o, send: s, vol };
+    return { out: o, send: s, vol, fadeStart: now, fadeSeconds };
   }
 
   function retire(b, now) {
     if (!b) return;
-    ramp(b.out.gain, EPS, now, fadeOut);
-    ramp(b.send.gain, EPS, now, fadeOut);
-    retiring.push({ bus: b, disposeAt: now + fadeOut + RETIRE_TAIL });
+    const progress = b.fadeSeconds === 0
+      ? 1
+      : clamp01((now - b.fadeStart) / b.fadeSeconds);
+    const outLevel = EPS + (b.vol - EPS) * progress;
+    const sendLevel = EPS + (1 - EPS) * progress;
+    ramp(b.out.gain, outLevel, EPS, now, fadeOut);
+    ramp(b.send.gain, sendLevel, EPS, now, fadeOut);
+    retiring.push({ bus: b, disposeAt: now + fadeOut + retireTail });
   }
 
   function sweepRetired(now) {
     for (let i = retiring.length - 1; i >= 0; i--) {
       if (retiring[i].disposeAt <= now) {
-        try { retiring[i].bus.out.disconnect(); retiring[i].bus.send.disconnect(); } catch (_) { /* ignore */ }
+        if (disconnectRetired) {
+          try { retiring[i].bus.out.disconnect(); retiring[i].bus.send.disconnect(); } catch (_) { /* ignore */ }
+        }
         retiring.splice(i, 1);
       }
     }
@@ -2861,10 +3084,10 @@ function createBand({
     return hold + r;
   }
 
-  function ramp(param, to, t, secs) {
+  function ramp(param, from, to, t, secs) {
     try {
       param.cancelScheduledValues(t);
-      param.setValueAtTime(Math.max(EPS, param.value), t);
+      param.setValueAtTime(Math.max(EPS, from), t);
       param.linearRampToValueAtTime(Math.max(EPS, to), t + secs);
     } catch (_) { try { param.value = to; } catch (__) { /* ignore */ } }
   }
@@ -2877,177 +3100,179 @@ function createBand({
   // lowpass that sweeps open across the note — the slow filter movement is what
   // keeps a long pad from reading as a held organ chord.
   function pad(t, freq, dur, o = {}) {
+    o = { ...resolvedVoiceDefaults.pad, ...o };
     const o1 = ctx.createGain(); o1.gain.value = 1; o1.connect(dry());
-    send(o1, o.verb === undefined ? 0.5 : o.verb);
+    send(o1, o.verb);
     const f = ctx.createBiquadFilter();
     f.type = 'lowpass';
-    const cut = o.cut || 700;
+    const cut = o.cut;
     try {
       f.frequency.setValueAtTime(cut, t);
-      f.frequency.linearRampToValueAtTime(cut * (o.sweep === undefined ? 1.5 : o.sweep), t + dur * 0.6);
-      f.Q.value = o.q === undefined ? 1.2 : o.q;
+      f.frequency.linearRampToValueAtTime(cut * o.sweep, t + dur * 0.6);
+      f.Q.value = o.q;
     } catch (_) { /* stub */ }
     f.connect(o1);
-    const det = o.det === undefined ? 7 : o.det;
-    const vol = o.vol === undefined ? 0.10 : o.vol;
+    const det = o.det;
+    const vol = o.vol;
     for (let i = 0; i < 3; i++) {
       const osc = ctx.createOscillator();
-      osc.type = o.wave || 'sawtooth';
+      osc.type = o.wave;
       try { osc.frequency.value = freq * (i === 2 ? 0.5 : 1); osc.detune.value = (i - 1) * det; } catch (_) { /* stub */ }
       const g = ctx.createGain();
-      const tail = env(g, t, { a: o.a === undefined ? 1.2 : o.a, d: o.d === undefined ? 1.0 : o.d, s: 0.7, r: o.r === undefined ? 2.0 : o.r, peak: vol * (i === 2 ? 0.7 : 1), dur });
+      const tail = env(g, t, { a: o.a, d: o.d, s: o.s, r: o.r, peak: vol * (i === 2 ? 0.7 : 1), dur });
       osc.connect(g); g.connect(f);
       osc.start(t); osc.stop(t + tail + 0.2);
     }
   }
 
-  // The floor: a sine with a sub octave, optionally a slightly-detuned partner
-  // (which produces the slow beating that reads as "unquiet"), optionally
-  // gliding to another frequency across the note.
+  // A sine foundation with a sub octave, optional detuned partner, and glide.
   function drone(t, freq, dur, o = {}) {
+    o = { ...resolvedVoiceDefaults.drone, ...o };
     const o1 = ctx.createGain(); o1.gain.value = 1; o1.connect(dry());
-    send(o1, o.verb === undefined ? 0.25 : o.verb);
+    send(o1, o.verb);
     const f = ctx.createBiquadFilter();
     f.type = 'lowpass';
-    try { f.frequency.value = o.cut || 320; f.Q.value = o.q === undefined ? 0.8 : o.q; } catch (_) { /* stub */ }
+    try { f.frequency.value = o.cut; f.Q.value = o.q; } catch (_) { /* stub */ }
     f.connect(o1);
-    const vol = o.vol === undefined ? 0.11 : o.vol;
+    const vol = o.vol;
     const partners = o.beat ? [0, o.beat] : [0];
     for (const cents of partners) {
       for (const [mult, level] of [[1, 1], [0.5, 0.7]]) {
         const osc = ctx.createOscillator();
-        osc.type = o.wave || 'sine';
+        osc.type = o.wave;
         try {
           osc.frequency.setValueAtTime(freq * mult, t);
           if (o.glide) osc.frequency.linearRampToValueAtTime(noteFreq(o.glide) * mult, t + dur);
           osc.detune.value = cents;
         } catch (_) { /* stub */ }
         const g = ctx.createGain();
-        const tail = env(g, t, { a: o.a === undefined ? 2.2 : o.a, d: 0.8, s: 0.85, r: o.r === undefined ? 3.0 : o.r, peak: vol * level, dur });
+        const tail = env(g, t, { a: o.a, d: o.d, s: o.s, r: o.r, peak: vol * level, dur });
         osc.connect(g); g.connect(f);
         osc.start(t); osc.stop(t + tail + 0.2);
       }
     }
   }
 
-  // Sparse events: a stack of slightly-inharmonic sine partials. The default
-  // ratios are bell-like; pass your own for something stranger (score.js uses a
-  // tritone partial underground).
+  // Sparse events: a configurable stack of sine partials.
   function bell(t, freq, dur, o = {}) {
+    o = { ...resolvedVoiceDefaults.bell, ...o };
     const o1 = ctx.createGain(); o1.gain.value = 1; o1.connect(dry());
-    send(o1, o.verb === undefined ? 0.8 : o.verb);
-    const ratios = o.ratios || [1, 2.01, 3.03, 4.78];
-    const levels = o.levels || [1, 0.4, 0.22, 0.1];
-    const vol = o.vol === undefined ? 0.07 : o.vol;
+    send(o1, o.verb);
+    const ratios = o.ratios;
+    const levels = o.levels;
+    const vol = o.vol;
     for (let i = 0; i < ratios.length; i++) {
       const osc = ctx.createOscillator();
       osc.type = 'sine';
       try { osc.frequency.value = freq * ratios[i]; } catch (_) { /* stub */ }
       const g = ctx.createGain();
-      const tail = env(g, t, { a: 0.006, d: dur * 0.85, s: 0.02, r: o.r === undefined ? 1.4 : o.r, peak: vol * (levels[i] === undefined ? 0.1 : levels[i]), dur: dur * 0.4 });
+      const tail = env(g, t, { a: o.a, d: dur * o.dScale, s: o.s, r: o.r, peak: vol * (levels[i] === undefined ? 0.1 : levels[i]), dur: dur * o.holdScale });
       osc.connect(g); g.connect(o1);
       osc.start(t); osc.stop(t + tail + 0.4);
     }
   }
 
   function pluck(t, freq, dur, o = {}) {
+    o = { ...resolvedVoiceDefaults.pluck, ...o };
     const o1 = ctx.createGain(); o1.gain.value = 1; o1.connect(dry());
-    send(o1, o.verb === undefined ? 0.4 : o.verb);
+    send(o1, o.verb);
     const f = ctx.createBiquadFilter();
     f.type = 'lowpass';
-    const cut = o.cut || 2400;
+    const cut = o.cut;
     try {
       f.frequency.setValueAtTime(cut, t);
       f.frequency.exponentialRampToValueAtTime(Math.max(120, cut * 0.18), t + Math.max(0.05, dur));
     } catch (_) { /* stub */ }
     f.connect(o1);
     const osc = ctx.createOscillator();
-    osc.type = o.wave || 'triangle';
+    osc.type = o.wave;
     try { osc.frequency.value = freq; } catch (_) { /* stub */ }
     const g = ctx.createGain();
-    const tail = env(g, t, { a: 0.005, d: dur * 0.6, s: 0.06, r: o.r === undefined ? 0.3 : o.r, peak: o.vol === undefined ? 0.07 : o.vol, dur: dur * 0.5 });
+    const tail = env(g, t, { a: o.a, d: dur * o.dScale, s: o.s, r: o.r, peak: o.vol, dur: dur * o.holdScale });
     osc.connect(g); g.connect(f);
     osc.start(t); osc.stop(t + tail + 0.3);
   }
 
   function bass(t, freq, dur, o = {}) {
+    o = { ...resolvedVoiceDefaults.bass, ...o };
     const o1 = ctx.createGain(); o1.gain.value = 1; o1.connect(dry());
-    send(o1, o.verb === undefined ? 0.1 : o.verb);
+    send(o1, o.verb);
     const f = ctx.createBiquadFilter();
     f.type = 'lowpass';
-    try { f.frequency.value = o.cut || 400; f.Q.value = o.q === undefined ? 2.5 : o.q; } catch (_) { /* stub */ }
+    try { f.frequency.value = o.cut; f.Q.value = o.q; } catch (_) { /* stub */ }
     f.connect(o1);
-    const vol = o.vol === undefined ? 0.13 : o.vol;
-    for (const [wave, mult, level] of [[o.wave || 'sawtooth', 1, 1], ['sine', 0.5, 0.6]]) {
+    const vol = o.vol;
+    for (const [wave, mult, level] of [[o.wave, 1, 1], ['sine', 0.5, 0.6]]) {
       const osc = ctx.createOscillator();
       osc.type = wave;
       try { osc.frequency.value = freq * mult; } catch (_) { /* stub */ }
       const g = ctx.createGain();
-      const tail = env(g, t, { a: o.a === undefined ? 0.02 : o.a, d: dur * 0.4, s: 0.5, r: o.r === undefined ? 0.25 : o.r, peak: vol * level, dur: dur * 0.85 });
+      const tail = env(g, t, { a: o.a, d: dur * o.dScale, s: o.s, r: o.r, peak: vol * level, dur: dur * o.holdScale });
       osc.connect(g); g.connect(f);
       osc.start(t); osc.stop(t + tail + 0.3);
     }
   }
 
   function lead(t, freq, dur, o = {}) {
+    o = { ...resolvedVoiceDefaults.lead, ...o };
     const o1 = ctx.createGain(); o1.gain.value = 1; o1.connect(dry());
-    send(o1, o.verb === undefined ? 0.45 : o.verb);
+    send(o1, o.verb);
     const f = ctx.createBiquadFilter();
     f.type = 'lowpass';
-    try { f.frequency.value = o.cut || 2000; f.Q.value = 1.8; } catch (_) { /* stub */ }
+    try { f.frequency.value = o.cut; f.Q.value = o.q; } catch (_) { /* stub */ }
     f.connect(o1);
     const osc = ctx.createOscillator();
-    osc.type = o.wave || 'square';
+    osc.type = o.wave;
     try { osc.frequency.value = freq; } catch (_) { /* stub */ }
     // A touch of vibrato so a sustained lead is not a test tone.
     const lfo = ctx.createOscillator();
     const lg = ctx.createGain();
-    try { lfo.frequency.value = o.vibrato === undefined ? 4.8 : o.vibrato; lg.gain.value = freq * 0.005; } catch (_) { /* stub */ }
+    try { lfo.frequency.value = o.vibrato; lg.gain.value = freq * o.vibratoDepth; } catch (_) { /* stub */ }
     lfo.connect(lg); lg.connect(osc.frequency);
     const g = ctx.createGain();
-    const tail = env(g, t, { a: o.a === undefined ? 0.06 : o.a, d: 0.2, s: 0.7, r: o.r === undefined ? 0.4 : o.r, peak: o.vol === undefined ? 0.08 : o.vol, dur });
+    const tail = env(g, t, { a: o.a, d: o.d, s: o.s, r: o.r, peak: o.vol, dur });
     osc.connect(g); g.connect(f);
     osc.start(t); osc.stop(t + tail + 0.4);
     lfo.start(t); lfo.stop(t + tail + 0.4);
   }
 
-  // Texture: the shared seeded noise buffer through a swept band. This is the
-  // "breath" / room-tone voice — the dominant colour of CHP's dungeon bed.
+  // Texture: the shared seeded noise buffer through a swept band.
   function air(t, dur, o = {}) {
+    o = { ...resolvedVoiceDefaults.air, ...o };
     if (!noiseBuf) return;
     const o1 = ctx.createGain(); o1.gain.value = 1; o1.connect(dry());
-    send(o1, o.verb === undefined ? 0.5 : o.verb);
+    send(o1, o.verb);
     const f = ctx.createBiquadFilter();
-    f.type = o.type || 'bandpass';
-    const bp = o.bp || 500;
+    f.type = o.type;
+    const bp = o.bp;
     try {
       f.frequency.setValueAtTime(bp, t);
-      f.frequency.linearRampToValueAtTime(bp * (o.sweep === undefined ? 2.2 : o.sweep), t + dur);
-      f.Q.value = o.q === undefined ? 1.4 : o.q;
+      f.frequency.linearRampToValueAtTime(bp * o.sweep, t + dur);
+      f.Q.value = o.q;
     } catch (_) { /* stub */ }
     // src -> filter -> envelope gain -> bus
     const src = ctx.createBufferSource();
     src.buffer = noiseBuf;
     src.loop = true;
     const g = ctx.createGain();
-    const tail = env(g, t, { a: o.a === undefined ? dur * 0.4 : o.a, d: dur * 0.3, s: 0.7, r: o.r === undefined ? 1.6 : o.r, peak: o.vol === undefined ? 0.05 : o.vol, dur });
+    const tail = env(g, t, { a: o.a === undefined ? dur * o.attackScale : o.a, d: dur * o.decayScale, s: o.s, r: o.r, peak: o.vol, dur });
     src.connect(f); f.connect(g); g.connect(o1);
     src.start(t); src.stop(t + tail + 0.3);
   }
 
-  // --- percussion. CHP's ambient score does not use these; the kit ships them
-  // because other games will, and the tests instantiate them so they can't rot.
+  // --- percussion -----------------------------------------------------------
   function kick(t, o = {}) {
+    o = { ...resolvedVoiceDefaults.kick, ...o };
     const osc = ctx.createOscillator();
     osc.type = 'sine';
     try {
-      osc.frequency.setValueAtTime(o.f0 || 130, t);
-      osc.frequency.exponentialRampToValueAtTime(o.f1 || 40, t + 0.11);
+      osc.frequency.setValueAtTime(o.f0, t);
+      osc.frequency.exponentialRampToValueAtTime(o.f1, t + 0.11);
     } catch (_) { /* stub */ }
     const g = ctx.createGain();
-    const dur = o.dur || 0.24;
+    const dur = o.dur;
     try {
-      g.gain.setValueAtTime(o.vol === undefined ? 0.3 : o.vol, t);
+      g.gain.setValueAtTime(o.vol, t);
       g.gain.exponentialRampToValueAtTime(EPS, t + dur);
     } catch (_) { /* stub */ }
     osc.connect(g); g.connect(dry());
@@ -3055,42 +3280,73 @@ function createBand({
   }
 
   function snare(t, o = {}) {
+    o = { ...resolvedVoiceDefaults.snare, ...o };
     if (!noiseBuf) return;
     const src = ctx.createBufferSource();
     src.buffer = noiseBuf; src.loop = true;
     const f = ctx.createBiquadFilter();
     f.type = 'bandpass';
-    try { f.frequency.value = o.bp || 1900; f.Q.value = 0.8; } catch (_) { /* stub */ }
+    try { f.frequency.value = o.bp; f.Q.value = o.q; } catch (_) { /* stub */ }
     const g = ctx.createGain();
-    const dur = o.dur || 0.15;
+    const dur = o.dur;
     try {
-      g.gain.setValueAtTime(o.vol === undefined ? 0.11 : o.vol, t);
+      g.gain.setValueAtTime(o.vol, t);
       g.gain.exponentialRampToValueAtTime(EPS, t + dur);
     } catch (_) { /* stub */ }
     src.connect(f); f.connect(g); g.connect(dry());
-    send(g, 0.35);
+    send(g, o.verb);
     src.start(t); src.stop(t + dur + 0.05);
   }
 
   function hat(t, o = {}) {
+    o = { ...resolvedVoiceDefaults.hat, ...o };
     if (!noiseBuf) return;
     const src = ctx.createBufferSource();
     src.buffer = noiseBuf; src.loop = true;
     const f = ctx.createBiquadFilter();
     f.type = 'highpass';
-    try { f.frequency.value = o.hp || 7000; } catch (_) { /* stub */ }
+    try { f.frequency.value = o.hp; } catch (_) { /* stub */ }
     const g = ctx.createGain();
-    const dur = o.dur || 0.05;
+    const dur = o.dur;
     try {
-      g.gain.setValueAtTime(o.vol === undefined ? 0.04 : o.vol, t);
+      g.gain.setValueAtTime(o.vol, t);
       g.gain.exponentialRampToValueAtTime(EPS, t + dur);
     } catch (_) { /* stub */ }
     src.connect(f); f.connect(g); g.connect(dry());
-    send(g, 0.2);
+    send(g, o.verb);
     src.start(t); src.stop(t + dur + 0.05);
   }
 
   const voices = { pad, drone, bell, pluck, bass, lead, air, kick, snare, hat };
+
+  function performanceVoices(absoluteStep, stepIndex, stepSeconds) {
+    if (!resolvedPerformance) return voices;
+    const calls = Object.create(null);
+    return Object.fromEntries(Object.entries(voices).map(([name, voice]) => [name, (...given) => {
+      const args = [...given];
+      const call = calls[name] ?? 0;
+      calls[name] = call + 1;
+      const adjusted = performanceAdjustment(resolvedPerformance, {
+        seed: rngSeed, absoluteStep, stepIndex, stepSeconds, voice: name, call,
+      });
+      args[0] = Math.max(0, Number(args[0]) + adjusted.timeSeconds);
+      const optionIndex = VOICE_OPTION_INDEX[name];
+      const authored = args[optionIndex] || {};
+      if (adjusted.velocity !== 0 || adjusted.releaseTail !== 0) {
+        const played = { ...authored };
+        if (adjusted.velocity !== 0) {
+          const baseVol = authored.vol === undefined ? resolvedVoiceDefaults[name].vol : authored.vol;
+          played.vol = Math.max(0, baseVol * (1 + adjusted.velocity));
+        }
+        if (adjusted.releaseTail !== 0) {
+          const baseRelease = authored.r === undefined ? resolvedVoiceDefaults[name].r : authored.r;
+          played.r = baseRelease + adjusted.releaseTail;
+        }
+        args[optionIndex] = played;
+      }
+      return voice(...args);
+    }]));
+  }
 
   // ==========================================================================
   // SCHEDULER — lookahead step scheduling against ctx.currentTime
@@ -3100,6 +3356,7 @@ function createBand({
   let step = 0, nextTime = 0;
   let params = {};
   let timer = null;
+  const stepErrors = [];
 
   function registerTrack(name, spec) {
     if (!name || !spec || typeof spec.step !== 'function') throw new Error('registerTrack: needs { bpm, len, step }');
@@ -3117,7 +3374,8 @@ function createBand({
    * (the tests do exactly this) or driven by start()'s timer. Returns how many
    * steps it scheduled.
    */
-  function tick(now = ctx.currentTime) {
+  function tick(now) {
+    now = readNow(now);
     sweepRetired(now);
     if (!cur) return 0;
     const spb = 60 / cur.bpm / 4;
@@ -3128,10 +3386,22 @@ function createBand({
       const n = step;
       try {
         cur.step(i, nextTime, {
-          v: voices, i, n, bar: (i / 16) | 0, params,
+          v: performanceVoices(n, i, spb), i, n, bar: (i / 16) | 0, params,
           rand: (salt = 0) => hash2(n, salt | 0, rngSeed),
         });
-      } catch (_) { /* one bad step must never stop the score */ }
+      } catch (cause) {
+        if (strict) {
+          stepErrors.push(new BandStepError({
+            track: curName,
+            index: i,
+            absoluteStep: n,
+            scheduledTime: nextTime,
+            cause,
+          }));
+        }
+        // Tolerant live/game mode intentionally continues scheduling. Strict
+        // authoring callers inspect stepErrors and fail the render as a unit.
+      }
       step += 1;
       nextTime += spb;
       scheduled += 1;
@@ -3145,16 +3415,19 @@ function createBand({
    */
   function setTrack(name, o = {}) {
     if (name === curName) return false;
-    const now = ctx.currentTime;
+    // o.now lets a headless renderer drive the clock when ctx.currentTime is
+    // frozen (OfflineAudioContext before startRendering). Live callers omit it.
+    const now = readNow(o.now);
     retire(bus, now);
     bus = null;
     curName = name;
     cur = name ? tracks.get(name) || null : null;
     step = 0;
     if (!cur) return true;
-    bus = makeBus(cur.vol);
-    ramp(bus.out.gain, cur.vol, now, o.fadeIn === undefined ? fadeIn : o.fadeIn);
-    ramp(bus.send.gain, 1, now, o.fadeIn === undefined ? fadeIn : o.fadeIn);
+    const incomingFade = o.fadeIn === undefined ? fadeIn : o.fadeIn;
+    bus = makeBus(cur.vol, now, incomingFade);
+    ramp(bus.out.gain, EPS, cur.vol, now, incomingFade);
+    ramp(bus.send.gain, EPS, 1, now, incomingFade);
     nextTime = now + 0.03;
     tick(now); // begin at once — no gap waiting for the driver's first wake
     return true;
@@ -3177,7 +3450,7 @@ function createBand({
 
   function dispose() {
     stop();
-    const now = ctx.currentTime;
+    const now = readNow();
     retire(bus, now);
     bus = null; cur = null; curName = null;
     try { out.disconnect(); } catch (_) { /* ignore */ }
@@ -3198,6 +3471,7 @@ function createBand({
     get params() { return { ...params }; },
     get trackNames() { return [...tracks.keys()]; },
     get retiringCount() { return retiring.length; },
+    get stepErrors() { return [...stepErrors]; },
     get buses() { return { out, verb, verbReturn }; },
   };
 }
@@ -3206,7 +3480,10 @@ function createBand({
 // Generated impulse response: seeded exponentially-decaying noise. A convolver
 // on a code-made IR is how you get a real reverb tail with zero assets.
 // ---------------------------------------------------------------------------
-function makeVerb(ctx, { seconds = 3.4, decay = 2.6 } = {}, seed = 1) {
+function makeVerb(ctx, {
+  seconds = NEUTRAL_DEFAULTS.band.reverb.seconds,
+  decay = NEUTRAL_DEFAULTS.band.reverb.decay,
+} = {}, seed = 1) {
   if (!ctx.createConvolver || !ctx.createBuffer) return null;
   try {
     const rate = ctx.sampleRate || 44100;
@@ -3275,6 +3552,25 @@ function makeNoise(ctx, seed = 1) {
 // voice stub (the density probe), no WebAudio needed.
 
 const N = noteFreq;
+
+// ---- Performance posture (Performance-Pass backport, 2026-08-15) -----------
+// The chiptune/medieval register is an earnest Famicom consort: plucked courtly
+// figures, processional marches, square-ish leads. Humanization is modest —
+// enough warmth for the period voices, not so loose that the march drifts.
+// Pads and drones carry longer releases so the harmonic bed rings, per the
+// Performance-Pass Law. All draws are deterministic from the band seed.
+const PERFORMANCE = Object.freeze({
+  humanize: Object.freeze({
+    timingMs: Object.freeze([-5, 5]),      // modest micro-timing offset in ms
+    velocity: Object.freeze([-0.04, 0.04]), // modest fractional gain offset
+    swing: 0.08,                            // light swing on off-sixteenths
+  }),
+  releaseTail: 0.6, // base added release for pad/drone voices
+  voices: Object.freeze({
+    pad: Object.freeze({ releaseTail: 1.0 }),   // harmonic bed rings longer
+    drone: Object.freeze({ releaseTail: 1.2 }), // floor holds longest
+  }),
+});
 
 // ---- Form constants (V3) ---------------------------------------------------
 // 3 sections × 12 bars × 16 sixteenths = 576 steps. At the V3.1 BPMs below,
@@ -5019,16 +5315,58 @@ function drawIcon(ctx, name, x, y, size) {
   ctx.restore();
 }
 
+// Pre-filtered 16×16 tile cache. A `ctx.filter` set across a tiling loop makes
+// EVERY drawImage run the filter pipeline: the title screen repeats one tile
+// across the whole 320×200 buffer (20×13 = 260 draws), which cost ~167ms/frame
+// (~6 FPS) before this cache existed. The filters in use (saturate/brightness/
+// sepia) are per-PIXEL colour maps with no spatial component, so baking the
+// filter into the source tile once and blitting it unfiltered is pixel-identical
+// to filtering each blit — the repeat is then 260 plain draws (<1ms).
+//
+// Spatial filters (blur, drop-shadow) sample NEIGHBOURING pixels, so baking them
+// into an isolated tile would change its edges; those fall through to the legacy
+// per-draw path, which stays correct (just slow) for any future caller.
+const TILE_FILTER_CACHE = new Map();
+function isSpatialFilter(filter) {
+  return /\b(blur|drop-shadow)\s*\(/i.test(filter);
+}
+function filteredTile(sheetKey, cell, filter, img) {
+  if (typeof document === 'undefined') return null;
+  const key = sheetKey + '|' + cell.col + '|' + cell.row + '|' + filter;
+  const hit = TILE_FILTER_CACHE.get(key);
+  if (hit !== undefined) return hit;
+  let baked = null;
+  try {
+    const off = document.createElement('canvas');
+    off.width = TILE_FRAME; off.height = TILE_FRAME;
+    const octx = off.getContext('2d');
+    if (octx) {
+      octx.imageSmoothingEnabled = false;
+      octx.filter = filter;
+      octx.drawImage(img, cell.col * TILE_FRAME, cell.row * TILE_FRAME,
+        TILE_FRAME, TILE_FRAME, 0, 0, TILE_FRAME, TILE_FRAME);
+      baked = off;
+    }
+  } catch { baked = null; }
+  TILE_FILTER_CACHE.set(key, baked);
+  return baked;
+}
+
 // tileFillCell: fill (x,y,w,h) by REPEATING a 16×16 tile from `sheetKey` at cell
 // (col,row), native scale, clipped (pixel-grid correct — no stretch). Pack art
 // only; a missing sheet falls back to a panel, never a code-drawn stand-in.
 function tileFillCell(ctx, sheetKey, cell, x, y, w, h, filter = 'none') {
   const img = ART_IMAGES[sheetKey];
   if (!img || !img.complete || img.naturalWidth === 0 || !cell) { ctx.fillStyle = C.panel; ctx.fillRect(x, y, w, h); return; }
-  const sx = cell.col * TILE_FRAME, sy = cell.row * TILE_FRAME;
-  ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip(); ctx.imageSmoothingEnabled = false; ctx.filter = filter;
+  // Bake the colour filter into the tile once; blit it unfiltered thereafter.
+  const baked = (filter && filter !== 'none' && !isSpatialFilter(filter))
+    ? filteredTile(sheetKey, cell, filter, img) : null;
+  const src = baked || img;
+  const sx = baked ? 0 : cell.col * TILE_FRAME, sy = baked ? 0 : cell.row * TILE_FRAME;
+  ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip(); ctx.imageSmoothingEnabled = false;
+  ctx.filter = baked ? 'none' : filter;
   for (let ty = y; ty < y + h; ty += TILE_FRAME) for (let tx = x; tx < x + w; tx += TILE_FRAME) {
-    ctx.drawImage(img, sx, sy, TILE_FRAME, TILE_FRAME, tx, ty, TILE_FRAME, TILE_FRAME);
+    ctx.drawImage(src, sx, sy, TILE_FRAME, TILE_FRAME, tx, ty, TILE_FRAME, TILE_FRAME);
   }
   ctx.restore();
 }
@@ -5208,7 +5546,7 @@ function boot() {
     if (!AC) { log.warn('score: no AudioContext — silent'); return; }
     log.guard('audio', () => {
       const actx = new AC();
-      band = createBand({ ctx: actx });
+      band = createBand({ ctx: actx, performance: PERFORMANCE });
       registerScore(band);
       band.start();
       log.info('score: band started (code-composed, no assets)');
@@ -5380,10 +5718,12 @@ function boot() {
       const opts = [];
       while (opts.length < 3 && pool.length) { const k = march.streams.loot.int(pool.length); opts.push(pool.splice(k, 1)[0]); }
       cb.draft = { options: opts, focus: 0 };
-      // The draft owns its own focus (cb.draft.focus, driven by the key handler
-      // and drawn by drawDraft). ui.focus indexes the MARCH band, so setting it
-      // to 0 here pointed the selection marker at the 0.5× speed chip while the
-      // real selection was the first card — a control-band lie.
+      // cb.draft.focus is THE focus index while a draft is open — activeControls
+      // returns the draft tiles, and focusIndex/setFocusIndex read and write it,
+      // so the highlight, the reported focus and the hit-test are one fact.
+      // ui.focus is parked: it indexes the MARCH band, and leaving it at 0 here
+      // pointed that band's marker at the 0.5× speed chip while the real
+      // selection was the first card.
       ui.focus = -1;
       cb.line = 'Card offered. Take one, or decline.';
       log.info('draft offered', { options: opts });
@@ -5443,10 +5783,14 @@ function boot() {
     log.info(`camp: frame ${i} reassigned ${cur} -> ${next}`);
     doSave('reassignment filed');
   }
+  // A refused rest costs nothing and says so. The camp caption prices the verb
+  // from the SAME preview the chip's disabled state reads, so the refusal is
+  // legible before the click; these warnings are the backstop, not the notice.
   function doRest() {
     const r = campRest(party);
     if (r.rested) { ui.saved = { tick: march.tick, reason: `rest (−${r.cost} supplies, +${r.restored} hp)`, ok: true, at: nowMs() }; doSave('camp rest'); log.info(`camp rest +${r.restored} hp -${r.cost} supplies`); }
-    else { log.warn('camp rest refused — supplies ' + party.supplies + ' < ' + TUNING.campRecoverSupplyCost); }
+    else if (r.reason === 'nothing-to-restore') log.warn('camp rest refused — every frame is at full strength; nothing billed');
+    else log.warn('camp rest refused — supplies ' + party.supplies + ' < ' + TUNING.campRecoverSupplyCost);
   }
   function strikeCamp() { ui.screen = 'march'; ui.focus = -1; log.info('camp struck — marching'); doSave('camp struck'); }
 
@@ -5637,7 +5981,12 @@ function boot() {
     controls.push({ id: 'spd' + i, label: mult + 'x', priority: 'secondary', rect: { x: 44 + i * 30, y: CONTROL_BAND_Y, w: 30, h: CHIP_H }, activate: () => setSpeed(i), isActive: () => config.speedIndex === i });
   });
   controls.push({ id: 'pause', label: () => (ui.paused ? 'RESUME' : 'PAUSE'), priority: 'primary', rect: { x: 180, y: CONTROL_BAND_Y, w: 48, h: CHIP_H }, activate: () => { ui.paused = !ui.paused; }, isActive: () => ui.paused });
-  controls.push({ id: 'hold', label: 'HOLD', priority: 'secondary', rect: { x: 230, y: CONTROL_BAND_Y, w: 32, h: CHIP_H }, activate: () => {}, isActive: () => ui.holdPause, hold: true });
+  // HOLD is a PRESS-AND-HOLD control, so it declares press/release rather than
+  // activate. It used to carry an empty activate() and hold the march only from
+  // the mouse path, which is why Enter (and every other confirm route) did
+  // nothing on it while H worked. Any input that can press and release — mouse,
+  // Enter — now drives the same pair.
+  controls.push({ id: 'hold', label: 'HOLD', priority: 'secondary', rect: { x: 230, y: CONTROL_BAND_Y, w: 32, h: CHIP_H }, press: () => { ui.holdPause = true; }, release: () => { ui.holdPause = false; }, activate: () => {}, isActive: () => ui.holdPause, hold: true });
   controls.push({ id: 'credits', label: 'CREDITS', priority: 'secondary', rect: { x: 264, y: CONTROL_BAND_Y, w: 52, h: CHIP_H }, activate: () => openCredits(ui.screen) });
 
   // RESUME is the primary and is ~1.7× its neighbours; the two alternatives keep
@@ -5734,7 +6083,9 @@ function boot() {
     // so the action row never floats in the middle of an empty camp.
     const marchY = CONTROL_BAND_Y;
     const actionY = marchY - CHIP_H - 5;
-    arr.push({ id: 'rest', label: () => 'REST', priority: 'secondary', rect: { x: 16, y: actionY, w: 58, h: CHIP_H }, activate: () => doRest() });
+    // REST greys IN PLACE when it could restore nothing (or cannot be paid for):
+    // the control language's disabled state, not a silent purchase of nothing.
+    arr.push({ id: 'rest', label: () => 'REST', priority: 'secondary', rect: { x: 16, y: actionY, w: 58, h: CHIP_H }, isDisabled: () => !restPreview(party).ok, activate: () => doRest() });
     arr.push({ id: 'deck', label: 'REVIEW DECK', priority: 'secondary', rect: { x: 80, y: actionY, w: 86, h: CHIP_H }, activate: () => openDeck() });
     if (ui.camp && ui.camp.isTown) arr.push({ id: 'shop', label: 'QUARTERMASTER', priority: 'secondary', rect: { x: 172, y: actionY, w: 132, h: CHIP_H }, activate: () => openShop() });
     arr.push({ id: 'march', label: 'MARCH ON: ROUTE THE NEXT LEG', priority: 'primary', rect: { x: 16, y: marchY, w: 190, h: CHIP_H }, activate: () => openRoute() });
@@ -5794,7 +6145,28 @@ function boot() {
     return arr;
   }
 
+  // The victory draft is a FOCUS SURFACE like any other, not a private widget.
+  // Its tiles used to live outside the control model entirely: the highlight was
+  // driven by cb.draft.focus while ui.focus (and therefore focusId(), and the
+  // mouse hit-test) still indexed the march band, so the reported focus and the
+  // drawn highlight were two different facts. The geometry here is DRAFT_TILE —
+  // the same constants drawDraft draws from, so the tiles and their hit boxes
+  // cannot drift apart either.
+  function buildDraftControls() {
+    const cb = ui.combat;
+    const arr = [];
+    if (!cb || !cb.draft) return arr;
+    const T = DRAFT_TILE;
+    cb.draft.options.forEach((id, i) => {
+      const tx = draftTileX(i);
+      arr.push({ id: 'draft' + i, kind: 'draft', option: i, cardId: id, rect: { x: tx, y: T.artY - 1, w: T.w, h: T.plateY + T.plateH - T.artY + 1 }, activate: () => takeDraft(i) });
+    });
+    arr.push({ id: 'draftDecline', kind: 'draft', label: 'DECLINE', priority: 'secondary', rect: { x: T.declineX, y: T.declineY, w: T.declineW, h: T.declineH }, activate: () => takeDraft(-1) });
+    return arr;
+  }
+
   function activeControls() {
+    if (ui.combat && ui.combat.draft) return buildDraftControls();
     if (ui.screen === 'docket') return docketControls;
     if (ui.screen === 'defeat') return defeatControls;
     if (ui.screen === 'camp') return buildCampControls();
@@ -5836,8 +6208,24 @@ function boot() {
 
   // ---- Input --------------------------------------------------------------
   function markFirstInput() { if (!ui.firstInput) { ui.firstInput = true; log.info('first player input'); } ensureAudio(); }
-  function moveFocus(d) { const arr = activeControls(); const n = arr.length; ui.focus = ((ui.focus < 0 ? (d > 0 ? -1 : 0) : ui.focus) + d + n) % n; }
-  function activateFocused() { const arr = activeControls(); if (ui.focus >= 0 && ui.focus < arr.length) arr[ui.focus].activate(); }
+  // ONE focus index, wherever it is stored. The draft keeps its own field
+  // (it is serialized with the fight, and drawDraft reads it), so the focus
+  // machinery reads and writes THROUGH these two accessors instead of assuming
+  // ui.focus is always the answer — that assumption is what let the reported
+  // focus and the drawn highlight disagree during a draft.
+  function focusIndex() { const cb = ui.combat; return (cb && cb.draft) ? cb.draft.focus : ui.focus; }
+  function setFocusIndex(i) { const cb = ui.combat; if (cb && cb.draft) cb.draft.focus = i; else ui.focus = i; }
+  function focusedControl() { const arr = activeControls(); const i = focusIndex(); return (i >= 0 && i < arr.length) ? arr[i] : null; }
+  function moveFocus(d) { const arr = activeControls(); const n = arr.length; if (!n) return; const cur = focusIndex(); setFocusIndex(((cur < 0 ? (d > 0 ? -1 : 0) : cur) + d + n) % n); }
+  function activateFocused() { const c = focusedControl(); if (c) c.activate(); }
+  // A control may be a press-and-hold gesture (HOLD) instead of a one-shot verb.
+  // pressFocused/releaseFocused give the keyboard the same pair the mouse has.
+  let pressedControl = null;
+  function pressFocused() {
+    const c = focusedControl(); if (!c) return;
+    if (c.press) { pressedControl = c; c.press(); } else c.activate();
+  }
+  function releasePressed() { if (pressedControl) { if (pressedControl.release) pressedControl.release(); pressedControl = null; } }
 
   window.addEventListener('keydown', (e) => {
     const k = e.key;
@@ -5850,10 +6238,11 @@ function boot() {
     if (ui.screen === 'combat') {
       const cb = ui.combat;
       if (cb && cb.draft) {
-        const n = cb.draft.options.length + 1; // + decline
-        if (k === 'Tab' || k === 'ArrowRight') { cb.draft.focus = (cb.draft.focus + 1) % n; e.preventDefault(); }
-        else if (k === 'ArrowLeft') { cb.draft.focus = (cb.draft.focus - 1 + n) % n; e.preventDefault(); }
-        else if (k === 'Enter' || k === ' ' || k === 'Spacebar') { takeDraft(cb.draft.focus >= cb.draft.options.length ? -1 : cb.draft.focus); e.preventDefault(); }
+        // Draft tiles are controls now, so the draft navigates with the same
+        // moveFocus/activateFocused the rest of the game uses.
+        if (k === 'Tab' || k === 'ArrowRight') { moveFocus(1); e.preventDefault(); }
+        else if (k === 'ArrowLeft') { moveFocus(-1); e.preventDefault(); }
+        else if (k === 'Enter' || k === ' ' || k === 'Spacebar') { activateFocused(); e.preventDefault(); }
         return;
       }
       if (k >= '1' && k <= '9') { playCard(parseInt(k, 10) - 1); e.preventDefault(); return; }
@@ -5864,7 +6253,14 @@ function boot() {
       return;
     }
     if (k === 'Tab') { moveFocus(e.shiftKey ? -1 : 1); e.preventDefault(); return; }
-    if (k === 'Enter') { activateFocused(); e.preventDefault(); return; }
+    if (k === 'Enter') { if (!e.repeat) pressFocused(); e.preventDefault(); return; }
+    // SPACE IS THE CONFIRM VERB on every screen that is not running the march.
+    // It used to confirm on four screens, do nothing on six, and pause on two;
+    // the six silent ones are the inconsistency. The march (and a live fight,
+    // handled above) keep Space as the ratified pause verb.
+    if (k === ' ' || k === 'Spacebar') {
+      if (ui.screen !== 'march') { activateFocused(); e.preventDefault(); return; }
+    }
     if (k === 'Escape') {
       if (ui.screen === 'deck') { ui.screen = 'camp'; ui.focus = 1; }
       else if (ui.screen === 'shop') { closeShop(); }
@@ -5874,16 +6270,16 @@ function boot() {
       else ui.focus = -1;
       return;
     }
+    // (Enter and Space are handled once, above, for every screen — these blocks
+    // carry only the per-screen navigation.)
     if (ui.screen === 'docket' || ui.screen === 'defeat') {
       if (k === 'Tab' || k === 'ArrowRight') { moveFocus(1); e.preventDefault(); }
       else if (k === 'ArrowLeft') { moveFocus(-1); e.preventDefault(); }
-      else if (k === 'Enter' || k === ' ') { activateFocused(); e.preventDefault(); }
       return;
     }
     if (ui.screen === 'title' || ui.screen === 'howto') {
       if (k === 'Tab' || k === 'ArrowRight' || k === 'ArrowDown') { moveFocus(1); e.preventDefault(); }
       else if (k === 'ArrowLeft' || k === 'ArrowUp') { moveFocus(-1); e.preventDefault(); }
-      else if (k === 'Enter' || k === ' ') { activateFocused(); e.preventDefault(); }
       return;
     }
     if (ui.screen === 'camp') {
@@ -5902,7 +6298,10 @@ function boot() {
     else if (k === ' ' || k === 'Spacebar') { ui.paused = !ui.paused; e.preventDefault(); }
     else if (k === 'h' || k === 'H') { if (!ui.holdPause) ui.holdPause = true; e.preventDefault(); }
   });
-  window.addEventListener('keyup', (e) => { if (e.key === 'h' || e.key === 'H') ui.holdPause = false; });
+  window.addEventListener('keyup', (e) => {
+    if (e.key === 'h' || e.key === 'H') ui.holdPause = false;
+    else if (e.key === 'Enter') releasePressed(); // the HOLD chip's key-up half
+  });
 
   function toVirtual(ev) {
     const r = canvas.getBoundingClientRect();
@@ -5922,12 +6321,14 @@ function boot() {
     const p = toVirtual(ev);
     if (ui.screen === 'combat' && ui.combat) {
       const cb = ui.combat;
-      if (cb.draft && cb.draftRects) { for (let i = 0; i < cb.draftRects.length; i++) if (inRect(p, cb.draftRects[i])) { takeDraft(i === cb.draft.options.length ? -1 : i); return; } }
-      else if (cb.handRects) { for (let i = 0; i < cb.handRects.length; i++) if (inRect(p, cb.handRects[i])) { playCard(i); return; } }
+      // Draft tiles are controls, so they fall through to the generic hit-test
+      // below (one hit model, one focus). The hand is not a control set, and its
+      // stale rects must not take a click while a draft is open.
+      if (!cb.draft && cb.handRects) { for (let i = 0; i < cb.handRects.length; i++) if (inRect(p, cb.handRects[i])) { playCard(i); return; } }
     }
     const i = hitControl(p); if (i < 0) return;
-    ui.focus = i; const c = activeControls()[i];
-    if (c.hold) { ui.holdPause = true; return; }
+    setFocusIndex(i); const c = activeControls()[i];
+    if (c.press) { c.press(); return; }
     if (c.cycle) {
       // Click left edge = previous job, right edge = next; middle just focuses.
       if (p.x <= c.rect.x + 22) cycleFrameJob(c.frameIndex, -1);
@@ -5973,7 +6374,7 @@ function boot() {
       // Read-only observation helpers for the M9 soak (it drives via real DOM
       // events; these only let it SEE the focus so it can navigate deterministically).
       controlIds() { return activeControls().map((c) => c.id); },
-      focusId() { const a = activeControls(); return ui.focus >= 0 && a[ui.focus] ? a[ui.focus].id : null; },
+      focusId() { const c = focusedControl(); return c ? c.id : null; },
       savedOk() { const raw = storage.read(SAVE_KEY); const p = parseSave(raw); return !!(p && applySave(p).march); },
       stateSnapshot() { return JSON.stringify(saveEnvelope()); },
       textProbe() {
@@ -6364,7 +6765,10 @@ function renderCombat(ctx, s) {
     drawTextLines(ctx, paused ? '[ PAUSED: play a card; Space runs ]' : '[ RESOLVING ]', 118, 126, VW - 130, 2, TEXT_LEADING);
   }
 
-  drawControls(ctx, controls, ui);
+  // While a draft is open the focus lives on the draft tiles, so the march band
+  // draws with no focus and no hover — it must not mark a chip the player is not
+  // on. That control-band lie is exactly what this surface used to tell.
+  drawControls(ctx, controls, cb.draft ? { focus: -1, hover: -1 } : ui);
 }
 
 function drawCombatantW(ctx, w, x, y, size, flip, cb, battler) {
@@ -6455,7 +6859,9 @@ function drawDraft(ctx, cb, ui) {
   // 48px, the old 32px zone ellipsized five of the twelve, and a name is one
   // unbreakable token that no amount of line-wrapping will fit into 32px.
   const T = DRAFT_TILE;
-  cb.draftRects = [];
+  // No hit rects are cached here any more: the tiles ARE controls
+  // (buildDraftControls), built from these same constants, so the click model
+  // and the drawn model cannot drift.
   cb.draft.options.forEach((id, i) => {
     const tx = draftTileX(i);
     const ax = tx + ((T.w - T.artW) >> 1); // the art rides centred on its tile
@@ -6473,16 +6879,12 @@ function drawDraft(ctx, cb, ui) {
     drawTextFit(ctx, name, tx + Math.max(1, (T.w - nameW) >> 1), T.nameY, T.nameW);
     ctx.__pixelTextStack = prev;
     if (focused) drawPointer(ctx, tx - 8, T.artY + ((T.artH - 7) >> 1));
-    // The whole tile takes the click, name plate included — the name is part of
-    // the offer, not a caption beside it.
-    cb.draftRects.push({ x: tx, y: T.artY - 1, w: T.w, h: T.plateY + T.plateH - T.artY + 1 });
   });
   // decline button
   const declineFocused = cb.draft.focus >= cb.draft.options.length;
   const rect = { x: T.declineX, y: T.declineY, w: T.declineW, h: T.declineH };
   const skin = drawChip(ctx, rect, { priority: 'secondary', focused: declineFocused });
   drawChipLabel(ctx, rect, 'DECLINE', skin.label);
-  cb.draftRects.push(rect);
 }
 
 function drawCard(ctx, artKey, x, y, w, h, filter = 'none') {
@@ -6647,9 +7049,16 @@ function renderCamp(ctx, s) {
     drawTextLines(ctx, '⚠ NO PROGRESS ON FILE: two legs without gain. Early return is available (below).', 12, detailY, VW - 24, 1, TEXT_LEADING);
   } else {
     // supplies + ledger now live in the masthead; this row carries only the
-    // cost of the verb on this screen.
+    // cost of the verb on this screen — and, when the verb is unavailable, the
+    // reason. Priced from the same preview the REST chip's disabled state uses.
+    const offer = restPreview(party);
     ctx.fillStyle = ROLE.caption;
-    drawTextLines(ctx, 'rest: −' + TUNING.campRecoverSupplyCost + ' supplies restores half of missing HP', 12, detailY, VW - 24, 1, TEXT_LEADING);
+    const restLine = offer.ok
+      ? 'rest: −' + offer.cost + ' supplies restores half of missing HP'
+      : offer.reason === 'nothing-to-restore'
+        ? 'rest: unavailable. every frame is at full strength'
+        : 'rest: unavailable. ' + offer.cost + ' supplies required, ' + party.supplies + ' on hand';
+    drawTextLines(ctx, restLine, 12, detailY, VW - 24, 1, TEXT_LEADING);
   }
 
   for (let i = 0; i < campControls.length; i++) {
@@ -6670,8 +7079,11 @@ function renderCamp(ctx, s) {
       const jobTextW = r.w - 126; // reserve both job-cycle arrows and the right inset
       drawTextFit(ctx, `hp ${f.hp}/${f.max.hp}  atk ${f.max.atk} def ${f.max.def} mag ${f.max.mag} spd ${f.max.spd}`, r.x + 108, r.y + 4, jobTextW);
     } else {
-      const skin = drawChip(ctx, r, { priority: c.priority || 'secondary', focused, hover: ui.hover === i });
-      drawChipLabel(ctx, r, typeof c.label === 'function' ? c.label() : c.label, c.warn ? C.stamp : skin.label);
+      // Disabled desaturates IN PLACE (control language rule 4) — same rect,
+      // same label, so a greyed verb still tells you where it is.
+      const disabled = !!(c.isDisabled && c.isDisabled());
+      const skin = drawChip(ctx, r, { priority: c.priority || 'secondary', state: disabled ? 'disabled' : 'normal', focused, hover: ui.hover === i });
+      drawChipLabel(ctx, r, typeof c.label === 'function' ? c.label() : c.label, c.warn && !disabled ? C.stamp : skin.label);
     }
   }
 }
