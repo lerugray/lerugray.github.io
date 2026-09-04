@@ -4624,12 +4624,21 @@
    * and the legend stay inside the frame for every menu size the game can
    * produce (5 rows cold, 7 with a save and Practice unlocked). */
   AL.titleMenuLayout = function (n) {
-    var lineH = 9;
-    // Anchor the block to the BOTTOM of the frame rather than hanging it from a
-    // fixed top: a 5-row cold-boot menu then sits on the bench slab instead of
-    // floating in the candle bloom, which is where NEW OPUS became unreadable.
-    var legendY = AL.H - 14;              // keeps a margin under the legend
-    return { lineH: lineH, legendY: legendY, y0: legendY - 3 - n * lineH };
+    var lineH = 7.5;
+    // The manuscript cell is 11px tall even though its capital ink occupies
+    // roughly six. Eight pixels cannot coexist with the required legend air at
+    // origin y=163, so use the permitted 7.5px fallback: its 2.5px face-ink
+    // gaps stay scannable and its 4px legend gap is visibly larger (1.6x).
+    // H-14 puts the 11px legend baseline 3px above the frame boundary.
+    var legendY = AL.H - 14;
+    return {
+      lineH: lineH,
+      legendY: legendY,
+      // Keep the cold-boot origin at y=163 (+9 from live) and reserve visibly
+      // more air before the legend than between menu rows. The gate measures
+      // the rendered cap ink rather than this padded cell-box arithmetic.
+      y0: (legendY - 9) - (n - 1) * lineH
+    };
   };
 
   /* A quiet ink wash under the menu band.
@@ -4650,7 +4659,7 @@
       for (var x = 0; x < W; x++) {
         var dx = Math.abs(x - cx);
         var hx = dx <= halfW ? 1 : Math.max(0, 1 - (dx - halfW) / feather);
-        var a = 0.5 * vy * AL.smooth(hx);
+        var a = 0.80 * vy * AL.smooth(hx);
         if (a > 0.004) fb.blend(x, y, r, g, b, a);
       }
     }
@@ -4747,7 +4756,9 @@
       var items = opts.menu.items, sel = opts.menu.sel || 0;
       var n = items.length, lay = AL.titleMenuLayout(n);
       var lineH = lay.lineH, y0 = lay.y0;
-      menuScrim(fb, pal, y0 - 4);
+      // Keep the feather tied to the shelf: its opaque band begins one native
+      // pixel below the flame base, while every menu size lands on the mask.
+      menuScrim(fb, pal, benchTop - 11);
       for (var mi = 0; mi < n; mi++) {
         var label = items[mi].label || items[mi];
         var rowY = y0 + mi * lineH;
@@ -4758,8 +4769,8 @@
           // Both states draw the SAME string (gutter + label), so the row does
           // not move when it lights; the caret goes in the gutter separately.
           var rowX = AL.drawTextOutlinedCentered(fb, AL.MENU_GUTTER + label, rowY,
-            pal.brassLight, pal.stoneDark, { scale: 1, alpha: 1 });
-          AL.drawMenuCaret(fb, rowX, rowY, pal.brassLight, pal.stoneDark, { scale: 1, alpha: 1 });
+            pal.flameCore, pal.stoneDark, { scale: 1, alpha: 1 });
+          AL.drawMenuCaret(fb, rowX, rowY, pal.flameCore, pal.stoneDark, { scale: 1, alpha: 1 });
         } else {
           AL.drawTextCentered(fb, AL.MENU_GUTTER + label, rowY, pal.ink, { scale: 1, alpha: 0.78 });
         }
