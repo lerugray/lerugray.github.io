@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T23:26:53.607Z",
+  "updated_at": "2026-08-29T06:47:15.217Z",
   "roster": [
     {
       "name": "Chapel Perilous",
@@ -44,6 +44,12 @@
       "url": "https://lerugray.github.io/field-trials/capriole/"
     },
     {
+      "name": "Popinjay",
+      "blurb": "A single-screen arcade roguelite on Pang's bouncing-balloon core — a 1900s World's Fair sharpshooter, wire-as-wall commitment, hand-tinted poster idiom.",
+      "status": "in development",
+      "url": ""
+    },
+    {
       "name": "THE JACQUARD INDEX",
       "blurb": "The pattern library of Reedmoor Mill, est. 1889. Nonograms that never ask you to guess — every card proved solvable by deduction alone, one twist per drawer.",
       "status": "in development",
@@ -62,19 +68,73 @@
       "url": "https://lerugray.github.io/field-trials/alkahest/"
     },
     {
-      "name": "Popinjay",
-      "blurb": "A single-screen arcade roguelite on Pang's bouncing-balloon core — a 1900s World's Fair sharpshooter, wire-as-wall commitment, hand-tinted poster idiom.",
-      "status": "in development",
-      "url": "https://lerugray.github.io/field-trials/popinjay/"
-    },
-    {
-      "name": "Material Breach",
+      "name": "MATERIAL BREACH",
       "blurb": "You run the dungeon. Adventurers are an occupational incident, filed with a root-cause analysis and a corrective-action owner.",
       "status": "in development",
-      "url": "https://lerugray.github.io/field-trials/material-breach/"
+      "url": ""
     }
   ],
   "entries": [
+    {
+      "date": "2026-08-29",
+      "game": "ALKAHEST",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "Capriole",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "Chapel Perilous",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "Innsmouth 2000",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "Lines of Advance",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "MATERIAL BREACH",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "Oddseedz",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "Popinjay",
+      "note": "Playable build posted."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "SHOELEATHER",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "Stray Squadron",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "THE JACQUARD INDEX",
+      "note": "Update published."
+    },
+    {
+      "date": "2026-08-29",
+      "game": "The Office of the Road",
+      "note": "Update published."
+    },
     {
       "date": "2026-08-17",
       "game": "ALKAHEST",
@@ -264,67 +324,7 @@
       "date": "2026-08-15",
       "game": "THE JACQUARD INDEX",
       "note": "Update published."
-    },
-    {
-      "date": "2026-08-15",
-      "game": "THE JACQUARD INDEX",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-15",
-      "game": "The Office of the Road",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-15",
-      "game": "The Office of the Road",
-      "note": "Playable build posted."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "ALKAHEST",
-      "note": "Playable build posted."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "Chapel Perilous",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "Innsmouth 2000",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "Oddseedz",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "SHOELEATHER",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "SHOELEATHER",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "SHOELEATHER",
-      "note": "Playable build posted."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "Stray Squadron",
-      "note": "Update published."
-    },
-    {
-      "date": "2026-08-11",
-      "game": "THE JACQUARD INDEX",
-      "note": "Update published."
     }
   ],
-  "workshop_count": 29
+  "workshop_count": 37
 }
