@@ -901,6 +901,18 @@
       var al = c.alpha === undefined ? 1 : c.alpha;
       var px = ox + c.x * scale;
       var py = oy + c.y * scale;
+      if (c.kind === "panel") {
+        /* A panel painted into the FRAMEBUFFER cannot cover manuscript text,
+         * because text composites HERE, above the blitted framebuffer. A panel
+         * that has to occlude (the achievement toast over the athanor labels)
+         * therefore enqueues itself, and everything queued before it is
+         * genuinely behind it. */
+        var pw = Math.round(c.w * scale), ph = Math.round(c.h * scale);
+        out.rect(px, py, pw, ph, c.color[0], c.color[1], c.color[2], al);
+        if (c.border) out.frame(px, py, pw, ph, c.border[0], c.border[1], c.border[2],
+          c.borderAlpha === undefined ? 1 : c.borderAlpha);
+        continue;
+      }
       if (c.kind === "engraved") {
         var off = Math.max(1, Math.round(ls * scale * 0.5));
         drawString(out, c.str, px + off, py + off, c.shadow, ls, sp, al, scale);
@@ -1231,6 +1243,29 @@
     if (shadow) AL.drawTextOutlined(fb, ">", cx, y, face, shadow, opts);
     else AL.drawText(fb, ">", cx, y, face, opts);
     return cx;
+  };
+
+  /* An opaque panel that also hides the TEXT behind it.
+   *
+   * fb.rect paints into the logical framebuffer, but every manuscript string is
+   * composited on the presentation layer above that framebuffer -- so a plain
+   * fb.rect leaves whatever text was under it fully legible on top of the panel.
+   * That is how the achievement toast ended up with the two athanor "ATH"
+   * labels reading through it and interleaving with its own lines. This routes
+   * the panel through the same layer, so queue order decides what covers what:
+   * anything drawn BEFORE it is hidden, anything drawn AFTER sits on top. */
+  AL.drawPanel = function (fb, x, y, w, h, fill, alpha, border, borderAlpha) {
+    if (AL.MANUSCRIPT_FACE && AL.textlayer) {
+      AL.textlayer.enqueue({
+        kind: "panel", x: x, y: y, w: w, h: h,
+        color: fill, alpha: alpha === undefined ? 1 : alpha,
+        border: border || null, borderAlpha: borderAlpha
+      });
+      return;
+    }
+    fb.rect(x, y, w, h, fill[0], fill[1], fill[2], alpha === undefined ? 1 : alpha);
+    if (border) fb.frame(x, y, w, h, border[0], border[1], border[2],
+      borderAlpha === undefined ? 1 : borderAlpha);
   };
 
   AL.drawTextEngravedCentered = function (fb, str, y, face, shadow, opts) {
@@ -5180,9 +5215,21 @@
         fb.rect(cxp, py + 62, 6, 3, on ? pal.flame[0] : pal.stoneLight[0], on ? pal.flame[1] : pal.stoneLight[1], on ? pal.flame[2] : pal.stoneLight[2], on ? 0.95 : 0.4);
       }
 
-      // step-complete tick + skip prompt
+      // THE KEYS FOR THIS LESSON'S VERB.
+      //
+      // Without this line the game never names the swap key anywhere a player
+      // will look: the full control legend only draws on a title screen with no
+      // menu, which never happens, so LESSON 1 said "SWAP / line up three to
+      // clear" and left a first-time player pressing ENTER at a board that
+      // never answered. (Probed on the live build: five ENTERs and 25 seconds
+      // of idle changed nothing; one SPACE read WELL DONE.)
       if (tut.stepDone())
         AL.drawTextEngraved(fb, "WELL DONE", px, py + 74, [180, 230, 160], pal.stoneDark, { scale: 1, spacing: 1 });
+      else
+        AL.drawText(fb, s.id === "RAISE"
+          ? (AL.controlLegend ? AL.controlLegend("ARROWS MOVE -- SHIFT RAISE", "D-PAD MOVE -- SECONDARY RAISE") : "ARROWS MOVE -- SHIFT RAISE")
+          : (AL.controlLegend ? AL.controlLegend("ARROWS MOVE -- SPACE SWAP", "D-PAD MOVE -- PRIMARY SWAP") : "ARROWS MOVE -- SPACE SWAP"),
+          px, py + 74, pal.brassLight, { scale: 1, alpha: 0.85 });
       var blink = Math.floor(t * 1.5) % 2 === 0;
       if (blink) AL.drawText(fb, AL.controlLegend ? AL.controlLegend("ESC TO SKIP", "START TO SKIP") : "ESC TO SKIP", px, py + 90, pal.ink, { scale: 1, alpha: 0.7 });
     }
@@ -5412,8 +5459,11 @@
     var x0 = 6, y0 = 2;
     fb.rect(2, 0, AL.W - 4, 14, pal.stoneDark[0], pal.stoneDark[1], pal.stoneDark[2], 0.66);
     fb.hline(2, 13, AL.W - 4, pal.brass[0], pal.brass[1], pal.brass[2], 0.48);
+    var pixFace = { scale: 1, face: "pixel" };
     AL.drawText(fb, "OPUS", x0, y0, pal.ink, { scale: 1, alpha: 0.7, face: "pixel" });
-    var px = x0 + 24;
+    // a real word space after the label: at x0 + 24 the "S" of OPUS ended 1px
+    // from the first act name and the banner read "OPUSNIG ALB CIT RUB".
+    var px = x0 + AL.textWidth("OPUS", 1, 1, pixFace) + AL.textWidth("  ", 1, 1, pixFace);
     for (var a = 0; a < acts.length; a++) {
       var name = acts[a].slice(0, 3).toUpperCase();
       var isCur = a === run.actIndex();
@@ -5706,8 +5756,10 @@
     if (!ack) return;
     var pal = AL.palette("nigredo");
     var bw = 220, bh = 36, bx = Math.round((AL.W - bw) / 2), by = 12;
-    fb.rect(bx, by, bw, bh, pal.stoneDark[0], pal.stoneDark[1], pal.stoneDark[2], 0.92);
-    fb.frame(bx, by, bw, bh, pal.brass[0], pal.brass[1], pal.brass[2], 0.95);
+    // through the text layer, not the framebuffer: the toast lands over the
+    // athanor labels and the run banner, and a framebuffer rect cannot cover
+    // presentation text (they read straight through it and interleave).
+    AL.drawPanel(fb, bx, by, bw, bh, pal.stoneDark, 1, pal.brass, 0.95);
     AL.drawTextEngravedCentered(fb, ack.name, by + 8, pal.flameCore, pal.stoneDark, { scale: 1, spacing: 1 });
     AL.drawTextCentered(fb, ack.copy, by + 22, pal.brassLight, { scale: 1, alpha: 0.9 });
   };
