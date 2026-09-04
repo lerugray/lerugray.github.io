@@ -4564,8 +4564,8 @@
     // Anchor the block to the BOTTOM of the frame rather than hanging it from a
     // fixed top: a 5-row cold-boot menu then sits on the bench slab instead of
     // floating in the candle bloom, which is where NEW OPUS became unreadable.
-    var legendY = AL.H - 11;
-    return { lineH: lineH, legendY: legendY, y0: legendY - 4 - n * lineH };
+    var legendY = AL.H - 14;              // keeps a margin under the legend
+    return { lineH: lineH, legendY: legendY, y0: legendY - 3 - n * lineH };
   };
 
   /* A quiet ink wash under the menu band.
