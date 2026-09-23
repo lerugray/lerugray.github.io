@@ -481,9 +481,12 @@ const SCREEN = { w: 640, h: 360 };
 // M7a r2: the gutter between the drawing and the sheet widened from 4px to 6px and both panels
 // came a pixel further off the buffer edge. Ray's verdict on r1 was "a little crowded"; two
 // objects on a desk should look like two objects on a desk, not one surface divided by a line.
-const CUTAWAY = { x: 3, y: 3, w: 348, h: 302 };
-const LEDGER = { x: 357, y: 3, w: 280, h: 302 };
-const ACTIONBAR = { x: 3, y: 309, w: 634, h: 48 };
+const CUTAWAY = { x: 3, y: 3, w: 348, h: 275 };
+// s149 r2: ledger runs flush to the action bar (was shortened with the cutaway for the two-row
+// toolbar). The extra 4px stays above the bar so nothing is covered; the cutaway keeps the 27px
+// the toolbar paid for.
+const LEDGER = { x: 357, y: 3, w: 280, h: 279 };
+const ACTIONBAR = { x: 3, y: 282, w: 634, h: 75 };
 
 // THE OVERLAY SHEET: the rectangle every document laid on the desk occupies (render.js draws it,
 // the ledger's behind-the-sheet ink rules read it). Its RIGHT EDGE is load-bearing: the ledger's
@@ -584,7 +587,7 @@ function computeButtons(view) {
       // one control whose label must not be abbreviated, because it is the only thing telling the
       // player what a click on the drawing will DO. So it gets a wider slot rather than a shorter
       // name: the others are short and can share what is left.
-      const specs = [
+      const orderSpecs = [
         { id: 'tool', label: `Tool: ${view.toolLabel || 'Excavate'}`, key: 'T', weight: 1.5 },
         { id: 'fortify', label: 'Fortify 50g', key: 'F', weight: 1 },
         { id: 'repair', label: 'Repair 40g', key: 'R', weight: 1 },
@@ -593,7 +596,7 @@ function computeButtons(view) {
       // that is present but always refuses teaches a player nothing; one that appears when the
       // workshop does teaches them what the workshop is for.
       const hasShop = (f.rooms || []).some((r) => r.type === ROOM.FABRICATION);
-      if (hasShop) specs.push({ id: 'fabricate', label: `Fabricate ${CONFIG.orders.fabricate.cost}g`, key: 'B', weight: 1 });
+      if (hasShop) orderSpecs.push({ id: 'fabricate', label: `Fabricate ${CONFIG.orders.fabricate.cost}g`, key: 'B', weight: 1 });
       // The withdraw control appears only while an order raised this ADMIN phase is still queued
       // (release-gate Q3: cancelOrder was implemented and imported but never reachable from a
       // player action). The label stays a bare verb rather than "Withdraw NNg  [C]" (Fortify's own
@@ -601,23 +604,34 @@ function computeButtons(view) {
       // an amount-carrying label clipped its own [C] key hint off the edge of a 105px slot at this
       // weight (measured on the built artifact, not assumed). The gold figure is still read back on
       // the status strip's note the instant the control is used, same as every other action here.
-      if (lastQueuedOrder(f)) specs.push({ id: 'withdraw', label: 'Withdraw', key: 'C', weight: 1 });
-      if (notice) specs.push({ id: 'answer', label: `Answer ${CONFIG.ladder.answerCost[notice.rung]}g`, key: 'A', weight: 1 });
-      specs.push({ id: 'sign', label: 'Sign over', key: 'Enter', weight: 1.15 });
+      if (lastQueuedOrder(f)) orderSpecs.push({ id: 'withdraw', label: 'Withdraw', key: 'C', weight: 1 });
+      if (notice) orderSpecs.push({ id: 'answer', label: `Answer ${CONFIG.ladder.answerCost[notice.rung]}g`, key: 'A', weight: 1 });
+      // Ray's s148 ruling put the bar on two rows and changed nothing else, so the controls keep the
+      // live order: the levers first and Sign over last, where players already find it. This array
+      // is also the keyboard focus order.
+      const specs = [...orderSpecs, { id: 'sign', label: 'Sign over', key: 'Enter', weight: 1.15 }];
       const gap = 6;
-      const usable = ACTIONBAR.w - gap * (specs.length + 1);
-      // Allocate against the text each control actually has to carry. Fixed semantic weights made
-      // Fabricate and the later contextual controls narrower just when the row became crowded,
-      // clipping the printed key binding. Character count is a stable proxy for this pixel face
-      // (and includes the two spaces plus bracketed binding drawn by drawButton).
+      // Up to four controls stand on one row. More split into two balanced rows (5 = 3+2, 6 = 3+3,
+      // 7 = 4+3), so no control is left alone on a stretched row. Allocate each row independently
+      // against the complete printed labels, including their two spaces and bracketed bindings. The
+      // taller bar is paid for by taking 27px equally from the cutaway and ledger, never by covering them.
       for (const s of specs) s.weight = `${s.label}  [${s.key}]`.length;
-      const totalWeight = specs.reduce((a, s) => a + s.weight, 0);
-      let x = ACTIONBAR.x + gap;
-      return specs.map((s) => {
-        const w = Math.floor((usable * s.weight) / totalWeight);
-        const b = btn(s.id, x, ACTIONBAR.y + 3, w, 24, s.label, s.key, true);
-        x += w + gap;
-        return b;
+      const split = specs.length <= 4 ? specs.length : Math.ceil(specs.length / 2);
+      const rows = [specs.slice(0, split), specs.slice(split)];
+      return rows.flatMap((row, rowIndex) => {
+        if (!row.length) return [];
+        const usable = ACTIONBAR.w - gap * (row.length + 1);
+        const totalWeight = row.reduce((a, s) => a + s.weight, 0);
+        let x = ACTIONBAR.x + gap;
+        return row.map((s, index) => {
+          // Give the last control the row's rounding remainder so no usable pixels are stranded.
+          const w = index === row.length - 1
+            ? ACTIONBAR.x + ACTIONBAR.w - gap - x
+            : Math.floor((usable * s.weight) / totalWeight);
+          const b = btn(s.id, x, ACTIONBAR.y + 3 + rowIndex * 27, w, 24, s.label, s.key, true);
+          x += w + gap;
+          return b;
+        });
       });
     }
   }
@@ -5547,7 +5561,9 @@ const SECTION = {
 // The sheet, and its margins. r1 ran text to within 8px of the paper's edge on every side, which is
 // part of what made the log read as output rather than as a document. A form has a margin.
 const PAPER = { x: LEDGER.x + 1, y: LEDGER.y + 1, w: LEDGER.w - 2, h: LEDGER.h - 2 };
-const M = { left: PAPER.x + 13, right: PAPER.x + PAPER.w - 13, top: PAPER.y + 12 };
+// s149: the two-row toolbar took 27px from this sheet. The top inset gives back 4px of it and no
+// more: 8px is the floor, because the r1 sheet at 8px is the one that read as output.
+const M = { left: PAPER.x + 13, right: PAPER.x + PAPER.w - 13, top: PAPER.y + 8 };
 const COLUMN_W = M.right - M.left;
 
 // The sheet is divided by a double rule into two zones: the STATEMENT of the facility above and the
@@ -5559,17 +5575,42 @@ const COLUMN_W = M.right - M.left;
 // as still fit above the reserved line. A statement that ran long used to push the report heading
 // to the foot of the sheet with nothing under it, which is the wrong thing to lose.
 const REPORT_RESERVE = 116;
-const STATEMENT_FLOOR = PAPER.y + PAPER.h - REPORT_RESERVE;
-// A served notice adds a three-row legal instrument. During that state the report yields enough
-// height for the permanent facility census below it; the report remains scrollable and keeps at
-// least two readable lines. Dropping current state when an officer arrives is worse than requiring
-// one more scroll on the already-scrollable report.
-const STANDING_REPORT_RESERVE = 58;
+// A served notice adds a legal instrument block. During that state the report keeps only its
+// furniture (below) and the permanent facility census stays on the sheet; the report remains
+// scrollable. Dropping current state when an officer arrives is worse than requiring one more
+// scroll on the already-scrollable report.
 // After a tenure closes, Return opens the desk so the filed report can be read. That reading is the
 // reason the desk is reachable: keep a full report reserve even when a notice still stands on the
 // sheet, and trim statement rows that would otherwise crush the window to a single clipped line.
 const CLOSED_REPORT_RESERVE = 152;
-const ZONE_SPLIT = PAPER.y + 168;
+const ZONE_SPLIT = PAPER.y + 150;
+// From the last statement row to the report heading (the double rule sits in this gap), and from
+// the report window's floor to the paper's bottom edge.
+const REPORT_GAP = 4;
+const REPORT_FOOT = 6;
+// A report window this tall shows at least one whole line wherever the scroll stops. The farthest
+// the next line top can be from any scroll offset is one line pitch plus the gap between entries,
+// less a pixel; that line then needs its full glyph height inside the window.
+const MIN_REPORT_WINDOW = LEAD.tight + 5 - 1 + SIZE.body;
+
+// What the report needs below the statement while an instrument stands: its heading and rule, the
+// continuation note at its widest (two lines mid-scroll, measured), and a window that always holds
+// a whole line. The permanent census is NOT part of this: it is drawn in full above it, never
+// borrowed from (s149 round 1 hid On the floors / Detention by borrowing it).
+function reportFurniture(ctx) {
+  const noteH = measureWrap(ctx, 'More above and below: Page Up / Page Down / wheel', COLUMN_W);
+  return REPORT_GAP + SIZE.title + LEAD.rule + 3 + noteH + MIN_REPORT_WINDOW + REPORT_FOOT;
+}
+
+// Height a ruled label/value row will occupy, including the wrapped-value case where the figure
+// drops to the next line so it does not overprint its label.
+function rowExtent(ctx, label, value, left = M.left, right = M.right) {
+  ctx.font = font(SIZE.body, FACE.body);
+  const labelW = ctx.measureText(label).width;
+  const valueW = ctx.measureText(value).width;
+  if (left + labelW + 5 > right - valueW) return LEAD.row * 2;
+  return LEAD.row;
+}
 
 const DEPT_LABEL = {
   treasury: 'Treasury',
@@ -6001,10 +6042,11 @@ function drawLedger(ctx, view) {
       ? `cycle ${f.tenure.cyclesSurvived}, closed`
       : `cycle ${f.cycle.number}, ${f.cycle.phase}`;
   textRight(ctx, clock, M.right, y + 1, C.inkSecondary);
-  y += SIZE.title + 5;
+  y += SIZE.title + 3;
   rule(ctx, M.left, y, COLUMN_W, C.inkRule);
   rule(ctx, M.left, y + 2, COLUMN_W, C.inkRule);
-  y += 10;
+  // The first row stands clear of the double rule (s149 r3: at +4 the Treasury row touched it).
+  y += 7;
 
   const crew = activeStaff(f);
   const grieving = crew.filter((s) => s.status === 'grieving').length;
@@ -6016,6 +6058,7 @@ function drawLedger(ctx, view) {
   const backlog = countExcavated(f) - countClaimed(f);
   const held = f.captives ? f.captives.length : 0;
   const rooms = f.rooms || [];
+  const served = f.notices.filter((n) => n.status === 'served');
 
   // The core of the statement: the figures a manager reads every single cycle. Every ruled figure
   // passes hideSliced so an open sheet can never leave one half-covered (see slicedBySheet).
@@ -6040,17 +6083,22 @@ function drawLedger(ctx, view) {
     M.right,
     hideSliced,
   );
-  y = row(
-    ctx,
-    'Amenities',
-    `housed ${housed}/${housingCapacity(f)}, fed ${fed}/${foodCapacity(f)}`,
-    y,
-    overCap ? C.stampInk : C.inkBody,
-    M.left,
-    M.right,
-    hideSliced,
-  );
-  y = row(ctx, 'Morale', `${avgMorale} / 100`, y, avgMorale < 30 ? C.stampInk : C.inkBody, M.left, M.right, hideSliced);
+  // A standing instrument takes precedence over repeatable welfare summaries. Their underlying
+  // census remains on the sheet; these two optional summaries yield so the officer block and a
+  // useful report window can coexist without reducing the type.
+  if (!served.length && f.ladder.rung === 'none') {
+    y = row(
+      ctx,
+      'Amenities',
+      `housed ${housed}/${housingCapacity(f)}, fed ${fed}/${foodCapacity(f)}`,
+      y,
+      overCap ? C.stampInk : C.inkBody,
+      M.left,
+      M.right,
+      hideSliced,
+    );
+    y = row(ctx, 'Morale', `${avgMorale} / 100`, y, avgMorale < 30 ? C.stampInk : C.inkBody, M.left, M.right, hideSliced);
+  }
   y = row(
     ctx,
     'Cornerstone',
@@ -6062,45 +6110,12 @@ function drawLedger(ctx, view) {
     hideSliced,
   );
 
-  // The standing officer and his instrument, drawn BEFORE the optional rows because it is the
-  // game's defining mechanic. A served notice is a thing attached to the sheet, so it gets its own
-  // stamped block rather than a row.
-  const served = f.notices.filter((n) => n.status === 'served');
-  const closedReading = f.status !== 'active';
-  const statementFloor = closedReading
-    ? PAPER.y + PAPER.h - CLOSED_REPORT_RESERVE
-    : served.length || f.ladder.rung !== 'none'
-      ? PAPER.y + PAPER.h - STANDING_REPORT_RESERVE
-      : STATEMENT_FLOOR;
-  if (served.length || f.ladder.rung !== 'none') {
-    const standingNeed =
-      5 + SIZE.title + LEAD.rule + 3 + LEAD.row * (1 + served.length * 2);
-    // On a closed reading desk the filed report keeps its reserve; the instrument block yields if
-    // it would leave only a clipped line under AFTER-ACTION REPORT.
-    if (!closedReading || y + standingNeed <= statementFloor) {
-      y += 5;
-      y = heading(ctx, 'STANDING', y);
-      y = row(
-        ctx,
-        'Officer',
-        OFFICER[f.ladder.rung] || 'none in attendance',
-        y,
-        served.length ? C.stampInk : C.inkBody,
-        M.left,
-        M.right,
-        hideSliced,
-      );
-      for (const n of served) {
-        y = row(ctx, INSTRUMENT_NAME[n.rung], `${n.cyclesRemaining} cycle(s) left`, y, C.stampInk, M.left, M.right, hideSliced);
-        y = row(ctx, 'Answer administratively', `${CFG.ladder.answerCost[n.rung]} g  [A]`, y, C.stampInk, M.left, M.right, hideSliced);
-      }
-    }
-  }
-
-  // The facility census follows the legal instrument and never disappears during an active tenure.
-  // Lower-priority works, vacancies, and backlog rows may use whatever space remains above the
-  // reserved report zone. On a closed reading desk the census yields so the final report stays
-  // readable.
+  // The standing officer and his instrument, drawn BEFORE the census and the optional rows because
+  // it is the game's defining mechanic. A served notice is a thing attached to the sheet, so it gets
+  // its own stamped block rather than a row.
+  //
+  // The permanent census is measured first (wrap-aware) so the instrument block knows what still has
+  // to fit under it.
   const placed = castPlacements(f, view);
   const onFloors = {
     staff: placed.filter((p) => p.role !== 'raider' && p.role !== 'officer').length,
@@ -6124,11 +6139,60 @@ function drawLedger(ctx, view) {
     onFloors.raiders > 0 ? C.stampInk : C.inkBody,
   ]);
   standingState.push(['Detention', `${held} / ${detentionCapacity(f)} held`, C.inkBody]);
-  for (const [label, value, colour] of standingState) {
-    if (closedReading && y + LEAD.row > statementFloor) break;
-    y = row(ctx, label, value, y, colour, M.left, M.right, hideSliced);
+  const extents = standingState.map(([label, value]) => rowExtent(ctx, label, value));
+  const censusH = extents.reduce((h, e) => h + e, 0);
+
+  const closedReading = f.status !== 'active';
+  const standing = served.length > 0 || f.ladder.rung !== 'none';
+  const paperBottom = PAPER.y + PAPER.h;
+  const statementFloor =
+    paperBottom - (closedReading ? CLOSED_REPORT_RESERVE : standing ? reportFurniture(ctx) : REPORT_RESERVE);
+  if (standing) {
+    const standingNeed = 2 + SIZE.title + LEAD.rule + 3 + LEAD.row * (1 + served.length * 2);
+    // On a closed reading desk the filed report keeps its reserve; the instrument block yields if
+    // it would leave only a clipped line under AFTER-ACTION REPORT.
+    if (!closedReading || y + standingNeed <= statementFloor) {
+      y += 2;
+      y = heading(ctx, 'STANDING', y);
+      y = row(
+        ctx,
+        'Officer',
+        OFFICER[f.ladder.rung] || 'none in attendance',
+        y,
+        served.length ? C.stampInk : C.inkBody,
+        M.left,
+        M.right,
+        hideSliced,
+      );
+      for (const n of served) {
+        y = row(ctx, INSTRUMENT_NAME[n.rung], `${n.cyclesRemaining} cycle(s) left`, y, C.stampInk, M.left, M.right, hideSliced);
+        // During an active tenure the Answer row stands whenever the census below it and a report
+        // window that always holds a whole line still fit. When they do not (a wrapped Departments
+        // value on this shorter sheet), it is the row that yields: the same cost and key stand on
+        // the toolbar's Answer control, and a blank report or a missing census row would not.
+        if (closedReading || y + LEAD.row + censusH <= statementFloor) {
+          y = row(ctx, 'Answer administratively', `${CFG.ladder.answerCost[n.rung]} g  [A]`, y, C.stampInk, M.left, M.right, hideSliced);
+        }
+      }
+    }
   }
 
+  // The facility census follows the legal instrument and never disappears during an active tenure:
+  // it is drawn in full at the current line, never pinned above rows already drawn. Only if the sheet
+  // physically cannot hold it and a whole report line does Detention, the least-read census row,
+  // yield. On a closed reading desk the census yields row by row so the final report stays readable.
+  const censusRoom = paperBottom - reportFurniture(ctx);
+  standingState.forEach(([label, value, colour], i) => {
+    if (closedReading) {
+      if (y + LEAD.row > statementFloor) return;
+    } else if (label === 'Detention' && standing && y + extents[i] > censusRoom) {
+      return;
+    }
+    y = row(ctx, label, value, y, colour, M.left, M.right, hideSliced);
+  });
+
+  // Lower-priority works, vacancies, and backlog rows use whatever space remains above the reserved
+  // report zone.
   const optional = [];
   // KEEP #6 made legible: the manufactured works are their own row, because a door the facility
   // owns is a different fact from a fortification it bought, and the defence figure alone hides
@@ -6141,16 +6205,20 @@ function drawLedger(ctx, view) {
   if (openTotal > 0) optional.push(['Open posts', String(openTotal), C.inkBody]);
   if (backlog > 0) optional.push(['Claims backlog', `${backlog} cell(s)`, C.inkBody]);
   for (const [label, value, colour] of optional) {
-    if (y + LEAD.row > statementFloor) break;
+    if (y + rowExtent(ctx, label, value) > statementFloor) break;
     y = row(ctx, label, value, y, colour, M.left, M.right, hideSliced);
   }
 
   // ---- the report zone ----
-  const reportTop = Math.min(Math.max(y + 8, ZONE_SPLIT), statementFloor + 10);
+  // An active desk starts the report under the last row it drew, so the report heading can never
+  // land on a statement row. A closed desk keeps its capped zone split (the filed report's reserve).
+  const reportTop = closedReading
+    ? Math.min(Math.max(y + REPORT_GAP, ZONE_SPLIT), statementFloor + 8)
+    : Math.max(y + REPORT_GAP, ZONE_SPLIT);
   rule(ctx, M.left, reportTop - 9, COLUMN_W, C.inkRule);
   rule(ctx, M.left, reportTop - 7, COLUMN_W, C.inkRule);
   let ry = heading(ctx, 'AFTER-ACTION REPORT', reportTop);
-  const floor = PAPER.y + PAPER.h - 10;
+  const floor = paperBottom - REPORT_FOOT;
   const report = f.lastReport;
   if (!report) {
     const none = 'No cycle has been signed over yet.';
@@ -6307,11 +6375,11 @@ function drawActionBar(ctx, view) {
   // plain language. It is printed on manila for the same reason the title block is (r3): this is the
   // line a player reads to find out what a cell IS, so it has to be the easiest line on the screen,
   // not a dim caption on the desk.
-  const strip = { x: ACTIONBAR.x, y: ACTIONBAR.y + 30, w: ACTIONBAR.w, h: ACTIONBAR.h - 30 };
+  const strip = { x: ACTIONBAR.x, y: ACTIONBAR.y + 57, w: ACTIONBAR.w, h: ACTIONBAR.h - 57 };
   // Closed tenures: no live levers. Fill the button row as quiet paper with an inert notice so the
   // desk does not still read as an administration surface.
   if (view.facility.status !== 'active') {
-    const inert = { x: ACTIONBAR.x, y: ACTIONBAR.y + 3, w: ACTIONBAR.w, h: 24 };
+    const inert = { x: ACTIONBAR.x, y: ACTIONBAR.y + 3, w: ACTIONBAR.w, h: 51 };
     paperStrip(ctx, inert, 'actionbar-closed');
     paperStrip(ctx, strip, 'statusstrip-closed');
     pushTextClip(inert.x, inert.y, inert.w, inert.h);
