@@ -68,7 +68,9 @@
     display: block;
   }
   .sl-overlay { position: absolute; left: 0; top: 0; }
-  .sl-bar { display: flex; flex: 0 0 auto; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 100%; }
+  /* The title is full-viewport, so its global controls need their own stacking
+     context above it. Modal panels still sit above both. */
+  .sl-bar { position: relative; z-index: 46; display: flex; flex: 0 0 auto; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 100%; }
   .sl-btn {
     background: #241c14; color: #e8dcc0;
     border: 1px solid #4a3422; padding: 6px 12px;
@@ -90,7 +92,7 @@
     position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%);
     background: rgba(24,18,12,0.94); color: #e8dcc0;
     border: 1px solid #6b7a32; padding: 8px 16px; font-size: 14px;
-    max-width: 80%; text-align: center; pointer-events: none;
+    max-width: 80%; text-align: center; pointer-events: none; line-height: 1.45;
   }
   /* Notebook — crisp DOM text layer, the core instrument. */
   .sl-notebook {
@@ -123,28 +125,30 @@
   .sl-nb-foot { padding: 8px 12px; border-top: 1px solid #4a3422; color: #8a7050; font-size: 12px; }
   /* Interrogation — portrait tells + dialogue + statement x evidence challenge. */
   .sl-interro {
-    position: fixed; inset: 6% 8%; z-index: 25; display: flex; gap: 20px;
-    background: #140f0a; border: 2px solid #4a3422; box-shadow: 0 0 60px rgba(0,0,0,0.9);
+    position: fixed; top: 6%; right: 8%; bottom: auto; left: 8%; z-index: 25; display: flex; flex-wrap: wrap; gap: 20px;
+    max-height: 88%; background: linear-gradient(145deg, #181109 0%, #100c08 68%, #1d160d 100%);
+    border: 2px solid #4a3422; box-shadow: 0 0 60px rgba(0,0,0,0.9);
     color: #e8dcc0; padding: 16px; box-sizing: border-box; min-width: 0; min-height: 0; overflow: auto;
   }
-  .sl-i-left { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 170px; }
+  .sl-i-left { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 0 1 170px; min-width: 0; }
   .sl-portrait { image-rendering: pixelated; border: 1px solid #4a3422; }
   .sl-i-speaker { font-weight: bold; color: #c8a03c; letter-spacing: 1px; }
   .sl-i-posture { color: #8a9a5a; font-size: 13px; font-style: italic; }
-  .sl-i-right { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .sl-i-right { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
   .sl-i-text { font-size: 16px; line-height: 1.4; min-height: 44px; }
   .sl-i-options { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
-  .sl-i-opt { text-align: left; }
+  .sl-i-opt { text-align: left; max-width: 100%; }
   .sl-i-challenge { display: flex; flex-direction: column; gap: 6px; }
   .sl-i-sel { background: #0c0a07; color: #e8dcc0; border: 1px solid #4a3422; padding: 5px; font-family: inherit; max-width: 100%; }
   .sl-i-clabel { color: #8a7050; font-size: 12px; }
-  .sl-i-log { flex: 1; overflow-y: auto; border-top: 1px dotted #3a2c1e; padding-top: 6px; color: #b09678; font-size: 13px; }
+  .sl-i-log { flex: 0 1 auto; max-height: 120px; overflow-y: auto; border-top: 1px dotted #3a2c1e; padding-top: 6px; color: #b09678; font-size: 13px; }
   .sl-i-logline { padding: 2px 0; }
   .sl-i-bar { display: flex; gap: 8px; }
   /* Accusation board — the slotted assertion. */
   .sl-board {
-    position: fixed; inset: 12% 12%; z-index: 30; flex-direction: column; gap: 16px;
-    background: #16100a; border: 2px solid #6b7a32; box-shadow: 0 0 60px rgba(0,0,0,0.9);
+    position: fixed; top: 12%; right: 12%; bottom: auto; left: 12%; z-index: 30; flex-direction: column; gap: 16px;
+    max-height: 76%; background: linear-gradient(160deg, #1b140c 0%, #110d08 72%, #202111 100%);
+    border: 2px solid #6b7a32; box-shadow: 0 0 60px rgba(0,0,0,0.9);
     color: #e8dcc0; padding: 24px; display: none; box-sizing: border-box; min-width: 0; min-height: 0; overflow: auto;
   }
   .sl-board[style*="flex"] { display: flex; }
@@ -154,7 +158,7 @@
   .sl-b-slot { background: #0c0a07; color: #c8a03c; border: 1px solid #6b7a32; padding: 3px 6px; font-family: inherit; font-size: 14px; min-width: 220px; max-width: 100%; }
   .sl-b-slot option { white-space: normal; }
   .sl-b-deflect { color: #b5561e; min-height: 22px; font-style: italic; }
-  .sl-b-bar { display: flex; gap: 10px; margin-top: auto; }
+  .sl-b-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
   /* Ending — the confrontation scene. */
   .sl-ending {
     position: fixed; inset: 0; z-index: 40; flex-direction: column; align-items: center; justify-content: center;
@@ -219,12 +223,13 @@
   .sl-t-name { font-size: 46px; letter-spacing: 12px; color: #c8a03c; text-shadow: 0 3px 12px #000, 0 0 4px #000; }
   .sl-t-sub { letter-spacing: 5px; color: #8a7050; font-size: 14px; margin-bottom: 26px; text-shadow: 0 2px 6px #000; }
   .sl-t-prompt { color: #6b7a32; letter-spacing: 4px; font-size: 12px; margin-bottom: 6px; }
+  .sl-t-controls { color: #b09678; font-size: 12px; margin-bottom: 4px; }
   .sl-t-case { width: 420px; max-width: 80vw; text-align: left; padding: 12px 18px; margin-top: 2px; }
   .sl-t-case .sl-t-ct { color: #c8a03c; font-size: 16px; letter-spacing: 1px; }
   .sl-t-case .sl-t-cb { color: #b09678; font-size: 13px; margin-top: 3px; }
   /* Options — accessibility / QoL. */
   .sl-options {
-    position: fixed; inset: 14% 22%; z-index: 36; flex-direction: column; gap: 14px;
+    position: fixed; inset: 14% 22%; z-index: 50; flex-direction: column; gap: 14px;
     background: #16100a; border: 2px solid #4a3422; box-shadow: 0 0 60px rgba(0,0,0,0.9);
     color: #e8dcc0; padding: 22px; display: none; box-sizing: border-box; min-width: 0; min-height: 0; overflow: auto;
   }
@@ -237,7 +242,7 @@
   .sl-o-read { min-width: 48px; text-align: center; color: #c8a03c; }
   .sl-o-note { color: #8a7050; font-size: 12px; font-style: italic; margin-top: 8px; }
   /* Help overlay reuses .sl-options; sections + lines. */
-  .sl-help { inset: 8% 16%; }
+  .sl-help { inset: 8% 16%; z-index: 50; }
   .sl-help-sec { margin-bottom: 14px; }
   .sl-help-t { color: #c8a03c; font-weight: bold; margin-bottom: 4px; }
   .sl-help-l { color: #cdbb99; font-size: 14px; line-height: 1.5; }
@@ -2013,6 +2018,7 @@ const DEFAULT_SETTINGS = Object.freeze({
   reducedMotion: false,    // suppress the checkpoint flash + any future motion
   photosensitivitySafe: true, // gate any period film effect (no flashing > 3Hz, ever)
   textSpeedCps: 40,        // characters/sec for any typed reveal (0 = instant)
+  musicEnabled: true,      // House Band begins on the first permitted user gesture
 });
 
 const CLAMPS = {
@@ -2524,7 +2530,24 @@ function paintPocScene(fb) {
   // --- scene geometry (logical space) ---
   const horizon = Math.round(H * 0.66);            // wall meets floor
   const win = { x: Math.round(W * 0.60), y: Math.round(H * 0.10), w: Math.round(W * 0.30), h: Math.round(H * 0.40) };
-  const desk = { x: Math.round(W * 0.06), y: Math.round(H * 0.60), w: Math.round(W * 0.62), h: H };
+  const deskY = Math.round(H * 0.60);
+  const desk = { x: Math.round(W * 0.06), y: deskY, w: Math.round(W * 0.62), h: H - deskY - 9 };
+  // Furniture joinery keeps the broad desk front from reading as a floating cropped
+  // masonry slab behind the prologue/ending scrim: drawers, a recessed kneehole, and
+  // two feet visibly carry it into the floor.
+  desk.kneehole = {
+    x: desk.x + Math.round(desk.w * 0.43), y: desk.y + 27,
+    w: Math.round(desk.w * 0.34), h: desk.h - 27,
+  };
+  desk.drawers = [
+    { x: desk.x + 9, y: desk.y + 21, w: Math.round(desk.w * 0.31), h: 19 },
+    { x: desk.x + 9, y: desk.y + 44, w: Math.round(desk.w * 0.31), h: 19 },
+    { x: desk.x + Math.round(desk.w * 0.81), y: desk.y + 21, w: Math.round(desk.w * 0.15), h: 42 },
+  ];
+  desk.feet = [
+    { x: desk.x + 12, y: desk.y + desk.h, w: 12, h: 9 },
+    { x: desk.x + desk.w - 24, y: desk.y + desk.h, w: 12, h: 9 },
+  ];
   const deskTopY = desk.y;
   const lamp = { x: Math.round(W * 0.16), y: Math.round(H * 0.50), r: Math.round(H * 0.62) };
   const ledger = { x: Math.round(W * 0.30), y: deskTopY + 10, w: Math.round(W * 0.20), h: Math.round(H * 0.12) };
@@ -2572,6 +2595,9 @@ function paintPocScene(fb) {
       if ((legL || legR) && y >= chair.seatY + 4 && y < chair.seatY + chair.legH) return dark;        // front legs
     }
 
+    if (desk.feet.some((foot) => inRect(x, y, foot))) {
+      return mix(woodCol, PALETTE.ink, 0.48);
+    }
     if (y >= deskTopY && inRect(x, y, desk)) {
       if (y < deskTopY + 3) return mix(woodCol, PALETTE.mustard, 0.3);   // near-edge highlight
       const front = y > deskTopY + Math.round((desk.h) * 0.18);           // front face below the top
@@ -2579,6 +2605,18 @@ function paintPocScene(fb) {
         const rule = ((y - ledger.y) % 5) < 1 ? 0.55 : 0;                 // ruled lines
         const print = fbm(x * 0.6, y * 0.2, { octaves: 2, seed: 3 }) > 0.7 ? 0.35 : 0;
         return mix(PALETTE.paper, PALETTE.faintInk, Math.max(rule, print));
+      }
+      if (inRect(x, y, desk.kneehole)) {
+        const recess = fbm(x * 0.08, y * 0.22, { octaves: 3, seed: 5 });
+        return mix(PALETTE.ink, floorCol, 0.05 + recess * 0.04);
+      }
+      for (const drawer of desk.drawers) {
+        if (!inRect(x, y, drawer)) continue;
+        if (onFrame(x, y, drawer, 1)) return mix(woodCol, PALETTE.ink, 0.62);
+        const pullX = drawer.x + Math.round(drawer.w / 2);
+        const pullY = drawer.y + Math.round(drawer.h / 2);
+        if (Math.abs(x - pullX) <= 2 && Math.abs(y - pullY) <= 1) return mix(PALETTE.mustard, PALETTE.ink, 0.15);
+        return mix(woodCol, PALETTE.ink, 0.28);
       }
       const grain = fbm(x * 0.08, y * 0.5, { octaves: 4, seed: 11 });
       const base = mix(mix(woodCol, PALETTE.ink, front ? 0.4 : 0.12), mix(woodCol, PALETTE.mustard, 0.12), grain);
@@ -4111,7 +4149,8 @@ const HELP = [
   ] },
   { title: 'Anytime', lines: [
     'Nothing is timed, ever. Save, Load, and Restart Case are always here.',
-    'Options sets text size, a dyslexia-friendly font, reduced motion, and photosensitivity safety.',
+    'The House Band score starts on with your first interaction. Music in Options or the bottom bar turns it off.',
+    'Options sets text size, a dyslexia-friendly font, reduced motion, photosensitivity safety, and music.',
   ] },
 ];
 
@@ -4138,7 +4177,50 @@ const CONTROL_HINT = 'arrows/tab cycle   enter select   n notebook   ? help';
 const TEMPO_BPM = 84;              // slow, tired shuffle
 const SWING = 0.62;                // 0.5 straight .. 0.667 triplet; between = worn
 const BASS_DRAG = 0.035;           // fraction of a beat the bass lands late
-const HAT_GAINS = Object.freeze({ onbeat: 0.25, offbeat: 0.14 });
+// Ray's 2026-09-03 "touch too loud" ruling: the offbeat brush/hat sat 0.19-
+// 0.21 dB above the Chromium loudest-decile band of the other percussion.
+// A 0.25 dB trim puts it just inside that measured band.
+const HAT_TRIM_DB = -0.25;
+const HAT_GAINS = Object.freeze({ onbeat: 0.25, offbeat: 0.14 * 10 ** (HAT_TRIM_DB / 20) });
+
+// ---------------------------------------------------------------------------
+// LOW-END DISCIPLINE (2026-08-29 fleet low-chord-overload cure).
+//
+// The title theme measured 66.4% of its energy below 150 Hz because the harmony
+// voice was a sustained sawtooth wash stacked bar-over-bar, and the "upright
+// bass" was a bare SINE — a waveform whose entire energy sits on the fundamental,
+// i.e. entirely inside the offending band, at a written gain (0.84) that had to be
+// enormous precisely because a sine with no harmonics is hard to hear.
+//
+// The cure is re-voicing, not level:
+//   * HARMONY_FLOOR_HZ — no chord tone sounds below G3; tones below it fold up an
+//     octave. Pitch classes (and therefore the dropped-3rd law) are untouched.
+//   * The chord voice is now VIBES, a struck tuned metal bar that rings and decays
+//     inside its own bar instead of a pad that sustains across the next one.
+//   * The bass is voiced as an upright PIZZICATO (harmonic stack + finger
+//     transient + body high-pass, in the synth layer), so its energy spreads into
+//     the 150-500 Hz register where an upright actually radiates. A voice that is
+//     genuinely audible needs far less written amplitude, hence BASS_GAIN below.
+//   * BASS_RING_BEATS keeps each bass note (sustain + release) shorter than the
+//     gap to the next one. Overlapping bass notes a whole tone apart were beating
+//     at 15-35 Hz — the roughness the detector was reading.
+// ---------------------------------------------------------------------------
+const HARMONY_FLOOR_HZ = 195.998;  // G3: the lowest pitch any chord tone may sound
+const BASS_GAIN = Object.freeze({ root: 0.34, fifth: 0.31, walk: 0.33 });
+const BASS_RING_BEATS = Object.freeze({ sparse: 0.95, walking: 0.55 });
+// Written accent across a walking bar: the player leans on 1, eases off the rest.
+const WALK_ACCENT = Object.freeze([1.0, 0.86, 0.94, 0.82]);
+// LEAD-BALANCE LAW: the melody's level is set by a MEASURED in-band (300-4000 Hz)
+// ratio against the rest of the render, not by ear-guessing. See the compose note.
+// Browser stems put the sparse title-A lead at +28.76 dB over its accompaniment,
+// 2.33 dB beyond the other arrangements' band plus 2 dB. The 3.5 dB trim clears
+// both balance and presence caps without changing a note of the composition.
+const LEAD_GAIN = Object.freeze({ sparse: 0.55 * 10 ** (-3.5 / 20), figure: 0.46 });
+// The deterministic renderer has always carried this documented flute low-pass;
+// the shipped browser graph now uses the same value instead of leaving it implicit.
+const LEAD_FILTER_HZ = 3200;
+// Vibraphone chords are SPREAD across the mallets, not struck as a block.
+const VIBES_SPREAD = 0.032;
 
 const A4 = 440;
 const NOTE = { C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5, 'F#': 6, G: 7, 'G#': 8, A: 9, 'A#': 10, B: 11 };
@@ -4205,6 +4287,15 @@ function flutterMultiplier(t, phaseOffset = 0) {
 
 function transpose(freq, semitones) { return freq * Math.pow(2, semitones / 12); }
 
+// Fold a chord tone up by whole octaves until it clears the harmony floor. Octave
+// displacement preserves the pitch class, so the dropped-3rd voicings stay intact
+// while the chord stops competing with the bass for the same octave.
+function foldToHarmonyFloor(freq, floor = HARMONY_FLOOR_HZ) {
+  let f = freq;
+  while (f < floor) f *= 2;
+  return f;
+}
+
 // Compose one bar (4 beats) at absolute start time `t0`. Emits events for four voices.
 function composeBar(barIndex, t0, { bpm = TEMPO_BPM, swing = SWING, section = 'A', inversion = 0, intensity = 0 } = {}) {
   const bd = beatDur(bpm);
@@ -4220,10 +4311,11 @@ function composeBar(barIndex, t0, { bpm = TEMPO_BPM, swing = SWING, section = 'A
   for (let beat = 0; beat < 4; beat++) {
     const beatT = t0 + beat * bd;
 
-    // BASS (upright): root on 1 and 3, walking a little; lands LATE (drag).
+    // BASS (upright pizzicato): root on 1 and 3, walking a little; lands LATE (drag).
+    // Written low because the voice carries real harmonics now, not a bare sine.
     if (beat === 0 || beat === 2) {
       const walk = beat === 2 ? 7 : 0; // step to the 5th on beat 3
-      events.push({ voice: 'bass', t: beatT + BASS_DRAG * bd, freq: transpose(rootF, walk), dur: bd * 1.1, gain: 0.9 * energy });
+      events.push({ voice: 'bass', t: beatT + BASS_DRAG * bd, freq: transpose(rootF, walk), dur: bd * 0.9, gain: BASS_GAIN.root * energy, release: bd * 0.7 });
     }
 
     // BRUSHED KIT: soft pulse on every beat; a swung offbeat ghost note.
@@ -4234,7 +4326,7 @@ function composeBar(barIndex, t0, { bpm = TEMPO_BPM, swing = SWING, section = 'A
     if (beat === 1 || beat === 3) {
       const voiced = VOICINGS[chord.voicing].map((semi, i, notes) => i < (inversion % notes.length) ? semi + 12 : semi);
       for (const semi of voiced) {
-        events.push({ voice: 'stab', t: beatT + off, freq: transpose(rootF, semi) * 2, dur: bd * 0.5, gain: 0.16 * energy, wah: true });
+        events.push({ voice: 'stab', t: beatT + off, freq: foldToHarmonyFloor(transpose(rootF, semi) * 2), dur: bd * 0.5, gain: 0.16 * energy, wah: true });
       }
     }
   }
@@ -4283,15 +4375,44 @@ function titlePrng(seed, drawIndex) {
   return ((hashSeed(`${seed}:${drawIndex}`) >>> 0) % 1000000) / 1000000;
 }
 
+// PERFORMANCE PASS (2026-08-29). The old humanization was a single +/-14 ms window
+// applied identically to every voice — about 8 ms of onset spread, which reads as a
+// machine nudging a grid rather than as players. A real section is not uniformly
+// loose: the kit keeps time, the bass and comping instrument breathe around it, and
+// the lead is the loosest thing on the record. So the window is PER VOICE, and the
+// lead additionally lays BACK by a fixed amount — the seed's register law says the
+// music "hesitates, resolves late", which is a systematic behaviour, not a coin flip.
+const HUMANIZE_WINDOW = Object.freeze({
+  kit: 0.040,     // the timekeeper stays tightest
+  bass: 0.070,
+  vibes: 0.105,
+  stab: 0.095,
+  lead: 0.130,    // the loosest voice on the record
+  default: 0.085,
+});
+// Systematic lay-back, on top of the random window. The bass's is large enough that
+// its jitter can never cancel BASS_DRAG and land the note EARLY: the seed's law is
+// that the bass drags behind the snare, and a coin flip that sometimes rushes it
+// would be a humanization pass quietly deleting a register law.
+const HUMANIZE_LAYBACK = Object.freeze({ bass: 0.018, lead: 0.012 });
+const HUMANIZE_VELOCITY_SPREAD = 0.44;   // +/-22% written-velocity variation
+
 // Apply deterministic micro-timing and fractional velocity variation to a title
 // event list. Fractional gain preserves the authored balance between quiet voices.
 function humanizeTitle(events, seed = 0) {
   return events.map((event, i) => {
     const rTime = titlePrng(seed, i * 2);
     const rVel = titlePrng(seed, i * 2 + 1);
-    const timeShift = (rTime - 0.5) * 0.028;
-    const velocityMultiplier = 1 + (rVel - 0.5) * 0.18;
-    return { ...event, t: event.t + timeShift, gain: Math.max(0.0001, event.gain * velocityMultiplier), humanized: true };
+    const window = HUMANIZE_WINDOW[event.voice] ?? HUMANIZE_WINDOW.default;
+    const layback = HUMANIZE_LAYBACK[event.voice] ?? 0;
+    const timeShift = (rTime - 0.5) * window + layback;
+    const velocityMultiplier = 1 + (rVel - 0.5) * HUMANIZE_VELOCITY_SPREAD;
+    return {
+      ...event,
+      t: Math.max(0, event.t + timeShift),
+      gain: Math.max(0.0001, event.gain * velocityMultiplier),
+      humanized: true,
+    };
   });
 }
 
@@ -4299,20 +4420,33 @@ function titleVoiced(chord, inversion) {
   return VOICINGS[chord.voicing].map((semi, i, notes) => i < (inversion % notes.length) ? semi + 12 : semi);
 }
 
-// Title A: sparse, suspended — long pads, bass on 1 and 3, lead enters late.
+// Sound a voicing as actual frequencies, folded so nothing sits below the harmony
+// floor. The authored semitone offsets stay the harmonic source of truth; only the
+// octave each tone sounds in is derived.
+function titleChordFreqs(chord, inversion) {
+  const rootF = noteFreq(chord.root);
+  return titleVoiced(chord, inversion).map((semi) => foldToHarmonyFloor(transpose(rootF, semi) * 2));
+}
+
+// Title A: sparse, suspended — struck vibes chords, bass on 1 and 3, lead enters late.
 function composeTitleBarA(barIndex, t0, { bd, chord, inversion, energy }) {
   const events = [];
   const rootF = noteFreq(chord.root);
   const off = TITLE_SWING * bd;
 
-  // PAD: the chord held across the bar with a long release so harmony rings.
-  for (const semi of titleVoiced(chord, inversion)) {
-    events.push({ voice: 'pad', t: t0, freq: transpose(rootF, semi) * 2, dur: bd * 3.3, gain: 0.14 * energy, release: 2.4 });
-  }
+  // VIBES: the chord STRUCK, ringing down across the bar. It decays inside its own
+  // bar rather than sustaining into the next, so chords stop stacking on each other.
+  // The tones are SPREAD, not simultaneous: a player holding two mallets cannot hit
+  // four bars at once, and a spread chord is idiomatic vibraphone. It also stops the
+  // four attacks from summing into one transient the whole mix has to make room for.
+  titleChordFreqs(chord, inversion).forEach((freq, i) => {
+    events.push({ voice: 'vibes', t: t0 + i * VIBES_SPREAD, freq, dur: bd * 1.35, gain: 0.19 * energy, release: 1.55 });
+  });
 
-  // BASS: root on 1, fifth on 3, dragging behind the kit.
-  events.push({ voice: 'bass', t: t0 + BASS_DRAG * bd, freq: rootF, dur: bd * 1.45, gain: 0.84 * energy });
-  events.push({ voice: 'bass', t: t0 + 2 * bd + BASS_DRAG * bd, freq: transpose(rootF, 7), dur: bd * 1.45, gain: 0.78 * energy });
+  // BASS: root on 1, fifth on 3, dragging behind the kit. Pizzicato, not a drone —
+  // each note has decayed before the next arrives (gap here is 2 beats).
+  events.push({ voice: 'bass', t: t0 + BASS_DRAG * bd, freq: rootF, dur: bd * BASS_RING_BEATS.sparse, gain: BASS_GAIN.root * energy, release: bd * 0.8 });
+  events.push({ voice: 'bass', t: t0 + 2 * bd + BASS_DRAG * bd, freq: transpose(rootF, 7), dur: bd * BASS_RING_BEATS.sparse, gain: BASS_GAIN.fifth * energy, release: bd * 0.8 });
 
   // BRUSHED KIT: soft pulse on every beat.
   for (let beat = 0; beat < 4; beat++) {
@@ -4323,8 +4457,11 @@ function composeTitleBarA(barIndex, t0, { bd, chord, inversion, energy }) {
 
   // LEAD: hesitant, only in bars 2 and 3 (one note each), resolving later than expected.
   if (barIndex === 1 || barIndex === 2) {
-    const release = barIndex === 1 ? 1.05 : 1.28;
-    events.push({ voice: 'lead', t: t0 + bd * (barIndex === 1 ? 2.6 : 1.6) + off, freq: transpose(rootF, 14) * 2, dur: bd * 1.1, gain: 0.20 * energy, release });
+    // The A-section melody is two long, hesitant tones. They are LONG on purpose:
+    // sparseness here is about how FEW notes there are, not how briefly they last,
+    // and a flute holding one note is what keeps the section from going leadless.
+    const release = barIndex === 1 ? 1.55 : 1.85;
+    events.push({ voice: 'lead', t: t0 + bd * (barIndex === 1 ? 2.6 : 1.6) + off, freq: transpose(rootF, 14) * 2, dur: bd * 2.2, gain: LEAD_GAIN.sparse * energy, release });
   }
 
   return events;
@@ -4338,15 +4475,24 @@ function composeTitleBarB(barIndex, t0, { bd, chord, inversion, energy }) {
 
   // WAH STAB: shorter hits on the offbeats of beats 1 and 3.
   for (const beat of [0, 2]) {
-    for (const semi of titleVoiced(chord, inversion)) {
-      events.push({ voice: 'stab', t: t0 + beat * bd + off, freq: transpose(rootF, semi) * 2, dur: bd * 0.55, gain: 0.18 * energy, wah: true, release: 0.55 });
+    for (const freq of titleChordFreqs(chord, inversion)) {
+      events.push({ voice: 'stab', t: t0 + beat * bd + off, freq, dur: bd * 0.55, gain: 0.18 * energy, wah: true, release: 0.55 });
     }
   }
 
-  // WALKING BASS: all four beats, still dragging.
+  // WALKING BASS: all four beats, still dragging, and accented like a player rather
+  // than a sequencer. Each note stops ringing before the next lands (gap = 1 beat) —
+  // overlapping neighbours down here beat against each other instead of fusing.
   const walk = [0, 7, 10, 5];
   for (let beat = 0; beat < 4; beat++) {
-    events.push({ voice: 'bass', t: t0 + beat * bd + BASS_DRAG * bd, freq: transpose(rootF, walk[beat]), dur: bd * 0.95, gain: 0.82 * energy });
+    events.push({
+      voice: 'bass',
+      t: t0 + beat * bd + BASS_DRAG * bd,
+      freq: transpose(rootF, walk[beat]),
+      dur: bd * BASS_RING_BEATS.walking,
+      gain: BASS_GAIN.walk * WALK_ACCENT[beat] * energy,
+      release: bd * 0.34,
+    });
   }
 
   // BRUSHED KIT: pulse plus an extra ghost on the back half.
@@ -4367,7 +4513,7 @@ function composeTitleBarB(barIndex, t0, { bd, chord, inversion, energy }) {
     { beat: 3.5, semi: 5, dur: 1.1, release: 1.08 },
   ];
   for (const n of leadFigure) {
-    events.push({ voice: 'lead', t: t0 + bd * n.beat + off, freq: transpose(rootF, n.semi) * 2, dur: bd * n.dur, gain: 0.22 * energy, release: n.release });
+    events.push({ voice: 'lead', t: t0 + bd * n.beat + off, freq: transpose(rootF, n.semi) * 2, dur: bd * n.dur, gain: LEAD_GAIN.figure * energy, release: n.release });
   }
 
   return events;
@@ -4412,6 +4558,70 @@ function composeTitlePass(bars = 8, opts = {}) {
 // passes a real one. Loud-failure safe: with no context it is an inert no-op.
 
 
+// ---------------------------------------------------------------------------
+// VOICE CONSTRUCTION — the timbre half of the 2026-08-29 low-end cure.
+//
+// UPRIGHT PIZZICATO. The bass used to be a bare sine, which puts one hundred
+// percent of its energy on the fundamental — i.e. entirely inside the band that
+// was overloading — and is also nothing like an upright bass, which radiates most
+// of what you hear through the body, above the fundamental, with an audible finger
+// on the string. Partial stack + body high-pass + finger transient: the same note
+// now spreads across 75-500 Hz and is far more audible per unit of amplitude.
+const BASS_PARTIALS = [[1, 1.0], [2, 0.62], [3, 0.34], [4, 0.16], [5, 0.08]];
+const BASS_BODY_HP_HZ = 85;
+const BASS_FINGER_HZ = 900;
+const BASS_FINGER_GAIN = 0.22;
+const BASS_FINGER_DUR = 0.035;
+
+// VIBES — the chord voice, replacing a sustained sawtooth pad. A vibraphone bar is
+// tuned so its modes land at 1 : 4 : 10; that ratio, a mallet strike and the motor
+// tremolo are what make it read as struck metal instead of a synth tone.
+//
+// TIMBRE-VARIETY LAW declaration: the two nearest sibling scores both comp on
+// electric-piano-class voices (the CSL-50 shell's FM EP; JACQUARD INDEX's
+// filtered-oscillator EP body plus an inharmonic tine ping). This is a different
+// CLASS, not a re-parameterised EP — a struck tuned-bar stack with an amplitude
+// motor — and it is named in SHOELEATHER's own seed ("flute/vibes"), so the game
+// gets its own instrument rather than the fleet's default comping patch. The lead
+// keeps the flute half of that pair, so the two never collide.
+const VIBES_PARTIALS = [[1, 1.0], [4, 0.20], [10, 0.055]];
+const VIBES_MOTOR_HZ = 4.2;
+const VIBES_MOTOR_DEPTH = 0.34;
+const VIBES_MALLET_HZ = 2600;
+const VIBES_MALLET_GAIN = 0.11;
+const VIBES_MALLET_DUR = 0.022;
+
+const KIT_BRUSH_HZ = 3400;
+const KIT_BRUSH_Q = 1.0;
+const KIT_BRUSH_MAKEUP = 1.55;
+
+// WAH STAB filter: geometric-mean center and equivalent-bandwidth Q for render's
+// freq*0.8 .. freq*4 window (~2.32 octaves), so the biquad bandpass covers the
+// same ground as render-title.mjs's one-pole HP/LP cascade around each note.
+const WAH_CENTER_RATIO = Math.sqrt(0.8 * 4); // ~1.7889
+const WAH_Q = 0.56;
+
+// AMPLITUDE ENVELOPE — must mirror scripts/render-title.mjs's ENVELOPES table and
+// its brushed-kit inline envelope exactly. The render's envelope is attack, THEN
+// decay down to a per-voice sustain level, THEN a hold at that sustain level for
+// the bulk of the note, THEN release. A struck voice (vibes, brushed kit) spends
+// most of its written duration well below its peak. Losing the decay-to-sustain
+// stage — attack straight into one long ramp to silence over the whole note — was
+// the 2026-09-03 fleet parity bug: it made every voice's relative loudness in the
+// shipped game diverge from every render Ray judged (measured up to 10+ dB on the
+// wah stab, since the render's ADSR holds well below peak for most of the note).
+const ENVELOPES = Object.freeze({
+  bass:  { a: 0.007, d: 0.28, s: 0.30 },
+  vibes: { a: 0.013, d: 0.55, s: 0.40 },
+  stab:  { a: 0.008, d: 0.12, s: 0.45 },
+  lead:  { a: 0.008, d: 0.12, s: 0.45 },
+});
+// The render's brushed-kit envelope decays to true silence (sustain 0) well before
+// release; WebAudio's exponentialRampToValueAtTime cannot target exactly 0, so the
+// silence floor below is used as the practical sustain target instead.
+const BRUSH_ENVELOPE = { a: 0.002, dFrac: 0.3 };
+const SILENCE = 0.0001;
+
 class HouseBandPlayer {
   constructor(ctx = null, { bars = 8, seed = 0, intensityProvider = null, composer = composeProgression, bpm = TEMPO_BPM } = {}) {
     this.ctx = ctx;              // AudioContext-like, or null (no-op)
@@ -4446,41 +4656,166 @@ class HouseBandPlayer {
     const master = this._ensureMaster();
     const g = ctx.createGain();
     g.connect(master);
-    const a = 0.008, rel = e.release ?? Math.max(0.05, e.dur * 0.6);
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(Math.max(0.0002, e.gain), t + a);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + e.dur + rel);
+    const rel = e.release ?? Math.max(0.05, e.dur * 0.6);
+    const peak = Math.max(0.0002, e.gain);
+    const env = e.brushed
+      ? { a: BRUSH_ENVELOPE.a, d: Math.max(0.001, e.dur * BRUSH_ENVELOPE.dFrac), sustain: SILENCE }
+      : (() => { const v = ENVELOPES[e.voice] ?? ENVELOPES.lead; return { a: v.a, d: v.d, sustain: Math.max(SILENCE, peak * v.s) }; })();
+    // attack -> decay to the voice's sustain level -> hold -> release, matching
+    // render-title.mjs's envelopeValue() stage-for-stage (see ENVELOPES above).
+    const decayEnd = Math.min(t + env.a + env.d, t + e.dur);
+    g.gain.setValueAtTime(SILENCE, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + env.a);
+    // Decay and release are LINEAR in render's envelopeValue() (a straight 1->s and
+    // s->0), not exponential: for a deep decay (the brushed kit's sustain is
+    // silence) an exponential ramp spends most of the stage already near-silent,
+    // which measured ~13 dB quieter on average than a linear ramp to the same
+    // endpoints over the same window.
+    g.gain.linearRampToValueAtTime(env.sustain, Math.max(t + env.a + 0.0005, decayEnd));
+    // Pin the sustain level at the release boundary: WebAudio ramps interpolate
+    // from the PREVIOUS event, not from a held value, so without this anchor the
+    // decay-to-sustain ramp above would bleed straight into the release ramp
+    // below instead of holding flat across the note's sustain portion.
+    g.gain.setValueAtTime(env.sustain, t + e.dur);
+    g.gain.linearRampToValueAtTime(0, t + e.dur + rel);
 
     if (e.brushed) {
-      // brushed kit: a short filtered noise burst
+      // BRUSHED KIT: a band-limited swish, not white noise (see render-title.mjs).
       const src = ctx.createBufferSource();
       src.buffer = this._noise();
-      const bp = ctx.createBiquadFilter ? ctx.createBiquadFilter() : null;
-      if (bp) { bp.type = 'highpass'; bp.frequency.value = 6000; src.connect(bp); bp.connect(g); }
-      else src.connect(g);
-      this._track(src, bp ? [src, bp, g] : [src, g]);
-      src.start(t); src.stop(t + e.dur + rel);
+      // Cascaded TWICE, matching render-title.mjs's bp2(bp1(...)): a single 2-pole
+      // bandpass leaves the brush too broadband (it stayed audible as hiss, and
+      // measurably brighter/louder than the render's cascade).
+      const bp1 = ctx.createBiquadFilter ? ctx.createBiquadFilter() : null;
+      const bp2 = ctx.createBiquadFilter ? ctx.createBiquadFilter() : null;
+      const mk = ctx.createGain();
+      mk.gain.setValueAtTime(KIT_BRUSH_MAKEUP, t);
+      if (bp1 && bp2) {
+        for (const bp of [bp1, bp2]) { bp.type = 'bandpass'; bp.frequency.value = KIT_BRUSH_HZ; bp.Q.value = KIT_BRUSH_Q; }
+        src.connect(bp1); bp1.connect(bp2); bp2.connect(mk);
+      } else src.connect(mk);
+      mk.connect(g);
+      this._track(src, bp1 && bp2 ? [src, bp1, bp2, mk, g] : [src, mk, g]);
+      src.start(t, this._noiseOffset(t)); src.stop(t + e.dur + rel);
       return;
     }
 
-    const osc = ctx.createOscillator();
-    osc.type = e.voice === 'bass' ? 'sine' : e.voice === 'stab' || e.voice === 'pad' ? 'sawtooth' : 'triangle';
     // WOW/FLUTTER: a hair of pitch wobble so the tape never sits still.
-    osc.frequency.value = e.freq * flutterMultiplier(e.transportT ?? e.t, this.flutterPhase);
+    const freq = e.freq * flutterMultiplier(e.transportT ?? e.t, this.flutterPhase);
+    const stopAt = t + e.dur + rel;
+
+    if (e.voice === 'bass') { this._scheduleBass(freq, g, t, stopAt); return; }
+    if (e.voice === 'vibes') { this._scheduleVibes(freq, g, t, stopAt); return; }
+
+    const osc = ctx.createOscillator();
+    osc.type = e.leadWave || (e.voice === 'stab' ? 'sawtooth' : 'triangle');
+    osc.frequency.value = freq;
     let filter = null;
     if (e.wah && ctx.createBiquadFilter) {
-      const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = e.freq * 2; f.Q.value = 6;
+      // Render's wah stab passes a WIDE window around the fundamental (freq*0.8 to
+      // freq*4, i.e. ~2.32 octaves — see makeBP() in render-title.mjs), not a
+      // narrow peak an octave above it. WAH_CENTER_RATIO/WAH_Q approximate that
+      // window's geometric-mean center and bandwidth as a biquad bandpass; the
+      // previous e.freq*2 center with Q=6 put the passband an octave above the
+      // note and mostly excluded its fundamental (measured ~10 dB quieter and
+      // ~14% brighter than the render).
+      const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = freq * WAH_CENTER_RATIO; f.Q.value = WAH_Q;
       osc.connect(f); f.connect(g);
       filter = f;
-    } else if (e.voice === 'pad' && ctx.createBiquadFilter) {
-      const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = Math.min(2400, e.freq * 1.6); f.Q.value = 1.2;
+    } else if (e.voice === 'lead' && ctx.createBiquadFilter) {
+      const f = ctx.createBiquadFilter(); f.type = 'lowpass';
+      f.frequency.value = e.leadFilterHz ?? LEAD_FILTER_HZ; f.Q.value = 0.707;
       osc.connect(f); f.connect(g);
       filter = f;
     } else {
       osc.connect(g);
     }
     this._track(osc, filter ? [osc, filter, g] : [osc, g]);
-    osc.start(t); osc.stop(t + e.dur + rel);
+    osc.start(t); osc.stop(stopAt);
+  }
+
+  // A short filtered-noise transient: the finger on the string, the mallet on the bar.
+  _transient(g, t, { hz, gain, dur, q = 1.2 }) {
+    const ctx = this.ctx;
+    const src = ctx.createBufferSource();
+    src.buffer = this._noise();
+    const tg = ctx.createGain();
+    tg.gain.setValueAtTime(Math.max(0.0002, gain), t);
+    tg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    const bp = ctx.createBiquadFilter ? ctx.createBiquadFilter() : null;
+    if (bp) {
+      bp.type = 'bandpass'; bp.frequency.value = hz; bp.Q.value = q;
+      src.connect(bp); bp.connect(tg);
+    } else src.connect(tg);
+    tg.connect(g);
+    this._track(src, bp ? [src, bp, tg] : [src, tg]);
+    src.start(t, this._noiseOffset(t)); src.stop(t + dur + 0.01);
+  }
+
+  // UPRIGHT PIZZICATO: partial stack through a body high-pass, plus finger noise.
+  _scheduleBass(freq, g, t, stopAt) {
+    const ctx = this.ctx;
+    let sink = g;
+    let hp = null;
+    if (ctx.createIIRFilter) {
+      // render-title.mjs's body high-pass is a one-pole leaky-integrator HP
+      // (6 dB/oct), not a 2-pole Biquad (12 dB/oct) — the difference in rolloff
+      // right at 85 Hz, near several of the score's bass roots, measured ~12%
+      // centroid and ~1.5 dB RMS off from the render. IIRFilterNode reproduces
+      // the render's exact one-pole coefficients (WebAudio has no native
+      // first-order filter type); makeHP()/makeLP() in render-title.mjs derive
+      // the same g from the same formula.
+      const sr = ctx.sampleRate || 44100;
+      const g0 = 1 - Math.exp(-2 * Math.PI * BASS_BODY_HP_HZ / sr);
+      hp = ctx.createIIRFilter([1 - g0, -(1 - g0)], [1, -(1 - g0)]);
+      hp.connect(g);
+      sink = hp;
+    } else if (ctx.createBiquadFilter) {
+      hp = ctx.createBiquadFilter();
+      hp.type = 'highpass'; hp.frequency.value = BASS_BODY_HP_HZ; hp.Q.value = 0.7;
+      hp.connect(g);
+      sink = hp;
+    }
+    for (const [mult, level] of BASS_PARTIALS) {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = freq * mult;
+      const pg = ctx.createGain();
+      pg.gain.setValueAtTime(level, t);
+      osc.connect(pg); pg.connect(sink);
+      this._track(osc, hp ? [osc, pg, hp, g] : [osc, pg, g]);
+      osc.start(t); osc.stop(stopAt);
+    }
+    this._transient(g, t, { hz: BASS_FINGER_HZ, gain: BASS_FINGER_GAIN, dur: BASS_FINGER_DUR });
+  }
+
+  // VIBES: a 1:4:10 tuned-bar stack under a motor tremolo, struck with a mallet.
+  _scheduleVibes(freq, g, t, stopAt) {
+    const ctx = this.ctx;
+    const trem = ctx.createGain();
+    trem.gain.setValueAtTime(1 - VIBES_MOTOR_DEPTH / 2, t);
+    trem.connect(g);
+    const lfo = ctx.createOscillator();
+    lfo.type = 'sine';
+    lfo.frequency.value = VIBES_MOTOR_HZ;
+    const lfoDepth = ctx.createGain();
+    lfoDepth.gain.setValueAtTime(VIBES_MOTOR_DEPTH / 2, t);
+    lfo.connect(lfoDepth);
+    try { lfoDepth.connect(trem.gain); } catch (_) { /* a param-less mock: run without the motor */ }
+    this._track(lfo, [lfo, lfoDepth]);
+    lfo.start(t); lfo.stop(stopAt);
+
+    for (const [mult, level] of VIBES_PARTIALS) {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = freq * mult;
+      const pg = ctx.createGain();
+      pg.gain.setValueAtTime(level, t);
+      osc.connect(pg); pg.connect(trem);
+      this._track(osc, [osc, pg, trem, g]);
+      osc.start(t); osc.stop(stopAt);
+    }
+    this._transient(g, t, { hz: VIBES_MALLET_HZ, gain: VIBES_MALLET_GAIN, dur: VIBES_MALLET_DUR, q: 0.8 });
   }
 
   _track(source, nodes) {
@@ -4494,10 +4829,19 @@ class HouseBandPlayer {
     };
   }
 
+  // A deterministic, varying start offset into the shared noise table (kept well
+  // clear of the buffer's tail so short bursts never run past the end).
+  _noiseOffset(t) { return t % 0.25; }
+
   _noise() {
     if (this._noiseBuf) return this._noiseBuf;
     const ctx = this.ctx;
-    const len = Math.floor((ctx.sampleRate || 44100) * 0.2);
+    // 0.5s, matching render-title.mjs's shared NOISE table length: every brushed
+    // hit and finger/mallet transient reads a DIFFERENT slice of this table (see
+    // _noiseOffset), the way the render's noiseAt(startSample, i) does. A short
+    // buffer always replayed from sample 0 (the pre-fix behaviour) made every hit
+    // of a given voice near-identical instead of drawing fresh noise content.
+    const len = Math.floor((ctx.sampleRate || 44100) * 0.5);
     const buf = ctx.createBuffer(1, len, ctx.sampleRate || 44100);
     const d = buf.getChannelData(0);
     // deterministic-ish noise (no Math.random available); a hashy sequence
@@ -5111,15 +5455,15 @@ function buildCase1() {
 // SHOELEATHER — engine constants.
 //
 // Fixed logical resolution for the WORLD raster (DESIGN-SEED stack law). 16:9 at a
-// low native res; the browser integer-upscales to fit. The crisp text layer renders
+// low native res; the browser nearest-upscales to fit. Desktop uses the ratified
+// fractional fleet fit; phone/portrait retains integer scaling. The crisp text renders
 // at device resolution above this, so UI text is never bound to these pixels.
 
 const LOGICAL_W = 384;
 const LOGICAL_H = 216;
 
-// The presentation scaler derives every positive integer factor from the live
-// viewport and DPR. Keeping a fixed menu of factors caused both native-size windows
-// to crop (the old menu started at 2) and large/high-DPR windows to stop filling at 6.
+// The phone/portrait presentation path derives every positive integer factor from the
+// live viewport and DPR. Desktop instead uses continuous aspect-fit.
 const MIN_UPSCALE = 1;
 
 // The SWAPPABLE title layer (DIRECTIONS 2026-08-10 item 3): the game name lives in ONE
@@ -5536,7 +5880,7 @@ function doc(id, title, bodyLines, linkedFact, redHerring = false) {
 // ==== src/main.js ====
 // SHOELEATHER — browser entry (the visible layer).
 //
-// Wires the headless Engine to a real screen: the world raster on an integer-upscaled
+// Wires the headless Engine to a real screen: the world raster on a nearest-upscaled
 // canvas, the CRISP text layer on an overlay canvas above it (text-layer law), mouse
 // + full keyboard input (input law), the document reader with zoom, a HUD that makes
 // every mechanic VISIBLE (action-legibility law: cursor verb, sweep coverage,
@@ -5558,13 +5902,34 @@ function fitFactor(winW, winH, logicalW, logicalH) {
   return Math.max(MIN_UPSCALE, Number.isFinite(fit) ? fit : MIN_UPSCALE);
 }
 
-// Convert CSS viewport dimensions into the integer physical-pixel presentation the
-// seed requires. CSS size can be fractional when DPR is fractional; the actual device
-// raster remains an exact integer multiple of 384x216.
+// Desktop fleet law: continuously aspect-fit the playable picture so a wide screen is
+// used instead of abandoning the remainder below the next integer step. The native
+// 384x216 world canvas stays untouched and CSS nearest-neighbour scaling presents it.
+// Phone/portrait keeps the established integer/native-floor behaviour.
 function presentationMetrics(viewW, viewH, dpr = 1, chromeH = 0) {
   const pixelRatio = Number.isFinite(dpr) && dpr > 0 ? dpr : 1;
   const availableW = Math.max(1, viewW);
   const availableH = Math.max(1, viewH - Math.max(0, chromeH));
+  const desktop = availableW >= 1024 && viewH >= 720 && viewW >= viewH;
+  if (desktop) {
+    const cssFactor = Math.min(availableW / LOGICAL_W, availableH / LOGICAL_H);
+    const displayW = LOGICAL_W * cssFactor;
+    const displayH = LOGICAL_H * cssFactor;
+    return {
+      dpr: pixelRatio,
+      pixelFactor: cssFactor * pixelRatio,
+      cssFactor,
+      fitMode: 'fractional',
+      availableW,
+      availableH,
+      displayW,
+      displayH,
+      backingW: Math.max(1, Math.round(displayW * pixelRatio)),
+      backingH: Math.max(1, Math.round(displayH * pixelRatio)),
+      fillX: displayW / availableW,
+      fillY: displayH / availableH,
+    };
+  }
   const pixelW = Math.floor(availableW * pixelRatio);
   const pixelH = Math.floor(availableH * pixelRatio);
   const pixelFactor = fitFactor(pixelW, pixelH, LOGICAL_W, LOGICAL_H);
@@ -5575,10 +5940,13 @@ function presentationMetrics(viewW, viewH, dpr = 1, chromeH = 0) {
     dpr: pixelRatio,
     pixelFactor,
     cssFactor,
+    fitMode: 'integer',
     availableW,
     availableH,
     displayW,
     displayH,
+    backingW: LOGICAL_W * pixelFactor,
+    backingH: LOGICAL_H * pixelFactor,
     fillX: displayW / availableW,
     fillY: displayH / availableH,
   };
@@ -5620,6 +5988,67 @@ function paintPortraitCanvas(canvas, win, options) {
 
 function boardSlotWidth(maxLabelLength) {
   return Math.max(220, Math.min(940, maxLabelLength * 9 + 48));
+}
+
+const BOARD_SLOT_LABELS = Object.freeze({
+  suspect: 'suspect',
+  means: 'means',
+  time: 'time',
+  place: 'place',
+  alibiMechanism: 'how the alibi worked',
+  prologueFact: 'fact that breaks the alibi',
+  contradictedStatement: 'statement contradicted',
+  corroboration: 'corroborating evidence',
+  physicalContradiction: 'physical contradiction',
+});
+
+// Keep keyboard focus inside a visible modal. Disabled/hidden controls are excluded,
+// and Tab wraps at both ends instead of falling through to the world bar behind it.
+function trapModalFocus(container, ev, doc) {
+  if (ev.key !== 'Tab' || !container?.querySelectorAll) return false;
+  const focusable = [...container.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .filter((node) => node.style?.display !== 'none');
+  if (!focusable.length) return false;
+  const current = focusable.indexOf(doc.activeElement);
+  const next = ev.shiftKey
+    ? (current <= 0 ? focusable.length - 1 : current - 1)
+    : (current < 0 || current === focusable.length - 1 ? 0 : current + 1);
+  focusable[next].focus();
+  ev.preventDefault();
+  return true;
+}
+
+function loadBestAvailable(engine, save) {
+  const slot = save.has('manual') ? 'manual' : save.has('auto') ? 'auto' : null;
+  if (!slot) return { loaded: false, slot: null, message: 'No saved case found.' };
+  const loaded = engine.loadFrom(slot);
+  return {
+    loaded: !!loaded,
+    slot,
+    message: loaded ? (slot === 'manual' ? 'Saved case loaded.' : 'Autosave restored.') : 'Save could not be loaded.',
+  };
+}
+
+// Title help and arrows use the same documented keyboard vocabulary as the world.
+function handleTitleKey(ev, buttons, openHelp, doc) {
+  if (ev.key === '?') { openHelp(); ev.preventDefault(); return true; }
+  if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(ev.key) || !buttons.length) return false;
+  const current = buttons.indexOf(doc.activeElement);
+  const delta = ev.key === 'ArrowDown' || ev.key === 'ArrowRight' ? 1 : -1;
+  const next = current < 0 ? (delta > 0 ? 0 : buttons.length - 1) : (current + delta + buttons.length) % buttons.length;
+  buttons[next].focus();
+  ev.preventDefault();
+  return true;
+}
+
+// The title uses the bottom bar for its three global controls. World actions stay
+// unavailable there, but dismissing a title modal must restore these controls rather
+// than treating the title itself as a reason to leave the whole bar disabled.
+function titleControlsAvailable(state) {
+  return state.titleOpen && !(
+    state.prologueOpen || state.notebookOpen || state.interrogationOpen
+    || state.boardOpen || state.optionsOpen || state.helpOpen || state.endingOpen
+  );
 }
 
 // Confrontation portraits are a visible state machine. The accused alone hardens
@@ -5677,7 +6106,7 @@ function init(doc = document, win = window) {
   const fb = new Framebuffer(LOGICAL_W, LOGICAL_H);
   const state = {
     factor: 1,             // CSS pixels per logical world pixel (pointer + overlay)
-    pixelFactor: 1,        // physical pixels per logical world pixel (integer by law)
+    pixelFactor: 1,        // physical pixels per logical world pixel (fractional on desktop)
     presentationDpr: 1,
     hoverKind: 'default',
     openDoc: null,          // DocumentReader when the reader overlay is open
@@ -5751,7 +6180,7 @@ function init(doc = document, win = window) {
       drawPill(ctx, label, b.x * f, Math.max(0, b.y * f - 20));
     }
 
-    if (!state.titleOpen && !state.endingOpen) {
+    if (!state.titleOpen && !state.prologueOpen && !state.endingOpen) {
       // HUD bar: scene name, sweep coverage, mode.
       const scene = engine.scene;
       const cov = scene ? engine.sweep.coverage(scene) : { found: 0, total: 0, swept: false };
@@ -5852,13 +6281,17 @@ function init(doc = document, win = window) {
   function toggleNotebook(force) {
     state.notebookOpen = force === undefined ? !state.notebookOpen : force;
     ui.notebook.style.display = state.notebookOpen ? 'flex' : 'none';
-    if (state.notebookOpen) notebook.render();
+    refreshBottomBarEnabled();
+    if (state.notebookOpen) {
+      notebook.render();
+      if (ui.nbClose.focus) ui.nbClose.focus();
+    } else if (ui.notebookBtn.focus) ui.notebookBtn.focus();
   }
 
   // --- interrogation panel -------------------------------------------------
   const interro = makeInterrogationPanel(doc, ui, engine, win);
-  engine.on('interrogation-begin', () => { state.interrogationOpen = true; interro.resetLog(); ui.interro.style.display = 'flex'; interro.render(); });
-  engine.on('interrogation-end', () => { state.interrogationOpen = false; ui.interro.style.display = 'none'; });
+  engine.on('interrogation-begin', () => { state.interrogationOpen = true; refreshBottomBarEnabled(); interro.resetLog(); ui.interro.style.display = 'flex'; interro.render(); });
+  engine.on('interrogation-end', () => { state.interrogationOpen = false; refreshBottomBarEnabled(); ui.interro.style.display = 'none'; });
   engine.on('dialogue', () => { if (state.interrogationOpen) interro.render(); });
   engine.on('challenge', () => { if (state.interrogationOpen) interro.render(); });
   engine.on('afterthought', () => toast('You are halfway out the door before the question comes back to you. They are at ease now.'));
@@ -5867,8 +6300,8 @@ function init(doc = document, win = window) {
 
   // --- accusation board + ending ------------------------------------------
   const boardPanel = makeBoardPanel(doc, ui, engine);
-  engine.on('board-open', () => { state.boardOpen = true; ui.bDeflect.textContent = ''; ui.board.style.display = 'flex'; boardPanel.render(); });
-  engine.on('board-close', () => { state.boardOpen = false; ui.board.style.display = 'none'; });
+  engine.on('board-open', () => { state.boardOpen = true; refreshBottomBarEnabled(); ui.bDeflect.textContent = ''; ui.board.style.display = 'flex'; boardPanel.render(); });
+  engine.on('board-close', () => { state.boardOpen = false; refreshBottomBarEnabled(); ui.board.style.display = 'none'; });
   engine.on('case-solved', (e) => {
     state.boardOpen = false; ui.board.style.display = 'none';
     state.notebookOpen = false;
@@ -5920,6 +6353,7 @@ function init(doc = document, win = window) {
   }
   engine.on('prologue-begin', (e) => {
     state.prologueOpen = true; ui.prologue.style.display = 'flex';
+    setBottomBarEnabled(false);
     const card = engine.caseData.prologue.card;
     ui.pAct.textContent = card?.act || '';
     ui.pTime.textContent = card?.timestamp || '';
@@ -5930,6 +6364,7 @@ function init(doc = document, win = window) {
   engine.on('prologue', (e) => { if (e.type === 'beat') renderBeat(e.beat); });
   engine.on('prologue-end', () => {
     state.prologueOpen = false; ui.prologue.style.display = 'none'; state.reveal = null;
+    setBottomBarEnabled(true);
     state.backdropArt = null; state.sceneDirty = true;
   });
   ui.pAction.addEventListener('click', () => prologueAction());
@@ -5937,8 +6372,8 @@ function init(doc = document, win = window) {
   // --- input (keyboard path) ----------------------------------------------
   win.addEventListener('keydown', (ev) => {
     if (state.endingOpen) return;
-    if (state.titleOpen) return; // the title's case buttons take keyboard focus natively
     if (state.helpOpen) { if (ev.key === 'Escape' || ev.key === '?') { toggleHelp(false); ev.preventDefault(); } return; }
+    if (state.titleOpen) { handleTitleKey(ev, ui.tCases, () => toggleHelp(true), doc); return; }
     if (state.optionsOpen) { if (ev.key === 'Escape') { toggleOptions(false); ev.preventDefault(); } return; }
     if (ev.key === '?') { toggleHelp(true); ev.preventDefault(); return; }
     if (state.prologueOpen) { if (ev.key === 'Enter' || ev.key === ' ') { prologueAction(); ev.preventDefault(); } return; }
@@ -5946,7 +6381,9 @@ function init(doc = document, win = window) {
     if (state.boardOpen) { if (ev.key === 'Escape') { engine.closeBoard(); ev.preventDefault(); } return; }
     if (state.notebookOpen) {
       if (ev.key === 'Escape') { toggleNotebook(false); ev.preventDefault(); }
-      return; // let the search input take the rest (so 'n' types normally)
+      else if (ev.key.toLowerCase() === 'n' && ev.target !== ui.nbSearch) { toggleNotebook(false); ev.preventDefault(); }
+      else trapModalFocus(ui.notebook, ev, doc);
+      return; // let the search input take ordinary text, including 'n'
     }
     if (state.openDoc) {
       if (ev.key === '+' || ev.key === '=') { state.openDoc.zoom.zoomIn(); ev.preventDefault(); return; }
@@ -5985,9 +6422,19 @@ function init(doc = document, win = window) {
   // --- menu buttons (named access points) ---------------------------------
   ui.notebookBtn.addEventListener('click', () => toggleNotebook());
   ui.nbClose.addEventListener('click', () => toggleNotebook(false));
-  ui.saveBtn.addEventListener('click', () => engine.saveTo('manual'));
-  ui.loadBtn.addEventListener('click', () => engine.loadFrom('manual') || engine.loadFrom('auto'));
-  ui.restartBtn.addEventListener('click', () => engine.restart());
+  ui.saveBtn.addEventListener('click', () => {
+    if (engine.saveTo('manual')) toast('Case saved.');
+  });
+  ui.loadBtn.addEventListener('click', () => {
+    const result = loadBestAvailable(engine, save);
+    toast(result.message);
+  });
+  ui.restartBtn.addEventListener('click', () => {
+    const confirmed = win.confirm ? win.confirm('Restart this case? All current progress will be cleared.') : false;
+    if (!confirmed) { toast('Restart cancelled.'); return; }
+    engine.restart();
+    toast('Case restarted. Progress cleared.');
+  });
   ui.logBtn.addEventListener('click', () => exportLog(doc, win, log));
 
   // --- settings / accessibility (M7) --------------------------------------
@@ -6033,6 +6480,8 @@ function init(doc = document, win = window) {
     // photosensitivity-safe
     ui.oBody.append(optRow('Photosensitivity-safe (no flashing)', toggleControl(
       () => settings.get('photosensitivitySafe'), () => { settings.set('photosensitivitySafe', !settings.get('photosensitivitySafe')); settings.save(); })));
+    ui.oBody.append(optRow('Music', toggleControl(
+      () => settings.get('musicEnabled'), () => setMusicWanted(!settings.get('musicEnabled')))));
     const note = el(doc, 'div', 'sl-o-note');
     note.textContent = 'No timers anywhere: reading, interrogations, and the board are untimed, forever.';
     ui.oBody.append(note);
@@ -6040,6 +6489,7 @@ function init(doc = document, win = window) {
   function toggleOptions(force) {
     state.optionsOpen = force === undefined ? !state.optionsOpen : force;
     ui.options.style.display = state.optionsOpen ? 'flex' : 'none';
+    refreshBottomBarEnabled();
     if (state.optionsOpen) renderOptions();
   }
   ui.optionsBtn.addEventListener('click', () => toggleOptions());
@@ -6059,6 +6509,7 @@ function init(doc = document, win = window) {
   function toggleHelp(force) {
     state.helpOpen = force === undefined ? !state.helpOpen : force;
     ui.help.style.display = state.helpOpen ? 'flex' : 'none';
+    refreshBottomBarEnabled();
     if (state.helpOpen) renderHelp();
   }
   ui.helpBtn.addEventListener('click', () => toggleHelp());
@@ -6073,7 +6524,7 @@ function init(doc = document, win = window) {
   const TITLE_MUSIC_ENABLED = true;
   let titleBand = null;
   function startTitleMusic() {
-    if (!TITLE_MUSIC_ENABLED) return false;
+    if (!TITLE_MUSIC_ENABLED || !settings.get('musicEnabled')) return false;
     try {
       const AC = win.AudioContext || win.webkitAudioContext;
       if (!AC) { log.warn('audio.title', 'no WebAudio in this browser'); return false; }
@@ -6096,11 +6547,17 @@ function init(doc = document, win = window) {
   }
   function stopTitleMusic() { if (titleBand) titleBand.stop(); }
 
-  ui.musicBtn.addEventListener('click', () => {
+  function ensureCaseMusic() {
     try {
+      if (band && band.runningCount() > 0) {
+        ui.musicBtn.textContent = 'Music: on';
+        ui.root.dataset.musicState = 'on';
+        ui.root.dataset.musicInstances = '1';
+        return true;
+      }
       if (!band) {
         const AC = win.AudioContext || win.webkitAudioContext;
-        if (!AC) { log.warn('audio', 'no WebAudio in this browser'); ui.musicBtn.textContent = 'Music: n/a'; return; }
+        if (!AC) { log.warn('audio', 'no WebAudio in this browser'); ui.musicBtn.textContent = 'Music: n/a'; return false; }
         const intensityProvider = () => state.endingOpen ? 1
           : state.boardOpen ? 0.85
             : state.interrogationOpen ? 0.6
@@ -6112,12 +6569,42 @@ function init(doc = document, win = window) {
           return new HouseBandPlayer(new AC(), { bars: 8, seed: sessionSeed(world.caseData.id, entropy), intensityProvider });
         });
       }
-      const on = band.toggle();
-      ui.musicBtn.textContent = on ? 'Music: on' : 'Music: off';
-      ui.root.dataset.musicState = on ? 'on' : 'off';
+      const on = band.start();
+      ui.musicBtn.textContent = 'Music: on';
+      ui.root.dataset.musicState = on ? 'on' : 'armed';
       ui.root.dataset.musicInstances = String(band.runningCount());
-    } catch (err) { log.capture('audio', err); }
+      return on;
+    } catch (err) { log.capture('audio', err); return false; }
+  }
+
+  function setMusicWanted(wanted) {
+    settings.set('musicEnabled', wanted);
+    settings.save();
+    if (wanted) ensureCaseMusic();
+    else {
+      if (band) band.stop();
+      stopTitleMusic();
+      ui.musicBtn.textContent = 'Music: off';
+      ui.root.dataset.musicState = 'off';
+      ui.root.dataset.musicInstances = band ? String(band.runningCount()) : '0';
+    }
+  }
+
+  ui.musicBtn.textContent = settings.get('musicEnabled') ? 'Music: on' : 'Music: off';
+  ui.root.dataset.musicState = settings.get('musicEnabled') ? 'armed' : 'off';
+  ui.musicBtn.addEventListener('click', () => {
+    setMusicWanted(!settings.get('musicEnabled'));
   });
+
+  // A fresh case page cannot start WebAudio until its first gesture. The preference is
+  // on by default, so that first world/prologue interaction starts the score without
+  // requiring the player to discover a silent opt-in button.
+  const caseMusicGesture = () => {
+    if (!state.titleOpen && settings.get('musicEnabled')) ensureCaseMusic();
+  };
+  win.addEventListener('pointerdown', caseMusicGesture, { once: true });
+  win.addEventListener('keydown', caseMusicGesture, { once: true });
+  win.addEventListener('touchstart', caseMusicGesture, { once: true });
 
   // --- fit + boot ----------------------------------------------------------
   let rememberedChromeH = 40;
@@ -6140,9 +6627,13 @@ function init(doc = document, win = window) {
     ui.worldCanvas.style.height = cssH;
     ui.overlay.style.width = cssW;
     ui.overlay.style.height = cssH;
-    ui.overlay.width = LOGICAL_W * p.pixelFactor;
-    ui.overlay.height = LOGICAL_H * p.pixelFactor;
-    ui.root.dataset.presentation = `${p.pixelFactor}x@${p.dpr}`;
+    ui.overlay.width = p.backingW;
+    ui.overlay.height = p.backingH;
+    ui.root.dataset.presentation = `${p.fitMode}:${p.cssFactor.toFixed(4)}x@${p.dpr}`;
+    // Publish the chrome allowance the fit actually used. Ending mode hides the bar but
+    // deliberately keeps the remembered height, so a measurement taken from the live bar
+    // alone cannot reconstruct the available box.
+    ui.root.dataset.chromeHeight = String(rememberedChromeH);
   }
   const requestFrame = win.requestAnimationFrame
     ? win.requestAnimationFrame.bind(win)
@@ -6164,9 +6655,31 @@ function init(doc = document, win = window) {
   armDprListener();
   resize();
 
+  // The chrome height is MEASURED, so the stage must be re-fit whenever that
+  // measurement can still change. On a cold cache -- the first load every new player
+  // ever gets -- the boot resize() lays the bar out in the fallback face and measures
+  // it 2px taller than the vendored display face; nothing re-measured afterwards, so
+  // that first session played on a stage fitted to a stale chrome height and missed
+  // the available box. Re-fit once the faces have settled.
+  if (doc.fonts?.ready?.then) doc.fonts.ready.then(scheduleResize, () => {});
+
   function setBottomBarEnabled(enabled) {
     const disabled = !enabled;
     for (const b of ui.barButtons) b.disabled = disabled;
+  }
+
+  function refreshBottomBarEnabled() {
+    if (titleControlsAvailable(state)) {
+      setBottomBarEnabled(false);
+      ui.musicBtn.disabled = false;
+      ui.optionsBtn.disabled = false;
+      ui.helpBtn.disabled = false;
+      return;
+    }
+    setBottomBarEnabled(!(
+      state.titleOpen || state.prologueOpen || state.notebookOpen || state.interrogationOpen
+      || state.boardOpen || state.optionsOpen || state.helpOpen || state.endingOpen
+    ));
   }
 
   // Boot: no explicit case chosen -> the title / case-select front door; a chosen case
@@ -6178,7 +6691,7 @@ function init(doc = document, win = window) {
   const openTitle = () => {
     state.titleOpen = true;
     ui.title.style.display = 'flex';
-    setBottomBarEnabled(false);
+    refreshBottomBarEnabled();
     state.backdropArt = world.backdropArt || 'restaurant-office'; state.sceneDirty = true;
     for (const b of ui.tCases) {
       b.onclick = () => {
@@ -6467,7 +6980,9 @@ function buildDom(doc) {
   const tName = el(doc, 'div', 'sl-t-name'); tName.textContent = GAME_TITLE;
   const tSub = el(doc, 'div', 'sl-t-sub'); tSub.textContent = GAME_SUBTITLE;
   const tPrompt = el(doc, 'div', 'sl-t-prompt'); tPrompt.textContent = 'CHOOSE A CASE';
-  title.append(tName, tSub, tPrompt);
+  const tControls = el(doc, 'div', 'sl-t-controls');
+  tControls.textContent = 'arrows/tab choose   enter select   ? title help';
+  title.append(tName, tSub, tPrompt, tControls);
   const tCases = [];
   for (const c of CASES) {
     const b = doc.createElement('button');
@@ -6719,7 +7234,8 @@ function makeBoardPanel(doc, ui, engine) {
     sel.className = 'sl-b-slot';
     sel.dataset.slot = slot;
     const labels = [];
-    const blank = doc.createElement('option'); blank.value = ''; blank.textContent = `[ ${slot} ]`; sel.append(blank);
+    const slotLabel = BOARD_SLOT_LABELS[slot] || 'evidence';
+    const blank = doc.createElement('option'); blank.value = ''; blank.textContent = `[ ${slotLabel} ]`; sel.append(blank);
     for (const c of engine.board.candidatesFor(slot)) {
       const o = doc.createElement('option');
       o.value = c.id; o.textContent = c.label; o.title = c.label; sel.append(o);
@@ -6730,7 +7246,7 @@ function makeBoardPanel(doc, ui, engine) {
     sel.style.width = `${px}px`;
     sel.style.maxWidth = '100%';
     sel.value = engine.board.slots[slot] || '';
-    sel.title = `Select ${slot}`;
+    sel.title = `Select ${slotLabel}`;
     sel.addEventListener('change', () => { engine.boardSet(slot, sel.value || null); ui.bDeflect.textContent = ''; });
     return sel;
   }
