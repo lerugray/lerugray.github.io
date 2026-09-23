@@ -6425,8 +6425,8 @@ function init(doc = document, win = window) {
   win.addEventListener('keydown', (ev) => {
     if (state.endingOpen) { trapModalFocus(ui.ending, ev, doc); return; }
     if (state.helpOpen) { if (ev.key === 'Escape' || ev.key === '?') { toggleHelp(false); ev.preventDefault(); } else trapModalFocus(ui.help, ev, doc); return; }
-    if (state.titleOpen) { handleTitleKey(ev, ui.tCases, () => toggleHelp(true), doc); return; }
     if (state.optionsOpen) { if (ev.key === 'Escape') { toggleOptions(false); ev.preventDefault(); } else trapModalFocus(ui.options, ev, doc); return; }
+    if (state.titleOpen) { handleTitleKey(ev, ui.tCases, () => toggleHelp(true), doc); return; }
     if (ev.key === '?') { toggleHelp(true); ev.preventDefault(); return; }
     if (state.prologueOpen) { if (ev.key === 'Enter' || ev.key === ' ') { prologueAction(); ev.preventDefault(); } else trapModalFocus(ui.prologue, ev, doc); return; }
     if (state.interrogationOpen) { if (!scrollFocusedRegion(ui.iLog, ev) && !interro.handleKey(ev)) trapModalFocus(ui.interro, ev, doc); return; }
