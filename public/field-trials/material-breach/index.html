@@ -183,7 +183,7 @@ __mods["boot"] = function(module, exports, require){
 // is in the presentation set, so it may legitimately touch requestAnimationFrame.
 const { render, beginTextLayer, takeTextLayer, paintTextLayer } = require('render');
 const { attachInput } = require('input');
-const { createView, tryResume, setMuted, advanceReplay, abandonTenure, corruptSaveNoticeFor } = require('view');
+const { createView, tryResume, setMuted, advanceReplay, abandonTenure, corruptSaveNoticeFor, clearActionNote } = require('view');
 const { createDebugLog } = require('debuglog');
 const { createAudio } = require('audio');
 const { VERSION } = require('model');
@@ -212,19 +212,34 @@ function boot() {
   const textCanvas = document.getElementById('text');
   const textCtx = textCanvas ? textCanvas.getContext('2d') : null;
 
-  // Ask for the two embedded faces before anything is drawn with them. Canvas does not honour
-  // font-display, so without this the first frames render in the fallback serif, and a screenshot
-  // taken early would show a game that is not the one that ships. The RAF loop would correct itself
-  // within milliseconds, but "eventually right" is not right, and the proof harness captures frames.
-  try {
-    if (document.fonts && document.fonts.load) {
-      document.fonts.load('11px "MB Serif"');
-      document.fonts.load('11px "MB Slab"');
+  // Ask for the two embedded faces and do not paint player-facing text until they are ready.
+  // Canvas does not honour font-display: a first paint before the faces settle locks some boots
+  // onto the Georgia fallback for the desk behind the charter, and RAF alone does not recover
+  // until a later overlay forces a different type path. Deferring the draw loop until
+  // document.fonts.ready (with a hard timeout so a stub DOM still boots) closes that race.
+  let facesReady = !(typeof document !== 'undefined' && document.fonts && document.fonts.load);
+  const faceWait = (async () => {
+    try {
+      if (typeof document !== 'undefined' && document.fonts && document.fonts.load) {
+        await Promise.all([
+          document.fonts.load('11px "MB Serif"'),
+          document.fonts.load('11px "MB Slab"'),
+        ]);
+        if (document.fonts.ready) await document.fonts.ready;
+      }
+    } catch {
+      // A DOM with no font registry draws in the fallback and is still a valid boot.
+    } finally {
+      facesReady = true;
     }
-  } catch {
-    // A DOM with no font registry (the boot smoke test's stub) draws in the fallback and is still a
-    // valid boot: the faces are a presentation concern, never a correctness one.
+  })();
+  // Hard ceiling so a hung font loader cannot leave the screen blank forever.
+  if (typeof setTimeout !== 'undefined') {
+    setTimeout(() => {
+      facesReady = true;
+    }, 3000);
   }
+  void faceWait;
 
   const log = createDebugLog();
   const storage = ambientStorage();
@@ -343,6 +358,10 @@ function boot() {
   let lastStatus = view.facility.status;
   function frame() {
     if (!running) return;
+    if (!facesReady) {
+      raf = requestAnimationFrame(frame);
+      return;
+    }
     view.frame += 1;
     advanceReplay(view); // steps the watchable raid replay; never advances the sim
     if (lastStatus === 'active' && view.facility.status !== 'active') {
@@ -372,10 +391,16 @@ function boot() {
     name: GAME_NAME,
     version: VERSION,
     pause() {
-      if (view.overlay === null) view.overlay = 'pause';
+      if (view.overlay === null) {
+        clearActionNote(view);
+        view.overlay = 'pause';
+      }
     },
     resume() {
-      if (view.overlay === 'pause') view.overlay = null;
+      if (view.overlay === 'pause') {
+        clearActionNote(view);
+        view.overlay = null;
+      }
     },
     mute(muted) {
       setMuted(view, muted);
@@ -394,6 +419,7 @@ function boot() {
         cycle: f.cycle.number,
         cornerstone: f.lossObject.condition,
         overlay: view.overlay,
+        actionNote: view.lastActionNote,
         treasury: f.treasury.gold,
         ordersOpen: f.orders.filter((o) => o.status === 'queued' || o.status === 'in-progress').length,
         excavated: f.grid.reduce((a, row) => a + row.filter((c) => c.excavated).length, 0),
@@ -458,6 +484,15 @@ const SCREEN = { w: 640, h: 360 };
 const CUTAWAY = { x: 3, y: 3, w: 348, h: 302 };
 const LEDGER = { x: 357, y: 3, w: 280, h: 302 };
 const ACTIONBAR = { x: 3, y: 309, w: 634, h: 48 };
+
+// THE OVERLAY SHEET: the rectangle every document laid on the desk occupies (render.js draws it,
+// the ledger's behind-the-sheet ink rules read it). Its RIGHT EDGE is load-bearing: the ledger's
+// figures are right-aligned to the column edge at x 623, and the widest figure a founding desk
+// states ("400 / 500 g") measures 73.7px in the shipped face, so the sheet must stop at or left
+// of x 549 for that figure to clear it whole. A figure the sheet would slice is not painted at
+// all (a number cut mid-digit by the edge of a document reads as a different number), so a wider
+// treasury figure hides under the paper rather than misreading; the standard one shows, true.
+const OVERLAY_SHEET = Object.freeze({ x: 76, y: 34, w: 468, h: 280 });
 
 function btn(id, x, y, w, h, label, key, enabled = true) {
   return { id, x, y, w, h, label, key, enabled };
@@ -531,14 +566,19 @@ function computeButtons(view) {
         btn('dismiss', 220, 246, 200, 24, 'Dismiss', 'X'),
       ];
     case 'closed':
+      // Return opens the filed report. Bind it to Enter (the Return key); X remains an alias in
+      // input. Begin a new tenure uses N (same key the title sheet uses to abandon a post) so a
+      // player who reads the Return label and presses Return cannot lose the final report.
       return [
-        btn('dismiss', SCREEN.w / 2 - 100, 270, 200, 24, 'Return', 'X'),
-        btn('newtenure', SCREEN.w / 2 - 100, 300, 200, 26, 'Begin a new tenure', 'Enter'),
+        btn('dismiss', SCREEN.w / 2 - 100, 246, 200, 24, 'Return', 'Enter'),
+        btn('newtenure', SCREEN.w / 2 - 100, 278, 200, 26, 'Begin a new tenure', 'N'),
       ];
     default: {
       // ADMIN: the operator's levers, laid out as an even row. The tool sets what a grid click does;
       // Answer appears only when an instrument stands (the ladder interaction).
-      const active = f.status === 'active';
+      // A closed tenure has no administration: do not offer Tool/Fortify/Sign-over at all (even
+      // disabled). The renderer draws an inert bar in their place.
+      if (f.status !== 'active') return [];
       const notice = f.notices.find((n) => n.status === 'served');
       // The tool button carries the longest label in the bar ("Tool: Fabrication") and it is the
       // one control whose label must not be abbreviated, because it is the only thing telling the
@@ -566,11 +606,16 @@ function computeButtons(view) {
       specs.push({ id: 'sign', label: 'Sign over', key: 'Enter', weight: 1.15 });
       const gap = 6;
       const usable = ACTIONBAR.w - gap * (specs.length + 1);
+      // Allocate against the text each control actually has to carry. Fixed semantic weights made
+      // Fabricate and the later contextual controls narrower just when the row became crowded,
+      // clipping the printed key binding. Character count is a stable proxy for this pixel face
+      // (and includes the two spaces plus bracketed binding drawn by drawButton).
+      for (const s of specs) s.weight = `${s.label}  [${s.key}]`.length;
       const totalWeight = specs.reduce((a, s) => a + s.weight, 0);
       let x = ACTIONBAR.x + gap;
       return specs.map((s) => {
         const w = Math.floor((usable * s.weight) / totalWeight);
-        const b = btn(s.id, x, ACTIONBAR.y + 3, w, 24, s.label, s.key, active);
+        const b = btn(s.id, x, ACTIONBAR.y + 3, w, 24, s.label, s.key, true);
         x += w + gap;
         return b;
       });
@@ -686,6 +731,7 @@ exports.SCREEN = SCREEN;
 exports.CUTAWAY = CUTAWAY;
 exports.LEDGER = LEDGER;
 exports.ACTIONBAR = ACTIONBAR;
+exports.OVERLAY_SHEET = OVERLAY_SHEET;
 exports.computeButtons = computeButtons;
 exports.SECTION_INSET = SECTION_INSET;
 exports.sectionFocus = sectionFocus;
@@ -922,7 +968,7 @@ function runLadder(f, rng, report, pushLine) {
       let consequence;
       if (n.rung === 'auditor') {
         f.treasury.gold -= cfg.answerCost.auditor; // seizure, may go negative
-        consequence = `Funds seized ${cfg.answerCost.auditor}g. Treasury ${f.treasury.gold}g.`;
+        consequence = `Funds seized ${cfg.answerCost.auditor}g. Balance as recorded at close of cycle ${report.cycle}: ${f.treasury.gold}g.`;
       } else if (n.rung === 'inspector') {
         L.condemned = true;
         consequence = `Cornerstone condition ${f.lossObject.condition}/100.`;
@@ -3815,6 +3861,7 @@ function createView({ seed = 'material-breach', log, storage = null } = {}) {
     muted: false,
     errorMessage: null,
     lastActionNote: null, // a short in-register note echoing the operator's last action
+    actionNoteCell: null, // cell action whose receipt must outrank its unchanged hover text
     // The SOUND OUTBOX. A presentation-only slot: an action writes the name of the effect its
     // outcome deserves, and the draw loop drains it. This is the same shape as lastActionNote (an
     // outbox the renderer reads), and it is what keeps audio.js out of view.js and input.js
@@ -3847,6 +3894,13 @@ function corruptSaveNoticeFor(_reason) {
   return CORRUPT_SAVE_NOTICE;
 }
 
+// clearActionNote(view): the strip speaks for the mode the player is in now. A note raised under a
+// prior tool, overlay, or administration must not outlive that mode.
+function clearActionNote(view) {
+  view.lastActionNote = null;
+  view.actionNoteCell = null;
+}
+
 // ---- operator actions (ADMIN phase) --------------------------------------------------------
 
 function actQueueFortify(view) {
@@ -3854,6 +3908,7 @@ function actQueueFortify(view) {
   view.lastActionNote = res.ok
     ? `Fortification works order raised. ${CONFIG.orders.fortify.cost}g committed.`
     : `Fortification not raised: ${res.reason}.`;
+  view.actionNoteCell = null;
   view.sfx = res.ok ? 'pen' : 'refused';
   if (view.log) view.log.info('action: queue fortify', view.lastActionNote);
   return res;
@@ -3864,6 +3919,8 @@ function cycleTool(view) {
   view.toolIndex = (view.toolIndex + 1) % TOOLS.length;
   view.tool = TOOLS[view.toolIndex].id;
   view.toolLabel = TOOLS[view.toolIndex].label;
+  // A tool change is a mode change: the prior tool's receipt or refusal is no longer current.
+  clearActionNote(view);
 }
 
 // applyTool(view, x, y): apply the current tool to a grid cell (a click during ADMIN).
@@ -3877,6 +3934,7 @@ function actDesignate(view, x, y, type) {
   const res = designate(view.facility, x, y, type);
   const what = type === null ? 'cleared' : `designated ${type}`;
   view.lastActionNote = res.ok ? `Cell ${x},${y} ${what}.` : `Not ${type === null ? 'cleared' : 'designated'}: ${res.reason}.`;
+  view.actionNoteCell = { x, y };
   view.sfx = res.ok ? 'pen' : 'refused';
   if (view.log) view.log.info('action: designate', view.lastActionNote);
   return res;
@@ -3888,6 +3946,7 @@ function actFabricate(view) {
   view.lastActionNote = res.ok
     ? `Fabrication works order raised. ${CONFIG.orders.fabricate.cost}g committed, ${CONFIG.orders.fabricate.lead} cycles to manufacture.`
     : `Fabrication not raised: ${res.reason}.`;
+  view.actionNoteCell = null;
   view.sfx = res.ok ? 'pen' : 'refused';
   if (view.log) view.log.info('action: queue fabricate', view.lastActionNote);
   return res;
@@ -3898,6 +3957,7 @@ function actRepair(view) {
   view.lastActionNote = res.ok
     ? `Cornerstone repair works order raised. ${CONFIG.orders.repair.cost}g committed.`
     : `Repair not raised: ${res.reason}.`;
+  view.actionNoteCell = null;
   view.sfx = res.ok ? 'pen' : 'refused';
   if (view.log) view.log.info('action: repair', view.lastActionNote);
   return res;
@@ -3907,13 +3967,16 @@ function actAnswerNotice(view) {
   const notice = view.facility.notices.find((n) => n.status === 'served');
   if (!notice) {
     view.lastActionNote = 'No instrument is currently open to answer.';
+    view.actionNoteCell = null;
     view.sfx = 'refused';
+    if (view.log) view.log.info('action: answer notice', view.lastActionNote);
     return { ok: false, reason: 'no open notice' };
   }
   const res = answerNotice(view.facility, notice.id);
   view.lastActionNote = res.ok
     ? `The ${res.instrument} was answered administratively. ${res.cost}g committed.`
     : `Instrument not answered: ${res.reason}.`;
+  view.actionNoteCell = null;
   view.sfx = res.ok ? 'stamp' : 'refused';
   if (view.log) view.log.info('action: answer notice', view.lastActionNote);
   return res;
@@ -3924,6 +3987,7 @@ function actExcavate(view, x, y) {
   view.lastActionNote = res.ok
     ? `Excavation works order raised for cell ${x},${y}. ${CONFIG.orders.excavate.cost}g committed.`
     : `Excavation not raised: ${res.reason}.`;
+  view.actionNoteCell = { x, y };
   view.sfx = res.ok ? 'pen' : 'refused';
   if (view.log) view.log.info('action: queue excavate', view.lastActionNote);
   return res;
@@ -3938,6 +4002,7 @@ function actCancelOrder(view, orderId) {
   view.lastActionNote = res.ok
     ? `${label} order withdrawn. ${spec && typeof spec.cost === 'number' ? `${spec.cost}g returned.` : 'Cost returned.'}`
     : `Not withdrawn: ${res.reason}.`;
+  view.actionNoteCell = null;
   view.sfx = res.ok ? 'pen' : 'refused';
   if (view.log) view.log.info('action: cancel order', view.lastActionNote);
   return res;
@@ -3951,7 +4016,9 @@ function actWithdrawLast(view) {
   const order = lastQueuedOrder(view.facility);
   if (!order) {
     view.lastActionNote = 'No works order stands to be withdrawn.';
+    view.actionNoteCell = null;
     view.sfx = 'refused';
+    if (view.log) view.log.info('action: cancel order', view.lastActionNote);
     return { ok: false, reason: 'no queued order' };
   }
   return actCancelOrder(view, order.id);
@@ -3960,6 +4027,8 @@ function actWithdrawLast(view) {
 // The pre-commit checklist (DIRECTIONS fold 6): opening it is the first of two confirms.
 function openSignOver(view) {
   if (view.facility.status !== 'active') return;
+  // Opening the checklist leaves the administration desk: no prior receipt may stand under it.
+  clearActionNote(view);
   view.checklist = checklistSummary(view);
   view.overlay = 'checklist';
   view.sfx = 'drawer';
@@ -3995,6 +4064,19 @@ function confirmSignOver(view) {
   const conditionBefore = f.lossObject.condition;
   try {
     view.facility = surface(view.log, 'sign the cycle over', () => commitCycle(f));
+    // The Options sheet promises a record of everything the facility surfaced. The action log
+    // alone cannot satisfy that promise: the incident, payday, damage, casualties and notices are
+    // surfaced by the after-action report produced here, so copy that complete filed record into
+    // the exportable log at the same boundary.
+    if (view.log) {
+      const report = view.facility.lastReport;
+      view.log.info(`cycle ${report.cycle} resolved`, `${report.lines.length} after-action line(s)`);
+      for (const line of report.lines) {
+        const fields = [line.numeric, line.text];
+        if (line.cause) fields.push(`cause: ${line.cause}`);
+        view.log.info(`report: ${line.kind}`, fields.join(' | '));
+      }
+    }
     // The cycle is signed over, so it is stamped: the sound of the game's one irreversible act.
     view.sfx = 'stamp';
     // A breach makes a noise, but not YET. The structural failure belongs at the END of the
@@ -4003,6 +4085,11 @@ function confirmSignOver(view) {
     view.pendingStructural = view.facility.lossObject.condition < conditionBefore;
     view.reportScroll = 0;
     view.reportMaxScroll = 0;
+    // The sign-over is a MODE CHANGE: the administration phase that raised the strip's last
+    // note is over, and the note (a receipt or a refusal quoting the treasury as it then stood)
+    // must not outlive it. Left standing it disagrees with the ledger beside it as soon as the
+    // resolved cycle moves the gold, and it talks over the replay that follows.
+    clearActionNote(view);
     // The raid resolves without input, but it is WATCHABLE: enter the replay of the step-log on the
     // cutaway (fold 4). It is presentation only; the sim already resolved.
     const raid = view.facility.lastRaid;
@@ -4020,9 +4107,10 @@ function confirmSignOver(view) {
 }
 
 // advanceReplay(view): step the raid replay cursor from the presentation frame counter (RAF drives
-// this; it advances only the replay, never the sim). Dwells briefly at the end, then dismisses.
+// this; it advances only the replay, never the sim). When the last step is reached the Continue
+// control is offered and the replay waits there; it never dismisses itself while that control is
+// on screen (the player advances it with Enter / click, same as Skip).
 const REPLAY_FRAMES_PER_STEP = 5;
-const REPLAY_END_DWELL = 45;
 function advanceReplay(view) {
   const r = view.replay;
   if (!r || view.overlay !== 'raid') return;
@@ -4033,8 +4121,6 @@ function advanceReplay(view) {
     if (!r.done) {
       r.done = true;
       r.doneFrame = view.frame;
-    } else if (view.frame - r.doneFrame > REPLAY_END_DWELL) {
-      endReplay(view);
     }
   } else {
     r.cursor = step;
@@ -4046,6 +4132,8 @@ function advanceReplay(view) {
 function endReplay(view) {
   view.replay = null;
   view.overlay = view.facility.status === 'active' ? null : 'closed';
+  // Leaving the replay is a mode change too: no admin-phase note may return with the desk.
+  clearActionNote(view);
   // The damage is on the sheet now, so the building is allowed to be heard failing. Skipping the
   // replay still fires it: the player skipped the watching, not the incident.
   if (view.pendingStructural) {
@@ -4056,6 +4144,7 @@ function endReplay(view) {
 
 function dismissOverlay(view) {
   if (view.overlay === 'orientation' || view.overlay === 'checklist') {
+    clearActionNote(view);
     view.overlay = null;
     view.sfx = 'drawer';
   }
@@ -4066,11 +4155,13 @@ function dismissOverlay(view) {
 // Leave the title for the game. A resumed tenure goes straight to the desk; a new one is met by the
 // orientation packet, which is the in-voice teaching surface and not a tutorial popup (fold 5).
 function enterPremises(view) {
+  clearActionNote(view);
   view.overlay = view.resumable ? null : 'orientation';
   view.sfx = 'drawer';
 }
 
 function showOverlay(view, name) {
+  clearActionNote(view);
   view.overlayReturnTo = view.overlay;
   view.overlay = name;
   view.sfx = 'drawer';
@@ -4078,16 +4169,25 @@ function showOverlay(view, name) {
 
 // Back to the title from options or provenance, or to the overlay that opened them (e.g. pause).
 function backToTitle(view) {
+  // A standalone Back from pause does not end the tenure. Mark the still-live facility as the
+  // resumable one before exposing the title, so the shell names it, offers abandonment, and Enter
+  // returns directly to the desk instead of serving the founding packet over current figures.
+  if (view.overlay === 'pause' && view.facility.status === 'active') view.resumable = true;
   const returnTo = view.overlayReturnTo;
   view.overlayReturnTo = null;
+  clearActionNote(view);
   view.overlay = returnTo || 'title';
   view.sfx = 'drawer';
 }
 
 function togglePause(view) {
-  if (view.overlay === 'pause') view.overlay = null;
+  // A closed tenure has no live administration surface. Esc from its pause sheet therefore
+  // returns to the filed closing report, never to a desk whose controls cannot act.
+  const before = view.overlay;
+  if (view.overlay === 'pause') view.overlay = view.facility.status === 'active' ? null : 'closed';
   else if (view.overlay === null || view.overlay === 'orientation') view.overlay = 'pause';
   else return;
+  if (view.overlay !== before) clearActionNote(view);
   view.sfx = 'drawer';
 }
 
@@ -4122,6 +4222,23 @@ function abandonTenure(view, seed) {
   view.facility = createFacility({ seed: seed ?? view.facility.seed });
   view.overlay = 'orientation';
   view.errorMessage = null;
+  // Desk furniture is presentation state outside the saved tenure. A new post must not inherit the
+  // dead run's tool, selection outline, status-strip receipt, pan, or report scroll.
+  clearActionNote(view);
+  view.hoverCell = null;
+  view.toolIndex = 0;
+  view.tool = TOOLS[0].id;
+  view.toolLabel = TOOLS[0].label;
+  view.pan = { x: 0, y: 0 };
+  view.reportScroll = 0;
+  view.reportMaxScroll = 0;
+  view.replay = null;
+  view.pendingStructural = false;
+  view.checklist = null;
+  view.resumable = false;
+  view.saveNotice = null;
+  view.sfx = null;
+  view.overlayReturnTo = null;
 }
 
 exports.ORIENTATION = ORIENTATION;
@@ -4129,6 +4246,7 @@ exports.TOOLS = TOOLS;
 exports.createView = createView;
 exports.CORRUPT_SAVE_NOTICE = CORRUPT_SAVE_NOTICE;
 exports.corruptSaveNoticeFor = corruptSaveNoticeFor;
+exports.clearActionNote = clearActionNote;
 exports.actQueueFortify = actQueueFortify;
 exports.cycleTool = cycleTool;
 exports.applyTool = applyTool;
@@ -4639,12 +4757,16 @@ function applyCommit(facility, rng, report) {
   const before = facility.treasury.gold;
   facility.treasury.gold = Math.min(before + income, facility.treasury.capacity);
   const received = facility.treasury.gold - before;
+  // The balance is a DATED RECEIPT of this cycle's close, not a live desk reading. The report
+  // stays on the desk through the next ADMIN while the player spends from the live treasury; naming
+  // the figure as the balance at close keeps one gold instrument on the desk from arguing with the
+  // LEDGER beside it.
   pushLine(report, {
     kind: 'income',
     numeric:
       claimedGold > 0
-        ? `Cycle ${report.cycle}: gold receipts +${received}g from ${claimedGold} seam(s). Treasury ${facility.treasury.gold}/${facility.treasury.capacity}g.`
-        : `Charter stipend cycle ${report.cycle}: +${received}g. Treasury ${facility.treasury.gold}/${facility.treasury.capacity}g.`,
+        ? `Cycle ${report.cycle}: gold receipts +${received}g from ${claimedGold} seam(s). Balance as recorded at close of cycle ${report.cycle}: ${facility.treasury.gold}/${facility.treasury.capacity}g.`
+        : `Charter stipend cycle ${report.cycle}: +${received}g. Balance as recorded at close of cycle ${report.cycle}: ${facility.treasury.gold}/${facility.treasury.capacity}g.`,
     text:
       claimedGold > 0
         ? 'Receipts from the worked seams are recorded. The founding stipend has lapsed accordingly.'
@@ -4688,6 +4810,17 @@ function runReport(facility, rng, report) {
   runNeeds(facility, rng, report, pushLine);
   runLadder(facility, rng, report, pushLine); // serve/answer/expire instruments; escalate or soften
   checkTermination(facility, report);
+
+  // applyCommit files the receipt before raids, payroll and notices have settled. Only now is the
+  // cycle actually closed, so replace that provisional figure with the balance the next
+  // administrator will find. The receipt remains dated and retains the capacity in force.
+  const incomeLine = report.lines.find((line) => line.kind === 'income');
+  if (incomeLine) {
+    incomeLine.numeric = incomeLine.numeric.replace(
+      /Balance as recorded at close of cycle (\d+): -?\d+\/\d+g\./,
+      `Balance as recorded at close of cycle $1: ${facility.treasury.gold}/${facility.treasury.capacity}g.`,
+    );
+  }
 
   // The tenure counters advance once per resolved cycle. Solvency low-water mark tracks the score.
   facility.tenure.cyclesSurvived += 1;
@@ -4774,7 +4907,7 @@ function checkTermination(facility, report) {
     facility.status = 'insolvent';
     pushLine(report, {
       kind: 'terminal',
-      numeric: `Cycle ${report.cycle}: treasury ${facility.treasury.gold}g. Tenure closed.`,
+      numeric: `Cycle ${report.cycle}: balance as recorded at close of cycle ${report.cycle}: ${facility.treasury.gold}g. Tenure closed.`,
       text: 'The facility is insolvent. Obligations exceed the treasury and the tenure is at an end.',
     });
   }
@@ -4979,7 +5112,7 @@ __mods["input"] = function(module, exports, require){
 // declared key. No timer, no clock; input is event-driven and player-driven. commitCycle is reached
 // only through a confirm event, never from here on a tick.
 const { SCREEN, LEDGER, computeButtons, hitTest, cutawayGeometry, cellAtPoint, sectionFocus } = require('layout');
-const { actQueueFortify, actRepair, actFabricate, actAnswerNotice, actWithdrawLast, enterPremises, showOverlay, backToTitle, applyTool, cycleTool, openSignOver, confirmSignOver, dismissOverlay, togglePause, setMuted, abandonTenure, endReplay } = require('view');
+const { actQueueFortify, actRepair, actFabricate, actAnswerNotice, actWithdrawLast, enterPremises, showOverlay, backToTitle, applyTool, cycleTool, openSignOver, confirmSignOver, dismissOverlay, togglePause, setMuted, abandonTenure, endReplay, clearActionNote } = require('view');
 // Map an interactive-region id to its effect. View-level effects mutate the view and return null;
 // shell-level effects ('export', 'quit', 'mute') are returned for the host (boot) to carry out.
 function dispatch(view, id) {
@@ -5028,6 +5161,7 @@ function dispatch(view, id) {
       backToTitle(view);
       return null;
     case 'resume':
+      clearActionNote(view);
       view.overlay = null;
       return null;
     case 'mute':
@@ -5038,16 +5172,20 @@ function dispatch(view, id) {
     case 'quit':
       return 'quit';
     case 'dismiss':
-      // Q4: the closing report is a filed surface. Dismiss hides the sheet without destroying
-      // the underlying record; the player returns from pause.
+      // Q4 / s104 entry 4: the closing report is a filed surface. Return reveals the desk so the
+      // final after-action report can be read and scrolled; the record itself is not destroyed.
+      // Esc from that desk still reaches pause (Sound / Export / Provenance) and from pause the
+      // closed sheet again — never a live administration surface.
+      clearActionNote(view);
       if (view.overlay === 'closed') {
-        view.overlay = 'pause';
+        view.overlay = null;
       } else {
         view.overlay = null;
         view.errorMessage = null;
       }
       return null;
     case 'closedreport':
+      clearActionNote(view);
       view.overlay = 'closed';
       return null;
     case 'newtenure':
@@ -5131,7 +5269,14 @@ function attachInput(canvas, view, host = {}) {
     }
     const { x, y } = toBuffer(canvas, ev.clientX, ev.clientY);
     const geo = cutawayGeometry(view.facility.dims, view.pan, sectionFocus(view.facility, view));
-    view.hoverCell = cellAtPoint(geo, x, y);
+    const next = cellAtPoint(geo, x, y);
+    if (
+      view.actionNoteCell &&
+      (!next || next.x !== view.actionNoteCell.x || next.y !== view.actionNoteCell.y)
+    ) {
+      view.actionNoteCell = null;
+    }
+    view.hoverCell = next;
   }
 
   function scrollReport(view, delta) {
@@ -5162,6 +5307,28 @@ function attachInput(canvas, view, host = {}) {
       }
       return;
     }
+    // M and L are play controls as well as document controls. They remain available while the
+    // player is at the desk, checking a sign-over, or watching the incident replay; requiring the
+    // pause sheet to be open contradicted the controls copy and made both keys inert in play.
+    if ((view.overlay === null || view.overlay === 'checklist' || view.overlay === 'raid') && (token === 'M' || token === 'L')) {
+      ev.preventDefault();
+      handleIntent(dispatch(view, token === 'M' ? 'mute' : 'exportlog'));
+      return;
+    }
+    // C and A remain declared verbs even when their contextual buttons are absent. Dispatch their
+    // empty-target paths so the status strip explains the refusal instead of retaining stale text.
+    // A still honours the collection-contract WASD pan when no instrument stands.
+    if (view.overlay === null && token === 'C') {
+      ev.preventDefault();
+      handleIntent(dispatch(view, 'withdraw'));
+      return;
+    }
+    if (view.overlay === null && token === 'A' && !computeButtons(view).some((b) => b.enabled && b.key === 'A')) {
+      ev.preventDefault();
+      handleIntent(dispatch(view, 'answer'));
+      view.pan.x += step;
+      return;
+    }
     // Page keys scroll the after-action report when one is present.
     if (token === 'page-up') {
       if (scrollReport(view, -26)) ev.preventDefault();
@@ -5180,6 +5347,12 @@ function attachInput(canvas, view, host = {}) {
       return;
     }
     // A letter that names an active button fires it (buttons take priority over the WASD pan).
+    // On TENURE CLOSED, X remains a documented alias for Return even though the button claims Enter.
+    if (view.overlay === 'closed' && token === 'X') {
+      ev.preventDefault();
+      handleIntent(dispatch(view, 'dismiss'));
+      return;
+    }
     const btn = computeButtons(view).find((b) => b.enabled && b.key === token);
     if (btn) {
       ev.preventDefault();
@@ -5243,7 +5416,7 @@ __mods["render"] = function(module, exports, require){
 //     divided by a double rule;
 //   - both faces come from the Not Jam Font Pack, and nothing is drawn at a size they were not cut
 //     for (type.js carries the register argument for the pair).
-const { SCREEN, CUTAWAY, LEDGER, ACTIONBAR, computeButtons, cutawayGeometry, sectionFocus, SECTION_INSET } = require('layout');
+const { SCREEN, CUTAWAY, LEDGER, ACTIONBAR, OVERLAY_SHEET, computeButtons, cutawayGeometry, sectionFocus, SECTION_INSET } = require('layout');
 const { facilityDefense, activeStaff, CONFIG, countClaimed, worksDefense } = require('model');
 const { canExcavate, countExcavated } = require('grid');
 const { housingCapacity, foodCapacity, openPosts, DEPT_ARCHETYPE } = require('staff');
@@ -5387,6 +5560,15 @@ const COLUMN_W = M.right - M.left;
 // to the foot of the sheet with nothing under it, which is the wrong thing to lose.
 const REPORT_RESERVE = 116;
 const STATEMENT_FLOOR = PAPER.y + PAPER.h - REPORT_RESERVE;
+// A served notice adds a three-row legal instrument. During that state the report yields enough
+// height for the permanent facility census below it; the report remains scrollable and keeps at
+// least two readable lines. Dropping current state when an officer arrives is worse than requiring
+// one more scroll on the already-scrollable report.
+const STANDING_REPORT_RESERVE = 58;
+// After a tenure closes, Return opens the desk so the filed report can be read. That reading is the
+// reason the desk is reachable: keep a full report reserve even when a notice still stands on the
+// sheet, and trim statement rows that would otherwise crush the window to a single clipped line.
+const CLOSED_REPORT_RESERVE = 152;
 const ZONE_SPLIT = PAPER.y + 168;
 
 const DEPT_LABEL = {
@@ -5398,6 +5580,18 @@ const DEPT_LABEL = {
   commissary: 'Commissary',
   excavation: 'Excavation',
 };
+
+// THE POST-TENURE DESK, defined once (fix-r1 item 4). After Return from TENURE CLOSED the desk is
+// not an administration surface with its levers torn off; it is the FILED RECORD, and everything
+// it paints says so. The section strap names what the drawing now is instead of inviting a click
+// the closed tenure cannot take, and the status strip stays a live instrument: it answers the
+// pointer with the same plain-language cell read the live desk gives, and its idle line says what
+// the desk is for. The inert action bar (s104 r4, ratified) keeps stating that no administration
+// stands; the strip below it no longer freezes on that notice.
+const CLOSED_DESK = Object.freeze({
+  strap: 'the drawing is the filed record',
+  strip: 'The section and the report are retained for reading.',
+});
 
 // ---- per-pixel caches --------------------------------------------------------------------------
 
@@ -5481,32 +5675,64 @@ function heading(ctx, label, y, left = M.left, width = COLUMN_W) {
 // One ruled row: a label on the left, a figure right-aligned on the column edge, and leader dots
 // joining them. The dots are what make it read as a ledger rather than a readout, and they are also
 // a legibility aid, carrying the eye from a label to its own number, which is the LEGIBILITY LAW's
-// whole concern.
-function row(ctx, label, value, y, valueColor = C.inkBody, left = M.left, right = M.right) {
+// whole concern. `hideValue`, when given, is asked (x, y, width) for the value's ink box and may
+// suppress the figure (the row keeps its place): the desk ledger uses it so an open overlay sheet
+// never leaves a number half-covered. A figure is painted whole or not at all.
+function row(ctx, label, value, y, valueColor = C.inkBody, left = M.left, right = M.right, hideValue = null) {
   text(ctx, label, left, y, C.inkBody, SIZE.body);
   ctx.font = font(SIZE.body, FACE.body);
   const labelW = ctx.measureText(label).width;
   const valueW = ctx.measureText(value).width;
+  // A ledger value may grow with play. If label plus value cannot retain a readable gap, set the
+  // value on the following ruled line instead of allowing the two ink runs to overprint.
+  if (left + labelW + 5 > right - valueW) {
+    if (!(hideValue && hideValue(right - valueW, y + LEAD.row, valueW))) {
+      textRight(ctx, value, right, y + LEAD.row, valueColor);
+    }
+    return y + LEAD.row * 2;
+  }
   const gapStart = left + labelW + 5;
   const gapEnd = right - valueW - 5;
   ctx.fillStyle = C.paperShade;
   for (let x = gapStart; x < gapEnd; x += 4) ctx.fillRect(x, y + SIZE.body - 3, 1, 1);
-  textRight(ctx, value, right, y, valueColor);
+  if (!(hideValue && hideValue(right - valueW, y, valueW))) {
+    textRight(ctx, value, right, y, valueColor);
+  }
   return y + LEAD.row;
 }
 
-// Word-wrap a string into the given width, returning the new y. `maxY` is a hard floor: a line that
-// would be drawn below it is not drawn at all, because a half-line cut off by the edge of the sheet
-// is a number the player cannot read.
-function wrap(ctx, str, x, y, maxW, color, size = SIZE.body, maxY = Infinity, face = FACE.body) {
+// Word-wrap a string into the given width, returning the new y. `maxY` is a hard floor and `minY`
+// a hard ceiling: a line whose glyph box is not fully inside [minY, maxY] is not drawn, because a
+// half-line cut off by the edge of the report window is a number the player cannot read. `skipIf`,
+// when given, is asked (x, y, lineWidth) before each line is painted and may suppress the draw
+// without disturbing the flow (the same contract the window guards already follow).
+function wrap(
+  ctx,
+  str,
+  x,
+  y,
+  maxW,
+  color,
+  size = SIZE.body,
+  maxY = Infinity,
+  face = FACE.body,
+  minY = -Infinity,
+  skipIf = null,
+) {
   ctx.font = font(size, face);
   const words = String(str).split(' ');
   let line = '';
+  const paint = (atY, s) => {
+    if (atY + size > maxY) return false;
+    if (atY < minY) return true;
+    if (skipIf && skipIf(x, atY, ctx.measureText(s).width)) return true;
+    text(ctx, s, x, atY, color, size, face);
+    return true;
+  };
   for (const w of words) {
     const test = line ? `${line} ${w}` : w;
     if (ctx.measureText(test).width > maxW && line) {
-      if (y + size > maxY) return y;
-      text(ctx, line, x, y, color, size, face);
+      if (!paint(y, line)) return y;
       y += LEAD.tight;
       line = w;
       ctx.font = font(size, face);
@@ -5515,8 +5741,7 @@ function wrap(ctx, str, x, y, maxW, color, size = SIZE.body, maxY = Infinity, fa
     }
   }
   if (line) {
-    if (y + size > maxY) return y;
-    text(ctx, line, x, y, color, size, face);
+    if (!paint(y, line)) return y;
     y += LEAD.tight;
   }
   return y;
@@ -5541,6 +5766,14 @@ function measureWrap(ctx, str, maxW, size = SIZE.body, face = FACE.body) {
   }
   if (line) lines += 1;
   return lines * LEAD.tight;
+}
+
+// Continuation copy for an overflowing report. Always name Page Up / Page Down in full; wrap()
+// already splits the line when the column is narrow, so a shortened "Page keys" form buys nothing.
+function continuationNote(moreAbove, moreBelow) {
+  if (moreAbove && moreBelow) return 'More above and below: Page Up / Page Down / wheel';
+  if (moreAbove) return 'More above: Page Up / wheel';
+  return 'More below: Page Down / wheel';
 }
 
 // ---- the section -----------------------------------------------------------------------------------
@@ -5581,7 +5814,18 @@ function drawCutaway(ctx, view) {
   } else {
     text(ctx, 'FACILITY SECTION', CUTAWAY.x + 6, CUTAWAY.y + 2, C.sectionLabel, SIZE.title, FACE.display);
     const w = ctx.measureText('FACILITY SECTION').width;
-    text(ctx, 'click rock to carve', CUTAWAY.x + 14 + w, CUTAWAY.y + 3, C.sectionLabel);
+    // A closed tenure takes no clicks: the strap says what the drawing IS (the filed record),
+    // never what a click would do. The post-tenure desk is defined once, in CLOSED_DESK.
+    const tool = view.tool || 'excavate';
+    const instruction =
+      f.status !== 'active'
+        ? CLOSED_DESK.strap
+        : tool === 'excavate'
+          ? 'click rock to excavate'
+          : tool === 'clear'
+            ? 'click a department to clear'
+            : 'click claimed floor to designate';
+    text(ctx, instruction, CUTAWAY.x + 14 + w, CUTAWAY.y + 3, C.sectionLabel);
   }
   ctx.restore();
   popTextClip();
@@ -5594,6 +5838,22 @@ function drawCutaway(ctx, view) {
   ctx.clip();
 
   const cell = geo.cell;
+  // The current excavation frontier is part of the plan, not a secret found by failed clicks.
+  // Mark every physically carvable rock cell with a fine brass dotted boundary. Queued cells get
+  // the stronger works-order ghost below, so availability and commitment remain distinct states.
+  if ((view.tool || 'excavate') === 'excavate') {
+    ctx.strokeStyle = C.brassBright;
+    ctx.setLineDash([1, 2]);
+    for (let y = 0; y < f.dims.rows; y++) {
+      for (let x = 0; x < f.dims.cols; x++) {
+        if (!canExcavate(f, x, y)) continue;
+        const px = geo.ox + x * cell;
+        const py = geo.oy + y * cell;
+        ctx.strokeRect(px + 1.5, py + 1.5, cell - 3, cell - 3);
+      }
+    }
+    ctx.setLineDash([]);
+  }
   for (const order of f.orders) {
     if (order.kind !== 'excavate') continue;
     if (order.status === 'done' || order.status === 'cancelled') continue;
@@ -5680,16 +5940,40 @@ function drawCutaway(ctx, view) {
   text(ctx, 'LEGEND', plate.x + 6, plate.y + 3, C.inkBody, SIZE.title, FACE.display);
   ctx.font = font(SIZE.title, FACE.display);
   const legendW = ctx.measureText('LEGEND').width;
-  text(ctx, 'hatch = rock  ·  bright edge = floor', plate.x + 12 + legendW, plate.y + 3, C.inkBody);
-  text(ctx, 'outline = a department  ·  ring = the Cornerstone', plate.x + 6, plate.y + 19, C.inkBody);
+  // The outline term names the brass DOTTED boundary the renderer actually draws: the excavation
+  // plan mark on carvable rock (ratified fix round 1), not a department. "outline = a department"
+  // contradicted the board on the very line a stranger reads to decode it; a department reads
+  // from its lit floor, the ledger row, and the hover read, not from this key. The four terms are
+  // split so each line fits the plate in the shipped face (measured, not estimated).
+  text(ctx, 'hatch = rock  ·  ring = the Cornerstone', plate.x + 12 + legendW, plate.y + 3, C.inkBody);
+  text(ctx, 'bright edge = floor  ·  dotted outline = carvable rock', plate.x + 6, plate.y + 19, C.inkBody);
   ctx.restore();
   popTextClip();
 }
 
 // ---- the ledger, as a document ------------------------------------------------------------------
 
+// True when an ink run would be PARTIALLY covered by the open overlay sheet. A number sliced by
+// the edge of a document lying on the desk misreads as a different number ("400 / 500 g" reads as
+// "0 / 500 g", whatever the true gold), so while a sheet is down the desk paints a figure whole or
+// not at all. Runs fully clear of the sheet, or fully underneath it, are left alone: paper over
+// ink is the honest picture, half a digit is not.
+function slicedBySheet(sheet, x, y, w, h = SIZE.body) {
+  if (!sheet) return false;
+  const ix0 = Math.max(x, sheet.x);
+  const iy0 = Math.max(y, sheet.y);
+  const ix1 = Math.min(x + w, sheet.x + sheet.w);
+  const iy1 = Math.min(y + h, sheet.y + sheet.h);
+  if (ix0 >= ix1 || iy0 >= iy1) return false; // clear of the sheet: fully visible
+  return !(x >= sheet.x && y >= sheet.y && x + w <= sheet.x + sheet.w && y + h <= sheet.y + sheet.h);
+}
+
 function drawLedger(ctx, view) {
   const f = view.facility;
+  // The document lying on the desk, when one is open. The incident replay lays no sheet: the
+  // whole desk stays visible under it.
+  const sheet = view.overlay && view.overlay !== 'raid' ? OVERLAY_SHEET : null;
+  const hideSliced = (x, y, w) => slicedBySheet(sheet, x, y, w);
   band(ctx, LEDGER, C.paperEdge);
   const key = `${PAPER.w}x${PAPER.h}:${f.seed}`;
   if (paperCache.key !== key || !paperCache.image) {
@@ -5709,7 +5993,14 @@ function drawLedger(ctx, view) {
   // ---- the statement zone ----
   let y = M.top;
   text(ctx, 'LEDGER', M.left, y, C.inkBody, SIZE.title, FACE.display);
-  textRight(ctx, `cycle ${f.cycle.number}, ${f.cycle.phase}`, M.right, y + 1, C.inkSecondary);
+  // A closed tenure's clock states the cycles the tenure SERVED, not the number of the ADMIN
+  // phase that followed the final resolution (an administration that will never happen), so the
+  // desk agrees with the closing report's "Cycles served" on the screen they share (fix-r1 item 8).
+  const clock =
+    f.status !== 'active'
+      ? `cycle ${f.tenure.cyclesSurvived}, closed`
+      : `cycle ${f.cycle.number}, ${f.cycle.phase}`;
+  textRight(ctx, clock, M.right, y + 1, C.inkSecondary);
   y += SIZE.title + 5;
   rule(ctx, M.left, y, COLUMN_W, C.inkRule);
   rule(ctx, M.left, y + 2, COLUMN_W, C.inkRule);
@@ -5726,49 +6017,119 @@ function drawLedger(ctx, view) {
   const held = f.captives ? f.captives.length : 0;
   const rooms = f.rooms || [];
 
-  // The core of the statement: the figures a manager reads every single cycle.
-  y = row(ctx, 'Treasury', `${f.treasury.gold} / ${f.treasury.capacity} g`, y, f.treasury.gold < 60 ? C.stampInk : C.inkBody);
-  y = row(ctx, 'Defence', `${facilityDefense(f)}  (fortify ${f.fortify})`, y);
-  y = row(ctx, 'Posts', `${crew.length} standing, ${grieving} grieving`, y, grieving > 0 ? C.stampInk : C.inkBody);
-  y = row(ctx, 'Amenities', `housed ${housed}/${housingCapacity(f)}, fed ${fed}/${foodCapacity(f)}`, y, overCap ? C.stampInk : C.inkBody);
-  y = row(ctx, 'Morale', `${avgMorale} / 100`, y, avgMorale < 30 ? C.stampInk : C.inkBody);
-  y = row(ctx, 'Cornerstone', `${f.lossObject.condition} / 100`, y, f.lossObject.condition < 40 ? C.stampInk : C.inkBody);
+  // The core of the statement: the figures a manager reads every single cycle. Every ruled figure
+  // passes hideSliced so an open sheet can never leave one half-covered (see slicedBySheet).
+  y = row(
+    ctx,
+    'Treasury',
+    `${f.treasury.gold} / ${f.treasury.capacity} g`,
+    y,
+    f.treasury.gold < 60 ? C.stampInk : C.inkBody,
+    M.left,
+    M.right,
+    hideSliced,
+  );
+  y = row(ctx, 'Defence', `${facilityDefense(f)}  (fortify ${f.fortify})`, y, C.inkBody, M.left, M.right, hideSliced);
+  y = row(
+    ctx,
+    'Posts',
+    `${crew.length} standing, ${grieving} grieving`,
+    y,
+    grieving > 0 ? C.stampInk : C.inkBody,
+    M.left,
+    M.right,
+    hideSliced,
+  );
+  y = row(
+    ctx,
+    'Amenities',
+    `housed ${housed}/${housingCapacity(f)}, fed ${fed}/${foodCapacity(f)}`,
+    y,
+    overCap ? C.stampInk : C.inkBody,
+    M.left,
+    M.right,
+    hideSliced,
+  );
+  y = row(ctx, 'Morale', `${avgMorale} / 100`, y, avgMorale < 30 ? C.stampInk : C.inkBody, M.left, M.right, hideSliced);
+  y = row(
+    ctx,
+    'Cornerstone',
+    `${f.lossObject.condition} / 100`,
+    y,
+    f.lossObject.condition < 40 ? C.stampInk : C.inkBody,
+    M.left,
+    M.right,
+    hideSliced,
+  );
 
   // The standing officer and his instrument, drawn BEFORE the optional rows because it is the
   // game's defining mechanic. A served notice is a thing attached to the sheet, so it gets its own
   // stamped block rather than a row.
   const served = f.notices.filter((n) => n.status === 'served');
+  const closedReading = f.status !== 'active';
+  const statementFloor = closedReading
+    ? PAPER.y + PAPER.h - CLOSED_REPORT_RESERVE
+    : served.length || f.ladder.rung !== 'none'
+      ? PAPER.y + PAPER.h - STANDING_REPORT_RESERVE
+      : STATEMENT_FLOOR;
   if (served.length || f.ladder.rung !== 'none') {
-    y += 5;
-    y = heading(ctx, 'STANDING', y);
-    y = row(ctx, 'Officer', OFFICER[f.ladder.rung] || 'none in attendance', y, served.length ? C.stampInk : C.inkBody);
-    for (const n of served) {
-      y = row(ctx, INSTRUMENT_NAME[n.rung], `${n.cyclesRemaining} cycle(s) left`, y, C.stampInk);
-      y = row(ctx, 'Answer administratively', `${CFG.ladder.answerCost[n.rung]} g  [A]`, y, C.stampInk);
+    const standingNeed =
+      5 + SIZE.title + LEAD.rule + 3 + LEAD.row * (1 + served.length * 2);
+    // On a closed reading desk the filed report keeps its reserve; the instrument block yields if
+    // it would leave only a clipped line under AFTER-ACTION REPORT.
+    if (!closedReading || y + standingNeed <= statementFloor) {
+      y += 5;
+      y = heading(ctx, 'STANDING', y);
+      y = row(
+        ctx,
+        'Officer',
+        OFFICER[f.ladder.rung] || 'none in attendance',
+        y,
+        served.length ? C.stampInk : C.inkBody,
+        M.left,
+        M.right,
+        hideSliced,
+      );
+      for (const n of served) {
+        y = row(ctx, INSTRUMENT_NAME[n.rung], `${n.cyclesRemaining} cycle(s) left`, y, C.stampInk, M.left, M.right, hideSliced);
+        y = row(ctx, 'Answer administratively', `${CFG.ladder.answerCost[n.rung]} g  [A]`, y, C.stampInk, M.left, M.right, hideSliced);
+      }
     }
   }
 
-  // The optional rows, drawn only while there is room above the reserved report zone. Each is a
-  // figure the drawing already shows in some form, so losing one on a busy sheet costs the player
-  // nothing they cannot read off the section or a hover.
+  // The facility census follows the legal instrument and never disappears during an active tenure.
+  // Lower-priority works, vacancies, and backlog rows may use whatever space remains above the
+  // reserved report zone. On a closed reading desk the census yields so the final report stays
+  // readable.
   const placed = castPlacements(f, view);
   const onFloors = {
     staff: placed.filter((p) => p.role !== 'raider' && p.role !== 'officer').length,
     raiders: placed.filter((p) => p.role === 'raider').length,
     officers: placed.filter((p) => p.role === 'officer').length,
   };
-  const optional = [];
+  const standingState = [];
   if (rooms.length) {
     const best = rooms.reduce((a, r) => (r.quality > a.quality ? r : a), rooms[0]);
-    optional.push(['Departments', `${rooms.length}, best ${DEPT_LABEL[best.type] || best.type} ${best.quality.toFixed(2)}`, C.inkBody]);
+    standingState.push([
+      'Departments',
+      `${rooms.length}, best ${DEPT_LABEL[best.type] || best.type} ${best.quality.toFixed(2)}x of 6-cell standard`,
+      C.inkBody,
+    ]);
   } else {
-    optional.push(['Departments', 'none designated', C.inkSecondary]);
+    standingState.push(['Departments', 'none designated', C.inkSecondary]);
   }
-  optional.push([
+  standingState.push([
     'On the floors',
     `${onFloors.staff} staff, ${onFloors.raiders} raiders, ${onFloors.officers} officer`,
     onFloors.raiders > 0 ? C.stampInk : C.inkBody,
   ]);
+  standingState.push(['Detention', `${held} / ${detentionCapacity(f)} held`, C.inkBody]);
+  for (const [label, value, colour] of standingState) {
+    if (closedReading && y + LEAD.row > statementFloor) break;
+    y = row(ctx, label, value, y, colour, M.left, M.right, hideSliced);
+  }
+
+  const optional = [];
   // KEEP #6 made legible: the manufactured works are their own row, because a door the facility
   // owns is a different fact from a fortification it bought, and the defence figure alone hides
   // both. The LEGIBILITY LAW asks that every number carry a plain-language label at the point of
@@ -5779,26 +6140,31 @@ function drawLedger(ctx, view) {
   }
   if (openTotal > 0) optional.push(['Open posts', String(openTotal), C.inkBody]);
   if (backlog > 0) optional.push(['Claims backlog', `${backlog} cell(s)`, C.inkBody]);
-  if (held > 0) optional.push(['Detention', `${held} / ${detentionCapacity(f)} held`, C.inkBody]);
   for (const [label, value, colour] of optional) {
-    if (y + LEAD.row > STATEMENT_FLOOR) break;
-    y = row(ctx, label, value, y, colour);
+    if (y + LEAD.row > statementFloor) break;
+    y = row(ctx, label, value, y, colour, M.left, M.right, hideSliced);
   }
 
   // ---- the report zone ----
-  const reportTop = Math.min(Math.max(y + 8, ZONE_SPLIT), STATEMENT_FLOOR + 10);
+  const reportTop = Math.min(Math.max(y + 8, ZONE_SPLIT), statementFloor + 10);
   rule(ctx, M.left, reportTop - 9, COLUMN_W, C.inkRule);
   rule(ctx, M.left, reportTop - 7, COLUMN_W, C.inkRule);
   let ry = heading(ctx, 'AFTER-ACTION REPORT', reportTop);
   const floor = PAPER.y + PAPER.h - 10;
   const report = f.lastReport;
   if (!report) {
-    text(ctx, 'No cycle has been signed over yet.', M.left, ry, C.inkSecondary);
+    const none = 'No cycle has been signed over yet.';
+    ctx.font = font(SIZE.body, FACE.body);
+    if (!hideSliced(M.left, ry, ctx.measureText(none).width)) {
+      text(ctx, none, M.left, ry, C.inkSecondary);
+    }
   } else {
     // The report is scrollable: late-cycle reports can be long, and silently dropping their tail
     // lines is a defect (Release fix round B3). The heading stays fixed; only the lines scroll.
-    const reportLinesTop = ry;
-    const reportLinesH = floor - reportLinesTop;
+    //
+    // Continuation note sits on its own line under the heading, never on the heading's baseline: a
+    // right-aligned hint on the same y as AFTER-ACTION REPORT overprinted the title at 1440x900
+    // DPR 2 and at 150% text scale.
     const contentH = report.lines.reduce((h, line) => {
       return (
         h +
@@ -5808,20 +6174,67 @@ function drawLedger(ctx, view) {
         5
       );
     }, 0);
+    let reportLinesTop = ry;
+    let reportLinesH = floor - reportLinesTop;
     view.reportMaxScroll = Math.max(0, contentH - reportLinesH);
-    view.reportScroll = Math.max(0, Math.min(view.reportScroll || 0, view.reportMaxScroll));
+    let scrollNote = null;
+    if (view.reportMaxScroll > 0) {
+      // Overflowing reports pay for a continuation note under the heading, then recompute scroll
+      // range against the remaining window. The note is left-aligned and kept inside the column: a
+      // right-aligned single run of the mid-scroll form overran the paper clip mid-word.
+      let noteH = LEAD.tight;
+      for (let pass = 0; pass < 2; pass++) {
+        reportLinesTop = ry + noteH;
+        reportLinesH = floor - reportLinesTop;
+        view.reportMaxScroll = Math.max(0, contentH - reportLinesH);
+        view.reportScroll = Math.max(0, Math.min(view.reportScroll || 0, view.reportMaxScroll));
+        const moreAbove = view.reportScroll > 0;
+        const moreBelow = view.reportScroll < view.reportMaxScroll;
+        scrollNote = continuationNote(moreAbove, moreBelow);
+        noteH = measureWrap(ctx, scrollNote, COLUMN_W);
+      }
+      reportLinesTop = ry + noteH;
+      reportLinesH = floor - reportLinesTop;
+      view.reportMaxScroll = Math.max(0, contentH - reportLinesH);
+      view.reportScroll = Math.max(0, Math.min(view.reportScroll || 0, view.reportMaxScroll));
+      const moreAbove = view.reportScroll > 0;
+      const moreBelow = view.reportScroll < view.reportMaxScroll;
+      scrollNote = continuationNote(moreAbove, moreBelow);
+      wrap(ctx, scrollNote, M.left, ry, COLUMN_W, C.stampInk, SIZE.body, Infinity, FACE.body, -Infinity, hideSliced);
+    } else {
+      view.reportScroll = 0;
+    }
 
-    pushTextClip(M.left - 2, reportLinesTop, COLUMN_W + 4, reportLinesH);
+    const windowFloor = reportLinesTop + Math.max(0, reportLinesH);
+    pushTextClip(M.left - 2, reportLinesTop, COLUMN_W + 4, Math.max(0, reportLinesH));
     ctx.save();
     ctx.beginPath();
-    ctx.rect(M.left - 2, reportLinesTop, COLUMN_W + 4, reportLinesH);
+    ctx.rect(M.left - 2, reportLinesTop, COLUMN_W + 4, Math.max(0, reportLinesH));
     ctx.clip();
-    ctx.translate(0, -view.reportScroll);
+    // Apply the scroll to authored text coordinates, not only to the canvas transform. The crisp
+    // display-resolution text layer records fillText calls for later painting and deliberately
+    // does not inherit the native canvas transform; a transform-only scroll therefore moved the
+    // paper marks while leaving every readable report line fixed below the sheet.
+    ry = reportLinesTop - view.reportScroll;
 
     for (const line of report.lines) {
-      ry = wrap(ctx, line.numeric, M.left, ry, COLUMN_W, C.inkBody, SIZE.body, Infinity);
-      ry = wrap(ctx, line.text, M.left + 8, ry, COLUMN_W - 8, C.inkSecondary, SIZE.body, Infinity);
-      if (line.cause) ry = wrap(ctx, `cause: ${line.cause}`, M.left + 8, ry, COLUMN_W - 8, C.inkSecondary, SIZE.body, Infinity);
+      ry = wrap(ctx, line.numeric, M.left, ry, COLUMN_W, C.inkBody, SIZE.body, windowFloor, FACE.body, reportLinesTop, hideSliced);
+      ry = wrap(ctx, line.text, M.left + 8, ry, COLUMN_W - 8, C.inkSecondary, SIZE.body, windowFloor, FACE.body, reportLinesTop, hideSliced);
+      if (line.cause) {
+        ry = wrap(
+          ctx,
+          `cause: ${line.cause}`,
+          M.left + 8,
+          ry,
+          COLUMN_W - 8,
+          C.inkSecondary,
+          SIZE.body,
+          windowFloor,
+          FACE.body,
+          reportLinesTop,
+          hideSliced,
+        );
+      }
       ry += 5;
     }
     ctx.restore();
@@ -5858,13 +6271,26 @@ function drawButton(ctx, b) {
 // describeCell(f, x, y) -> a plain-language label for a cell, at the point of reading (LEGIBILITY
 // LAW): no sigil a first-session player would have to ask about goes unexplained, and that includes
 // the figures, so a player can ask the drawing who is standing in a room.
-function describeCell(f, x, y) {
+function describeCell(f, x, y, tool = 'excavate') {
   if (!f.grid[y] || !f.grid[y][x]) return '';
   const c = f.grid[y][x];
   if (f.lossObject.cell.x === x && f.lossObject.cell.y === y) {
     return `The Cornerstone, the loss object (condition ${f.lossObject.condition}/100)`;
   }
-  if (!c.surveyed) return 'Unsurveyed rock (contents unknown until it is carved)';
+  if (!c.surveyed) {
+    const ordered = (f.orders || []).some(
+      (o) => o.kind === 'excavate' && o.status !== 'done' && o.status !== 'cancelled' && o.target.x === x && o.target.y === y,
+    );
+    if (ordered) return `Excavation ordered: unsurveyed rock, contents unknown; ${CONFIG.orders.excavate.cost}g committed.`;
+    if (tool !== 'excavate') {
+      if (tool === 'clear') return 'Clear unavailable: unsurveyed rock has no department designation.';
+      return `${DEPT_LABEL[tool] || tool} unavailable: unsurveyed rock must be excavated and claimed first.`;
+    }
+    if (canExcavate(f, x, y)) {
+      return `Excavation available: unsurveyed rock, contents unknown; ${CONFIG.orders.excavate.cost}g works order.`;
+    }
+    return 'Excavation unavailable: unsurveyed rock does not touch claimed floor.';
+  }
   if (c.roomType) {
     const arch = DEPT_ARCHETYPE[c.roomType];
     const posted = arch ? `, worked by the ${arch} caste` : '';
@@ -5882,9 +6308,48 @@ function drawActionBar(ctx, view) {
   // line a player reads to find out what a cell IS, so it has to be the easiest line on the screen,
   // not a dim caption on the desk.
   const strip = { x: ACTIONBAR.x, y: ACTIONBAR.y + 30, w: ACTIONBAR.w, h: ACTIONBAR.h - 30 };
+  // Closed tenures: no live levers. Fill the button row as quiet paper with an inert notice so the
+  // desk does not still read as an administration surface.
+  if (view.facility.status !== 'active') {
+    const inert = { x: ACTIONBAR.x, y: ACTIONBAR.y + 3, w: ACTIONBAR.w, h: 24 };
+    paperStrip(ctx, inert, 'actionbar-closed');
+    paperStrip(ctx, strip, 'statusstrip-closed');
+    pushTextClip(inert.x, inert.y, inert.w, inert.h);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(inert.x, inert.y, inert.w, inert.h);
+    ctx.clip();
+    text(ctx, 'No administration. The tenure is closed.', inert.x + 8, inert.y + 4, C.inkCopy);
+    ctx.restore();
+    popTextClip();
+    // The strip below the inert bar stays a LIVE READING INSTRUMENT (fix-r1 item 4): it answers
+    // the pointer with the same plain-language cell read the live desk gives, and its idle line
+    // says what the desk is for now. It does not freeze on the closed notice; the inert bar above
+    // already states that once, and a strip that cannot respond is the dead-desk tell.
+    const closedHover = view.hoverCell
+      ? describeCell(view.facility, view.hoverCell.x, view.hoverCell.y, view.tool || 'excavate')
+      : '';
+    const closedNote = closedHover || CLOSED_DESK.strip;
+    pushTextClip(strip.x, strip.y, strip.w, strip.h);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(strip.x, strip.y, strip.w, strip.h);
+    ctx.clip();
+    if (closedNote) text(ctx, closedNote, strip.x + 8, strip.y + 3, C.inkBody);
+    ctx.restore();
+    popTextClip();
+    return;
+  }
   paperStrip(ctx, strip, 'statusstrip');
-  const hover = view.hoverCell ? describeCell(view.facility, view.hoverCell.x, view.hoverCell.y) : '';
-  const note = hover || view.lastActionNote;
+  const hover = view.hoverCell ? describeCell(view.facility, view.hoverCell.x, view.hoverCell.y, view.tool || 'excavate') : '';
+  const actionAtHover = !!(
+    view.lastActionNote &&
+    view.actionNoteCell &&
+    view.hoverCell &&
+    view.actionNoteCell.x === view.hoverCell.x &&
+    view.actionNoteCell.y === view.hoverCell.y
+  );
+  const note = actionAtHover ? view.lastActionNote : hover || view.lastActionNote;
   pushTextClip(strip.x, strip.y, strip.w, strip.h);
   ctx.save();
   ctx.beginPath();
@@ -5956,14 +6421,18 @@ function overlayBox(ctx, view, title, masthead = null) {
   // OWN ramp, so the desk stays fibre, the manila stays manila, and the drawing behind the document
   // reads as a lit surface with the lamp turned down rather than as art behind glass.
   const f = view.facility;
-  const key = `${view.overlay}|${f.cycle.number}|${f.status}|${sectionCache.sig}`;
+  // The key carries the TREASURY as well: the backdrop is a frozen shot of the desk, and an
+  // order raised or withdrawn inside one ADMIN phase moves the gold without touching the grid,
+  // the cycle or the rung. A backdrop that kept the old figure would argue with the sheet in
+  // front of it (fix-r1 item 3: one desk, one gold).
+  const key = `${view.overlay}|${f.cycle.number}|${f.status}|${f.treasury.gold}|${sectionCache.sig}`;
   if (dimCache.key !== key || !dimCache.image) {
     const shot = ctx.getImageData(0, 0, SCREEN.w, SCREEN.h);
     darkenPixels(shot.data, 2.4, SCREEN.w);
     dimCache = { key, image: shot };
   }
   ctx.putImageData(dimCache.image, 0, 0);
-  const r = { x: 76, y: 34, w: SCREEN.w - 152, h: SCREEN.h - 80 };
+  const r = { x: OVERLAY_SHEET.x, y: OVERLAY_SHEET.y, w: OVERLAY_SHEET.w, h: OVERLAY_SHEET.h };
   // The sheet's cast shadow, taken from the dimmed backdrop rather than painted: the paper is
   // lying ON something, and what is under its edge is that thing, darker.
   const sh = ctx.getImageData(r.x + 3, r.y + r.h, r.w, 3);
@@ -6118,11 +6587,11 @@ function drawOverlay(ctx, view) {
     const r = overlayBox(ctx, view, 'PAUSED');
     let y = r.y + 40;
     const keys = [
-      'Controls. The mouse is primary; the game is playable with the mouse alone.',
-      '',
-      'Click a button to act.  Arrows or WASD pan the section.',
-      'F raise fortification.  Enter or Z sign over and confirm.  X cancel.',
-      'Esc pause.  M mute.  L export debug log.',
+      'Mouse: click a control or a cell. The full game is playable by mouse.',
+      'Pan: Arrows or WASD. Tool: T. Fortify: F. Repair: R.',
+      'Sign or confirm: Enter or Z. Cancel or back: X. Pause: Esc.',
+      'Withdraw: C. Answer: A. Mute: M. Export debug log: L.',
+      'Report scroll: Page Up / Page Down or wheel over the ledger.',
     ];
     for (const k of keys) {
       if (!k) {
@@ -6199,6 +6668,7 @@ exports.takeTextLayer = takeTextLayer;
 exports.pushTextClip = pushTextClip;
 exports.popTextClip = popTextClip;
 exports.paintTextLayer = paintTextLayer;
+exports.CLOSED_DESK = CLOSED_DESK;
 exports.describeCell = describeCell;
 exports.CHARTER_COPY_TOP = CHARTER_COPY_TOP;
 exports.render = render;
