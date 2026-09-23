@@ -154,8 +154,12 @@
   .sl-board[style*="flex"] { display: flex; }
   .sl-b-title { font-weight: bold; letter-spacing: 3px; color: #c8a03c; }
   .sl-b-sentence { font-size: 17px; line-height: 2.1; }
+  .sl-b-opening { margin-bottom: 8px; }
+  .sl-b-clause { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; gap: 8px; line-height: 1.35; margin-top: 8px; min-width: 0; }
+  .sl-b-clause-label { display: block; }
+  .sl-b-clause .sl-b-slot { width: 100% !important; min-width: 0; }
   .sl-b-victim { color: #b5561e; font-weight: bold; }
-  .sl-b-slot { background: #0c0a07; color: #c8a03c; border: 1px solid #6b7a32; padding: 3px 6px; font-family: inherit; font-size: 14px; min-width: 220px; max-width: 100%; }
+  .sl-b-slot { background: #0c0a07; color: #c8a03c; border: 1px solid #6b7a32; padding: 3px 6px; font-family: inherit; font-size: 14px; min-width: min(220px, 100%); max-width: 100%; }
   .sl-b-slot option { white-space: normal; }
   .sl-b-deflect { color: #b5561e; min-height: 22px; font-style: italic; }
   .sl-b-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
@@ -6018,16 +6022,62 @@ function trapModalFocus(container, ev, doc) {
   return true;
 }
 
+// Move keyboard focus into a modal as soon as it opens. Keeping this separate from
+// the Tab trap makes the contract easy to exercise in the DOM-light unit harness.
+function focusModal(container) {
+  if (!container?.querySelectorAll) return false;
+  const target = [...container.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .find((node) => node.style?.display !== 'none');
+  if (!target?.focus) return false;
+  target.focus();
+  return true;
+}
+
+// Explicit scrolling avoids relying on browser-specific button/select defaults.
+// Only consume the key when the scroll region itself owns focus, leaving selects
+// free to use arrows for their native option navigation.
+function scrollFocusedRegion(region, ev) {
+  if (!region || ev.target !== region) return false;
+  const page = Math.max(40, Math.floor((region.clientHeight || 120) * 0.8));
+  const deltas = { ArrowDown: 32, ArrowUp: -32, PageDown: page, PageUp: -page };
+  if (ev.key === 'Home') region.scrollTop = 0;
+  else if (ev.key === 'End') region.scrollTop = region.scrollHeight;
+  else if (deltas[ev.key]) region.scrollTop += deltas[ev.key];
+  else return false;
+  ev.preventDefault();
+  return true;
+}
+
 function loadBestAvailable(engine, save) {
   const slot = save.has('manual') ? 'manual' : save.has('auto') ? 'auto' : null;
   if (!slot) return { loaded: false, slot: null, message: 'No saved case found.' };
+  let newerAuto = false;
+  if (slot === 'manual' && save.has('auto') && typeof save.load === 'function') {
+    try {
+      const manualTick = Number(save.load('manual')?.data?.tick);
+      const autoTick = Number(save.load('auto')?.data?.tick);
+      newerAuto = Number.isFinite(manualTick) && Number.isFinite(autoTick) && autoTick > manualTick;
+    } catch (_) { /* engine.loadFrom owns loud reporting for the selected slot */ }
+  }
   const loaded = engine.loadFrom(slot);
   return {
     loaded: !!loaded,
     slot,
-    message: loaded ? (slot === 'manual' ? 'Saved case loaded.' : 'Autosave restored.') : 'Save could not be loaded.',
+    message: loaded
+      ? (slot === 'manual'
+        ? `Saved case loaded.${newerAuto ? ' Warning: a newer autosave was not loaded.' : ''}`
+        : 'Autosave restored.')
+      : 'Save could not be loaded.',
   };
 }
+
+const BOARD_PARTS = Object.freeze([
+  { text: 'The killer is ' }, { slot: 'suspect' }, { text: '. The victim is ' }, { victim: true }, { text: '. ' },
+  { text: 'Means: ' }, { slot: 'means' }, { text: '  Time: ' }, { slot: 'time' }, { text: '  Place: ' }, { slot: 'place' },
+  { text: '  Alibi mechanism: ' }, { slot: 'alibiMechanism' }, { text: '  Fact that breaks the alibi: ' }, { slot: 'prologueFact' },
+  { text: '  Contradicted statement: ' }, { slot: 'contradictedStatement' }, { text: '  Corroboration: ' }, { slot: 'corroboration' },
+  { text: '  Physical contradiction: ' }, { slot: 'physicalContradiction' },
+]);
 
 // Title help and arrows use the same documented keyboard vocabulary as the world.
 function handleTitleKey(ev, buttons, openHelp, doc) {
@@ -6135,7 +6185,7 @@ function init(doc = document, win = window) {
   engine.on('error', (e) => showError(e.message));
 
   // --- engine → view wiring -----------------------------------------------
-  engine.on('enter', () => { state.sceneDirty = true; state.openDoc = null; });
+  engine.on('enter', () => { state.sceneDirty = true; state.openDoc = null; refreshBottomBarEnabled(); });
   engine.on('checkpoint', () => { state.checkpointFlash = state.reducedMotion ? 1 : 90; });
   engine.on('restart', () => { ui.banner.style.display = 'none'; });
 
@@ -6290,8 +6340,8 @@ function init(doc = document, win = window) {
 
   // --- interrogation panel -------------------------------------------------
   const interro = makeInterrogationPanel(doc, ui, engine, win);
-  engine.on('interrogation-begin', () => { state.interrogationOpen = true; refreshBottomBarEnabled(); interro.resetLog(); ui.interro.style.display = 'flex'; interro.render(); });
-  engine.on('interrogation-end', () => { state.interrogationOpen = false; refreshBottomBarEnabled(); ui.interro.style.display = 'none'; });
+  engine.on('interrogation-begin', () => { state.interrogationOpen = true; refreshBottomBarEnabled(); interro.resetLog(); ui.interro.style.display = 'flex'; interro.render(); focusModal(ui.interro); });
+  engine.on('interrogation-end', () => { state.interrogationOpen = false; refreshBottomBarEnabled(); ui.interro.style.display = 'none'; ui.overlay.focus?.(); });
   engine.on('dialogue', () => { if (state.interrogationOpen) interro.render(); });
   engine.on('challenge', () => { if (state.interrogationOpen) interro.render(); });
   engine.on('afterthought', () => toast('You are halfway out the door before the question comes back to you. They are at ease now.'));
@@ -6300,8 +6350,8 @@ function init(doc = document, win = window) {
 
   // --- accusation board + ending ------------------------------------------
   const boardPanel = makeBoardPanel(doc, ui, engine);
-  engine.on('board-open', () => { state.boardOpen = true; refreshBottomBarEnabled(); ui.bDeflect.textContent = ''; ui.board.style.display = 'flex'; boardPanel.render(); });
-  engine.on('board-close', () => { state.boardOpen = false; refreshBottomBarEnabled(); ui.board.style.display = 'none'; });
+  engine.on('board-open', () => { state.boardOpen = true; refreshBottomBarEnabled(); ui.bDeflect.textContent = ''; ui.board.style.display = 'flex'; boardPanel.render(); focusModal(ui.board); });
+  engine.on('board-close', () => { state.boardOpen = false; refreshBottomBarEnabled(); ui.board.style.display = 'none'; ui.accuseBtn.focus?.(); });
   engine.on('case-solved', (e) => {
     state.boardOpen = false; ui.board.style.display = 'none';
     state.notebookOpen = false;
@@ -6315,11 +6365,11 @@ function init(doc = document, win = window) {
     setEndingMode(ui, engine, true);
     // the reveal returns to the murder scene behind the prose.
     state.backdropArt = world.backdropArt || null; state.sceneDirty = true;
-    showEnding(doc, ui, engine, win, e.chain, e.variant, () => {
+    showEnding(doc, ui, engine, win, e.chain, e.variant, (status) => requestCaseRestart(() => {
       state.endingOpen = false;
       ui.ending.style.display = 'none'; setEndingMode(ui, engine, false);
-      state.backdropArt = null; state.sceneDirty = true; engine.restart();
-    });
+      state.backdropArt = null; state.sceneDirty = true;
+    }, status));
   });
   ui.accuseBtn.addEventListener('click', () => { if (engine.mode !== MODES.ATOMIC) engine.openBoard(); });
   const doSubmit = (trap) => {
@@ -6360,25 +6410,27 @@ function init(doc = document, win = window) {
     ui.pCard.style.display = card ? 'flex' : 'none';
     state.backdropArt = world.backdropArt || null; state.sceneDirty = true; // the murder scene, behind the prose
     renderBeat(e.beat);
+    ui.pAction.focus?.();
   });
   engine.on('prologue', (e) => { if (e.type === 'beat') renderBeat(e.beat); });
   engine.on('prologue-end', () => {
     state.prologueOpen = false; ui.prologue.style.display = 'none'; state.reveal = null;
     setBottomBarEnabled(true);
     state.backdropArt = null; state.sceneDirty = true;
+    ui.overlay.focus?.();
   });
   ui.pAction.addEventListener('click', () => prologueAction());
 
   // --- input (keyboard path) ----------------------------------------------
   win.addEventListener('keydown', (ev) => {
-    if (state.endingOpen) return;
-    if (state.helpOpen) { if (ev.key === 'Escape' || ev.key === '?') { toggleHelp(false); ev.preventDefault(); } return; }
+    if (state.endingOpen) { trapModalFocus(ui.ending, ev, doc); return; }
+    if (state.helpOpen) { if (ev.key === 'Escape' || ev.key === '?') { toggleHelp(false); ev.preventDefault(); } else trapModalFocus(ui.help, ev, doc); return; }
     if (state.titleOpen) { handleTitleKey(ev, ui.tCases, () => toggleHelp(true), doc); return; }
-    if (state.optionsOpen) { if (ev.key === 'Escape') { toggleOptions(false); ev.preventDefault(); } return; }
+    if (state.optionsOpen) { if (ev.key === 'Escape') { toggleOptions(false); ev.preventDefault(); } else trapModalFocus(ui.options, ev, doc); return; }
     if (ev.key === '?') { toggleHelp(true); ev.preventDefault(); return; }
-    if (state.prologueOpen) { if (ev.key === 'Enter' || ev.key === ' ') { prologueAction(); ev.preventDefault(); } return; }
-    if (state.interrogationOpen) { interro.handleKey(ev); ev.preventDefault(); return; }
-    if (state.boardOpen) { if (ev.key === 'Escape') { engine.closeBoard(); ev.preventDefault(); } return; }
+    if (state.prologueOpen) { if (ev.key === 'Enter' || ev.key === ' ') { prologueAction(); ev.preventDefault(); } else trapModalFocus(ui.prologue, ev, doc); return; }
+    if (state.interrogationOpen) { if (!scrollFocusedRegion(ui.iLog, ev) && !interro.handleKey(ev)) trapModalFocus(ui.interro, ev, doc); return; }
+    if (state.boardOpen) { if (ev.key === 'Escape') { engine.closeBoard(); ev.preventDefault(); } else trapModalFocus(ui.board, ev, doc); return; }
     if (state.notebookOpen) {
       if (ev.key === 'Escape') { toggleNotebook(false); ev.preventDefault(); }
       else if (ev.key.toLowerCase() === 'n' && ev.target !== ui.nbSearch) { toggleNotebook(false); ev.preventDefault(); }
@@ -6388,7 +6440,8 @@ function init(doc = document, win = window) {
     if (state.openDoc) {
       if (ev.key === '+' || ev.key === '=') { state.openDoc.zoom.zoomIn(); ev.preventDefault(); return; }
       if (ev.key === '-' || ev.key === '_') { state.openDoc.zoom.zoomOut(); ev.preventDefault(); return; }
-      if (ev.key === 'Escape') { state.openDoc = null; ev.preventDefault(); return; }
+      if (ev.key === 'Escape') { state.openDoc = null; refreshBottomBarEnabled(); ui.overlay.focus?.(); ev.preventDefault(); return; }
+      if (ev.key === 'Tab') { ui.overlay.focus?.(); ev.preventDefault(); return; }
       return;
     }
     const action = DEFAULT_KEYMAP[ev.key];
@@ -6409,7 +6462,7 @@ function init(doc = document, win = window) {
     if (res.type === 'exit' || res.type === 'interrogation' || res.type === 'board') return;
     if (focused.meta && focused.meta.document) {
       const docReader = world.documents[focused.meta.document];
-      if (docReader) { docReader.zoom.reset(); state.openDoc = docReader; }
+      if (docReader) { docReader.zoom.reset(); state.openDoc = docReader; refreshBottomBarEnabled(); ui.overlay.focus?.(); }
       else log.error('main.act', `missing document ${focused.meta.document}`);
       return;
     }
@@ -6429,12 +6482,19 @@ function init(doc = document, win = window) {
     const result = loadBestAvailable(engine, save);
     toast(result.message);
   });
-  ui.restartBtn.addEventListener('click', () => {
+  function requestCaseRestart(beforeRestart = () => {}, status = null) {
     const confirmed = win.confirm ? win.confirm('Restart this case? All current progress will be cleared.') : false;
-    if (!confirmed) { toast('Restart cancelled.'); return; }
+    if (!confirmed) {
+      if (status) status.textContent = 'Restart cancelled. Your completed case is still here.';
+      else toast('Restart cancelled.');
+      return false;
+    }
+    beforeRestart();
     engine.restart();
     toast('Case restarted. Progress cleared.');
-  });
+    return true;
+  }
+  ui.restartBtn.addEventListener('click', () => requestCaseRestart());
   ui.logBtn.addEventListener('click', () => exportLog(doc, win, log));
 
   // --- settings / accessibility (M7) --------------------------------------
@@ -6486,11 +6546,15 @@ function init(doc = document, win = window) {
     note.textContent = 'No timers anywhere: reading, interrogations, and the board are untimed, forever.';
     ui.oBody.append(note);
   }
+  let optionsOpener = null;
   function toggleOptions(force) {
-    state.optionsOpen = force === undefined ? !state.optionsOpen : force;
+    const opening = force === undefined ? !state.optionsOpen : force;
+    if (opening && !state.optionsOpen) optionsOpener = doc.activeElement;
+    state.optionsOpen = opening;
     ui.options.style.display = state.optionsOpen ? 'flex' : 'none';
     refreshBottomBarEnabled();
-    if (state.optionsOpen) renderOptions();
+    if (state.optionsOpen) { renderOptions(); ui.oClose.focus?.(); }
+    else if (optionsOpener?.focus) { optionsOpener.focus(); optionsOpener = null; }
   }
   ui.optionsBtn.addEventListener('click', () => toggleOptions());
   ui.oClose.addEventListener('click', () => toggleOptions(false));
@@ -6506,11 +6570,15 @@ function init(doc = document, win = window) {
       ui.hBody.append(h);
     }
   }
+  let helpOpener = null;
   function toggleHelp(force) {
-    state.helpOpen = force === undefined ? !state.helpOpen : force;
+    const opening = force === undefined ? !state.helpOpen : force;
+    if (opening && !state.helpOpen) helpOpener = doc.activeElement;
+    state.helpOpen = opening;
     ui.help.style.display = state.helpOpen ? 'flex' : 'none';
     refreshBottomBarEnabled();
-    if (state.helpOpen) renderHelp();
+    if (state.helpOpen) { renderHelp(); ui.hClose.focus?.(); }
+    else if (helpOpener?.focus) { helpOpener.focus(); helpOpener = null; }
   }
   ui.helpBtn.addEventListener('click', () => toggleHelp());
   ui.hClose.addEventListener('click', () => toggleHelp(false));
@@ -6678,7 +6746,7 @@ function init(doc = document, win = window) {
     }
     setBottomBarEnabled(!(
       state.titleOpen || state.prologueOpen || state.notebookOpen || state.interrogationOpen
-      || state.boardOpen || state.optionsOpen || state.helpOpen || state.endingOpen
+      || state.boardOpen || state.optionsOpen || state.helpOpen || state.endingOpen || state.openDoc
     ));
   }
 
@@ -6867,6 +6935,7 @@ function buildDom(doc) {
   worldCanvas.className = 'sl-world';
   const overlay = doc.createElement('canvas');
   overlay.className = 'sl-overlay';
+  overlay.tabIndex = -1;
   stage.appendChild(worldCanvas);
   stage.appendChild(overlay);
 
@@ -6919,6 +6988,8 @@ function buildDom(doc) {
   const iOptions = el(doc, 'div', 'sl-i-options');
   const iChallenge = el(doc, 'div', 'sl-i-challenge');
   const iLog = el(doc, 'div', 'sl-i-log');
+  iLog.tabIndex = 0;
+  iLog.ariaLabel = 'Interrogation history; use arrows or page keys to scroll';
   const iBar = el(doc, 'div', 'sl-i-bar');
   const challengeBtn = button(doc, 'Challenge (c)');
   const leaveBtn = button(doc, 'Leave (esc)');
@@ -7198,13 +7269,14 @@ function makeInterrogationPanel(doc, ui, engine, win) {
   function toggleChallenge() { state.challengeMode = !state.challengeMode; render(); }
 
   function handleKey(ev) {
-    if (ev.key === 'Escape') { engine.endInterrogation(); return; }
-    if (ev.key === 'c') { toggleChallenge(); return; }
+    if (ev.key === 'Escape') { engine.endInterrogation(); ev.preventDefault(); return true; }
+    if (ev.key === 'c') { toggleChallenge(); ev.preventDefault(); return true; }
     const n = parseInt(ev.key, 10);
     if (!Number.isNaN(n) && engine.interrogation) {
       const opts = engine.interrogation.runner.options();
-      if (n >= 1 && n <= opts.length) engine.dialogueChoose(opts[n - 1].id);
+      if (n >= 1 && n <= opts.length) { engine.dialogueChoose(opts[n - 1].id); ev.preventDefault(); return true; }
     }
+    return false;
   }
 
   return { render, handleKey, toggleChallenge, resetLog: () => { state.log = []; state.challengeMode = false; } };
@@ -7214,25 +7286,11 @@ function makeInterrogationPanel(doc, ui, engine, win) {
 // from PINNED notebook entries. Submit validates the exact chain; a wrong submission
 // shows the one uniform deflection line (no gradient).
 function makeBoardPanel(doc, ui, engine) {
-  // Human-readable sentence scaffold with slot placeholders in order.
-  const PARTS = [
-    { text: 'The killer is ' }, { slot: 'suspect' },
-    { text: '. They killed ' }, { victim: true },
-    { text: ' by ' }, { slot: 'means' },
-    { text: ', at ' }, { slot: 'time' },
-    { text: ', in ' }, { slot: 'place' },
-    { text: '. The alibi was built with ' }, { slot: 'alibiMechanism' },
-    { text: ', but fails because ' }, { slot: 'prologueFact' },
-    { text: ' contradicts ' }, { slot: 'contradictedStatement' },
-    { text: '. Corroborated by ' }, { slot: 'corroboration' },
-    { text: ', with the physical contradiction ' }, { slot: 'physicalContradiction' },
-    { text: '.' },
-  ];
-
   function slotSelect(slot) {
     const sel = doc.createElement('select');
     sel.className = 'sl-b-slot';
     sel.dataset.slot = slot;
+    sel.id = `sl-board-${slot}`;
     const labels = [];
     const slotLabel = BOARD_SLOT_LABELS[slot] || 'evidence';
     const blank = doc.createElement('option'); blank.value = ''; blank.textContent = `[ ${slotLabel} ]`; sel.append(blank);
@@ -7253,12 +7311,27 @@ function makeBoardPanel(doc, ui, engine) {
 
   function render() {
     if (!engine.board) return;
+    const restoreFocus = ui.board.contains?.(doc.activeElement);
     ui.bSentence.innerHTML = '';
-    for (const part of PARTS) {
-      if (part.text) { const s = el(doc, 'span', 'sl-b-frag'); s.textContent = part.text; ui.bSentence.append(s); }
-      else if (part.victim) { const s = el(doc, 'span', 'sl-b-victim'); s.textContent = engine.board.victimName(); ui.bSentence.append(s); }
-      else ui.bSentence.append(slotSelect(part.slot));
+    const opening = el(doc, 'div', 'sl-b-opening');
+    for (const part of BOARD_PARTS.slice(0, 5)) {
+      if (part.text) { const s = el(doc, 'span', 'sl-b-frag'); s.textContent = part.text; opening.append(s); }
+      else if (part.victim) { const s = el(doc, 'span', 'sl-b-victim'); s.textContent = engine.board.victimName(); opening.append(s); }
+      else opening.append(slotSelect(part.slot));
     }
+    ui.bSentence.append(opening);
+    for (let i = 5; i < BOARD_PARTS.length; i += 2) {
+      const textPart = BOARD_PARTS[i];
+      const slotPart = BOARD_PARTS[i + 1];
+      const row = el(doc, 'div', 'sl-b-clause');
+      row.dataset.slot = slotPart.slot;
+      const label = el(doc, 'label', 'sl-b-clause-label');
+      label.htmlFor = `sl-board-${slotPart.slot}`;
+      label.textContent = textPart.text;
+      row.append(label, slotSelect(slotPart.slot));
+      ui.bSentence.append(row);
+    }
+    if (restoreFocus) ui.bSentence.querySelector('select')?.focus();
   }
 
   return { render };
@@ -7284,8 +7357,10 @@ function showEnding(doc, ui, engine, win, chain, variant, onRestart) {
     ui.ending.append(kicker, cast);
     if (beat.card) {
       const card = el(doc, 'div', 'sl-end-title'); card.textContent = beat.card;
-      const again = button(doc, 'A new case (restart)'); again.addEventListener('click', onRestart);
-      ui.ending.append(card, again);
+      const status = el(doc, 'div', 'sl-end-reaction'); status.role = 'status';
+      const again = button(doc, 'A new case (restart)'); again.addEventListener('click', () => onRestart(status));
+      ui.ending.append(card, again, status);
+      again.focus?.();
       return;
     }
     const speaker = el(doc, 'div', 'sl-end-speaker'); speaker.textContent = beat.speaker;
@@ -7294,6 +7369,7 @@ function showEnding(doc, ui, engine, win, chain, variant, onRestart) {
     const action = button(doc, beat.action); action.className = 'sl-btn sl-end-action';
     action.addEventListener('click', () => { runner.advance(); render(); });
     ui.ending.append(speaker, prose, reaction, action);
+    action.focus?.();
   }
   function endingPersonCard(person, isAccused, isSpeaker) {
     const posture = endingPortraitState({ isAccused, isSpeaker, beatIndex: runner.index });
