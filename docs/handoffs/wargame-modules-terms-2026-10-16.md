@@ -17,3 +17,10 @@ To add (in plain, non-legalese site voice; stop-slop pass; Ray sees it before pu
    AND designers can opt out entirely and Match refuses opted-out titles (hammerstein-ai docs/decisions/vassal-opponents-direction-
    2026-09-25.md:112-118). Decide the mechanism (email address, a short form, a public list) as a design call for Ray.
 Also check the services page blurb and the kit page for the same terms.
+
+## Ray's framing for the page (s290, ~18:0x, verbatim; write the new section from these words)
+"more of my own words to work into the page, the idea isn't to do this to screw over designers or publishers or steal their IP,
+artwork or whatever else, but provide a competent/reliable opponent for players who struggle to find one while supplementing my
+minimum wage income slightly - as a designer/publisher myself I am sensitive and reactive to their concerns and will respond
+promptly."
+Keep his voice: plain, first person, no legalese, no apology tone. The opt-out section should carry the "respond promptly" promise.
