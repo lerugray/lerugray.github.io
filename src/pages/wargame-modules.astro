@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Wargame Modules · Ray Weiss"
-  description="Commissioned digital modules of print wargames: rules-enforced engines, real maps and counters, playable in a browser from a double-click. $400 to $800 by scope."
+  description="Commissioned digital modules of print wargames: rules-enforced engines, real maps and counters, a computer opponent in the price, playable in a browser from a double-click. $400 to $800 by scope."
 >
   <div
     slot="sheet-id"
@@ -14,7 +14,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <div class="plate">
       <span class="num">PL. I.C</span> Wargame Modules · Commissions Open
     </div>
-    <div class="edition">Edition 2026.07 · Brooklyn, NY</div>
+    <div class="edition">Edition 2026.10 · Brooklyn, NY</div>
   </div>
 
   <div class="mx-auto max-w-4xl">
@@ -46,7 +46,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         I build digital modules of print wargames on commission. The map, the counters, and the
         procedures are translated into a local engine. You unzip a folder and double-click
         index.html. It runs in your browser. No installs, no accounts, no internet connection
-        required.
+        required. If you have no one to play, the module can play the other side.
       </p>
     </div>
 
@@ -59,8 +59,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <div class="prose-body mt-6">
         <p>
           Automated bookkeeping and chart lookups. Hotseat play with information masking for cards
-          and hidden movement. Every roll logs the cited rule. Games save to local files.
-          Programmed opponents available as an add-on where the system supports them.
+          and hidden movement. Every roll logs the cited rule. Games save to local files. The
+          price includes a computer opponent that can take either side.
         </p>
       </div>
 
@@ -104,6 +104,89 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           engine.
         </figcaption>
       </figure>
+
+      <figure class="mt-8">
+        <img
+          src="/images/wargame-modules/ftp-crop.webp"
+          alt="For the People digital module. Point-to-point Civil War map with armies and forts, and the Confederate hand of four strategy cards beside it."
+          width="800"
+          class="w-full rounded"
+          loading="lazy"
+        />
+        <figcaption class="mt-3 font-mono text-xs text-subtle">
+          For the People. The point-to-point map with armies, forts, and the Confederate hand.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="client-word" class="mt-16">
+      <div class="section-head">
+        <h2 class="section-label" id="client-word">
+          <span class="pl">PL. I.C</span>From a client
+        </h2>
+      </div>
+      <div class="prose-body mt-6">
+        <p>
+          Bloody April is GMT's game of the 1917 air war over Arras: flights of aircraft at
+          different altitudes, sighting rules, and movement unlike a standard hex-and-counter game.
+          David Greenwood commissioned the module and a computer opponent that plays either side.
+        </p>
+      </div>
+
+      <figure class="mt-8">
+        <img
+          src="/images/wargame-modules/bloody-april-board.webp"
+          alt="Bloody April digital module. Operational map of the Arras front with German flights and British contacts, a flight-movement panel showing altitude, and the sequence of play."
+          width="800"
+          class="w-full rounded"
+          loading="lazy"
+        />
+        <figcaption class="mt-3 font-mono text-xs text-subtle">
+          Bloody April. Flights, altitude, and the sequence of play on the Arras map.
+        </figcaption>
+      </figure>
+
+      <figure class="mt-8">
+        <img
+          src="/images/wargame-modules/bloody-april-ai.webp"
+          alt="Bloody April digital module. Operations log of computer-opponent decisions and a resolved air combat, each entry citing its rule section."
+          width="800"
+          class="w-full rounded"
+          loading="lazy"
+        />
+        <figcaption class="mt-3 font-mono text-xs text-subtle">
+          Bloody April. The computer opponent's moves and a resolved air combat in the phase record, with rule citations.
+        </figcaption>
+      </figure>
+
+      <div class="prose-body mt-8">
+        <blockquote>
+          <p>
+            I highly recommend Ray's work at developing AI opponents for wargames. I presented him
+            with the challenge of Bloody April, a WWI operational air war game. This game is quite
+            complex, and while it is a hex and counter game, it is very different from standard hex
+            and counter games. It includes multilevel flight of groups of planes, sighting rules and
+            unusual movement rules. In order to create an AI, Ray had to first digitize the game. He
+            took it on enthusiastically, and the result is I can now play a favorite game that I have
+            had trouble finding human opponents for. The AI is a challenging opponent and can play
+            either side.
+          </p>
+          <p>
+            Working with Ray has been great. He gave frequent updates, was open to suggestions and
+            requests, and was very accommodating. He developed an innovative approach to testing,
+            using a panel of AI developers to simulate games and then rate the results. This
+            enabled him to go through cycles of development and testing in a very short amount of
+            time.
+          </p>
+          <p>
+            This was a VERY complex project due to its atypical rules. If someone wants a standard
+            SPI-like or other standard hex and counter ground wargame, he can complete it within
+            days. Either way, given what it would cost to have a developer do similar work, it is a
+            bargain.
+          </p>
+        </blockquote>
+        <div class="font-mono text-xs text-subtle">David Greenwood, Bloody April commission</div>
+      </div>
     </section>
 
     <section aria-labelledby="track-record" class="mt-16">
@@ -114,10 +197,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
       <div class="prose-body mt-6">
         <p>
-          Four modules built over five weeks. Napoleon at Bay, Flattop, Paths of Glory, For the
-          People. A single client commissioned the set and ordered the second pair after testing
-          the first. Card-driven engines pass six hundred automated rules checks before delivery.
-          Playable previews arrive within two days of commission.
+          Seven commissions for four clients since July 2026: Napoleon at Bay, Flattop, Paths of
+          Glory, For the People, Bloody April, and two private tabletop builds. The first client
+          ordered a second pair after testing the first two. Card-driven engines pass six hundred
+          automated rules checks before delivery. Playable previews arrive within two days of
+          commission.
         </p>
       </div>
     </section>
@@ -130,12 +214,29 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
       <div class="prose-body mt-6">
         <p>
-          1914: East Prussia: The World Undone is my own published design through Conflict
-          Simulations. The link below opens the public playtest build. It demonstrates the exact
-          product class I deliver for commissions: a rules-enforced engine, hex map, counters, and
-          hotseat play. Open it in your browser and play.
+          The World Undone is my own published design through Conflict Simulations. Its Deluxe
+          Digital edition, on itch.io, covers East Prussia, Galicia, Serbia, and the combined East
+          Front campaign, hotseat or against the computer. The free East Prussia playtest build is
+          the same product class I deliver for commissions: a rules-enforced engine, hex map,
+          counters, and hotseat play. Open it in your browser and play.
         </p>
       </div>
+      <figure class="mt-8">
+        <a href="https://conflict-simulations-llc.itch.io/the-world-undone" target="_blank" rel="noopener">
+          <img
+            src="/images/wargame-modules/twu-deluxe.webp"
+            alt="The World Undone Deluxe Digital, Galicia campaign, turn 9. Hex map with Russian and Austro-Hungarian counters, the turn track, victory points, and the combat results table."
+            width="800"
+            class="w-full rounded"
+            loading="lazy"
+          />
+        </a>
+        <figcaption class="mt-3 font-mono text-xs text-subtle">
+          <a href="https://conflict-simulations-llc.itch.io/the-world-undone" target="_blank" rel="noopener">
+            The World Undone: East Front Trilogy, Deluxe Digital on itch.io &rarr;
+          </a>
+        </figcaption>
+      </figure>
       <figure class="mt-8">
         <a href="https://twu-ep-pt-dba90a.pages.dev/" target="_blank" rel="noopener">
           <img
@@ -202,7 +303,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         </p>
         <p>
           These are private builds for owners of print copies. Publishers may commission licensed
-          editions under separate terms.
+          editions under separate terms, including translated editions built from the same engine.
         </p>
       </div>
     </section>
