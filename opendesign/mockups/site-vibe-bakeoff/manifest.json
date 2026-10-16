@@ -1,0 +1,8 @@
+{ "group": "site-vibe-bakeoff", "date": "2026-10-16", "status": "awaiting-ray-pick",
+  "directions": {
+    "A": {"name": "The Atlas, made premium", "builder": "codex gpt-6-astra", "pages": ["A/modules.html", "A/home.html"]},
+    "B": {"name": "Dark studio", "builder": "codex gpt-6-astra", "pages": ["B/modules.html", "B/home.html"]},
+    "C": {"name": "Editorial portfolio, case-study led", "builder": "codex gpt-6-astra", "pages": ["C/modules.html", "C/home.html"]},
+    "D": {"name": "Simonsen Cartographic Spec (OFF-SIGNATURE)", "builder": "Gemini 4 Argon via agy, never shown the current site", "pages": ["D/modules.html", "D/home.html"]}
+  },
+  "content": "CONTENT.md (verbatim live copy at d5be329; Terms exact)", "fonts": "shared/fonts (OFL woff2, licenses beside them)" }
