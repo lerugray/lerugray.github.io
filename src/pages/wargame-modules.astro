@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
+// Titles whose designer or publisher asked not to be adapted (Terms section). Add { title, by } when a request arrives.
+const optedOut: { title: string; by: string }[] = [];
 ---
 
 <BaseLayout
@@ -301,9 +304,61 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           You pay half up front to reserve the build spot, half on completion. Thirty days of
           reasonable feature requests and bug fixes after delivery are included.
         </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="terms" class="mt-16">
+      <div class="section-head">
+        <h2 class="section-label" id="terms">
+          <span class="pl">PL. I.C</span>Terms
+        </h2>
+        <span class="section-count">04 terms ——</span>
+      </div>
+      <div class="prose-body mt-6">
         <p>
-          These are private builds for owners of print copies. Publishers may commission licensed
-          editions under separate terms, including translated editions built from the same engine.
+          I do not build these to undercut designers or publishers, or to take their IP or
+          artwork. I build them so players who struggle to find an opponent get a competent,
+          reliable one, and so I can add a little to my minimum-wage income. I am a designer and
+          publisher myself, and I listen when one of them raises a concern.
+        </p>
+        <p>
+          Anyone with their own scans and an LLM harness could build one of these today. I sell my
+          experience and labor in building them. I will turn the work down for any designer or
+          publisher who asks.
+        </p>
+      </div>
+      <ol class="infra-list">
+        <li>
+          <span class="infra-title">Personal use only</span>
+          <p class="infra-desc">A commission is a private build for you. Do not share, resell or post the module files. Screenshots are fine.</p>
+        </li>
+        <li>
+          <span class="infra-title">You must own the game</span>
+          <p class="infra-desc">You need a print copy of the edition you name, and I ask you to show it before I start. The module lets you play the copy you already own.</p>
+        </li>
+        <li>
+          <span class="infra-title">Not for games that already have a digital edition with a computer opponent</span>
+          <p class="infra-desc">If one exists, buy that. I decline those commissions.</p>
+        </li>
+        <li>
+          <span class="infra-title">Designers and publishers can opt out</span>
+          <p class="infra-desc">
+            If you designed or published a game and do not want it adapted, email
+            <a href="mailto:rweiss@consimsltd.com">rweiss@consimsltd.com</a>. I add the title to the
+            list below, decline every commission for it, and answer you promptly.
+          </p>
+        </li>
+      </ol>
+      <div class="prose-body mt-6" id="opted-out">
+        <p><strong>Opted-out titles:</strong> {optedOut.length === 0 ? 'None yet.' : ''}</p>
+        {optedOut.length > 0 && (
+          <ul>
+            {optedOut.map((t) => <li>{t.title} ({t.by})</li>)}
+          </ul>
+        )}
+        <p>
+          Publishers can commission licensed editions under separate terms, including translated
+          editions built on the same engine.
         </p>
       </div>
     </section>
