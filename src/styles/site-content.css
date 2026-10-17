@@ -222,6 +222,20 @@
   font-size: var(--text-xs);
   color: var(--color-ink-body);
 }
+.site-page .page-heading .slug strong,
+.site-page .infra-list .infra-meta .k {
+  color: var(--color-ink-muted);
+}
+/* Home-only coordinate: takes no layout width, so the top menu sits where it does on every page. */
+.brand-locator__coord {
+  position: absolute;
+  white-space: pre;
+}
+@media (max-width: 84.99rem) {
+  .brand-locator__coord {
+    display: none;
+  }
+}
 /* Directory top rule spans the content width, not the container's gutters. */
 .site-page .site-directory {
   position: relative;
