@@ -651,8 +651,8 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   description={`Playable preview builds of games in development. Pick a cartridge, press play. ${totalTestsFmt} tests and every audit published.`}
   image="/og-games.png"
 >
-  <div class="mx-auto max-w-4xl">
-    <header class="hero hero--plain">
+  <div class="trials-width">
+    <header class="hero hero--plain page-heading">
       <div>
         <h1>Field Trials</h1>
         <p class="dek">Games in development, running live in your browser.</p>
@@ -681,7 +681,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   </div>
 
   <section aria-labelledby="roster" class="cabinet-section">
-    <div class="mx-auto max-w-4xl">
+    <div class="trials-width">
       <div class="section-head">
         <h2 class="section-label" id="roster">Roster</h2>
         <span class="section-count"
@@ -881,7 +881,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     </noscript>
   </section>
 
-  <div class="mx-auto max-w-4xl">
+  <div class="trials-width">
     {
       fieldNotes.length > 0 && (
         <section id="field-notes" class="field-notes" aria-labelledby="field-notes-heading">
@@ -969,10 +969,12 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
 
   .cabinet-section {
+    max-width: 72rem;
+    margin-inline: auto;
     margin-top: 8px;
   }
   .cabinet {
-    max-width: 1160px;
+    max-width: 100%;
     margin: 14px auto 0;
     border: 1px solid var(--color-rule);
     background: var(--color-command-well);
@@ -988,9 +990,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     border-bottom: 1px solid var(--color-command-border);
     background: linear-gradient(to bottom, var(--color-command-panel), var(--color-command-well));
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.06em;
     color: var(--color-ink-on-dark-muted);
   }
   .cab-rail-left::before {
@@ -1105,7 +1107,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     background: var(--color-ink-on-dark);
     color: var(--color-ink);
     font-family: var(--font-mono);
-    font-size: 8px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.08em;
     border-radius: 1px;
@@ -1185,9 +1187,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .cab-hint {
     margin: 26px 2px 6px;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.06em;
     color: var(--color-ink-on-dark-muted);
   }
   @media (max-width: 979px) {
@@ -1230,9 +1232,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     gap: 8px;
     margin: 0 2px 9px;
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.06em;
     color: var(--color-ink-on-dark-muted);
   }
   .crt-power {
@@ -1286,8 +1288,8 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     display: grid;
     place-items: center;
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    font-size: 14px;
+    letter-spacing: 0.06em;
     color: var(--color-ink-on-dark-muted);
   }
 
@@ -1297,7 +1299,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .crt-fig figcaption {
     margin: 8px 2px 0;
     font-family: var(--font-mono);
-    font-size: 9.5px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -1321,7 +1323,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .cab-desc {
     margin: 0 0 16px;
     font-family: var(--font-serif);
-    font-size: 15.5px;
+    font-size: 16px;
     line-height: 1.55;
     color: var(--color-ink-on-dark-muted);
     max-width: 58ch;
@@ -1341,16 +1343,16 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .cab-meta dt {
     flex: 0 0 76px;
     font-family: var(--font-mono);
-    font-size: 9.5px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-ink-on-dark-muted);
   }
   .cab-meta dd {
     margin: 0;
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 0.03em;
     color: var(--color-ink-on-dark);
   }
@@ -1365,7 +1367,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     border: 1px solid var(--color-command-border);
     background: var(--color-command-panel);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.55;
     letter-spacing: 0.03em;
     color: var(--color-ink-on-dark-muted);
@@ -1374,9 +1376,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .cab-audit .k {
     display: block;
     margin-bottom: 3px;
-    font-size: 9px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-brass-on-dark);
   }
@@ -1400,10 +1402,10 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     box-shadow: 0 0 18px -4px rgb(232 161 60 / 0.7);
   }
   .cab-play .tri {
-    font-size: 12px;
+    font-size: 14px;
   }
   .cab-play-sub {
-    font-size: 9px;
+    font-size: 14px;
     letter-spacing: 0.08em;
     color: var(--color-ink);
   }
@@ -1444,9 +1446,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     border-bottom: 1px solid var(--color-command-border);
     background: linear-gradient(to bottom, var(--color-command-panel), var(--color-command-well));
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.06em;
     color: var(--color-ink-on-dark-muted);
   }
   .fr-title {
@@ -1475,7 +1477,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     border: 1px solid var(--color-command-border);
     border-radius: 4px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 14px;
     letter-spacing: 0.06em;
     padding: 4px 8px;
   }
@@ -1489,7 +1491,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
 
   .feedback-status {
     font-family: var(--font-mono);
-    font-size: 11.5px;
+    font-size: 14px;
     font-style: italic;
     color: var(--color-ink-on-dark-muted);
     margin: 0 0 12px;
@@ -1510,7 +1512,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
   .feedback-list :global(.feedback-comment-meta) {
     font-family: var(--font-mono);
-    font-size: 9.5px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1550,7 +1552,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .feedback-label {
     display: block;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -1588,9 +1590,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
   .feedback-submit {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-command-well);
     background: var(--color-ink-on-dark-muted);
@@ -1607,7 +1609,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
   .feedback-note {
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 14px;
     letter-spacing: 0.06em;
     color: var(--color-ink-on-dark-muted);
     margin: 0;
@@ -1632,13 +1634,13 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     line-height: 1.5;
     color: var(--color-muted);
     margin: -14px 0 22px;
-    max-width: 62ch;
+    max-width: 100%;
   }
   .field-notes-list {
     list-style: none;
     margin: 0 0 34px;
     padding: 0;
-    max-width: 62ch;
+    max-width: 100%;
   }
   .field-notes-row {
     padding: 10px 0;
@@ -1663,16 +1665,12 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
 
   /* --- By build: one drawer per game, collapsed by default --- */
 
-  /* The type sits on the inner spans, NOT on the h3 — `max-width: 62ch`
-     resolves against the element's own font, so setting 11px mono here would
-     make this rule stop ~200px short of the lists it heads. Inheriting the
-     serif column width keeps every rule in this section the same length. */
   .fn-sub {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 14px;
-    max-width: 62ch;
+    max-width: 100%;
     margin: 0 0 4px;
     padding-bottom: 6px;
     border-bottom: 1px solid var(--color-rule);
@@ -1701,7 +1699,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
 
   .fn-groups {
-    max-width: 62ch;
+    max-width: 100%;
     margin: 0 0 18px;
   }
   .fn-group {

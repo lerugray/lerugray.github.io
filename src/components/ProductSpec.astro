@@ -1,0 +1,11 @@
+---
+interface Props {
+  heading?: string;
+}
+const { heading = 'Specifications' } = Astro.props;
+---
+
+<section class="product-spec" aria-label={heading}>
+  <div class="section-head"><h2 class="section-label">{heading}</h2></div>
+  <div class="product-spec__body"><slot /></div>
+</section>

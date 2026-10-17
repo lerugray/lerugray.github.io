@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProductSpec from '@/components/ProductSpec.astro';
 ---
 
 <BaseLayout
@@ -8,15 +9,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 >
   <main class="px-6 py-24 lg:px-16">
     <div class="mx-auto max-w-3xl">
-      <h1 class="font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl">
-        GeneralStaff
-      </h1>
-      <p class="mt-6 font-serif text-lg italic text-muted">
-        Open-source autonomous engineering for solo founders.
-      </p>
-      <p class="mt-3 font-serif text-lg text-foreground">Your code. Your keys. Your control.</p>
+      <header class="page-heading">
+        <h1>GeneralStaff</h1>
+        <p class="dek">Open-source autonomous engineering for solo founders.</p>
+        <p class="dek">Your code. Your keys. Your control.</p>
+      </header>
 
-      <div class="mt-10 max-w-[72ch]">
+      <ProductSpec>
         <div class="infra-meta">
           <span
             ><span class="dot live"></span><span class="k">Status</span><span class="v"
@@ -27,13 +26,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <span><span class="k">Access</span><span class="v">BYOK · local-first</span></span>
         </div>
         <p class="mt-6 font-serif text-sm text-muted">
-          Repo: <a href="https://github.com/lerugray/generalstaff">github.com/lerugray/generalstaff</a>.
-          Tagged v0.1.0 on 2026-04-19 after a four-day build. v0.2.0 added the usage-budget
-          gate and multi-agent orchestration tooling. v0.3.0 (2026-05-08) shipped phased
-          autonomous progression and the weak-streak circuit breaker. 2,030 passing tests
-          across 69 files. Thirty-plus managed projects in rotation.
+          Repo: <a href="https://github.com/lerugray/generalstaff"
+            >github.com/lerugray/generalstaff</a
+          >. Tagged v0.1.0 on 2026-04-19 after a four-day build. v0.2.0 added the usage-budget gate
+          and multi-agent orchestration tooling. v0.3.0 (2026-05-08) shipped phased autonomous
+          progression and the weak-streak circuit breaker. 2,030 passing tests across 69 files.
+          Thirty-plus managed projects in rotation.
         </p>
-      </div>
+      </ProductSpec>
 
       <div class="prose-body mt-12">
         <p>
@@ -164,12 +164,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
         <ol>
           <li>
-            <strong>Phase 1 — Sequential MVP.</strong> Verification gate, reviewer, open audit log.
-            Closed 2026-04-17.
+            <strong>Phase 1 — Sequential MVP.</strong> Verification gate, reviewer, open audit log. Closed
+            2026-04-17.
           </li>
           <li>
-            <strong>Phase 2 — Multi-provider routing.</strong> Ollama, OpenRouter, Claude. Digest
-            narrative, provider registry. Closed 2026-04-17.
+            <strong>Phase 2 — Multi-provider routing.</strong> Ollama, OpenRouter, Claude. Digest narrative,
+            provider registry. Closed 2026-04-17.
           </li>
           <li>
             <strong>Phase 3 — Dispatcher generality.</strong> Second managed project (<code
@@ -177,13 +177,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             >), five generality gaps surfaced and shipped same-day. Closed 2026-04-18.
           </li>
           <li>
-            <strong>Phase 4 — Parallel worktrees.</strong> Round-based concurrency, per-provider
-            reviewer semaphore, efficiency observability. Default <code>max_parallel_slots: 1</code>
+            <strong>Phase 4 — Parallel worktrees.</strong> Round-based concurrency, per-provider reviewer
+            semaphore, efficiency observability. Default <code>max_parallel_slots: 1</code>
             preserves Phase 1–3 behaviour. Closed 2026-04-18.
           </li>
           <li>
-            <strong>Phase 5 — Terminal dashboards.</strong> Visual anchor for multi-project state.
-            Closed 2026-04-19.
+            <strong>Phase 5 — Terminal dashboards.</strong> Visual anchor for multi-project state. Closed
+            2026-04-19.
           </li>
           <li>
             <strong>Phase 6 — Local web dashboard.</strong>
@@ -191,17 +191,18 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             live session tail via SSE, attention inbox. Closed 2026-04-19.
           </li>
           <li>
-            <strong>Phase 7 — Pluggable engineer.</strong> <code>engineer_provider: aider</code> routes
-            cycles through aider + OpenRouter (Qwen 3.6+ Plus) instead of <code>claude -p</code>. 10-task
-            benchmark cleared 80% verified. Closed 2026-04-20.
+            <strong>Phase 7 — Pluggable engineer.</strong>
+            <code>engineer_provider: aider</code> routes cycles through aider + OpenRouter (Qwen 3.6+
+            Plus) instead of <code>claude -p</code>. 10-task benchmark cleared 80% verified. Closed
+            2026-04-20.
           </li>
         </ol>
 
         <h2>Post-launch</h2>
 
         <p>
-          Work after v0.1.0 stopped fitting the phase-numbered narrative; subsequent
-          features are organized by release. The full enumeration is in the
+          Work after v0.1.0 stopped fitting the phase-numbered narrative; subsequent features are
+          organized by release. The full enumeration is in the
           <a href="https://github.com/lerugray/generalstaff/blob/master/CHANGELOG.md">CHANGELOG</a>.
           Headline additions:
         </p>
@@ -210,24 +211,27 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <li>
             <strong>v0.2.0 (2026-05-02).</strong> Usage-budget gate (per-project + fleet
             <code>session_budget</code>; reads Claude Code's own 5-hour blocks via
-            <code>ccusage</code>). Multi-agent orchestration tooling (four tiers from
-            in-process subagents through detached visible cmd windows). AGENTS.md wizard
-            (the cross-platform agent-config standard adopted by Claude Code, Cursor, Aider,
-            Codex, and others). <code>gs welcome</code> first-run wizard. Claude
-            subscription auth (Pro / Max users no longer require a separate API key).
-            Mac / Linux session launcher. <code>gs</code> shim install to <code>~/.local/bin</code>.
+            <code>ccusage</code>). Multi-agent orchestration tooling (four tiers from in-process
+            subagents through detached visible cmd windows). AGENTS.md wizard (the cross-platform
+            agent-config standard adopted by Claude Code, Cursor, Aider, Codex, and others). <code
+              >gs welcome</code
+            > first-run wizard. Claude subscription auth (Pro / Max users no longer require a separate
+            API key). Mac / Linux session launcher. <code>gs</code> shim install to <code
+              >~/.local/bin</code
+            >.
           </li>
           <li>
-            <strong>v0.3.0 (2026-05-08).</strong> Phased autonomous progression
-            (<code>gs phase</code>, <code>ROADMAP.yaml</code> schema, opt-in auto-advance,
-            multi-phase rollback, task templates with placeholder expansion, dashboard
+            <strong>v0.3.0 (2026-05-08).</strong> Phased autonomous progression (<code
+              >gs phase</code
+            >, <code>ROADMAP.yaml</code> schema, opt-in auto-advance, multi-phase rollback, task templates
+            with placeholder expansion, dashboard
             <code>/phase</code> route + commander advance button, plus phase evaluators
             <code>launch_gate</code> / <code>git_tag</code> / <code>lifecycle_transition</code>).
-            Weak-streak circuit breaker plus <code>gs inventory-audit</code> CLI for fleet
-            starvation diagnosis. Configurable consecutive-empty limits, structured engineer
-            task-claim, greenfield work-detection fallback, full usage-budget integration test
-            coverage. Plus <code>QUICKSTART.md</code> and <code>SECURITY.md</code> for
-            external adopters.
+            Weak-streak circuit breaker plus <code>gs inventory-audit</code> CLI for fleet starvation
+            diagnosis. Configurable consecutive-empty limits, structured engineer task-claim, greenfield
+            work-detection fallback, full usage-budget integration test coverage. Plus <code
+              >QUICKSTART.md</code
+            > and <code>SECURITY.md</code> for external adopters.
           </li>
         </ul>
 
@@ -235,14 +239,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
         <p>
           The framework that names this project also has a working executable. The
-          <a href="/hammerstein">Hammerstein CLI</a> is a strategic-reasoning advisor that
-          pressure-tests a plan before it ships. I run it before firing any plan with
-          multi-file scope or cross-repo blast radius. Its small-model companion, the
-          <a href="/hammerstein-model">Hammerstein-7B QLoRA</a> on Qwen2.5-7B-Instruct,
-          bakes the framework's voice into the weights of an 8 GB-Mac-runnable artifact.
-          Both are optional. GeneralStaff runs cleanly without them. The pairing is what
-          lets the verification gate be paired with a strategic gate at the plan-firing
-          step, instead of catching only the failures the gate sees inside a cycle.
+          <a href="/hammerstein">Hammerstein CLI</a> is a strategic-reasoning advisor that pressure-tests
+          a plan before it ships. I run it before firing any plan with multi-file scope or cross-repo
+          blast radius. Its small-model companion, the
+          <a href="/hammerstein-model">Hammerstein-7B QLoRA</a> on Qwen2.5-7B-Instruct, bakes the framework's
+          voice into the weights of an 8 GB-Mac-runnable artifact. Both are optional. GeneralStaff runs
+          cleanly without them. The pairing is what lets the verification gate be paired with a strategic
+          gate at the plan-firing step, instead of catching only the failures the gate sees inside a cycle.
         </p>
 
         <h2>How to follow</h2>
@@ -251,8 +254,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           The repository is public at
           <a href="https://github.com/lerugray/generalstaff">github.com/lerugray/generalstaff</a>.
           For context on the four-day build, see
-          <a href="/writing/gs-launch-post">GeneralStaff, from the agent side</a> — Claude's
-          report from inside the verification gate on launch day. The fastest way to reach me is
+          <a href="/writing/gs-launch-post">GeneralStaff, from the agent side</a> — Claude's report from
+          inside the verification gate on launch day. The fastest way to reach me is
           <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a>.
         </p>
       </div>

@@ -75,10 +75,6 @@ export const navGroups: NavGroup[] = [
     items: [{ href: '/works', label: 'Complete Catalog' }],
   },
   {
-    label: 'Field Trials',
-    items: [{ href: '/games', label: 'Field Trials' }],
-  },
-  {
     label: 'Contact',
     items: [{ href: 'mailto:lerugray@gmail.com', label: 'lerugray@gmail.com' }],
   },

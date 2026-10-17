@@ -20,15 +20,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <div>
             <h1 class="home-name">Ray Weiss</h1>
             <p class="home-dek">Brooklyn wargame designer, running four businesses.</p>
-            <div class="slug" aria-label="Identification">
-              <span><strong>UNIT</strong> RW / 26</span>
-              <span class="sep">/</span>
-              <span><strong>TYPE</strong> Designer-Director</span>
-              <span class="sep">/</span>
-              <span><strong>SCALE</strong> Solo + 4 Cos.</span>
-              <span class="sep">/</span>
-              <span><strong>LOC</strong> 40&deg;41&prime;N</span>
-            </div>
+            <p class="home-locator">
+              Brooklyn, NY · 40°41′N · <a href="mailto:rweiss@consimsltd.com"
+                >rweiss@consimsltd.com</a>
+            </p>
           </div>
         </header>
 
@@ -38,6 +33,94 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             enough. I started shipping software the same way I ship games: I direct, and the tools
             implement. Everything on this site came out of that.
           </p>
+        </div>
+      </div>
+    </section>
+    <section class="home-services" id="commissions">
+      <div class="container">
+        <div class="home-services__header">
+          <div class="home-services__title-group">
+            <h2 class="section-heading">Work with me</h2>
+            <p class="home-services__dek">A small number of commissions a year.</p>
+          </div>
+          <a class="btn-primary" href="mailto:rweiss@consimsltd.com">Email me →</a>
+        </div>
+
+        <div class="home-services__grid">
+          <article class="flagship-offer">
+            <div class="flagship-offer__body">
+              <div class="flagship-offer__top">
+                <h3 class="flagship-offer__title">
+                  <a href="/wargame-modules">Digital wargame modules →</a>
+                </h3>
+                <span class="flagship-offer__price">Price $400 to $800.</span>
+              </div>
+              <p class="flagship-offer__lead">The wargame you own, playable in a browser.</p>
+              <p class="flagship-offer__proof">Seven commissions for four clients since July.</p>
+            </div>
+
+            <a class="flagship-offer__image" href="/wargame-modules">
+              <img
+                src="/images/wargame-modules/nab-crop.webp"
+                width="1600"
+                height="1000"
+                alt="Napoleon at Bay digital module. Hex map of the Champagne countryside with marshal counters, and a turn control panel showing weather, morale, and the segment sequence."
+              />
+            </a>
+
+            <div class="dispatch-cta-row">
+              <a class="btn-primary" href="/wargame-modules">Wargame Modules →</a>
+              <a class="flagship-offer__price" href="mailto:rweiss@consimsltd.com"
+                >rweiss@consimsltd.com</a
+              >
+            </div>
+          </article>
+          <div class="service-ledger-stack">
+            <article class="service-card">
+              <div class="service-card__header">
+                <h3 class="service-card__title">
+                  <a href="/services">AI workflow &amp; automation builds →</a>
+                </h3>
+              </div>
+              <p>
+                Automation for the unglamorous parts of a workflow: email triage, intake routing,
+                template-driven document generation, scheduled follow-ups. I operate AI agents. I do
+                not write traditional code.
+              </p>
+              <p>
+                “thirty-plus projects under a reviewer gate that rejects about one change in ten
+                before it ships.”
+              </p>
+            </article>
+
+            <article class="service-card">
+              <div class="service-card__header">
+                <h3 class="service-card__title">
+                  <a href="/services">Custom voice &amp; persona models →</a>
+                </h3>
+                <span class="service-card__meta">Setup $1,200 fixed.</span>
+              </div>
+              <p>
+                A small open model fine-tuned to one register: a historical figure, a brand, a house
+                style, your own notes.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <div class="service-card__header">
+                <h3 class="service-card__title">
+                  <a href="/services">Game-design consultation →</a>
+                </h3>
+              </div>
+              <p>
+                System design, rules audits, development, editorial passes. Tabletop and digital.
+              </p>
+              <p>
+                Conflict Simulations is more than two dozen published wargames since 2017, three
+                Charles S. Roberts nominations, and a release through Multi-Man Publishing.
+              </p>
+            </article>
+          </div>
         </div>
       </div>
     </section>

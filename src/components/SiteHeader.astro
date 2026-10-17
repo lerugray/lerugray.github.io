@@ -1,5 +1,21 @@
 ---
 const currentPath = Astro.url.pathname;
+const path = currentPath.replace(/\/$/, '') || '/';
+const sectionPaths: Record<string, string[]> = {
+  '/games': ['/field-trials'],
+  '/conflict-simulations-llc': ['/devforge', '/retrogaze', '/hammerstein-ai'],
+  '/kit': [
+    '/generalstaff',
+    '/hammerstein',
+    '/hammerstein-model',
+    '/mission-brain',
+    '/auftragstaktik',
+    '/catalogdna',
+  ],
+  '/about': ['/buddies', '/music', '/works'],
+};
+const inSection = (section: string) =>
+  (sectionPaths[section] || []).some((route) => path === route || path.startsWith(route + '/'));
 ---
 
 <header class="site-header">
@@ -14,13 +30,15 @@ const currentPath = Astro.url.pathname;
           alt="Ray Weiss unit counter"
         />
       </a>
-      <a class="brand-link" href="/">Ray Weiss</a>
+      <a class="brand-link" href="/" aria-current={path === '/' ? 'page' : undefined}>Ray Weiss</a>
       <span class="brand-locator">Brooklyn, NY</span>
     </div>
     <nav class="site-nav" aria-label="Site navigation">
       <a
         href="/games"
-        aria-current={currentPath === '/games' || currentPath.startsWith('/games/')
+        aria-current={inSection('/games') ||
+        currentPath === '/games' ||
+        currentPath.startsWith('/games/')
           ? 'page'
           : undefined}>Field Trials</a
       >
@@ -45,20 +63,23 @@ const currentPath = Astro.url.pathname;
       >
       <a
         href="/conflict-simulations-llc"
-        aria-current={currentPath === '/conflict-simulations-llc' ||
+        aria-current={inSection('/conflict-simulations-llc') ||
+        currentPath === '/conflict-simulations-llc' ||
         currentPath.startsWith('/conflict-simulations-llc/')
           ? 'page'
           : undefined}>Businesses</a
       >
       <a
         href="/kit"
-        aria-current={currentPath === '/kit' || currentPath.startsWith('/kit/')
+        aria-current={inSection('/kit') || currentPath === '/kit' || currentPath.startsWith('/kit/')
           ? 'page'
           : undefined}>Tools</a
       >
       <a
         href="/about"
-        aria-current={currentPath === '/about' || currentPath.startsWith('/about/')
+        aria-current={inSection('/about') ||
+        currentPath === '/about' ||
+        currentPath.startsWith('/about/')
           ? 'page'
           : undefined}>About</a
       >

@@ -58,15 +58,17 @@ const totalEntries = canon.length;
   description="Ray Weiss's complete body of work. Wargames published under Conflict Simulations LLC, music released as Le Rug and other projects, games, essays, and a book in progress."
 >
   <div class="mx-auto max-w-3xl px-0">
-    <h1>Works</h1>
-    <p class="works-lede">
-      Every wargame, album, game, RPG, essay, and book in one place. Sourced from <a
-        href="https://github.com/lerugray/mission-canon">mission-canon</a
-      >
-      — a personal ledger Ray maintains as a living record of his creative output. Unverified entries
-      (year or attribution uncertain) are marked with a
-      <span class="unverified-mark">?</span>.
-    </p>
+    <header class="page-heading">
+      <h1>Works</h1>
+      <p class="dek">
+        Every wargame, album, game, RPG, essay, and book in one place. Sourced from <a
+          href="https://github.com/lerugray/mission-canon">mission-canon</a
+        >
+        — a personal ledger Ray maintains as a living record of his creative output. Unverified entries
+        (year or attribution uncertain) are marked with a
+        <span class="unverified-mark">?</span>.
+      </p>
+    </header>
 
     <div class="works-stats">
       <span><span class="stat-num">{totalReleased}</span> released</span>
@@ -139,19 +141,6 @@ const totalEntries = canon.length;
 </BaseLayout>
 
 <style>
-  h1 {
-    margin-bottom: 1.25rem;
-  }
-
-  .works-lede {
-    font-family: var(--font-serif);
-    font-size: 17px;
-    color: var(--color-muted);
-    line-height: 1.6;
-    max-width: 60ch;
-    margin: 0 0 1.5rem;
-  }
-
   .unverified-mark {
     font-family: var(--font-mono);
     font-size: 11px;
