@@ -5,7 +5,8 @@ const currentPath = Astro.url.pathname;
 
 <nav class="directory-nav" aria-label="Site directory">
   {
-    navGroups.map((group) => (
+    // The contact block below the directory already lists every contact link.
+    navGroups.filter((group) => group.label !== 'Contact').map((group) => (
       <div class="directory-group">
         <p class="section-label">{group.label}</p>
         <ul>
