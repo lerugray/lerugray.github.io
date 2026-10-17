@@ -8,67 +8,53 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 >
   <main class="px-6 py-24 lg:px-16">
     <div class="mx-auto max-w-3xl">
-      <p
-        class="font-mono text-xs font-medium uppercase tracking-wider text-muted"
-      >
-        <a
-          href="/conflict-simulations-llc"
-          class="hover:text-link-hover">Conflict Simulations LLC</a
-        >
-      </p>
-      <h1
-        class="mt-4 font-sans text-4xl font-medium tracking-tight text-foreground lg:text-5xl"
-      >
-        ZERO PAGE
-      </h1>
-      <p class="mt-6 font-serif text-lg italic text-muted">
-        6502 assembly puzzles with bureaucratic dread.
-      </p>
-
-      <blockquote
-        class="mt-10 border-l-2 border-border pl-6 font-serif text-lg italic text-muted"
-      >
-        <p>
-          Artillery unit reports systematic deviation in impact coordinates.
-          Field sensors return raw range data, but atmospheric wind drift
-          introduces consistent offset. Program the correction module.
+      <header class="page-heading">
+        <p class="eyebrow">
+          <a href="/conflict-simulations-llc" class="hover:text-link-hover"
+            >Conflict Simulations LLC</a
+          >
         </p>
-        <footer
-          class="mt-3 font-mono text-xs not-italic uppercase tracking-wider"
-        >
+        <h1>ZERO PAGE</h1>
+        <p class="dek">6502 assembly puzzles with bureaucratic dread.</p>
+      </header>
+
+      <blockquote class="mt-10 border-l-2 border-border pl-6 font-serif text-lg italic text-muted">
+        <p>
+          Artillery unit reports systematic deviation in impact coordinates. Field sensors return
+          raw range data, but atmospheric wind drift introduces consistent offset. Program the
+          correction module.
+        </p>
+        <footer class="mt-3 font-mono text-xs not-italic uppercase tracking-wider">
           PUZZLE 001 &middot; FIELD BALLISTICS UNIT
         </footer>
       </blockquote>
 
       <div class="prose-body mt-12">
         <p>
-          You are contracted to write low-level microprocessor code for a
-          government program. The puzzles are routine. The narrative is not.
+          You are contracted to write low-level microprocessor code for a government program. The
+          puzzles are routine. The narrative is not.
         </p>
         <p>
-          ZERO PAGE is a 6502 assembly puzzle game played in a terminal.
-          Fifteen main missions teach the instruction set, from load and store
-          through bit manipulation to indirect addressing. Six bridge missions
-          pace the second half. Three hidden missions live behind in-game
-          clues that attentive play surfaces.
+          ZERO PAGE is a 6502 assembly puzzle game played in a terminal. Fifteen main missions teach
+          the instruction set, from load and store through bit manipulation to indirect addressing.
+          Six bridge missions pace the second half. Three hidden missions live behind in-game clues
+          that attentive play surfaces.
         </p>
         <p>
-          Each puzzle ships with a briefing and a debrief, both written in the
-          register of the agency you work for. Field ballistics units.
-          Suppression filters. Density scanners. Record processing. The
-          bureaucratic language stays clinical. As the puzzles advance, the
-          tone shifts from reassuring to terse to minimal. Read carefully and
-          you see what the agency does.
+          Each puzzle ships with a briefing and a debrief, both written in the register of the
+          agency you work for. Field ballistics units. Suppression filters. Density scanners. Record
+          processing. The bureaucratic language stays clinical. As the puzzles advance, the tone
+          shifts from reassuring to terse to minimal. Read carefully and you see what the agency
+          does.
         </p>
       </div>
 
       <div class="prose-body terminal-section mt-16">
         <h2>Play it in your browser</h2>
         <p>
-          The free web build runs in any modern browser. The original
-          fifteen main missions, the assembly editor, the memory grid, the
-          6502 instruction subset, the sandbox. Same engine as the
-          standalone. Keyboard-first; mouse supported.
+          The free web build runs in any modern browser. The original fifteen main missions, the
+          assembly editor, the memory grid, the 6502 instruction subset, the sandbox. Same engine as
+          the standalone. Keyboard-first; mouse supported.
         </p>
       </div>
 
@@ -89,21 +75,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <div class="prose-body terminal-section mt-16">
         <h2>Sandbox mode</h2>
         <p>
-          Inside the web build, press <span class="font-mono">S</span> from
-          the title screen or any puzzle to enter sandbox mode. Freeform
-          6502 outside the campaign, same memory model, no mission tests,
-          no time pressure. Useful for the curious; load whatever you want
-          into the zero page and watch what happens.
+          Inside the web build, press <span class="font-mono">S</span> from the title screen or any puzzle
+          to enter sandbox mode. Freeform 6502 outside the campaign, same memory model, no mission tests,
+          no time pressure. Useful for the curious; load whatever you want into the zero page and watch
+          what happens.
         </p>
       </div>
 
       <div class="prose-body terminal-section mt-16">
         <h2>The Operator Reference Manual</h2>
         <p>
-          The build ships with the OPERATOR REFERENCE MANUAL, a six-by-nine
-          PDF in the same voice as the briefings. Instruction set, memory
-          map, mission notes, and the parts that did not survive a contractor
-          audit. Read it here.
+          The build ships with the OPERATOR REFERENCE MANUAL, a six-by-nine PDF in the same voice as
+          the briefings. Instruction set, memory map, mission notes, and the parts that did not
+          survive a contractor audit. Read it here.
         </p>
       </div>
 
@@ -117,115 +101,107 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </a>
 
       <div class="mt-16 overflow-x-auto">
-        <table class="w-full text-left text-sm">
-          <thead>
-            <tr class="border-b border-border">
-              <th
-                class="py-3 pr-6 font-mono text-xs font-medium uppercase tracking-wider text-muted"
-                >System</th
-              >
-              <th
-                class="py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted"
-                >What it does</th
-              >
-            </tr>
-          </thead>
-          <tbody class="font-serif">
-            <tr class="border-b border-border">
-              <td class="py-4 pr-6 font-medium text-foreground">6502 engine</td>
-              <td class="py-4 text-muted">
-                Load and store, arithmetic, branching, bit manipulation, stack
-                ops, indirect addressing — a curated subset of the real MOS
-                6502 instruction set, tuned for puzzle pacing rather than
-                complete chip emulation.
-              </td>
-            </tr>
-            <tr class="border-b border-border">
-              <td class="py-4 pr-6 font-medium text-foreground">Campaign</td>
-              <td class="py-4 text-muted">
-                24 missions: 15 main (instruction set teach), 6 bridge
-                (difficulty pacing), 3 hidden (in-game clues, classified-module
-                debriefs). Reference solutions ship for every puzzle.
-              </td>
-            </tr>
-            <tr class="border-b border-border">
-              <td class="py-4 pr-6 font-medium text-foreground"
-                >Execution controls</td
-              >
-              <td class="py-4 text-muted">
-                Step one instruction at a time, run until completion,
-                configurable cycle limit per mission. Mission tests with
-                pass/fail feedback.
-              </td>
-            </tr>
-            <tr class="border-b border-border">
-              <td class="py-4 pr-6 font-medium text-foreground">Sandbox</td>
-              <td class="py-4 text-muted">
-                Freeform 6502 outside the campaign. Same engine, no constraints.
-              </td>
-            </tr>
-            <tr class="border-b border-border">
-              <td class="py-4 pr-6 font-medium text-foreground">Save tapes</td>
-              <td class="py-4 text-muted">
-                `.6502` files — plain text, hand-editable. Save your program at
-                any point, reload later.
-              </td>
-            </tr>
-            <tr class="border-b border-border">
-              <td class="py-4 pr-6 font-medium text-foreground">Aesthetic</td>
-              <td class="py-4 text-muted">
-                Phosphor green default; amber, stark white-on-black, and light
-                mode all in Options. Optional CRT bloom, scanlines, vignette.
-                Keyboard-first; mouse supported but not primary.
-              </td>
-            </tr>
-            <tr>
-              <td class="py-4 pr-6 font-medium text-foreground">Manual</td>
-              <td class="py-4 text-muted">
-                A six-by-nine PDF written in the same diegetic register as the
-                briefings. Ships with the build and is also linked here.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-scroll" role="region" aria-label="Scrollable table" tabindex="0">
+          <table class="w-full text-left text-sm">
+            <thead>
+              <tr class="border-b border-border">
+                <th
+                  class="py-3 pr-6 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                  >System</th
+                >
+                <th class="py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                  >What it does</th
+                >
+              </tr>
+            </thead>
+            <tbody class="font-serif">
+              <tr class="border-b border-border">
+                <td class="py-4 pr-6 font-medium text-foreground">6502 engine</td>
+                <td class="py-4 text-muted">
+                  Load and store, arithmetic, branching, bit manipulation, stack ops, indirect
+                  addressing — a curated subset of the real MOS 6502 instruction set, tuned for
+                  puzzle pacing rather than complete chip emulation.
+                </td>
+              </tr>
+              <tr class="border-b border-border">
+                <td class="py-4 pr-6 font-medium text-foreground">Campaign</td>
+                <td class="py-4 text-muted">
+                  24 missions: 15 main (instruction set teach), 6 bridge (difficulty pacing), 3
+                  hidden (in-game clues, classified-module debriefs). Reference solutions ship for
+                  every puzzle.
+                </td>
+              </tr>
+              <tr class="border-b border-border">
+                <td class="py-4 pr-6 font-medium text-foreground">Execution controls</td>
+                <td class="py-4 text-muted">
+                  Step one instruction at a time, run until completion, configurable cycle limit per
+                  mission. Mission tests with pass/fail feedback.
+                </td>
+              </tr>
+              <tr class="border-b border-border">
+                <td class="py-4 pr-6 font-medium text-foreground">Sandbox</td>
+                <td class="py-4 text-muted">
+                  Freeform 6502 outside the campaign. Same engine, no constraints.
+                </td>
+              </tr>
+              <tr class="border-b border-border">
+                <td class="py-4 pr-6 font-medium text-foreground">Save tapes</td>
+                <td class="py-4 text-muted">
+                  `.6502` files — plain text, hand-editable. Save your program at any point, reload
+                  later.
+                </td>
+              </tr>
+              <tr class="border-b border-border">
+                <td class="py-4 pr-6 font-medium text-foreground">Aesthetic</td>
+                <td class="py-4 text-muted">
+                  Phosphor green default; amber, stark white-on-black, and light mode all in
+                  Options. Optional CRT bloom, scanlines, vignette. Keyboard-first; mouse supported
+                  but not primary.
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 pr-6 font-medium text-foreground">Manual</td>
+                <td class="py-4 text-muted">
+                  A six-by-nine PDF written in the same diegetic register as the briefings. Ships
+                  with the build and is also linked here.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div class="prose-body terminal-section mt-12">
         <h2>Stack</h2>
         <p>
-          Electron 33 with a Vite + React renderer. TypeScript end-to-end.
-          The 6502 engine is a clean reimplementation, not an off-the-shelf
-          emulator — small enough to verify cycle-accurate, focused on the
-          instruction subset the puzzles actually use. Cross-platform builds
-          for Mac (Intel and Apple Silicon), Linux, and Windows.
+          Electron 33 with a Vite + React renderer. TypeScript end-to-end. The 6502 engine is a
+          clean reimplementation, not an off-the-shelf emulator — small enough to verify
+          cycle-accurate, focused on the instruction subset the puzzles actually use. Cross-platform
+          builds for Mac (Intel and Apple Silicon), Linux, and Windows.
         </p>
 
         <h2>Lineage</h2>
         <p>
-          TIS-100, Shenzhen I/O, EXAPUNKS — Zachtronics-adjacent in shape, but
-          the diegetic register pulls from somewhere else entirely. Period
-          bureaucratic prose, recordkeeping language, the way agencies
-          describe their work to themselves. The phosphor terminal aesthetic
-          borrows from late-80s industrial CRT readouts.
+          TIS-100, Shenzhen I/O, EXAPUNKS — Zachtronics-adjacent in shape, but the diegetic register
+          pulls from somewhere else entirely. Period bureaucratic prose, recordkeeping language, the
+          way agencies describe their work to themselves. The phosphor terminal aesthetic borrows
+          from late-80s industrial CRT readouts.
         </p>
 
         <h2>Buy</h2>
         <p>
           On itch under Conflict Simulations LLC at $6.99 —
-          <a
-            href="https://conflict-simulations-llc.itch.io/zero-page"
+          <a href="https://conflict-simulations-llc.itch.io/zero-page"
             >conflict-simulations-llc.itch.io/zero-page</a
-          >. Native builds for Mac (Intel and Apple Silicon), Linux. Windows
-          build lands this week.
+          >. Native builds for Mac (Intel and Apple Silicon), Linux. Windows build lands this week.
         </p>
       </div>
 
       <p class="prose-body mt-12 font-serif text-lg italic text-muted">
-        The free fifteen-puzzle web version of ZERO PAGE has lived on itch
-        in some form for a while. The standalone is the version I always
-        wanted to ship: the full twenty-four-mission campaign, the bridge
-        missions that pace the second half, the three classified modules,
-        and the manual. Thanks for playing.<br />&mdash; Ray
+        The free fifteen-puzzle web version of ZERO PAGE has lived on itch in some form for a while.
+        The standalone is the version I always wanted to ship: the full twenty-four-mission
+        campaign, the bridge missions that pace the second half, the three classified modules, and
+        the manual. Thanks for playing.<br />&mdash; Ray
       </p>
     </div>
   </main>

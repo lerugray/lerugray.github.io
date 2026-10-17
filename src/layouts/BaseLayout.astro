@@ -1,175 +1,56 @@
 ---
-import '@/styles/global.css';
-import { navGroups, isActive } from '@/data/navigation';
-
-interface ColophonFields {
-  sheet: string;
-  edition: string;
-  loc: string;
-  scale: string;
-}
+import SpecLayout from '@/layouts/SpecLayout.astro';
+import SiteNav from '@/components/SiteNav.astro';
+import '@/styles/utilities.css';
+import '@/styles/site-content.css';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
   ogType?: 'website' | 'article';
-  /** Override default colophon (sidebar sheet block). */
-  colophon?: Partial<ColophonFields>;
 }
 
-const {
-  title,
-  description = 'Personal site of Ray Weiss. Brooklyn wargame designer, running four businesses.',
-  image = '/og-image.png',
-  ogType = 'website',
-  colophon: colophonProp = {},
-} = Astro.props;
-
-const colophon: ColophonFields = {
-  sheet: 'I.A',
-  edition: '2026.04',
-  loc: 'Brooklyn, NY',
-  scale: '1:1',
-  ...colophonProp,
-};
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-const ogImageURL = new URL(image, Astro.site).toString();
-const currentPath = Astro.url.pathname;
-const homeIsCurrent = currentPath === '/';
+const path = Astro.url.pathname.replace(/\/$/, '');
+const ContentContainer =
+  ['/games', '/works', '/services', '/kit'].includes(path) || path.startsWith('/writing/')
+    ? 'main'
+    : 'div';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <meta property="og:type" content={ogType} />
-    <meta property="og:site_name" content="Ray Weiss" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={ogImageURL} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Ray Weiss. Brooklyn wargame designer, running four businesses."
-    />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageURL} />
-  </head>
-  <body class="bg-background text-foreground font-sans antialiased">
-    <div class="shell">
-      <nav class="sidebar" aria-label="Primary">
-        <a href="/" class="masthead" aria-current={homeIsCurrent ? 'page' : undefined}>
-          <img
-            src="/counter-rw.svg"
-            alt=""
-            class="counter-mini"
-            width="32"
-            height="24"
-          />
-          <span class="masthead-name">Ray Weiss</span>
-          <span class="masthead-sub">General Staff Atlas</span>
-        </a>
-
-        <div class="colophon" aria-label="Sheet identification">
-          <div class="row">
-            <dl>
-              <dt>Sheet</dt>
-              <dd>{colophon.sheet}</dd>
-            </dl>
-            <dl>
-              <dt>Ed.</dt>
-              <dd>{colophon.edition}</dd>
-            </dl>
-          </div>
-          <div class="row">
-            <dl>
-              <dt>Loc.</dt>
-              <dd>{colophon.loc}</dd>
-            </dl>
-            <dl>
-              <dt>Scale</dt>
-              <dd>{colophon.scale}</dd>
-            </dl>
-          </div>
+<SpecLayout {...Astro.props}>
+  <div class="site-page">
+    <ContentContainer
+      class:list={['page-content', { 'page-content--home': Astro.url.pathname === '/' }]}
+    >
+      <slot />
+    </ContentContainer>
+    <div class="container site-directory">
+      <SiteNav />
+      <section class="contact-directory" id="contact">
+        <p class="label">Contact</p>
+        <ul>
+          <li>
+            <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a>
+          </li>
+          <li>
+            <a href="https://github.com/lerugray">github.com/lerugray</a>
+          </li>
+          <li>
+            <a href="https://lerug.bandcamp.com">lerug.bandcamp.com</a>
+          </li>
+          <li>
+            <a href="https://conflict-simulations-llc.itch.io">conflict-simulations-llc.itch.io</a>
+          </li>
+        </ul>
+        <div class="imprint">
+          <span>Imprint · Brooklyn, NY</span>
+          <span class="sep">·</span>
+          <span>Set in Newsreader &amp; IBM Plex</span>
+          <span class="sep">·</span>
+          <span>Edition 2026.04</span>
         </div>
-
-        {
-          navGroups.map((group) => (
-            <div class="nav-group">
-              <div class="nav-group-label">
-                <span>{group.label}</span>
-                <span class="pl">{group.plate}</span>
-              </div>
-              <ul>
-                {group.items.map(({ href, label }) => (
-                  <li>
-                    <a href={href} aria-current={isActive(href, currentPath) ? 'page' : undefined}>
-                      {label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
-      </nav>
-
-      <div class="topbar">
-        <a href="/" class="masthead" aria-current={homeIsCurrent ? 'page' : undefined}>
-          <img
-            src="/counter-rw.svg"
-            alt=""
-            class="counter-mini"
-            width="24"
-            height="18"
-          />
-          <span class="masthead-name">Ray Weiss</span>
-        </a>
-      </div>
-
-      <main>
-        <slot name="sheet-id" />
-        <slot />
-        <footer class="site-footer" id="contact">
-          <p class="label">
-            <span class="pl">APP.</span>Contact
-          </p>
-          <ul>
-            <li>
-              <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a>
-            </li>
-            <li>
-              <a href="https://github.com/lerugray">github.com/lerugray</a>
-            </li>
-            <li>
-              <a href="https://lerug.bandcamp.com">lerug.bandcamp.com</a>
-            </li>
-            <li>
-              <a href="https://conflict-simulations-llc.itch.io">conflict-simulations-llc.itch.io</a>
-            </li>
-          </ul>
-          <div class="imprint">
-            <span>Imprint · Brooklyn, NY</span>
-            <span class="sep">·</span>
-            <span>Set in IBM Plex &amp; GFS Didot</span>
-            <span class="sep">·</span>
-            <span>Edition 2026.04</span>
-          </div>
-        </footer>
-      </main>
+      </section>
     </div>
-  </body>
-</html>
+  </div>
+</SpecLayout>

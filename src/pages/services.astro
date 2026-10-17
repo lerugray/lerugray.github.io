@@ -6,19 +6,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   title="Work With Me · Ray Weiss"
   description="Select commissions from Ray Weiss: custom AI voice models, AI workflow builds, and game-design consultation. I direct, and the tools implement."
 >
-  <div
-    slot="sheet-id"
-    class="sheet-id"
-    aria-label="Sheet identification"
-  >
-    <div class="plate">
-      <span class="num">PL. I.B</span> Commissions · Open to Select Work
-    </div>
-    <div class="edition">Edition 2026.06 · Brooklyn, NY</div>
-  </div>
-
   <div class="mx-auto max-w-4xl">
-    <header class="hero">
+    <header class="hero page-heading">
       <img
         src="/counter-rw.svg"
         alt="Ray Weiss unit counter"
@@ -51,9 +40,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
     <section aria-labelledby="commissions">
       <div class="section-head">
-        <h2 class="section-label" id="commissions">
-          <span class="pl">PL. I.B</span>Commissions
-        </h2>
+        <h2 class="section-label" id="commissions">Commissions</h2>
         <span class="section-count">04 services ——</span>
       </div>
       <ol class="infra-list">
@@ -85,10 +72,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <p class="infra-desc">
             Automation for the unglamorous parts of a workflow: email triage, intake routing,
             template-driven document generation, scheduled follow-ups. I build the system, write the
-            documentation, and run a handover until your team operates it alone. I operate AI agents.
-            I do not write traditional code. The architecture is GeneralStaff, the framework I run my
-            own work on: thirty-plus projects under a reviewer gate that rejects about one change in
-            ten before it ships.
+            documentation, and run a handover until your team operates it alone. I operate AI
+            agents. I do not write traditional code. The architecture is GeneralStaff, the framework
+            I run my own work on: thirty-plus projects under a reviewer gate that rejects about one
+            change in ten before it ships.
           </p>
         </li>
         <li>
@@ -99,8 +86,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           </div>
           <a href="/wargame-modules" class="infra-title">Digital wargame modules &rarr;</a>
           <p class="infra-desc">
-            The wargame you own, playable in a browser. Rules enforced by an engine, bookkeeping
-            and chart lookups automated, hotseat play with hidden information masked, and a computer
+            The wargame you own, playable in a browser. Rules enforced by an engine, bookkeeping and
+            chart lookups automated, hotseat play with hidden information masked, and a computer
             opponent in the price. Seven commissions for four clients since July. Monster games
             quoted per project. Private builds for owners of the print game; designers and
             publishers can opt out.
@@ -116,23 +103,20 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             System design, rules audits, development, editorial passes. Tabletop and digital.
             Conflict Simulations is more than two dozen published wargames since 2017, three Charles
             S. Roberts nominations, and a release through Multi-Man Publishing. One of my AI tools
-            found structural gaps in an already-published rulebook that human playtesting had missed.
+            found structural gaps in an already-published rulebook that human playtesting had
+            missed.
           </p>
         </li>
       </ol>
     </section>
 
-    <div class="hex-rule" aria-hidden="true">
-      <img src="/hex-ornament.svg" alt="" width="96" height="32" />
-    </div>
-
     <aside class="featured" aria-labelledby="start">
       <span class="section-label" id="start">Start</span>
       <h3>One email starts it</h3>
       <p class="desc">
-        Email <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a>. State what you are building
-        and the one problem you need solved. If the work fits, I reply with scope and price. If it
-        does not, I say so.
+        Email <a href="mailto:lerugray@gmail.com">lerugray@gmail.com</a>. State what you are
+        building and the one problem you need solved. If the work fits, I reply with scope and
+        price. If it does not, I say so.
       </p>
       <a href="mailto:lerugray@gmail.com" class="cta">Email me &rarr;</a>
     </aside>

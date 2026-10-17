@@ -227,7 +227,8 @@ const games: FieldTrialGame[] = [
     url: 'https://lerugray.github.io/field-trials/office-of-the-road/',
     status: 'Field trial — released',
     tests: 187,
-    audit: 'Release gate — 9-step run; QA verdict SHIP, 3 disclosed blemishes, in-gate fixes landed',
+    audit:
+      'Release gate — 9-step run; QA verdict SHIP, 3 disclosed blemishes, in-gate fixes landed',
     shell: '#8f8868',
     shellHi: '#a9a284',
     glow: '#d8c66a',
@@ -252,7 +253,7 @@ const games: FieldTrialGame[] = [
     glow: '#e7c76b',
     figure: {
       src: '/field-trials/popinjay-fig-2026-08-18b.png',
-      alt: 'Popinjay gameplay: a World\'s Fair sharpshooter stage with balloons in flight against a hand-tinted poster ground',
+      alt: "Popinjay gameplay: a World's Fair sharpshooter stage with balloons in flight against a hand-tinted poster ground",
       caption: 'FIG. 11 · balloons in flight, build 2026.08',
     },
   },
@@ -649,21 +650,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   title="Field Trials · Ray Weiss"
   description={`Playable preview builds of games in development. Pick a cartridge, press play. ${totalTestsFmt} tests and every audit published.`}
   image="/og-games.png"
-  colophon={{ sheet: 'VIII', edition: '2026.08', loc: 'Brooklyn, NY', scale: 'Live builds' }}
 >
-  <div
-    slot="sheet-id"
-    class="sheet-id"
-    aria-label="Sheet identification"
-  >
-    <div class="plate">
-      <span class="num">PL. VIII</span> Field Trials · Preview Builds
-    </div>
-    <div class="edition">Edition 2026.08 · Brooklyn, NY</div>
-  </div>
-
-  <div class="mx-auto max-w-4xl">
-    <header class="hero hero--plain">
+  <div class="trials-width">
+    <header class="hero hero--plain page-heading">
       <div>
         <h1>Field Trials</h1>
         <p class="dek">Games in development, running live in your browser.</p>
@@ -679,9 +668,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
 
     <div class="bio">
       <p>
-        These are games I'm still building. Pick a cartridge below — the current build opens in
-        your browser. No download, no account. Play, and if something breaks or feels off, tell
-        me in the field report under the cabinet. I read every one.
+        These are games I'm still building. Pick a cartridge below — the current build opens in your
+        browser. No download, no account. Play, and if something breaks or feels off, tell me in the
+        field report under the cabinet. I read every one.
       </p>
       <p>
         The process behind them is public too — every game's design seed, test suite, and
@@ -692,24 +681,23 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   </div>
 
   <section aria-labelledby="roster" class="cabinet-section">
-    <div class="mx-auto max-w-4xl">
+    <div class="trials-width">
       <div class="section-head">
-        <h2 class="section-label" id="roster">
-          <span class="pl">PL. VIII</span>Roster
-        </h2>
+        <h2 class="section-label" id="roster">Roster</h2>
         <span class="section-count"
-          >{games.length.toString().padStart(2, '0')} {games.length === 1 ? 'entry' : 'entries'} ——</span
+          >{games.length.toString().padStart(2, '0')}
+          {games.length === 1 ? 'entry' : 'entries'} ——</span
         >
       </div>
     </div>
 
-    <!-- THE CABINET. This plate deliberately breaks the atlas paper register
-         (Ray's call, 2026-08-12): the games deserve an arcade, not a ledger.
-         The seam is framed as an atlas plate; everything inside is dark. -->
+    <!-- Interactive Field Trials cabinet. -->
     <div class="cabinet" id="cabinet" data-count={games.length}>
       <div class="cab-rail" aria-hidden="true">
         <span class="cab-rail-left">SPECIMEN CABINET — SELECT A CARTRIDGE</span>
-        <span class="cab-rail-right">{totalTestsFmt} TESTS ACROSS {games.length} BUILDS · AUDITS PUBLISHED</span>
+        <span class="cab-rail-right"
+          >{totalTestsFmt} TESTS ACROSS {games.length} BUILDS · AUDITS PUBLISHED</span
+        >
       </div>
 
       <div class="cab-body">
@@ -732,7 +720,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
                   style={`--shell:${game.shell}; --shell-hi:${game.shellHi}; --glow:${game.glow};`}
                 >
                   <span class="cart-grip" aria-hidden="true" />
-                  <span class="cart-no" aria-hidden="true">No.{(i + 1).toString().padStart(2, '0')}</span>
+                  <span class="cart-no" aria-hidden="true">
+                    No.{(i + 1).toString().padStart(2, '0')}
+                  </span>
                   <span class="cart-label" set:html={labelArt[game.id]} />
                   <span class="cart-led" aria-hidden="true" />
                   <span class="sr-only">{game.name}</span>
@@ -740,7 +730,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
               ))
             }
           </div>
-          <p class="cab-hint" aria-hidden="true">&larr; &uarr; &darr; &rarr; BROWSE &nbsp;·&nbsp; ENTER PLAYS</p>
+          <p class="cab-hint" aria-hidden="true">
+            &larr; &uarr; &darr; &rarr; BROWSE &nbsp;·&nbsp; ENTER PLAYS
+          </p>
           <p class="sr-only" role="status" aria-live="polite" data-cab-status></p>
         </div>
 
@@ -813,10 +805,12 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
                     class="cab-play"
                     data-play={game.id}
                   >
-                    <span class="tri" aria-hidden="true">&#9654;</span> PLAY
+                    <span class="tri" aria-hidden="true">
+                      &#9654;
+                    </span>{' '}
+                    PLAY
                     <span class="cab-play-sub">opens the build in a new tab</span>
                   </a>
-
                 </div>
               </article>
             ))
@@ -835,8 +829,8 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
         </label>
       </div>
       <div class="feedback-box" data-endpoint={FEEDBACK_ENDPOINT} data-game={games[0].id}>
-        <p class="feedback-status" hidden />
-        <ol class="feedback-list" aria-label="Feedback for the selected game" />
+        <p class="feedback-status" hidden></p>
+        <ol class="feedback-list" aria-label="Feedback for the selected game"></ol>
         <form class="feedback-form" aria-label="Send feedback for the selected game">
           <div class="feedback-honeypot" aria-hidden="true">
             <label>
@@ -848,7 +842,14 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
             <label class="feedback-label" for="ft-name">
               Name <span class="feedback-optional">(optional)</span>
             </label>
-            <input type="text" id="ft-name" name="name" maxlength="40" class="feedback-input" autocomplete="name" />
+            <input
+              type="text"
+              id="ft-name"
+              name="name"
+              maxlength="40"
+              class="feedback-input"
+              autocomplete="name"
+            />
           </div>
           <div class="feedback-field">
             <label class="feedback-label" for="ft-body">Feedback</label>
@@ -859,12 +860,11 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
               rows="3"
               required
               class="feedback-textarea"
-              placeholder="What happened? What would you change?"
-            />
+              placeholder="What happened? What would you change?"></textarea>
           </div>
           <div class="feedback-row">
             <button type="submit" class="feedback-submit">Send</button>
-            <p class="feedback-note" role="status" aria-live="polite" />
+            <p class="feedback-note" role="status" aria-live="polite"></p>
           </div>
         </form>
       </div>
@@ -881,13 +881,13 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     </noscript>
   </section>
 
-  <div class="mx-auto max-w-4xl">
+  <div class="trials-width">
     {
       fieldNotes.length > 0 && (
         <section id="field-notes" class="field-notes" aria-labelledby="field-notes-heading">
           <div class="section-head">
             <h2 class="section-label" id="field-notes-heading">
-              <span class="pl">PL. VIII</span>Field notes
+              Field notes
             </h2>
             <span class="section-count">
               {fieldNotes.length.toString().padStart(2, '0')}{' '}
@@ -911,9 +911,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
           </ol>
 
           <h3 class="fn-sub" id="fn-by-build">
-            <span class="fn-sub-title">
-              <span class="pl">§</span>By build
-            </span>
+            <span class="fn-sub-title">By build</span>
             <span class="fn-sub-count">
               {noteGroups.length} builds · {fieldNotes.length} notes
             </span>
@@ -953,81 +951,11 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
         </section>
       )
     }
-
-    <div class="hex-rule" aria-hidden="true">
-      <img src="/hex-ornament.svg" alt="" width="96" height="32" />
-    </div>
   </div>
 </BaseLayout>
 
 <style>
-  /* ============================================================
-     PAGE GROUND — full dark room for this plate only.
-     Decision: vault/decisions/2026-08-12-games-page-dark-ground.md
-     Scoping: these :global(:root)/html/body rules ship ONLY on /games
-     (Astro emits this <style> solely for this page). No BaseLayout or
-     global.css changes; other pages keep the paper register.
-     ============================================================ */
-  :global(:root) {
-    --color-background: #0c0b09;
-    --color-surface: #14120e;
-    --color-frame: #1f1b14;
-    --color-border: #2c261b;
-    --color-rule: #6b6350;
-    --color-foreground: #e8dfc8;
-    --color-muted: #cfc5a9;
-    --color-subtle: #8f8468;
-    --color-link: #d4c49a;
-    --color-link-hover: #f3ecd6;
-    --color-accent: #e8a13c;
-    --color-blue-tick: #9db8e8;
-  }
-  :global(html) {
-    background: #0c0b09;
-    color: #e8dfc8;
-  }
-  /* Multiply grain on parchment goes black on near-black; soft-light keeps texture. */
-  :global(body::after) {
-    opacity: 0.2;
-    mix-blend-mode: soft-light;
-  }
-  :global(body::before) {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9998;
-    background: radial-gradient(
-      ellipse 85% 70% at 50% 30%,
-      transparent 45%,
-      rgb(0 0 0 / 0.4) 100%
-    );
-  }
-
-  /* Outermost plate seams only — soften the atlas double-frame that
-     existed to sit on parchment. Nothing inside the cabinet changes. */
-  .cabinet,
-  .field-report {
-    border-color: #2c261b;
-    outline-color: #1a1712;
-  }
-
-  /* Hex ornament strokes are ink (#1f1b14); invert so they read on dark. */
-  .hex-rule :global(img) {
-    filter: invert(1);
-    opacity: 0.45;
-  }
-
-  /* ============================================================
-     THE CABINET — deliberate register break for this plate only.
-     Decision record: vault/decisions/2026-08-12-arcade-shelf-games-page.md
-     Cabinet palette tokens (scoped here, not in the site theme):
-       ink-box   #14120e   cabinet ground (kin to --color-foreground)
-       plank     #241d14 / #0c0a07   shelf wood-dark
-       lamp      #e8a13c   power amber — PLAY, LEDs, selection heat
-       paper     #e8dfc8   the site's parchment, used as light
-     ============================================================ */
-
+  /* Interactive game cabinet, framed in the shared D command palette. */
   .sr-only {
     position: absolute;
     width: 1px;
@@ -1041,28 +969,16 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
 
   .cabinet-section {
+    max-width: 72rem;
+    margin-inline: auto;
     margin-top: 8px;
   }
-  @media (min-width: 1024px) {
-    /* Break the cabinet out of the 920px prose column: main is left-aligned
-       against the sidebar, so the unused space is all on the right — grow
-       into it (viewport - 280px sidebar - main's 64px+64px padding), capped. */
-    .cabinet-section {
-      width: min(1160px, calc(100vw - 280px - 128px));
-      max-width: none;
-    }
-  }
-
-  /* The plate frame — same engraved double-frame the specimen figures used,
-     so the dark cabinet reads as an atlas plate, not a foreign website. */
   .cabinet {
-    max-width: 1160px;
+    max-width: 100%;
     margin: 14px auto 0;
     border: 1px solid var(--color-rule);
-    outline: 1px solid var(--color-border);
-    outline-offset: 3px;
-    background: #14120e;
-    color: #e8dfc8;
+    background: var(--color-command-well);
+    color: var(--color-ink-on-dark);
   }
 
   .cab-rail {
@@ -1071,13 +987,13 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     gap: 12px;
     flex-wrap: wrap;
     padding: 10px 16px;
-    border-bottom: 1px solid #2c261b;
-    background: linear-gradient(to bottom, #1b1812, #14120e);
+    border-bottom: 1px solid var(--color-command-border);
+    background: linear-gradient(to bottom, var(--color-command-panel), var(--color-command-well));
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.16em;
-    color: #8f8468;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-on-dark-muted);
   }
   .cab-rail-left::before {
     content: '';
@@ -1085,13 +1001,13 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     width: 7px;
     height: 7px;
     margin-right: 9px;
-    background: #e8a13c;
+    background: var(--color-brass-on-dark);
     box-shadow: 0 0 6px 1px rgb(232 161 60 / 0.55);
   }
 
   .cab-body {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr);
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
     gap: 0;
   }
   @media (max-width: 979px) {
@@ -1104,15 +1020,15 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
 
   .cab-shelf-col {
     padding: 26px 22px 14px;
-    border-right: 1px solid #2c261b;
+    border-right: 1px solid var(--color-command-border);
     background:
       radial-gradient(120% 55% at 50% 0%, rgb(232 161 60 / 0.07), transparent 60%),
-      #14120e;
+      var(--color-command-well);
   }
   @media (max-width: 979px) {
     .cab-shelf-col {
       border-right: none;
-      border-bottom: 1px solid #2c261b;
+      border-bottom: 1px solid var(--color-command-border);
     }
   }
 
@@ -1155,9 +1071,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     right: -9px;
     bottom: -13px;
     height: 7px;
-    background: linear-gradient(to bottom, #2b2417, #17130c);
-    border-top: 1px solid #3a3120;
-    border-bottom: 1px solid #060504;
+    background: linear-gradient(to bottom, var(--color-command-panel), var(--color-command-well));
+    border-top: 1px solid var(--color-command-border);
+    border-bottom: 1px solid var(--color-command-border);
     border-radius: 1px;
     pointer-events: none;
   }
@@ -1178,11 +1094,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     display: block;
     height: 7px;
     margin: -9px 48px 8px 14px;
-    background: repeating-linear-gradient(
-      90deg,
-      transparent 0 7px,
-      rgb(0 0 0 / 0.34) 7px 10px
-    );
+    background: repeating-linear-gradient(90deg, transparent 0 7px, rgb(0 0 0 / 0.34) 7px 10px);
     border-radius: 0 0 3px 3px;
   }
 
@@ -1192,10 +1104,10 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     top: 4px;
     right: 8px;
     padding: 1px 4px 0;
-    background: #e8dfc8;
-    color: #1f1b14;
+    background: var(--color-ink-on-dark);
+    color: var(--color-ink);
     font-family: var(--font-mono);
-    font-size: 8px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.08em;
     border-radius: 1px;
@@ -1208,7 +1120,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     border-radius: 3px;
     overflow: hidden;
     box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
-    background: #0c0a07;
+    background: var(--color-command-well);
   }
   .cart-label :global(svg) {
     display: block;
@@ -1244,13 +1156,13 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
 
   .cart:focus-visible {
-    outline: 2px solid #e8a13c;
+    outline: 2px solid var(--color-brass-on-dark);
     outline-offset: 4px;
   }
   /* Arriving from a field-notes "See the cartridge" link (#cart-<id>) — mark
      where you landed. Pure CSS, so it reads with scripts off too. */
   .cart:target {
-    outline: 2px solid #e8a13c;
+    outline: 2px solid var(--color-brass-on-dark);
     outline-offset: 4px;
   }
 
@@ -1275,10 +1187,10 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .cab-hint {
     margin: 26px 2px 6px;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.18em;
-    color: #6b6350;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-on-dark-muted);
   }
   @media (max-width: 979px) {
     .cab-hint {
@@ -1307,7 +1219,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
 
   .crt {
-    background: #0b0908;
+    background: var(--color-command-well);
     border: 1px solid #000;
     border-radius: 10px;
     padding: 12px 12px 10px;
@@ -1320,16 +1232,16 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     gap: 8px;
     margin: 0 2px 9px;
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.18em;
-    color: #7a7157;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-on-dark-muted);
   }
   .crt-power {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #e8a13c;
+    background: var(--color-brass-on-dark);
     box-shadow: 0 0 6px 1px rgb(232 161 60 / 0.6);
   }
 
@@ -1376,9 +1288,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     display: grid;
     place-items: center;
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    color: #59503c;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-on-dark-muted);
   }
 
   .crt-fig {
@@ -1387,11 +1299,11 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .crt-fig figcaption {
     margin: 8px 2px 0;
     font-family: var(--font-mono);
-    font-size: 9.5px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #7a7157;
+    color: var(--color-ink-on-dark-muted);
   }
 
   .cab-readout {
@@ -1405,15 +1317,15 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     font-size: 26px;
     line-height: 1.15;
     letter-spacing: 0.01em;
-    color: #f3ecd6;
+    color: var(--color-ink-on-dark);
   }
 
   .cab-desc {
     margin: 0 0 16px;
     font-family: var(--font-serif);
-    font-size: 15.5px;
+    font-size: 16px;
     line-height: 1.55;
-    color: #cfc5a9;
+    color: var(--color-ink-on-dark-muted);
     max-width: 58ch;
   }
 
@@ -1431,55 +1343,57 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .cab-meta dt {
     flex: 0 0 76px;
     font-family: var(--font-mono);
-    font-size: 9.5px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #8f8468;
+    color: var(--color-ink-on-dark-muted);
   }
   .cab-meta dd {
     margin: 0;
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 0.03em;
-    color: #d8cfb4;
+    color: var(--color-ink-on-dark);
   }
   .cab-tests {
-    color: #e8a13c;
+    color: var(--color-brass-on-dark);
     font-weight: 500;
   }
 
   .cab-audit {
     margin: 0 0 18px;
     padding: 9px 11px;
-    border: 1px solid #332c1d;
-    background: #191510;
+    border: 1px solid var(--color-command-border);
+    background: var(--color-command-panel);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.55;
     letter-spacing: 0.03em;
-    color: #bdb294;
+    color: var(--color-ink-on-dark-muted);
     max-width: 58ch;
   }
   .cab-audit .k {
     display: block;
     margin-bottom: 3px;
-    font-size: 9px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #e8a13c;
+    color: var(--color-brass-on-dark);
   }
 
   .cab-play {
     display: inline-flex;
+    flex-wrap: wrap;
+    max-width: 100%;
     align-items: baseline;
     gap: 10px;
     padding: 13px 22px;
-    background: #e8a13c;
-    border: 1px solid #f6c477;
-    border-bottom-color: #9c6a1e;
-    color: #14120e;
+    background: var(--color-brass-on-dark);
+    border: 1px solid var(--color-brass-on-dark);
+    border-bottom-color: var(--color-brass);
+    color: var(--color-command-well);
     font-family: var(--font-mono);
     font-size: 15px;
     font-weight: 500;
@@ -1488,24 +1402,26 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     box-shadow: 0 0 18px -4px rgb(232 161 60 / 0.7);
   }
   .cab-play .tri {
-    font-size: 12px;
+    font-size: 14px;
   }
   .cab-play-sub {
-    font-size: 9px;
+    font-size: 14px;
     letter-spacing: 0.08em;
-    color: #4a3812;
+    color: var(--color-ink);
   }
   .cab-play:hover {
-    background: #f0b355;
-    color: #14120e;
+    background: var(--color-counter-buff);
+    color: var(--color-command-well);
   }
   .cab-play:focus-visible {
-    outline: 2px solid #f3ecd6;
+    outline: 2px solid var(--color-ink-on-dark);
     outline-offset: 3px;
   }
   @media (prefers-reduced-motion: no-preference) {
     .cab-play {
-      transition: background 120ms ease, transform 120ms ease;
+      transition:
+        background 120ms ease,
+        transform 120ms ease;
     }
     .cab-play:active {
       transform: translateY(1px);
@@ -1517,10 +1433,8 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .field-report {
     margin-top: 22px;
     border: 1px solid var(--color-rule);
-    outline: 1px solid var(--color-border);
-    outline-offset: 3px;
-    background: #14120e;
-    color: #e8dfc8;
+    background: var(--color-command-well);
+    color: var(--color-ink-on-dark);
   }
   .fr-rail {
     display: flex;
@@ -1529,13 +1443,13 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     gap: 12px;
     flex-wrap: wrap;
     padding: 10px 16px;
-    border-bottom: 1px solid #2c261b;
-    background: linear-gradient(to bottom, #1b1812, #14120e);
+    border-bottom: 1px solid var(--color-command-border);
+    background: linear-gradient(to bottom, var(--color-command-panel), var(--color-command-well));
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.16em;
-    color: #8f8468;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-on-dark-muted);
   }
   .fr-title {
     margin: 0;
@@ -1549,7 +1463,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     width: 7px;
     height: 7px;
     margin-right: 9px;
-    background: #e8a13c;
+    background: var(--color-brass-on-dark);
     box-shadow: 0 0 6px 1px rgb(232 161 60 / 0.55);
   }
   .fr-select-wrap {
@@ -1558,17 +1472,17 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     gap: 8px;
   }
   .fr-select {
-    background: #0b0908;
-    color: #e8dfc8;
-    border: 1px solid #2c261b;
+    background: var(--color-command-well);
+    color: var(--color-ink-on-dark);
+    border: 1px solid var(--color-command-border);
     border-radius: 4px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 14px;
     letter-spacing: 0.06em;
     padding: 4px 8px;
   }
   .fr-select:focus-visible {
-    outline: 2px solid #e8a13c;
+    outline: 2px solid var(--color-brass-on-dark);
     outline-offset: 1px;
   }
   .field-report .feedback-box {
@@ -1577,9 +1491,9 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
 
   .feedback-status {
     font-family: var(--font-mono);
-    font-size: 11.5px;
+    font-size: 14px;
     font-style: italic;
-    color: #8f8468;
+    color: var(--color-ink-on-dark-muted);
     margin: 0 0 12px;
   }
 
@@ -1591,25 +1505,25 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
   .feedback-list :global(.feedback-comment) {
     padding: 9px 0;
-    border-bottom: 1px solid #2c261b;
+    border-bottom: 1px solid var(--color-command-border);
   }
   .feedback-list :global(.feedback-comment:last-child) {
     border-bottom: none;
   }
   .feedback-list :global(.feedback-comment-meta) {
     font-family: var(--font-mono);
-    font-size: 9.5px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #8f8468;
+    color: var(--color-ink-on-dark-muted);
     margin: 0 0 3px;
   }
   .feedback-list :global(.feedback-comment-body) {
     font-family: var(--font-serif);
     font-size: 14.5px;
     line-height: 1.5;
-    color: #d8cfb4;
+    color: var(--color-ink-on-dark);
     margin: 0;
     white-space: pre-wrap;
     max-width: 56ch;
@@ -1618,7 +1532,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     font-family: var(--font-serif);
     font-style: italic;
     font-size: 13.5px;
-    color: #8f8468;
+    color: var(--color-ink-on-dark-muted);
   }
 
   .feedback-honeypot {
@@ -1638,17 +1552,17 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   .feedback-label {
     display: block;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #8f8468;
+    color: var(--color-ink-on-dark-muted);
     margin-bottom: 5px;
   }
   .feedback-optional {
     text-transform: none;
     letter-spacing: 0;
-    color: #6b6350;
+    color: var(--color-ink-on-dark-muted);
     font-weight: 400;
   }
   .feedback-input,
@@ -1656,17 +1570,17 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     width: 100%;
     font-family: var(--font-serif);
     font-size: 14.5px;
-    color: #e8dfc8;
-    background: #0f0d0a;
-    border: 1px solid #3a3120;
+    color: var(--color-ink-on-dark);
+    background: var(--color-command-panel);
+    border: 1px solid var(--color-command-border);
     padding: 8px 10px;
     resize: vertical;
   }
   .feedback-input:focus,
   .feedback-textarea:focus {
-    outline: 2px solid #e8a13c;
+    outline: 2px solid var(--color-brass-on-dark);
     outline-offset: 1px;
-    border-color: #e8a13c;
+    border-color: var(--color-brass-on-dark);
   }
   .feedback-row {
     display: flex;
@@ -1676,18 +1590,18 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
   .feedback-submit {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #14120e;
-    background: #bdb294;
-    border: 1px solid #d8cfb4;
+    color: var(--color-command-well);
+    background: var(--color-ink-on-dark-muted);
+    border: 1px solid var(--color-ink-on-dark);
     padding: 8px 16px;
     cursor: pointer;
   }
   .feedback-submit:hover {
-    background: #d8cfb4;
+    background: var(--color-ink-on-dark);
   }
   .feedback-submit:disabled {
     opacity: 0.5;
@@ -1695,17 +1609,17 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
   .feedback-note {
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 14px;
     letter-spacing: 0.06em;
-    color: #8f8468;
+    color: var(--color-ink-on-dark-muted);
     margin: 0;
   }
   .feedback-note.is-error {
-    color: #e08a5a;
+    color: var(--color-carmine-on-dark);
   }
 
   /* ---------------- Field notes ----------------
-     Register unchanged (mono rows on the plate's own tokens). The rows are
+     Mono rows use the shared D tokens. The rows are
      server-rendered now, so the old `:global()` escapes for JS-injected
      elements are gone — Astro's scoped pass reaches them directly.
      ------------------------------------------------ */
@@ -1720,13 +1634,13 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     line-height: 1.5;
     color: var(--color-muted);
     margin: -14px 0 22px;
-    max-width: 62ch;
+    max-width: 100%;
   }
   .field-notes-list {
     list-style: none;
     margin: 0 0 34px;
     padding: 0;
-    max-width: 62ch;
+    max-width: 100%;
   }
   .field-notes-row {
     padding: 10px 0;
@@ -1751,16 +1665,12 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
 
   /* --- By build: one drawer per game, collapsed by default --- */
 
-  /* The type sits on the inner spans, NOT on the h3 — `max-width: 62ch`
-     resolves against the element's own font, so setting 11px mono here would
-     make this rule stop ~200px short of the lists it heads. Inheriting the
-     serif column width keeps every rule in this section the same length. */
   .fn-sub {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 14px;
-    max-width: 62ch;
+    max-width: 100%;
     margin: 0 0 4px;
     padding-bottom: 6px;
     border-bottom: 1px solid var(--color-rule);
@@ -1789,7 +1699,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
 
   .fn-groups {
-    max-width: 62ch;
+    max-width: 100%;
     margin: 0 0 18px;
   }
   .fn-group {
@@ -1854,7 +1764,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
   .fn-group-row {
     display: grid;
-    grid-template-columns: 92px 1fr;
+    grid-template-columns: 92px minmax(0, 1fr);
     gap: 14px;
     padding: 7px 0;
     font-family: var(--font-mono);
@@ -1956,9 +1866,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
 
     function play(i: number) {
       const id = carts[i].dataset.game;
-      const link = id
-        ? cabinet.querySelector<HTMLAnchorElement>(`[data-play="${id}"]`)
-        : null;
+      const link = id ? cabinet.querySelector<HTMLAnchorElement>(`[data-play="${id}"]`) : null;
       link?.click();
     }
 

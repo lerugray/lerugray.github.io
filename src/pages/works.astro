@@ -56,28 +56,19 @@ const totalEntries = canon.length;
 <BaseLayout
   title="Works | Ray Weiss"
   description="Ray Weiss's complete body of work. Wargames published under Conflict Simulations LLC, music released as Le Rug and other projects, games, essays, and a book in progress."
-  colophon={{ sheet: 'VII', edition: '2026.05', loc: 'Brooklyn, NY', scale: 'Complete' }}
 >
-  <div
-    slot="sheet-id"
-    class="sheet-id"
-    aria-label="Sheet identification"
-  >
-    <div class="plate">
-      <span class="num">PL. VII</span> Works · Complete Catalog
-    </div>
-    <div class="edition">Edition 2026.05 · Brooklyn, NY</div>
-  </div>
-
   <div class="mx-auto max-w-3xl px-0">
-    <h1>Works</h1>
-    <p class="works-lede">
-      Every wargame, album, game, RPG, essay, and book in one place.
-      Sourced from <a href="https://github.com/lerugray/mission-canon">mission-canon</a>
-      — a personal ledger Ray maintains as a living record of his creative output.
-      Unverified entries (year or attribution uncertain) are marked with a
-      <span class="unverified-mark">?</span>.
-    </p>
+    <header class="page-heading">
+      <h1>Works</h1>
+      <p class="dek">
+        Every wargame, album, game, RPG, essay, and book in one place. Sourced from <a
+          href="https://github.com/lerugray/mission-canon">mission-canon</a
+        >
+        — a personal ledger Ray maintains as a living record of his creative output. Unverified entries
+        (year or attribution uncertain) are marked with a
+        <span class="unverified-mark">?</span>.
+      </p>
+    </header>
 
     <div class="works-stats">
       <span><span class="stat-num">{totalReleased}</span> released</span>
@@ -90,7 +81,9 @@ const totalEntries = canon.length;
         <section class="works-section">
           <div class="section-head">
             <h2 class="section-label">{mediumOrder[medium]}</h2>
-            <span class="section-count">{entries.length} {entries.length === 1 ? 'entry' : 'entries'} ——</span>
+            <span class="section-count">
+              {entries.length} {entries.length === 1 ? 'entry' : 'entries'} ——
+            </span>
           </div>
 
           <ol class="works-list">
@@ -102,21 +95,24 @@ const totalEntries = canon.length;
                 <li class="works-entry">
                   <div class="works-year">
                     {entry.year ? (
-                      <span class={isUnverified ? 'unverified' : ''}>{entry.year}{isUnverified && <span class="unverified-mark">?</span>}</span>
+                      <span class={isUnverified ? 'unverified' : ''}>
+                        {entry.year}
+                        {isUnverified && <span class="unverified-mark">?</span>}
+                      </span>
                     ) : (
                       <span class="unverified-mark">?</span>
                     )}
                   </div>
                   <div class="works-body">
                     {entry.url ? (
-                      <a href={entry.url} class="works-title">{entry.title}</a>
+                      <a href={entry.url} class="works-title">
+                        {entry.title}
+                      </a>
                     ) : (
                       <span class="works-title">{entry.title}</span>
                     )}
                     <div class="works-meta">
-                      {entry.alias && (
-                        <span class="works-alias">{entry.alias}</span>
-                      )}
+                      {entry.alias && <span class="works-alias">{entry.alias}</span>}
                       {entry.venue && entry.venue !== entry.alias && (
                         <>
                           <span class="works-sep">·</span>
@@ -126,13 +122,13 @@ const totalEntries = canon.length;
                       {!statusIsNeutral && (
                         <>
                           <span class="works-sep">·</span>
-                          <span class={`works-status works-status--${entry.status}`}>{statusText}</span>
+                          <span class={`works-status works-status--${entry.status}`}>
+                            {statusText}
+                          </span>
                         </>
                       )}
                     </div>
-                    {entry.notes && (
-                      <p class="works-notes">{entry.notes}</p>
-                    )}
+                    {entry.notes && <p class="works-notes">{entry.notes}</p>}
                   </div>
                 </li>
               );
@@ -145,19 +141,6 @@ const totalEntries = canon.length;
 </BaseLayout>
 
 <style>
-  h1 {
-    margin-bottom: 1.25rem;
-  }
-
-  .works-lede {
-    font-family: var(--font-serif);
-    font-size: 17px;
-    color: var(--color-muted);
-    line-height: 1.6;
-    max-width: 60ch;
-    margin: 0 0 1.5rem;
-  }
-
   .unverified-mark {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -176,6 +159,7 @@ const totalEntries = canon.length;
     margin: 0 0 3.5rem;
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
     align-items: baseline;
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
@@ -204,7 +188,7 @@ const totalEntries = canon.length;
 
   .works-entry {
     display: grid;
-    grid-template-columns: 52px 1fr;
+    grid-template-columns: 52px minmax(0, 1fr);
     gap: 20px;
     padding: 14px 0;
     border-bottom: 1px solid var(--color-border);
