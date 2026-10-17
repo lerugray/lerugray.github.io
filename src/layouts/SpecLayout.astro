@@ -1,0 +1,126 @@
+---
+import '@/styles/spec.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  title,
+  description = 'Personal site of Ray Weiss. Brooklyn wargame designer, running four businesses.',
+  image = '/og-image.png',
+  ogType = 'website',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageURL = new URL(image, Astro.site).toString();
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Ray Weiss" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Ray Weiss. Brooklyn wargame designer, running four businesses."
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <div class="brand-cluster">
+          <a href="/" aria-label="Ray Weiss">
+            <img
+              class="brand-counter"
+              src="/counter-rw.svg"
+              width="96"
+              height="72"
+              alt="Ray Weiss unit counter"
+            />
+          </a>
+          <a class="brand-link" href="/">Ray Weiss</a>
+          <span class="brand-locator">Brooklyn, NY</span>
+        </div>
+        <nav class="site-nav" aria-label="Site navigation">
+          <a
+            href="/games"
+            aria-current={currentPath === '/games' || currentPath.startsWith('/games/')
+              ? 'page'
+              : undefined}>Field Trials</a
+          >
+          <a
+            href="/services"
+            aria-current={currentPath === '/services' || currentPath.startsWith('/services/')
+              ? 'page'
+              : undefined}>Commissions</a
+          >
+          <a
+            href="/wargame-modules"
+            aria-current={currentPath === '/wargame-modules' ||
+            currentPath.startsWith('/wargame-modules/')
+              ? 'page'
+              : undefined}>Wargame Modules</a
+          >
+          <a
+            href="/writing"
+            aria-current={currentPath === '/writing' || currentPath.startsWith('/writing/')
+              ? 'page'
+              : undefined}>Writing</a
+          >
+          <a
+            href="/conflict-simulations-llc"
+            aria-current={currentPath === '/conflict-simulations-llc' ||
+            currentPath.startsWith('/conflict-simulations-llc/')
+              ? 'page'
+              : undefined}>Businesses</a
+          >
+          <a
+            href="/kit"
+            aria-current={currentPath === '/kit' || currentPath.startsWith('/kit/')
+              ? 'page'
+              : undefined}>Tools</a
+          >
+          <a
+            href="/about"
+            aria-current={currentPath === '/about' || currentPath.startsWith('/about/')
+              ? 'page'
+              : undefined}>About</a
+          >
+        </nav>
+        <a class="header-contact" href="mailto:rweiss@consimsltd.com">rweiss@consimsltd.com</a>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <span>Ray Weiss · Brooklyn, NY</span>
+        <a href="mailto:rweiss@consimsltd.com">rweiss@consimsltd.com</a>
+      </div>
+    </footer>
+  </body>
+</html>
