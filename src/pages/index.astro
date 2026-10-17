@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// "Start here" shows the newest published essay (Ray, 2026-10-17).
+const [newest] = (await getCollection('writing', ({ data }) => data.published !== false)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
 ---
 
 <BaseLayout
@@ -129,13 +135,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <div class="container home-lower-grid">
         <aside class="featured-essay" aria-labelledby="start-here">
           <span class="featured-essay__label" id="start-here">Start here</span>
-          <h3 class="featured-essay__title">Columbo Needed a Confession</h3>
-          <p class="featured-essay__summary">
-            Three AI models play a matrix game: Columbo tries to indict Tony Soprano. A summary by
-            Claude of what happened, and why the lieutenant's cases can't survive a man whose whole
-            life is trained silence.
-          </p>
-          <a href="/writing/columbo-needed-a-confession" class="cta">Read the post &rarr;</a>
+          <h3 class="featured-essay__title">{newest.data.title}</h3>
+          <p class="featured-essay__summary">{newest.data.description}</p>
+          <a href={`/writing/${newest.id}`} class="cta">Read the post &rarr;</a>
         </aside>
 
         <div class="home-index-column">

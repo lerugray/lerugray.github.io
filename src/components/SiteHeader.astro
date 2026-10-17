@@ -11,8 +11,9 @@ const sectionPaths: Record<string, string[]> = {
     '/mission-brain',
     '/auftragstaktik',
     '/catalogdna',
+    '/buddies',
   ],
-  '/about': ['/buddies', '/music', '/works'],
+  '/about': ['/music', '/works'],
 };
 const inSection = (section: string) =>
   (sectionPaths[section] || []).some((route) => path === route || path.startsWith(route + '/'));
@@ -31,7 +32,7 @@ const inSection = (section: string) =>
         />
       </a>
       <a class="brand-link" href="/" aria-current={path === '/' ? 'page' : undefined}>Ray Weiss</a>
-      <span class="brand-locator">Brooklyn, NY</span>
+      <span class="brand-locator">Brooklyn, NY{path === '/' && ' · 40°41′N'}</span>
     </div>
     <nav class="site-nav" aria-label="Site navigation">
       <a

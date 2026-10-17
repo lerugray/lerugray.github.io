@@ -211,3 +211,27 @@
 .site-page .product-spec__body > p:last-child {
   margin-bottom: 0;
 }
+/* Look-note fixes (2026-10-17). Kept here so the Modules page bundle stays byte-identical. */
+/* Commissions cards: body text runs to the card's inner edge. */
+.site-page .page-content:not(.page-content--home) .infra-list .infra-desc {
+  max-width: none;
+}
+/* Small ID lines (hero slug, card meta) at the 12px data size with body ink, for legibility. */
+.site-page .page-heading .slug,
+.site-page .infra-list .infra-meta {
+  font-size: var(--text-xs);
+  color: var(--color-ink-body);
+}
+/* Directory top rule spans the content width, not the container's gutters. */
+.site-page .site-directory {
+  position: relative;
+  border-top: 0;
+}
+.site-page .site-directory::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--gutter);
+  right: var(--gutter);
+  border-top: 2px solid var(--color-rule-heavy);
+}
