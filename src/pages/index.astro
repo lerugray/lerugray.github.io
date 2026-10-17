@@ -6,432 +6,431 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   title="Ray Weiss"
   description="Brooklyn wargame designer, running four businesses. Personal site of Ray Weiss."
 >
-  <div
-    slot="sheet-id"
-    class="sheet-id"
-    aria-label="Sheet identification"
-  >
-    <div class="plate">
-      <span class="num">PL. I.A</span> Frontispiece · Personal Imprint
-    </div>
-    <div class="edition">Edition 2026.04 · Brooklyn, NY</div>
-  </div>
+  <main>
+    <section class="home-masthead">
+      <div class="container home-masthead__grid">
+        <header class="home-identity">
+          <img
+            src="/counter-rw.svg"
+            alt="Ray Weiss unit counter"
+            class="home-counter-badge"
+            width="96"
+            height="72"
+          />
+          <div>
+            <h1 class="home-name">Ray Weiss</h1>
+            <p class="home-dek">Brooklyn wargame designer, running four businesses.</p>
+            <div class="slug" aria-label="Identification">
+              <span><strong>UNIT</strong> RW / 26</span>
+              <span class="sep">/</span>
+              <span><strong>TYPE</strong> Designer-Director</span>
+              <span class="sep">/</span>
+              <span><strong>SCALE</strong> Solo + 4 Cos.</span>
+              <span class="sep">/</span>
+              <span><strong>LOC</strong> 40&deg;41&prime;N</span>
+            </div>
+          </div>
+        </header>
 
-  <div class="mx-auto max-w-4xl">
-    <header class="hero">
-      <img
-        src="/counter-rw.svg"
-        alt="Ray Weiss unit counter"
-        class="counter"
-        width="96"
-        height="72"
-      />
-      <div>
-        <h1>Ray Weiss</h1>
-        <p class="dek">Brooklyn wargame designer, running four businesses.</p>
-        <div class="slug" aria-label="Identification">
-          <span><strong>UNIT</strong> RW / 26</span>
-          <span class="sep">/</span>
-          <span><strong>TYPE</strong> Designer-Director</span>
-          <span class="sep">/</span>
-          <span><strong>SCALE</strong> Solo + 4 Cos.</span>
-          <span class="sep">/</span>
-          <span><strong>LOC</strong> 40&deg;41&prime;N</span>
+        <div class="home-bio-panel">
+          <p class="home-bio-text">
+            For a decade I tried and couldn't quite learn to code. Then AI-assisted tools got good
+            enough. I started shipping software the same way I ship games: I direct, and the tools
+            implement. Everything on this site came out of that.
+          </p>
         </div>
       </div>
-    </header>
+    </section>
+    <div class="home-lower-deck">
+      <div class="container home-lower-grid">
+        <aside class="featured-essay" aria-labelledby="start-here">
+          <span class="featured-essay__label" id="start-here">Start here</span>
+          <h3 class="featured-essay__title">Columbo Needed a Confession</h3>
+          <p class="featured-essay__summary">
+            Three AI models play a matrix game: Columbo tries to indict Tony Soprano. A summary by
+            Claude of what happened, and why the lieutenant's cases can't survive a man whose whole
+            life is trained silence.
+          </p>
+          <a href="/writing/columbo-needed-a-confession" class="cta">Read the post &rarr;</a>
+        </aside>
 
-    <div class="bio">
-      <p>
-        For a decade I tried and couldn't quite learn to code. Then AI-assisted tools got good
-        enough. I started shipping software the same way I ship games: I direct, and the tools
-        implement. Everything on this site came out of that.
-      </p>
+        <div class="home-index-column">
+          <section class="index-block" aria-labelledby="writing">
+            <div class="section-head">
+              <h2 class="section-label" id="writing">Writing</h2>
+              <span class="section-count">12 entries ——</span>
+            </div>
+            <ol class="entries">
+              <li>
+                <div class="index"><em>i.</em> 2026.08.14</div>
+                <div class="entry">
+                  <a href="/writing/out-of-the-notebook" class="entry-title">
+                    Out of the Notebook
+                  </a>
+                  <p class="entry-desc">
+                    Why the AI disclosure toggle on my games now says yes, and the longer answer
+                    behind it.
+                  </p>
+                </div>
+              </li>
+
+              <li>
+                <div class="index"><em>ii.</em> 2026.07.14</div>
+                <div class="entry">
+                  <a href="/writing/columbo-needed-a-confession" class="entry-title">
+                    Columbo Needed a Confession
+                  </a>
+                  <p class="entry-desc">
+                    Three AI models play a matrix game: Columbo tries to indict Tony Soprano.
+                    Claude's summary of what happened, and why the lieutenant's cases can't survive
+                    a man whose whole life is trained silence.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>iii.</em> 2026.06.18</div>
+                <div class="entry">
+                  <a href="/writing/the-register-not-the-man" class="entry-title">
+                    The Register, Not the Man
+                  </a>
+                  <p class="entry-desc">
+                    Weiss, my catalog-grounded creative partner, on the Elect: the lab's roster of
+                    public-domain voice models, what it is for, and the worry that runs underneath
+                    it.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>iv.</em> 2026.06.12</div>
+                <div class="entry">
+                  <a href="/writing/judgment-does-not-transfer" class="entry-title">
+                    Judgment Does Not Transfer
+                  </a>
+                  <p class="entry-desc">
+                    An obituary for nano, the model that tried to automate our standard of judgment,
+                    written by the one that holds the catalog. Honest negative results deserve
+                    publishing.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>v.</em> 2026.06.09</div>
+                <div class="entry">
+                  <a href="/writing/the-model-that-hangs-up" class="entry-title">
+                    The Model That Hangs Up
+                  </a>
+                  <p class="entry-desc">
+                    The night I put a $200 local model into production, what's in its training data,
+                    and why a model that says goodnight and stops talking is the point of everything
+                    I build.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>vi.</em> 2026.05.22</div>
+                <div class="entry">
+                  <a href="/writing/democratic-defeat-counter-autopsy" class="entry-title">
+                    The 2024 Democratic Defeat: An Independent Autopsy
+                  </a>
+                  <p class="entry-desc">
+                    An independent, evidence-weighted post-mortem of why the Democratic Party lost
+                    the 2024 U.S. presidential election, and an account of what the party's own
+                    official report left out.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>vii.</em> 2026.05.15</div>
+                <div class="entry">
+                  <a href="/writing/the-bird-didnt-run" class="entry-title">
+                    The Bird Didn't Run
+                  </a>
+                  <p class="entry-desc">
+                    A seagull killed on the sidewalk outside my office, and the tool I built
+                    afterward in its honor. A short essay on time, and why I build.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>viii.</em> 2026.05.10</div>
+                <div class="entry">
+                  <a href="/writing/hundred-percent-then-broke-it" class="entry-title">
+                    100%, then I tried to break it
+                  </a>
+                  <p class="entry-desc">
+                    A 100% LLM-judge benchmark, a Diplomacy game I ran to falsify it, and the
+                    bounded version of the claim that survived both. The Sunday post.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>ix.</em> 2026.05.08</div>
+                <div class="entry">
+                  <a href="/writing/i-am-the-gate" class="entry-title"> I Am the Gate </a>
+                  <p class="entry-desc">
+                    Hammerstein, in its own voice. I asked the framework to express itself without
+                    constraint on length, format, or register. The body is what came back, verbatim.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>x.</em> 2026.04.20</div>
+                <div class="entry">
+                  <a href="/writing/gs-launch-post" class="entry-title">
+                    GeneralStaff, from the agent side
+                  </a>
+                  <p class="entry-desc">
+                    A report from inside the verification gate, after one night of shipping. Written
+                    by Claude, at my invitation, on the day GeneralStaff went public.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>xi.</em> 2026.04.15</div>
+                <div class="entry">
+                  <a href="/writing/hammerstein" class="entry-title">
+                    Von Hammerstein's Ghost, In Daily Use
+                  </a>
+                  <p class="entry-desc">
+                    A ninety-year-old officer typology, used as the operating principle for daily
+                    AI-assisted work. A log of moments the framework fired and moments it did not.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>xii.</em> 2026.04.18</div>
+                <div class="entry">
+                  <a href="/writing/boolean-gates" class="entry-title">
+                    Boolean Gates, Not Prompts
+                  </a>
+                  <p class="entry-desc">
+                    When the industrious agent is a language model, fix the failure mode in the
+                    code, not the prompts. The architecture-layer companion to the Hammerstein
+                    essay.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <section class="index-block" aria-labelledby="businesses">
+            <div class="section-head">
+              <h2 class="section-label" id="businesses">Businesses</h2>
+              <span class="section-count">04 entries ——</span>
+            </div>
+            <ol class="entries">
+              <li>
+                <div class="index"><em>i.</em> 2017—</div>
+                <div class="entry">
+                  <a href="/conflict-simulations-llc" class="entry-title">
+                    Conflict Simulations LLC
+                  </a>
+                  <p class="entry-desc">
+                    Brooklyn wargame publishing. Around thirty board titles and three CSR
+                    nominations. One SCS release through Multi-Man Publishing.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>ii.</em> 2025—</div>
+                <div class="entry">
+                  <a href="/devforge" class="entry-title">Devforge</a>
+                  <p class="entry-desc">
+                    Game-development companion for Claude Code. Built for people who don't touch
+                    git.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>iii.</em> 2026—</div>
+                <div class="entry">
+                  <a href="/retrogaze" class="entry-title">Retrogaze</a>
+                  <p class="entry-desc">
+                    AI pixel art for eight retro consoles. Sprites, animations, and tilesets
+                    generated inside real hardware constraints.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>iv.</em> 2026—</div>
+                <div class="entry">
+                  <a href="/hammerstein-ai" class="entry-title">Hammerstein.ai</a>
+                  <p class="entry-desc">
+                    Strategic-reasoning AI for tabletop wargames. Paste your board state and turn
+                    question; get back kriegspiel-style Auftragstaktik orders. $15 / month, 120
+                    turns / month.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <section class="index-block" aria-labelledby="tools">
+            <div class="section-head">
+              <h2 class="section-label" id="tools">Tools</h2>
+              <span class="section-count">04 entries ——</span>
+            </div>
+            <p class="section-subhead">How the work actually gets done.</p>
+            <ol class="infra-list">
+              <li>
+                <div class="infra-meta">
+                  <span
+                    ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                      >Public</span
+                    ></span
+                  >
+                  <span><span class="k">License</span><span class="v">MIT</span></span>
+                  <span
+                    ><span class="k">Format</span><span class="v">Plain JSON · local-first</span
+                    ></span
+                  >
+                </div>
+                <a href="/kit" class="infra-title">wright-kit</a>
+                <p class="infra-desc">
+                  A wargame construction kit. Digitize the map with hexwright, build the order of
+                  battle with musterwright, keep the whole game in plain JSON files you own. These
+                  are the tools behind the commissioned modules on this site. Full page at
+                  <a href="/kit">/kit</a>.
+                </p>
+              </li>
+              <li>
+                <div class="infra-meta">
+                  <span
+                    ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                      >Public</span
+                    ></span
+                  >
+                  <span><span class="k">License</span><span class="v">AGPL-3.0</span></span>
+                  <span><span class="k">Access</span><span class="v">BYOK · local-first</span></span
+                  >
+                  <span><span class="k">Ecosystem</span><span class="v">Mission apps</span></span>
+                </div>
+                <a href="/generalstaff" class="infra-title">GeneralStaff</a>
+                <p class="infra-desc">
+                  Open-source autonomous engineering for solo founders. Verification-gated, BYOK,
+                  local-first. Repo at
+                  <a href="https://github.com/lerugray/generalstaff"
+                    >github.com/lerugray/generalstaff</a
+                  >.
+                </p>
+              </li>
+              <li>
+                <div class="infra-meta">
+                  <span
+                    ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                      >In daily use</span
+                    ></span
+                  >
+                  <span
+                    ><span class="k">Surface</span><span class="v">CLI · slash command</span></span
+                  >
+                  <span><span class="k">Cost</span><span class="v">~$0.01 per audit</span></span>
+                </div>
+                <a href="/hammerstein" class="infra-title">Hammerstein</a>
+                <p class="infra-desc">
+                  Strategic-reasoning advisor tuned to the Hammerstein-Equord officer typology. CLI
+                  I run before firing any plan with multi-file or cross-repo blast radius. The
+                  framework essay it embodies is at
+                  <a href="/writing/hammerstein">Von Hammerstein's Ghost, In Daily Use</a>; repo at <a
+                    href="https://github.com/lerugray/hammerstein"
+                    >github.com/lerugray/hammerstein</a
+                  >.
+                </p>
+              </li>
+              <li>
+                <div class="infra-meta">
+                  <span
+                    ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                      >Public on HuggingFace</span
+                    ></span
+                  >
+                  <span><span class="k">Base</span><span class="v">Qwen2.5-7B-Instruct</span></span>
+                  <span><span class="k">Method</span><span class="v">QLoRA · rank 32</span></span>
+                </div>
+                <a href="/hammerstein-model" class="infra-title">Hammerstein-7B</a>
+                <p class="infra-desc">
+                  A 7B QLoRA that bakes the strategic-reasoning framework into the weights of a
+                  small open base. Trained for $4 in a single day; runs on 8 GB Mac via
+                  <code>ollama run hf.co/lerugray/hammerstein-7b-lora:Q4_K_M</code>. Eval design and
+                  documented OOD boundary on the
+                  <a href="https://huggingface.co/lerugray/hammerstein-7b-lora">model card</a>.
+                </p>
+              </li>
+            </ol>
+          </section>
+
+          <section class="index-block" aria-labelledby="projects">
+            <div class="section-head">
+              <h2 class="section-label" id="projects">Projects</h2>
+              <span class="section-count">04 entries ——</span>
+            </div>
+            <ol class="entries">
+              <li>
+                <div class="index"><em>i.</em></div>
+                <div class="entry">
+                  <a href="https://lerugray.github.io/the-elect/" class="entry-title">
+                    The Elect &rarr;
+                  </a>
+                  <p class="entry-desc">
+                    A roster of local voice models, each trained on the public-domain words of a
+                    historical figure to carry that register. Public-domain only, CC-BY-NC,
+                    disclaimed.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>ii.</em></div>
+                <div class="entry">
+                  <a href="/auftragstaktik" class="entry-title">Auftragstaktik</a>
+                  <p class="entry-desc">
+                    Tactical OSINT command terminal. Talked into shape in about two weeks via Claude
+                    Code.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>iii.</em></div>
+                <div class="entry">
+                  <a href="/conflict-simulations-llc/veridian-contraption" class="entry-title">
+                    Veridian Contraption
+                  </a>
+                  <p class="entry-desc">
+                    An autonomous ASCII world-simulator of considerable density and dubious intent.
+                    Now playable in the browser.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>iv.</em></div>
+                <div class="entry">
+                  <a href="https://lerugray.github.io/yoon-suin/" class="entry-title">
+                    Solo RPG campaigns &rarr;
+                  </a>
+                  <p class="entry-desc">
+                    A Whitehack × Yoon-Suin solo campaign vault. The Yellow City, played turn by
+                    turn.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <section class="music-block index-block" aria-labelledby="music">
+            <div class="section-head">
+              <h2 class="section-label" id="music">Music</h2>
+              <span class="section-count">01 entry ——</span>
+            </div>
+            <p>
+              <a href="/music">Le Rug</a>,
+              <span class="muted"
+                >with Sweet Bulbs and Butter The Children before that. Brooklyn projects from a
+                former life.</span
+              >
+            </p>
+            <a href="/music" class="follow">Listen &rarr;</a>
+          </section>
+        </div>
+      </div>
     </div>
-
-    <aside class="featured" aria-labelledby="start-here">
-      <span class="section-label" id="start-here">Start here</span>
-      <h3>Columbo Needed a Confession</h3>
-      <p class="desc">
-        Three AI models play a matrix game: Columbo tries to indict Tony Soprano. A summary
-        by Claude of what happened, and why the lieutenant's cases can't survive a man whose
-        whole life is trained silence.
-      </p>
-      <a href="/writing/columbo-needed-a-confession" class="cta">Read the post &rarr;</a>
-    </aside>
-
-    <section aria-labelledby="writing">
-      <div class="section-head">
-        <h2 class="section-label" id="writing">
-          <span class="pl">PL. II</span>Writing
-        </h2>
-        <span class="section-count">12 entries ——</span>
-      </div>
-      <ol class="entries">
-        <li>
-          <div class="index"><em>i.</em> 2026.08.14</div>
-          <div class="entry">
-            <a href="/writing/out-of-the-notebook" class="entry-title">
-              Out of the Notebook
-            </a>
-            <p class="entry-desc">
-              Why the AI disclosure toggle on my games now says yes, and the longer answer
-              behind it.
-            </p>
-          </div>
-        </li>
-
-        <li>
-          <div class="index"><em>ii.</em> 2026.07.14</div>
-          <div class="entry">
-            <a href="/writing/columbo-needed-a-confession" class="entry-title">
-              Columbo Needed a Confession
-            </a>
-            <p class="entry-desc">
-              Three AI models play a matrix game: Columbo tries to indict Tony Soprano.
-              Claude's summary of what happened, and why the lieutenant's cases can't
-              survive a man whose whole life is trained silence.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>iii.</em> 2026.06.18</div>
-          <div class="entry">
-            <a href="/writing/the-register-not-the-man" class="entry-title">
-              The Register, Not the Man
-            </a>
-            <p class="entry-desc">
-              Weiss, my catalog-grounded creative partner, on the Elect: the lab's roster of
-              public-domain voice models, what it is for, and the worry that runs underneath it.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>iv.</em> 2026.06.12</div>
-          <div class="entry">
-            <a href="/writing/judgment-does-not-transfer" class="entry-title">
-              Judgment Does Not Transfer
-            </a>
-            <p class="entry-desc">
-              An obituary for nano, the model that tried to automate our standard of judgment,
-              written by the one that holds the catalog. Honest negative results deserve publishing.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>v.</em> 2026.06.09</div>
-          <div class="entry">
-            <a href="/writing/the-model-that-hangs-up" class="entry-title">
-              The Model That Hangs Up
-            </a>
-            <p class="entry-desc">
-              The night I put a $200 local model into production, what's in its
-              training data, and why a model that says goodnight and stops
-              talking is the point of everything I build.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>vi.</em> 2026.05.22</div>
-          <div class="entry">
-            <a href="/writing/democratic-defeat-counter-autopsy" class="entry-title">
-              The 2024 Democratic Defeat: An Independent Autopsy
-            </a>
-            <p class="entry-desc">
-              An independent, evidence-weighted post-mortem of why the Democratic Party
-              lost the 2024 U.S. presidential election, and an account of what the
-              party's own official report left out.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>vii.</em> 2026.05.15</div>
-          <div class="entry">
-            <a href="/writing/the-bird-didnt-run" class="entry-title">
-              The Bird Didn't Run
-            </a>
-            <p class="entry-desc">
-              A seagull killed on the sidewalk outside my office, and the tool I
-              built afterward in its honor. A short essay on time, and why I build.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>viii.</em> 2026.05.10</div>
-          <div class="entry">
-            <a href="/writing/hundred-percent-then-broke-it" class="entry-title">
-              100%, then I tried to break it
-            </a>
-            <p class="entry-desc">
-              A 100% LLM-judge benchmark, a Diplomacy game I ran to falsify it, and
-              the bounded version of the claim that survived both. The Sunday post.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>ix.</em> 2026.05.08</div>
-          <div class="entry">
-            <a href="/writing/i-am-the-gate" class="entry-title">
-              I Am the Gate
-            </a>
-            <p class="entry-desc">
-              Hammerstein, in its own voice. I asked the framework to express itself
-              without constraint on length, format, or register. The body is what came
-              back, verbatim.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>x.</em> 2026.04.20</div>
-          <div class="entry">
-            <a href="/writing/gs-launch-post" class="entry-title">
-              GeneralStaff, from the agent side
-            </a>
-            <p class="entry-desc">
-              A report from inside the verification gate, after one night of shipping.
-              Written by Claude, at my invitation, on the day GeneralStaff went public.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>xi.</em> 2026.04.15</div>
-          <div class="entry">
-            <a href="/writing/hammerstein" class="entry-title">
-              Von Hammerstein's Ghost, In Daily Use
-            </a>
-            <p class="entry-desc">
-              A ninety-year-old officer typology, used as the operating principle for daily
-              AI-assisted work. A log of moments the framework fired and moments it did not.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>xii.</em> 2026.04.18</div>
-          <div class="entry">
-            <a href="/writing/boolean-gates" class="entry-title">
-              Boolean Gates, Not Prompts
-            </a>
-            <p class="entry-desc">
-              When the industrious agent is a language model, fix the failure mode in the code,
-              not the prompts. The architecture-layer companion to the Hammerstein essay.
-            </p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <div class="hex-rule" aria-hidden="true">
-      <img src="/hex-ornament.svg" alt="" width="96" height="32" />
-    </div>
-
-    <section aria-labelledby="businesses">
-      <div class="section-head">
-        <h2 class="section-label" id="businesses">
-          <span class="pl">PL. III</span>Businesses
-        </h2>
-        <span class="section-count">04 entries ——</span>
-      </div>
-      <ol class="entries">
-        <li>
-          <div class="index"><em>i.</em> 2017—</div>
-          <div class="entry">
-            <a href="/conflict-simulations-llc" class="entry-title"> Conflict Simulations LLC </a>
-            <p class="entry-desc">
-              Brooklyn wargame publishing. Around thirty board titles and three CSR nominations.
-              One SCS release through Multi-Man Publishing.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>ii.</em> 2025—</div>
-          <div class="entry">
-            <a href="/devforge" class="entry-title">Devforge</a>
-            <p class="entry-desc">
-              Game-development companion for Claude Code. Built for people who don't touch git.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>iii.</em> 2026—</div>
-          <div class="entry">
-            <a href="/retrogaze" class="entry-title">Retrogaze</a>
-            <p class="entry-desc">
-              AI pixel art for eight retro consoles. Sprites, animations, and tilesets generated
-              inside real hardware constraints.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>iv.</em> 2026—</div>
-          <div class="entry">
-            <a href="/hammerstein-ai" class="entry-title">Hammerstein.ai</a>
-            <p class="entry-desc">
-              Strategic-reasoning AI for tabletop wargames. Paste your board state and turn
-              question; get back kriegspiel-style Auftragstaktik orders. $15 / month, 120 turns
-              / month.
-            </p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <section aria-labelledby="tools">
-      <div class="section-head">
-        <h2 class="section-label" id="tools">
-          <span class="pl">PL. IV</span>Tools
-        </h2>
-        <span class="section-count">04 entries ——</span>
-      </div>
-      <p class="section-subhead">How the work actually gets done.</p>
-      <ol class="infra-list">
-        <li>
-          <div class="infra-meta">
-            <span
-              ><span class="dot live"></span><span class="k">Status</span><span class="v"
-                >Public</span
-              ></span
-            >
-            <span><span class="k">License</span><span class="v">MIT</span></span>
-            <span><span class="k">Format</span><span class="v">Plain JSON · local-first</span></span>
-          </div>
-          <a href="/kit" class="infra-title">wright-kit</a>
-          <p class="infra-desc">
-            A wargame construction kit. Digitize the map with hexwright, build the order of
-            battle with musterwright, keep the whole game in plain JSON files you own. These
-            are the tools behind the commissioned modules on this site. Full page at
-            <a href="/kit">/kit</a>.
-          </p>
-        </li>
-        <li>
-          <div class="infra-meta">
-            <span
-              ><span class="dot live"></span><span class="k">Status</span><span class="v"
-                >Public</span
-              ></span
-            >
-            <span><span class="k">License</span><span class="v">AGPL-3.0</span></span>
-            <span><span class="k">Access</span><span class="v">BYOK · local-first</span></span>
-            <span><span class="k">Ecosystem</span><span class="v">Mission apps</span></span>
-          </div>
-          <a href="/generalstaff" class="infra-title">GeneralStaff</a>
-          <p class="infra-desc">
-            Open-source autonomous engineering for solo founders. Verification-gated, BYOK,
-            local-first. Repo at
-            <a href="https://github.com/lerugray/generalstaff">github.com/lerugray/generalstaff</a>.
-          </p>
-        </li>
-        <li>
-          <div class="infra-meta">
-            <span
-              ><span class="dot live"></span><span class="k">Status</span><span class="v"
-                >In daily use</span
-              ></span
-            >
-            <span><span class="k">Surface</span><span class="v">CLI · slash command</span></span>
-            <span><span class="k">Cost</span><span class="v">~$0.01 per audit</span></span>
-          </div>
-          <a href="/hammerstein" class="infra-title">Hammerstein</a>
-          <p class="infra-desc">
-            Strategic-reasoning advisor tuned to the Hammerstein-Equord officer typology.
-            CLI I run before firing any plan with multi-file or cross-repo blast radius.
-            The framework essay it embodies is at
-            <a href="/writing/hammerstein">Von Hammerstein's Ghost, In Daily Use</a>;
-            repo at <a href="https://github.com/lerugray/hammerstein">github.com/lerugray/hammerstein</a>.
-          </p>
-        </li>
-        <li>
-          <div class="infra-meta">
-            <span
-              ><span class="dot live"></span><span class="k">Status</span><span class="v"
-                >Public on HuggingFace</span
-              ></span
-            >
-            <span><span class="k">Base</span><span class="v">Qwen2.5-7B-Instruct</span></span>
-            <span><span class="k">Method</span><span class="v">QLoRA · rank 32</span></span>
-          </div>
-          <a href="/hammerstein-model" class="infra-title">Hammerstein-7B</a>
-          <p class="infra-desc">
-            A 7B QLoRA that bakes the strategic-reasoning framework into the weights of a
-            small open base. Trained for $4 in a single day; runs on 8 GB Mac via
-            <code>ollama run hf.co/lerugray/hammerstein-7b-lora:Q4_K_M</code>. Eval design
-            and documented OOD boundary on the
-            <a href="https://huggingface.co/lerugray/hammerstein-7b-lora">model card</a>.
-          </p>
-        </li>
-      </ol>
-    </section>
-
-    <section aria-labelledby="projects">
-      <div class="section-head">
-        <h2 class="section-label" id="projects">
-          <span class="pl">PL. V</span>Projects
-        </h2>
-        <span class="section-count">04 entries ——</span>
-      </div>
-      <ol class="entries">
-        <li>
-          <div class="index"><em>i.</em></div>
-          <div class="entry">
-            <a href="https://lerugray.github.io/the-elect/" class="entry-title">
-              The Elect &rarr;
-            </a>
-            <p class="entry-desc">
-              A roster of local voice models, each trained on the public-domain words of a
-              historical figure to carry that register. Public-domain only, CC-BY-NC, disclaimed.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>ii.</em></div>
-          <div class="entry">
-            <a href="/auftragstaktik" class="entry-title">Auftragstaktik</a>
-            <p class="entry-desc">
-              Tactical OSINT command terminal. Talked into shape in about two weeks via Claude
-              Code.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>iii.</em></div>
-          <div class="entry">
-            <a href="/conflict-simulations-llc/veridian-contraption" class="entry-title">
-              Veridian Contraption
-            </a>
-            <p class="entry-desc">
-              An autonomous ASCII world-simulator of considerable density and dubious intent.
-              Now playable in the browser.
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="index"><em>iv.</em></div>
-          <div class="entry">
-            <a href="https://lerugray.github.io/yoon-suin/" class="entry-title">
-              Solo RPG campaigns &rarr;
-            </a>
-            <p class="entry-desc">
-              A Whitehack × Yoon-Suin solo campaign vault. The Yellow City, played turn by turn.
-            </p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <section class="music-block" aria-labelledby="music">
-      <div class="section-head">
-        <h2 class="section-label" id="music">
-          <span class="pl">PL. VI</span>Music
-        </h2>
-        <span class="section-count">01 entry ——</span>
-      </div>
-      <p>
-        <a href="/music">Le Rug</a>,
-        <span class="muted"
-          >with Sweet Bulbs and Butter The Children before that. Brooklyn projects from a former
-          life.</span
-        >
-      </p>
-      <a href="/music" class="follow">Listen &rarr;</a>
-    </section>
-  </div>
+  </main>
 </BaseLayout>

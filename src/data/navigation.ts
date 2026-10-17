@@ -5,20 +5,16 @@ export interface NavItem {
 
 export interface NavGroup {
   label: string;
-  /** Plate column label (e.g. Pl. II, App.) */
-  plate: string;
   items: NavItem[];
 }
 
 export const navGroups: NavGroup[] = [
   {
     label: 'Field Trials',
-    plate: 'Pl. I',
     items: [{ href: '/games', label: 'Field Trials' }],
   },
   {
     label: 'Work With Me',
-    plate: 'Pl. II',
     items: [
       { href: '/services', label: 'Commissions' },
       { href: '/wargame-modules', label: 'Wargame Modules' },
@@ -26,7 +22,6 @@ export const navGroups: NavGroup[] = [
   },
   {
     label: 'Writing',
-    plate: 'Pl. III',
     items: [
       { href: '/writing/out-of-the-notebook', label: 'Out of the Notebook' },
       { href: '/writing/columbo-needed-a-confession', label: 'Columbo Needed a Confession' },
@@ -47,7 +42,6 @@ export const navGroups: NavGroup[] = [
   },
   {
     label: 'Businesses',
-    plate: 'Pl. III',
     items: [
       { href: '/conflict-simulations-llc', label: 'Conflict Simulations LLC' },
       { href: '/devforge', label: 'Devforge' },
@@ -57,7 +51,6 @@ export const navGroups: NavGroup[] = [
   },
   {
     label: 'Tools',
-    plate: 'Pl. IV',
     items: [
       { href: '/kit', label: 'wright-kit' },
       { href: '/generalstaff', label: 'GeneralStaff' },
@@ -67,7 +60,6 @@ export const navGroups: NavGroup[] = [
   },
   {
     label: 'Projects',
-    plate: 'Pl. V',
     items: [
       { href: 'https://lerugray.github.io/the-elect/', label: 'The Elect' },
       { href: '/auftragstaktik', label: 'Auftragstaktik' },
@@ -76,22 +68,18 @@ export const navGroups: NavGroup[] = [
   },
   {
     label: 'Music',
-    plate: 'Pl. VI',
     items: [{ href: '/music', label: 'Le Rug' }],
   },
   {
     label: 'Works',
-    plate: 'Pl. VII',
     items: [{ href: '/works', label: 'Complete Catalog' }],
   },
   {
     label: 'Field Trials',
-    plate: 'Pl. VIII',
     items: [{ href: '/games', label: 'Field Trials' }],
   },
   {
     label: 'Contact',
-    plate: 'App.',
     items: [{ href: 'mailto:lerugray@gmail.com', label: 'lerugray@gmail.com' }],
   },
 ];

@@ -1,0 +1,351 @@
+---
+import '@/styles/global.css';
+import SiteHeader from '@/components/SiteHeader.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KREUZFEUER — A Reformation Roguelike</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <div class="site-page">
+      <div class="page-content">
+        <!-- ====== shared svg defs ====== -->
+
+        <main class="game-landing">
+          <div class="mat">
+            <!-- ============ HERO ============ -->
+            <header>
+              <div class="kicker">Anno Domini MDXXIV · The Holy Roman Empire</div>
+              <h1 class="title">Kreuzfeuer</h1>
+              <p class="tagline">
+                A roguelike of faith, steel, and the year the world turned over.
+              </p>
+
+              <div class="hero-grid">
+                <div class="hero-copy">
+                  <p class="blurb">
+                    The Holy Roman Empire, 1524. Lead a band of the desperate and the devout across
+                    a Germany splitting along the fault lines of faith — through tavern and
+                    battlefield, plague road and burning village — while something older stirs
+                    beneath the wars of men.
+                  </p>
+                  <div class="hook">Darklands, reforged for the Reformation.</div>
+                  <div class="cta-row">
+                    <a
+                      class="btn gold"
+                      href="https://lerugray.itch.io/kreuzfeuer"
+                      target="_blank"
+                      rel="noopener"><span class="di"></span> Get it on itch.io</a
+                    >
+                  </div>
+                  <div class="badges">
+                    <span class="badge win"><span class="gl"></span> Windows</span>
+                    <span class="badge mac"><span class="gl"></span> macOS</span>
+                    <span class="badge">Price · $9.99</span>
+                  </div>
+                  <div class="ea-note">✦ Early Access — out now</div>
+                </div>
+                <div class="hero-art">
+                  <figure class="game-screen" style="margin:0">
+                    <img
+                      src="images/title.png"
+                      alt="KREUZFEUER title screen — Fraktur title on a woodcut parchment broadsheet"
+                    />
+                    <figcaption class="cap">The Title, as printed</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </header>
+
+            <!-- ============ WHAT IS IT ============ -->
+            <section>
+              <div class="label">
+                <span class="pip"></span> Of the Game <span class="pip"></span>
+              </div>
+              <div class="prose lead" style="margin-top:18px">
+                <p class="dropcap">
+                  Kreuzfeuer is a roguelike CRPG of the German Reformation — the spiritual heir to <em
+                    >Darklands</em
+                  > (MicroProse, 1992), built anew in the age of its successors. You take a band of ordinary
+                  people — a miner's son, a defrocked monk, a soldier home from the Italian wars — and
+                  walk them through a country coming apart. Towns close their gates by their faith. Roads
+                  turn to ambush. Every run is a chronicle: written as it is lived, closed under the date
+                  it ends.
+                </p>
+              </div>
+            </section>
+
+            <!-- ============ FEATURES ============ -->
+            <div class="label" style="margin-bottom:8px">
+              <span class="pip"></span> The Systems, Set Down in Order <span class="pip"></span>
+            </div>
+
+            <!-- 1 -->
+            <section class="feature" style="margin-top:34px">
+              <div class="f-art">
+                <figure class="game-screen" style="margin:0">
+                  <img
+                    src="images/chargen.png"
+                    alt="Character creation screen — choosing party size"
+                  />
+                  <figcaption class="cap">
+                    Of the Life Now Inscribed · Character Creation
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="f-copy">
+                <div class="f-eyebrow"><span class="num">I</span> Of Character</div>
+                <h3>The life now inscribed</h3>
+                <p>
+                  Build a party from backgrounds, occupations, and faith. Who they were — where they
+                  were born, the trade they kept, the church they answered to — shapes what they can
+                  do, and what the world will let them attempt.
+                </p>
+                <p>Four souls is the standard road. Take fewer, and the road turns harder.</p>
+                <div class="chips">
+                  <span class="chip">Life-path origins</span><span class="chip"
+                    >Trade &amp; skill</span
+                  ><span class="chip">Faith chosen</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- 2 -->
+            <section class="feature flip">
+              <div class="f-art">
+                <figure class="game-screen" style="margin:0">
+                  <img
+                    src="images/overworld.png"
+                    alt="Overworld map of the Holy Roman Empire with towns, party and faction standings"
+                  />
+                  <figcaption class="cap">The Empire, Walked on Foot · Overworld</figcaption>
+                </figure>
+              </div>
+              <div class="f-copy">
+                <div class="f-eyebrow"><span class="num">II</span> Of the Empire Divided</div>
+                <h3>A living Germany, splitting along its faith</h3>
+                <p>
+                  Five powers contend for the soul of the land, and their fortunes shift with the
+                  historical tide. Your standing with each opens some doors and bars others — a
+                  Lutheran town that welcomes you is a Church abbey that will not.
+                </p>
+                <div class="chips">
+                  <span class="chip">Imperial Church</span><span class="chip">Lutherans</span><span
+                    class="chip">Peasant League</span
+                  ><span class="chip">Anabaptists</span><span class="chip">The Nobility</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- 3 -->
+            <section class="feature">
+              <div class="f-art">
+                <figure class="game-screen" style="margin:0">
+                  <img
+                    src="images/combat.png"
+                    alt="Turn-based tactical combat on a grid with a period combat chronicle"
+                  />
+                  <figcaption class="cap">The Lots Are Cast · Tactical Combat</figcaption>
+                </figure>
+              </div>
+              <div class="f-copy">
+                <div class="f-eyebrow"><span class="num">III</span> Of Steel &amp; Death</div>
+                <h3>Tactical, and lethal</h3>
+                <p>
+                  Turn-based skirmishes where reach, armour, and morale decide the day. A blade
+                  meeting a gambeson is not a blade meeting plate; a man whose nerve breaks runs.
+                  Death, once dealt, is not undone.
+                </p>
+                <p>
+                  The chronicle records each blow as it falls — "the lots are cast; God keep the
+                  just."
+                </p>
+                <div class="chips">
+                  <span class="chip">Reach &amp; armour</span><span class="chip">Morale</span><span
+                    class="chip">Permanent death</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- 4 -->
+            <section class="feature flip">
+              <div class="f-art">
+                <figure class="game-screen" style="margin:0">
+                  <img
+                    src="images/location.png"
+                    alt="A town-gate event: pay the gate tax, argue the rate, or turn back"
+                  />
+                  <figcaption class="cap">Beneath the Arch · Choice</figcaption>
+                </figure>
+              </div>
+              <div class="f-copy">
+                <div class="f-eyebrow"><span class="num">IV</span> Of Choices Made</div>
+                <h3>Choices with weight</h3>
+                <p>
+                  Period-grounded events without clean answers. Pay the gate tax or argue the rate;
+                  intervene at the burning village or pass it by. The road remembers what you chose.
+                </p>
+                <p>
+                  And a hidden <em>Witness</em> keeps its own ledger — of the cruelties you allow to stand.
+                </p>
+                <div class="chips">
+                  <span class="chip">Grounded events</span><span class="chip">The Witness</span
+                  ><span class="chip">Consequence</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- 5 — hidden thread (dark inset) -->
+            <section class="thread">
+              <div class="f-eyebrow"><span class="num">V</span> Of the Thing Beneath</div>
+              <h3>A hidden thread</h3>
+              <p>
+                Under the wars of men runs a low, creeping mystery — easy to miss, hard to unsee
+                once seen. It gathers, year upon year, toward the siege of Münster. Some who walk
+                the road never notice. Some notice too late.
+              </p>
+            </section>
+
+            <!-- 6 -->
+            <section class="feature" style="margin-top:34px">
+              <div class="f-art">
+                <figure class="game-screen" style="margin:0">
+                  <img
+                    src="images/gluckshaus_board.png"
+                    alt="Glückshaus — a period dice game played on a numbered board"
+                  />
+                  <figcaption class="cap">The House of Fortune · Glückshaus</figcaption>
+                </figure>
+              </div>
+              <div class="f-copy">
+                <div class="f-eyebrow"><span class="num">VI</span> Of Texture &amp; Play</div>
+                <h3>Period to the grain</h3>
+                <p>
+                  Dürer-woodcut art throughout, and a companion manual in the Darklands tradition —
+                  written to be read. In the taverns, sit down to <em>Glückshaus</em>: a real game
+                  of dice across a numbered board, with charms to win and coin to wager against a
+                  sly pardoner.
+                </p>
+                <div class="chips">
+                  <span class="chip">Woodcut art</span><span class="chip">Companion manual</span
+                  ><span class="chip">Glückshaus dice</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- 7 -->
+            <section class="feature flip">
+              <div class="f-art">
+                <figure class="game-screen" style="margin:0">
+                  <img
+                    src="images/runend.png"
+                    alt="End-of-run chronicle and final score in a dark amber palette"
+                  />
+                  <figcaption class="cap">A Chronicle of the Road · Run's End</figcaption>
+                </figure>
+              </div>
+              <div class="f-copy">
+                <div class="f-eyebrow"><span class="num">VII</span> Of the Run</div>
+                <h3>Each run a fresh telling</h3>
+                <p>
+                  Play <em>Journeyman</em> and keep your saves, or <em>Ironman</em> and be granted one
+                  life only. Either way the road claims all who walk it long enough — and writes them
+                  down: days survived, foes felled, where they stood with the factions, how far the thing
+                  beneath had stirred.
+                </p>
+                <div class="chips">
+                  <span class="chip">Journeyman · saves</span><span class="chip"
+                    >Ironman · one life</span
+                  ><span class="chip">The chronicle &amp; score</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============ GALLERY ============ -->
+            <section>
+              <h2 class="sec">The Broadsheet Plates</h2>
+              <p class="sec-sub">Six impressions from the press.</p>
+              <div class="gallery" style="margin-top:30px">
+                <div class="shot">
+                  <img src="images/overworld.png" alt="Overworld map" /><div class="cap">
+                    The Empire, Walked on Foot
+                  </div>
+                </div>
+                <div class="shot">
+                  <img src="images/combat.png" alt="Tactical combat" /><div class="cap">
+                    The Lots Are Cast
+                  </div>
+                </div>
+                <div class="shot">
+                  <img src="images/location.png" alt="Town-gate choice" /><div class="cap">
+                    Beneath the Arch
+                  </div>
+                </div>
+                <div class="shot">
+                  <img src="images/runend.png" alt="Run's-end chronicle" /><div class="cap">
+                    A Chronicle of the Road
+                  </div>
+                </div>
+                <div class="shot">
+                  <img src="images/gluckshaus_intro.png" alt="Glückshaus introduction" /><div
+                    class="cap"
+                  >
+                    The House of Fortune
+                  </div>
+                </div>
+                <div class="shot">
+                  <img src="images/chargen.png" alt="Character creation" /><div class="cap">
+                    The Life Now Inscribed
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ============ CLOSING CTA ============ -->
+            <section style="text-align:center; padding:18px 0 4px">
+              <h2 class="sec">Walk the Road</h2>
+              <p class="sec-sub" style="max-width:560px;margin-left:auto;margin-right:auto">
+                Windows &amp; macOS. Now in Early Access.
+              </p>
+              <div class="cta-row" style="justify-content:center;margin-top:24px">
+                <a
+                  class="btn gold"
+                  href="https://lerugray.itch.io/kreuzfeuer"
+                  target="_blank"
+                  rel="noopener"><span class="di"></span> Get it on itch.io</a
+                >
+              </div>
+              <div class="ea-note" style="text-align:center">✦ $9.99 · Early Access — out now</div>
+            </section>
+
+            <!-- ============ FOOTER ============ -->
+            <footer>
+              <div class="imprint">Conflict Simulations Limited</div>
+              <p class="manual">
+                A Reformation-era roguelike CRPG, built in Godot 4. Ships with a companion manual in
+                the Darklands tradition — meant to be kept beside the screen.
+              </p>
+              <div class="colophon">
+                <a href="https://lerugray.itch.io/kreuzfeuer" target="_blank" rel="noopener"
+                  >Get it on itch.io</a
+                ><span class="sep"></span>
+                <a href="/">Developer</a>
+              </div>
+              <div class="fineprint">
+                © Conflict Simulations Limited · KREUZFEUER · Windows &amp; macOS · Early Access —
+                out now
+              </div>
+            </footer>
+          </div>
+        </main>
+      </div>
+    </div>
+    <SiteFooter />
+  </body>
+</html>
