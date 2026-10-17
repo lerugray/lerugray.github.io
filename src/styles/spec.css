@@ -359,7 +359,7 @@ a:focus-visible {
 .hero-brief {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: var(--space-4);
 }
 
@@ -395,6 +395,7 @@ a:focus-visible {
 
 /* First-Screen Pricing + Direct Action Ledger Box */
 .commission-dispatch {
+  margin-top: auto;
   background-color: var(--color-paper-bright);
   border: var(--border-thick) solid var(--color-rule-heavy);
   box-shadow: var(--shadow-counter);
@@ -525,12 +526,15 @@ a:focus-visible {
 }
 
 .screen-plate--hero .screen-plate__frame {
-  width: 96%;
-  aspect-ratio: 1536 / 1000;
-  margin-inline: auto;
+  width: 100%;
+  /* Crop the first 150 source pixels, including the slider ending at x=138. */
+  aspect-ratio: 1450 / 1000;
+  position: relative;
 }
 
 .screen-plate--hero .screen-plate__frame img {
+  position: absolute;
+  inset: 0;
   object-fit: cover;
   object-position: right center;
 }
@@ -753,6 +757,14 @@ a:focus-visible {
   height: var(--frame-h-bloody-april);
 }
 
+.bloody-april-plates .screen-plate__frame img {
+  object-fit: cover;
+}
+
+.bloody-april-plates .screen-plate:last-child .screen-plate__frame img {
+  object-position: left top;
+}
+
 .client-dossier .screen-plate {
   background-color: var(--color-command-panel);
   border-color: var(--color-command-border);
@@ -766,7 +778,7 @@ a:focus-visible {
   padding: var(--space-7);
   box-shadow: var(--shadow-plate);
   display: grid;
-  grid-template-columns: minmax(0, 3.2fr) minmax(0, 8.8fr);
+  grid-template-columns: max-content minmax(0, 1fr);
   gap: var(--space-6);
   align-items: start;
 }
@@ -778,6 +790,7 @@ a:focus-visible {
 
 .testimonial-attribution {
   display: block;
+  white-space: nowrap;
   padding-top: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
@@ -1524,6 +1537,10 @@ a:focus-visible {
   white-space: nowrap;
 }
 
+.testimonial-commission {
+  white-space: nowrap;
+}
+
 .screen-plate__frame {
   flex-shrink: 0;
 }
@@ -1559,5 +1576,11 @@ a:focus-visible {
   .screen-plate,
   .dispatch-email-block {
     min-width: 0;
+  }
+}
+
+@media (max-width: 30rem) {
+  .testimonial-attribution {
+    white-space: normal;
   }
 }
