@@ -359,7 +359,8 @@ a:focus-visible {
 .hero-brief {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  /* Spreads spare height evenly so the pricing card bottom-aligns with the hero screenshot. */
+  justify-content: space-between;
   gap: var(--space-4);
 }
 
@@ -746,8 +747,8 @@ a:focus-visible {
 
 .bloody-april-plates {
   display: grid;
-  /* Columns proportional to the two images' aspect ratios (1600x1082, 1600x794) so both fill their wells at one height. */
-  grid-template-columns: minmax(0, 1489fr) minmax(0, 2005fr);
+  /* Featured client case: both plates full width so the map and the phase record are readable. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
   align-items: stretch;
   margin-bottom: var(--space-7);
