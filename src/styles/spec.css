@@ -395,7 +395,6 @@ a:focus-visible {
 
 /* First-Screen Pricing + Direct Action Ledger Box */
 .commission-dispatch {
-  margin-top: auto;
   background-color: var(--color-paper-bright);
   border: var(--border-thick) solid var(--color-rule-heavy);
   box-shadow: var(--shadow-counter);
@@ -527,8 +526,8 @@ a:focus-visible {
 
 .screen-plate--hero .screen-plate__frame {
   width: 100%;
-  /* Crop the first 150 source pixels, including the slider ending at x=138. */
-  aspect-ratio: 1450 / 1000;
+  /* Crop the first 64 source pixels: hides the cut toolbar button without clipping map labels. */
+  aspect-ratio: 1536 / 1000;
   position: relative;
 }
 
@@ -747,22 +746,20 @@ a:focus-visible {
 
 .bloody-april-plates {
   display: grid;
-  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+  /* Columns proportional to the two images' aspect ratios (1600x1082, 1600x794) so both fill their wells at one height. */
+  grid-template-columns: minmax(0, 1489fr) minmax(0, 2005fr);
   gap: var(--space-6);
   align-items: stretch;
   margin-bottom: var(--space-7);
 }
 
 .bloody-april-plates .screen-plate__frame {
-  height: var(--frame-h-bloody-april);
+  height: auto;
 }
 
 .bloody-april-plates .screen-plate__frame img {
-  object-fit: cover;
-}
-
-.bloody-april-plates .screen-plate:last-child .screen-plate__frame img {
-  object-position: left top;
+  object-fit: contain;
+  height: auto;
 }
 
 .client-dossier .screen-plate {
