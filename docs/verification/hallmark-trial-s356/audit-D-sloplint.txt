@@ -1,0 +1,229 @@
+render tier: 30 screenshots in .hallmark/shots (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
+src/styles/global.css
+  FAIL 6a :339 hero sized in vh: min-height: calc(100vh - 5.3125rem) on .hero-dossier | fix: dvh or svh
+  FAIL 20 :1 no Hallmark stamp on the first non-empty line of any CSS | fix: The stamp comment is line 1 of the CSS; only @charset may precede it
+  FAIL 67 :1250 .featured-essay__label: uppercase tracked 0.06em at 12px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+  FAIL 67 :1286 .index-block__heading: uppercase tracked 0.06em at 14px in a label role
+  FAIL 67 :1717 .site-page .section-label, .site-page .sub-head: uppercase tracked 0.06em at 14px in a label role
+  FAIL 67 :2063 .site-page .game-landing .kicker, .site-page .game-landing .label, .site-page .game-landing .f-eyebrow: uppercase track…
+  REFLEX 24b :1798 margin-right: 7px (off the 4px scale) on .site-page .dot | fix: Use the 4px spacing scale
+  REFLEX 37 :50 4 font families: newsreader, ibm plex sans, ibm plex sans condensed, ibm… | fix: Drop the extra family; three is the ceiling
+  REFLEX 64 :492 monospace label voice on .dispatch-subnote | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
+  REFLEX 64 :553 monospace label voice on .screen-plate__caption
+  REFLEX 64 :1251 monospace label voice on .featured-essay__label
+  REFLEX 64 :2122 monospace label voice on .site-page .game-landing .badge, .site-page .game-landing .chip
+  REFLEX 64 :2151 monospace label voice on .site-page .game-landing .ea-note, .site-page .game-landing .fineprint
+  WARN 3 :1911 side stripe border-left: 3px solid var(--color-carmine) on .site-page blockquote, .site-page .pullquote | fix: Hairline all round, none, or an accent square
+  WARN F4 :970 3 filled primary-button recipes: .btn-primary + .closing-cta + .site-page .game-land… | fix: One filled primary per page; demote the rest to outline/quiet variants
+  WARN F15 :1 2 container widths on one page (1376, 1152px) | fix: One container width, applied by the same two-element pattern in every section
+  WARN F16 :1 browser surfaces unthemed: ::selection, scrollbar-color | fix: Theme the parts you did not draw from the palette
+src/pages/games.astro
+  FAIL 7a :1251 pure #000: background: #000 (.crt-screen) | fix: Tint the base toward the anchor hue
+  FAIL 19 :671 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+  FAIL 39a :1606 disabled via opacity alone on .feedback-submit:disabled | fix: Three disabled channels: fill, ink and cursor, plus the disabled attribute
+  FAIL 48 :1005 colour literal rgb(232 161 60 / 0.55) outside tokens (box-shadow on .cab-rail-left::before) | fix: Lift the value into the token block
+  FAIL 48 :1024 colour literal rgb(232 161 60 / 0.07) outside tokens (background on .cab-shelf-col)
+  FAIL 48 :1058 colour literal rgb(0 0 0 / 0.65) outside tokens (border on .cart)
+  FAIL 48 :1060 colour literal rgb(255 255 255 / 0.14) outside tokens (box-shadow on .cart)
+  FAIL 48 :1060 colour literal rgb(0 0 0 / 0.3) outside tokens (box-shadow on .cart)
+  FAIL 48 :1097 colour literal rgb(0 0 0 / 0.34) outside tokens (background on .cart-grip)
+  FAIL 48 :1114 colour literal rgb(0 0 0 / 0.35) outside tokens (box-shadow on .cart-no)
+  FAIL 48 :1119 colour literal rgb(0 0 0 / 0.6) outside tokens (border on .cart-label)
+  FAIL 48 :1122 colour literal rgb(255 255 255 / 0.06) outside tokens (box-shadow on .cart-label)
+  FAIL 48 :1138 colour literal rgb(0 0 0 / 0.45) outside tokens (background on .cart-led)
+  FAIL 48 :1139 colour literal rgb(0 0 0 / 0.6) outside tokens (box-shadow on .cart-led)
+  FAIL 48 :1144 colour literal rgb(255 255 255 / 0.14) outside tokens (box-shadow on .cart[aria-pressed='true'])
+  FAIL 48 :1144 colour literal rgb(0 0 0 / 0.3) outside tokens (box-shadow on .cart[aria-pressed='true'])
+  FAIL 48 :1223 colour literal #000 outside tokens (border on .crt)
+  FAIL 48 :1226 colour literal rgb(255 255 255 / 0.05) outside tokens (box-shadow on .crt)
+  FAIL 48 :1245 colour literal rgb(232 161 60 / 0.6) outside tokens (box-shadow on .crt-power)
+  FAIL 48 :1251 colour literal #000 outside tokens (background on .crt-screen)
+  FAIL 48 :1266 colour literal rgb(0 0 0 / 0.16) outside tokens (background on .crt-screen::after)
+  FAIL 48 :1266 colour literal rgb(0 0 0 / 0.4) outside tokens (background on .crt-screen::after)
+  FAIL 48 :1402 colour literal rgb(232 161 60 / 0.7) outside tokens (box-shadow on .cab-play)
+  FAIL 48 :1467 colour literal rgb(232 161 60 / 0.55) outside tokens (box-shadow on .fr-title::before)
+  FAIL 67 :733 "→ BROWSE · ENTER PLAYS" typed in capitals at 14px tracked 0.06em (<p class="cab-hint">) | fix: Sentence case in the body face; capitals survive only as a wordmark or as the display voice
+  FAIL 67 :877 .cab-hint: letter-spaced tracked 0.06em at 14px in a label role
+  FAIL 67 :984 .cab-rail: letter-spaced tracked 0.06em at 14px in a label role
+  FAIL 67 :1102 .cart-no: letter-spaced tracked 0.08em at 14px in a label role
+  FAIL 67 :1229 .crt-top: letter-spaced tracked 0.06em at 14px in a label role
+  FAIL 67 :1287 .crt-screen--empty: letter-spaced tracked 0.06em at 14px in a label role
+  FAIL 67 :1299 .crt-fig figcaption: uppercase tracked 0.12em at 14px in a label role
+  FAIL 67 :1343 .cab-meta dt: uppercase tracked 0.06em at 14px in a label role
+  FAIL 67 :1376 .cab-audit .k: uppercase tracked 0.06em at 14px in a label role
+  FAIL 67 :1386 .cab-play: letter-spaced tracked 0.22em at 15px in a label role
+  FAIL 67 :1407 .cab-play-sub: letter-spaced tracked 0.08em at 14px in a label role
+  FAIL 67 :1439 .fr-rail: letter-spaced tracked 0.06em at 14px in a label role
+  FAIL 67 :1474 .fr-select: letter-spaced tracked 0.06em at 14px in a label role
+  FAIL 67 :1513 .feedback-list :global(.feedback-comment-meta): uppercase tracked 0.1em at 14px in a label role
+  FAIL 67 :1552 .feedback-label: uppercase tracked 0.14em at 14px in a label role
+  FAIL 67 :1591 .feedback-submit: uppercase tracked 0.06em at 14px in a label role
+  FAIL 67 :1610 .feedback-note: letter-spaced tracked 0.06em at 14px in a label role
+  FAIL 67 :1645 .field-notes-row: letter-spaced tracked 0.04em at 12px in a label role
+  FAIL 67 :1657 .field-notes-meta: uppercase tracked 0.1em at 10px in a label role
+  FAIL 67 :1680 .fn-sub-title: uppercase tracked 0.22em at 11px in a label role
+  FAIL 67 :1692 .fn-sub-count: uppercase tracked 0.14em at 11px in a label role
+  FAIL 67 :1709 .fn-sum: uppercase tracked 0.14em at 11px in a label role
+  FAIL 67 :1748 .fn-sum-meta: letter-spaced tracked 0.1em in a label role
+  FAIL 67 :1765 .fn-group-row: letter-spaced tracked 0.04em at 12px in a label role
+  FAIL 67 :1782 .fn-date: letter-spaced tracked 0.1em at 10px in a label role
+  FAIL 67 :1789 .fn-cart-link: uppercase tracked 0.16em at 10px in a label role
+  REFLEX 24b :978 margin: 14px auto 0 (off the 4px scale) on .cabinet
+  REFLEX 24b :989 padding: 10px 16px (off the 4px scale) on .cab-rail
+  REFLEX 24b :1003 margin-right: 9px (off the 4px scale) on .cab-rail-left::before
+  REFLEX 24b :1022 padding: 26px 22px 14px (off the 4px scale) on .cab-shelf-col
+  REFLEX 24b :1038 column-gap: 18px (off the 4px scale) on .cab-shelf
+  REFLEX 24b :1039 row-gap: 30px (off the 4px scale) on .cab-shelf
+  REFLEX 24b :1044 column-gap: 14px (off the 4px scale) on .cab-shelf
+  REFLEX 24b :1045 row-gap: 26px (off the 4px scale) on .cab-shelf
+  REFLEX 24b :1056 padding: 15px 9px 11px (off the 4px scale) on .cart
+  REFLEX 24b :1096 margin: -9px 48px 8px 14px (off the 4px scale) on .cart-grip
+  REFLEX 24b :1188 margin: 26px 2px 6px (off the 4px scale) on .cab-hint
+  REFLEX 24b :1204 padding: 26px 24px 24px (off the 4px scale) on .cab-detail
+  REFLEX 24b :1225 padding: 12px 12px 10px (off the 4px scale) on .crt
+  REFLEX 24b :1233 margin: 0 2px 9px (off the 4px scale) on .crt-top
+  REFLEX 24b :1310 padding: 18px 2px 0 (off the 4px scale) on .cab-readout
+  REFLEX 24b :1336 gap: 6px (off the 4px scale) on .cab-meta
+  REFLEX 24b :1340 gap: 10px (off the 4px scale) on .cab-meta > div
+  REFLEX 24b :1365 margin: 0 0 18px (off the 4px scale) on .cab-audit
+  REFLEX 24b :1366 padding: 9px 11px (off the 4px scale) on .cab-audit
+  REFLEX 24b :1378 margin-bottom: 3px (off the 4px scale) on .cab-audit .k
+  REFLEX 24b :1391 gap: 10px (off the 4px scale) on .cab-play
+  REFLEX 24b :1392 padding: 13px 22px (off the 4px scale) on .cab-play
+  REFLEX 24b :1434 margin-top: 22px (off the 4px scale) on .field-report
+  REFLEX 24b :1445 padding: 10px 16px (off the 4px scale) on .fr-rail
+  REFLEX 24b :1465 margin-right: 9px (off the 4px scale) on .fr-title::before
+  REFLEX 24b :1489 padding: 18px 20px 20px (off the 4px scale) on .field-report .feedback-box
+  REFLEX 24b :1502 margin: 0 0 14px (off the 4px scale) on .feedback-list
+  REFLEX 24b :1507 padding: 9px 0 (off the 4px scale) on .feedback-list :global(.feedback-comment)
+  REFLEX 24b :1520 margin: 0 0 3px (off the 4px scale) on .feedback-list :global(.feedback-comment-meta)
+  REFLEX 24b :1550 margin-bottom: 11px (off the 4px scale) on .feedback-field
+  REFLEX 24b :1560 margin-bottom: 5px (off the 4px scale) on .feedback-label
+  REFLEX 24b :1576 padding: 8px 10px (off the 4px scale) on .feedback-input, .feedback-textarea
+  REFLEX 24b :1588 gap: 14px (off the 4px scale) on .feedback-row
+  REFLEX 24b :1628 margin-top: 34px (off the 4px scale) on .field-notes
+  REFLEX 24b :1636 margin: -14px 0 22px (off the 4px scale) on .fn-lede
+  REFLEX 24b :1641 margin: 0 0 34px (off the 4px scale) on .field-notes-list
+  REFLEX 24b :1646 padding: 10px 0 (off the 4px scale) on .field-notes-row
+  REFLEX 24b :1672 gap: 14px (off the 4px scale) on .fn-sub
+  REFLEX 24b :1675 padding-bottom: 6px (off the 4px scale) on .fn-sub
+  REFLEX 24b :1703 margin: 0 0 18px (off the 4px scale) on .fn-groups
+  REFLEX 24b :1713 gap: 14px (off the 4px scale) on .fn-sum
+  REFLEX 24b :1714 padding: 11px 0 (off the 4px scale) on .fn-sum
+  REFLEX 24b :1763 padding: 0 0 0 14px (off the 4px scale) on .fn-group-list
+  REFLEX 24b :1768 gap: 14px (off the 4px scale) on .fn-group-row
+  REFLEX 24b :1769 padding: 7px 0 (off the 4px scale) on .fn-group-row
+  REFLEX 24b :1791 margin: 12px 0 0 14px (off the 4px scale) on .fn-cart-link
+  REFLEX 38iii :1680 accented word inside a heading (.fn-sub-title) | fix: Set the whole head one way: a line break, a second line at a second size, or the whole head in the accent. Guard: the theme names the coloured word as its signature and it appears once on the page, in the hero
+  REFLEX 64 :1301 monospace label voice on .crt-fig figcaption
+  REFLEX 64 :1554 monospace label voice on .feedback-label
+  REFLEX 64 :1611 monospace label voice on .feedback-note
+  WARN 49 :712 long clickable label "No.{(i + 1).toString().padStart(2, …" without nowrap | fix: Shorten the label or set nowrap
+  WARN F1 :671 straight quote in prose x3 (first: These are games I'm still buildi) | fix: Use typographic quotes: “ ” ’
+src/pages/index.astro
+  FAIL 19 :147 dash "—" in copy
+  FAIL 54 :137 eyebrow "Start here" before <h3> | fix: Cut it; the heading already says this (craft.md § 7 has twelve other openings)
+  FAIL 63 :29 middle-dot meta string "Brooklyn, NY · 40°41′N · rweiss@consimsltd.com" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+  FAIL 63 :52 arrow glued to the label "Email me →" | fix: A verb as the label; the link already says it goes somewhere
+  FAIL 63 :60 arrow glued to the label "Digital wargame modules →"
+  FAIL 63 :78 arrow glued to the label "Wargame Modules →"
+  FAIL 63 :88 arrow glued to the label "AI workflow & automation builds →"
+  FAIL 63 :106 arrow glued to the label "Custom voice & persona models →"
+  FAIL 63 :119 arrow glued to the label "Game-design consultation →"
+  FAIL 63 :140 arrow glued to the label "Read the post →"
+  FAIL 63 :406 decorative status dots (dot live) repeated across the page | fix: Delete them; a dot means live state, and only where it is one
+  FAIL 63 :457 arrow glued to the label "The Elect →"
+  FAIL 63 :492 arrow glued to the label "Solo RPG campaigns →"
+  FAIL 63 :516 arrow glued to the label "Listen →"
+  WARN F1 :38 straight quote in prose x11 (first: tried and couldn't quite learn)
+/
+  FAIL 26a :1 [1440px] focus ring 2.03:1 against what is behind it on a "Digital wargame mo" | fix: A ring at 3:1 or better against the surface it is drawn over: --color-focus, or a ring colour per band
+  FAIL 26a :1 [1440px] focus ring 2.03:1 against what is behind it on a.flagship-offer__image
+  FAIL 26a :1 [1440px] focus ring 2.03:1 against what is behind it on a.btn-primary "Wargame Modules →"
+  FAIL 26a :1 [1440px] focus ring 2.03:1 against what is behind it on a.flagship-offer__price "rweiss@consimsltd."
+  FAIL 58 :1 [1440px] 227 words on one screen (from y=1550) | fix: One idea per screen: cut to about 80 words, make the section an object
+  FAIL 58 :1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+  REFLEX 39b :1 [1440px] control height outside 44 to 52px: a.cta 18px | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
+  REFLEX 44c :1 [1440px] hero ends at 197px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+  REFLEX 49b :1 [320px] link "Digital wargame modules →" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+  REFLEX 49b :1 [320px] link "AI workflow & automation builds " wraps to 2 lines (a)
+  REFLEX 49b :1 [320px] link "Custom voice & persona models →" wraps to 2 lines (a)
+  REFLEX 49b :1 [320px] link "Game-design consultation →" wraps to 2 lines (a)
+  REFLEX 59 :1 [1440px] smallest gap between sections is 50px (gaps: 50, 58, 651, 52) | fix: 120px or more between sections, by the --section-gap steps
+  REFLEX 77 :1 [1440px] 1 thin section: section.contact-directory (49% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+  REFLEX 78 :1 [1440px] section heads render at 14px under a 44px hero head | fix: h2 at --text-section (about 52px at 1440), item titles at --text-title (layout.md § 2)
+  WARN F19 :1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+/wargame-modules/
+  FAIL 26a :1 [1440px] focus ring 1.07:1 against what is behind it on a.screen-plate__frame
+  FAIL 58 :1 [1440px] 272 words on one screen (from y=4500)
+  REFLEX 25 :1 [1440px] running prose set too wide: p.track-record-card__body about 119 characters a line, p.try-one-lead about 102 ch… | fix: Cap the measure at 45 to 75ch
+  REFLEX 44c :1 [1440px] hero ends at 213px of a 900px screen
+  REFLEX 49b :1 [320px] link "The World Undone: East Front Tri" wraps to 2 lines (a)
+  REFLEX 49b :1 [320px] link "Play the East Prussia 1914 playt" wraps to 2 lines (a)
+  REFLEX 49b :1 [320px] link "Publishers who want an official " wraps to 3 lines (a)
+  REFLEX 49b :1 [375px] link "Publishers who want an official " wraps to 2 lines (a)
+  REFLEX 59 :1 [1440px] smallest gap between sections is 78px (gaps: 78, 114, 114, 114, 114, 114, 78)
+  REFLEX 78 :1 [1440px] section heads render at 32px under a 50px hero head
+  REFLEX 79 :1 [1440px] 700px of nothing between the hero's last content (y 200) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+  REFLEX 83 :1 [1440px] photographs cover 44% of the page below the hero (7 pictures) | fix: Balance the page: cut or shrink pictures until they cover a quarter to a third of it, and carry the freed sections in type, figures, the product or a list (imagery.md § 5)
+  WARN F19 :1 [1440px] 4 font weights in running use (400, 500, 600, 700)
+src/layouts/BaseLayout.astro
+  FAIL 34 :1 no overflow-x: clip on html and body | fix: overflow-x: clip on both html and body
+  FAIL 63 :46 middle-dot meta string "Imprint · Brooklyn, NY · Set in Newsreader & IBM …"
+/games/
+  FAIL 40 :1 [1440px] a field's edge is under 3:1 against what surrounds it: select.fr-select 1.49:1 | fix: Draw the field in --color-muted, or fill it a step off the surface it sits on
+  FAIL 58 :1 [1440px] 249 words on one screen (from y=2000)
+  REFLEX 39b :1 [1440px] control height outside 44 to 52px: button.cart 160px, button.cart 160px, button.cart 160px
+  REFLEX 44c :1 [1440px] hero ends at 242px of a 900px screen
+  REFLEX 59 :1 [1440px] smallest gap between sections is 34px (gaps: 40, 34, 705, 52)
+  REFLEX 75 :1 [1440px] text that strains the eye: span.field-notes-meta at 10px, span.field-notes-meta at 10px, span.field-notes-meta… | fix: Running text 12px or more (16px for body), functional text 11px or more, multi-line prose leaded 1.3 or more
+  REFLEX 77 :1 [1440px] 1 thin section: section.contact-directory (53% wide, no mass)
+  REFLEX 78 :1 [1440px] section heads render at 14px under a 50px hero head
+  REFLEX 79 :1 [1440px] 241px of nothing between the hero's last content (y 220) and the next section
+/about/
+  FAIL 58 :1 [1440px] 288 words on one screen (from y=950)
+  REFLEX 44c :1 [1440px] hero ends at 170px of a 900px screen
+  REFLEX 59 :1 [1440px] smallest gap between sections is 52px (gaps: 698, 52)
+  REFLEX 79 :1 [1440px] 752px of nothing between the hero's last content (y 148) and the fold
+  WARN 77 :1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+  WARN F19 :1 [1440px] 4 font weights in running use (400, 500, 600, 700)
+/hammerstein-ai/
+  FAIL 58 :1 [1440px] 176 words on one screen (from y=550)
+  FAIL 58 :1 [1440px] hero carries 3 text blocks before its actions
+  REFLEX 44c :1 [1440px] hero ends at 314px of a 900px screen
+  REFLEX 59 :1 [1440px] smallest gap between sections is 52px (gaps: 698, 52)
+  REFLEX 77 :1 [1440px] 1 thin section: section.contact-directory (67% wide, no mass)
+  REFLEX 79 :1 [1440px] 608px of nothing between the hero's last content (y 292) and the fold
+  WARN 77 :1 [1440px] 3 sections, hero and footer included
+  WARN F19 :1 [1440px] 4 font weights in running use (400, 500, 600, 700)
+  WARN F20 :1 [1440px] div.infra-meta leaves one item alone on its last row (3 + 1) | fix: Change the count or the columns so the last row is not an orphan
+/writing/
+  FAIL 58 :1 [1440px] 109 words on one screen (from y=1300)
+  REFLEX 23 :1 [1280px] accent paints ~12.7% of the 1280x800 viewport (> 8%) | fix: Retreat the accent to <= 5%; large colour belongs to paper/field tokens or a declared posture
+  REFLEX 44c :1 [1440px] hero ends at 170px of a 900px screen
+  REFLEX 59 :1 [1440px] smallest gap between sections is 52px (gaps: 674, 52)
+  REFLEX 79 :1 [1440px] 752px of nothing between the hero's last content (y 148) and the fold
+  WARN 77 :1 [1440px] 3 sections, hero and footer included
+  WARN F19 :1 [1440px] 4 font weights in running use (400, 500, 600, 700)
+src/pages/hammerstein-ai.astro
+  FAIL 63 :25 middle-dot meta string "Status Live · early access Price $15 / month Limi…"
+  WARN F1 :59 straight quote in prose x1 (first: What's shipped)
+src/pages/wargame-modules.astro
+  FAIL 63 :14 middle-dot meta string "Digital modules · Commissions open, selective · $…"
+  FAIL 63 :17 arrow glued to the label "Pricing →"
+  FAIL 63 :60 arrow glued to the label "Email me →"
+  FAIL 63 :61 middle-dot meta string "rweiss@consimsltd.com $400 to monster · Pricing ·…"
+  FAIL 63 :65 middle-dot meta string "$400 to monster · Pricing · Terms"
+  FAIL 63 :370 arrow glued to the label "The World Undone: East Front Trilogy, D…"
+  FAIL 63 :394 arrow glued to the label "Play the East Prussia 1914 playtest →"
+  FAIL 63 :494 arrow glued to the label "Email me →"
+  WARN F1 :204 straight quote in prose x3 (first: oody April is GMT's game of the)
+src/layouts/EssayLayout.astro
+  FAIL 67 :24 uppercase at 12px tracked 0.05em on <p class="mt-6 font-mono text-xs uppercas…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+src/pages/writing/index.astro
+  FAIL 67 :21 uppercase at 12px tracked 0.05em on <p class="mt-3 font-mono text-xs uppercas…">
+src/styles/site-content.css
+  FAIL 67 :24 .site-page .page-heading .eyebrow: uppercase tracked 0.06em at 14px in a label role
+src/pages/about.astro
+  WARN F1 :14 straight quote in prose x5 (first: ittle about me. I've been design)
+sloplint: 98 FAIL, 94 REFLEX, 19 WARN across 16 file(s) and 6 URL(s).
