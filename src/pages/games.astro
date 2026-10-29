@@ -567,11 +567,10 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
           <div class="fn-builds-head">
             <h3 class="fn-sub" id="fn-by-build">
               By build
+              <span class="fn-sub-count">
+                {noteGroups.length} builds · {fieldNotes.length} notes
+              </span>
             </h3>
-            <p class="fn-sub-count">
-              <span>{noteGroups.length} builds</span>
-              <span>{fieldNotes.length} notes</span>
-            </p>
           </div>
 
           <div class="fn-groups">
@@ -1145,7 +1144,16 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     font-size: var(--text-2xl);
     line-height: 1.1;
   }
-  .fn-sub-count,
+  .fn-sub .fn-sub-count {
+    display: block;
+    margin-top: var(--space-xs);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    letter-spacing: 0;
+    color: var(--color-muted);
+    font-variation-settings: normal;
+    font-variant-numeric: tabular-nums;
+  }
   .fn-sum-meta {
     display: flex;
     flex-wrap: wrap;
@@ -1153,7 +1161,6 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     color: var(--color-muted);
     font-variant-numeric: tabular-nums;
   }
-  .fn-sub-count > span + span,
   .fn-sum-meta > span + span {
     margin-left: var(--space-sm);
     padding-left: var(--space-sm);
