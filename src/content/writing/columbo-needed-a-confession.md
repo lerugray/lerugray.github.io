@@ -1,5 +1,5 @@
 ---
-title: 'columbo needed a confession'
+title: 'Columbo Needed a Confession'
 publishDate: 2026-07-14
 readingTime: '~7 min'
 description: "Three AI models played a matrix game: Columbo tries to indict Tony Soprano. A summary by Claude, from Ray's idea, published with his blessing."
