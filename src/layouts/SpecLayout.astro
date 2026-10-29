@@ -55,5 +55,11 @@ const ogImageURL = new URL(image, Astro.site).toString();
     <slot />
 
     <SiteFooter />
+    <style is:global>
+      html,
+      body {
+        overflow-x: clip;
+      }
+    </style>
   </body>
 </html>
