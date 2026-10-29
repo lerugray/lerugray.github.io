@@ -9,13 +9,14 @@ import devlog from '../../public/field-trials/devlog.json';
 
 // FIELD TRIALS ROSTER — THE CABINET.
 // One entry per public-preview-ready game. Add a new game here the day its
-// preview build deploys, and its roster cell, detail panel, PLAY link, and
-// feedback filing all render from this array. Nothing else needs a new entry.
+// preview build deploys, plus its label drawing in `labelArt` below, and its
+// roster cell, detail panel, PLAY link, and feedback filing all render from this
+// array. Nothing else needs a new entry.
 //
 // CLEAN SEAM FOR PULLED GAMES: ADVERSARY was pulled 2026-08-12 (commit
 // 6b300c1 — title screen/options + enemy-facing defects). When a pulled game
 // returns, re-add its roster entry with its ORIGINAL `id` (feedback threads
-// key off it); nothing else needs touching.
+// key off it) and its labelArt entry; nothing else needs touching.
 //
 // Test counts + audit verdicts are copied from the field-trials repo README
 // (the published audit table) and each game's own repo log. Update them when
@@ -241,6 +242,217 @@ const games: FieldTrialGame[] = [
 const totalTests = games.reduce((n, g) => n + g.tests, 0);
 const totalTestsFmt = totalTests.toLocaleString('en-US');
 
+// CARTRIDGE LABEL ART — one code-drawn inline SVG per game, keyed by id.
+// Redrawn from look D's twelve cartridge labels in the Specimen material: the
+// same compositions printed in ink on oat (currentColor, a few tints of it and
+// the cell's own ground), 1px hairlines that hold at any size, no hue. The
+// selected cell fills ink, so its label prints in reverse with no extra rule.
+// The name band under each old label is gone because the cell sets the name in
+// type. Labels are code-drawn as a shelf convention (in-game art is code-drawn or
+// licensed + credited, per the field-trials README). Decorative: the button
+// already carries the game's name.
+const svg = (body: string) =>
+  `<svg class="cart-art" viewBox="0 0 132 80" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+const labelArt: Record<string, string> = {
+  'chapel-perilous': svg(`
+  <g class="h" fill="none" stroke="currentColor">
+    <rect x="10" y="8" width="112" height="66"/>
+    <rect x="26" y="18" width="80" height="46"/>
+    <rect x="42" y="27" width="48" height="28"/>
+    <path d="M10 8 42 27M122 8 90 27M10 74 42 55M122 74 90 55"/>
+  </g>
+  <rect x="58" y="34" width="16" height="21" fill="currentColor"/>
+  <path class="g" d="M62 40l3-4 3 4z"/>
+  <g fill="currentColor" fill-opacity=".55">
+    <rect x="18" y="14" width="1.6" height="1.6"/><rect x="108" y="22" width="1.6" height="1.6"/>
+    <rect x="32" y="62" width="1.6" height="1.6"/><rect x="96" y="66" width="1.6" height="1.6"/>
+    <rect x="70" y="12" width="1.6" height="1.6"/><rect x="50" y="70" width="1.6" height="1.6"/>
+  </g>`),
+  'innsmouth-2000': svg(`
+  <rect width="132" height="12" fill="currentColor" fill-opacity=".1"/>
+  <path class="h" d="M0 12h132" stroke="currentColor"/>
+  <rect x="4" y="3" width="40" height="2" fill="currentColor" fill-opacity=".6"/><rect x="4" y="7" width="26" height="2" fill="currentColor" fill-opacity=".6"/>
+  <rect class="h" x="120" y="2.5" width="7" height="7" fill="none" stroke="currentColor"/>
+  <path class="h" d="M121.5 4l4 4m0-4-4 4" stroke="currentColor"/>
+  <g class="h" fill="currentColor" fill-opacity=".12" stroke="currentColor">
+    <rect x="14" y="40" width="14" height="26"/><rect x="34" y="32" width="16" height="34"/>
+    <rect x="56" y="44" width="12" height="22"/><rect x="94" y="38" width="15" height="28"/>
+  </g>
+  <g fill="currentColor">
+    <rect x="17" y="44" width="3" height="3"/><rect x="23" y="52" width="3" height="3"/>
+    <rect x="38" y="36" width="3" height="3"/><rect x="44" y="44" width="3" height="3"/><rect x="38" y="56" width="3" height="3"/>
+    <rect x="59" y="48" width="3" height="3"/><rect x="98" y="42" width="3" height="3"/><rect x="103" y="54" width="3" height="3"/>
+  </g>
+  <path d="M78 66C74 52 84 50 82 40 81 34 74 32 72 36 70 39 74 40 75 38" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M0 66l8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 4 1.5V80H0z" fill="currentColor" fill-opacity=".2"/>
+  <path class="h" d="M0 66l8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 8 3 8-3 4 1.5" fill="none" stroke="currentColor"/>
+  <path class="h" d="M6 74h18M40 75h22M86 74h28" stroke="currentColor" stroke-opacity=".55"/>`),
+  'stray-squadron': svg(`
+  <g fill="currentColor">
+    <rect x="12" y="10" width="1.5" height="1.5"/><rect x="30" y="22" width="1.5" height="1.5"/><rect x="52" y="8" width="1.5" height="1.5"/>
+    <rect x="80" y="16" width="1.5" height="1.5"/><rect x="104" y="9" width="1.5" height="1.5"/><rect x="118" y="26" width="1.5" height="1.5"/>
+    <rect x="22" y="38" width="1.5" height="1.5"/><rect x="96" y="34" width="1.5" height="1.5"/>
+  </g>
+  <g class="h" stroke="currentColor" fill="none">
+    <path d="M0 58h132M8 64h116M16 72h100"/>
+    <path d="M66 58 10 80M66 58 40 80M66 58v22M66 58l26 22M66 58l56 22" stroke-opacity=".6"/>
+  </g>
+  <polygon points="66,26 50,52 82,52" fill="currentColor" fill-opacity=".22"/>
+  <polygon points="66,26 66,52 82,52" fill="currentColor" fill-opacity=".5"/>
+  <polygon points="50,52 40,58 66,52" fill="currentColor" fill-opacity=".8"/>
+  <polygon points="82,52 92,58 66,52" fill="currentColor"/>
+  <polygon class="h" points="66,26 50,52 40,58 66,52 92,58 82,52" fill="none" stroke="currentColor"/>
+  <polygon class="g h" points="66,32 61,44 71,44" stroke="currentColor"/>`),
+  oddseedz: svg(`
+  <polygon points="66,4 36,60 96,60" fill="currentColor" fill-opacity=".07"/>
+  <path class="h" d="M66 0v10" stroke="currentColor"/>
+  <path d="M58 10h16l-3 6H61z" fill="currentColor"/>
+  <circle class="g" cx="66" cy="14.5" r="1.5"/>
+  <ellipse class="h" cx="60" cy="52" rx="17" ry="15" fill="currentColor" fill-opacity=".14" stroke="currentColor"/>
+  <ellipse cx="60" cy="56" rx="12" ry="8" fill="currentColor" fill-opacity=".1"/>
+  <circle class="g h" cx="54" cy="48" r="4.6" stroke="currentColor"/><circle class="g h" cx="67" cy="48" r="4.6" stroke="currentColor"/>
+  <circle cx="55" cy="49" r="2" fill="currentColor"/><circle cx="68" cy="49" r="2" fill="currentColor"/>
+  <path d="M56 59q4 3.4 8 0" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  <path d="M52 37q-2-7 4-8M67 37q3-6-1-9" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M96 62q-6-1-5.4-8 .6-6 6.4-6 6 0 6 6.6 0 6.6-7 7.4z" fill="currentColor" fill-opacity=".7"/>
+  <path d="M97 48q0-7 6-9" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <ellipse cx="105" cy="38" rx="3.4" ry="2.2" fill="currentColor" transform="rotate(-30 105 38)"/>
+  <path class="h" d="M20 65h92" stroke="currentColor"/>`),
+  'lines-of-advance': svg(`
+  <g class="h" stroke="currentColor" stroke-opacity=".3">
+    <path d="M0 16h132M0 32h132M0 48h132M0 64h132M22 0v80M44 0v80M66 0v80M88 0v80M110 0v80"/>
+  </g>
+  <g fill="currentColor">
+    <rect x="14" y="10" width="14" height="9"/><rect x="32" y="10" width="14" height="9"/><rect x="50" y="10" width="14" height="9"/>
+    <rect x="23" y="24" width="14" height="9"/><rect x="41" y="24" width="14" height="9"/>
+  </g>
+  <g class="g h" stroke="currentColor">
+    <rect x="72" y="62" width="14" height="9"/><rect x="90" y="62" width="14" height="9"/><rect x="108" y="62" width="14" height="9"/>
+    <rect x="81" y="48" width="14" height="9"/><rect x="99" y="48" width="14" height="9"/>
+  </g>
+  <path d="M38 36 70.6 55.9" stroke="currentColor" stroke-width="2.2" fill="none"/>
+  <path d="M74 58l-7.5-1 3.4-6.8z" fill="currentColor"/>
+  <path d="M94 46 63.5 24.5" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2" fill="none"/>
+  <path class="g h" d="M60 22l7.6.4-2.8 7z" stroke="currentColor"/>`),
+  capriole: svg(`
+  <g fill="currentColor" fill-opacity=".3">
+    <rect x="10" y="8" width="2" height="2"/><rect x="26" y="20" width="2" height="2"/><rect x="44" y="6" width="2" height="2"/>
+    <rect x="86" y="12" width="2" height="2"/><rect x="112" y="20" width="2" height="2"/><rect x="18" y="40" width="2" height="2"/>
+    <rect x="118" y="44" width="2" height="2"/><rect x="98" y="34" width="2" height="2"/><rect x="8" y="58" width="2" height="2"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.8" fill="none">
+    <circle cx="96" cy="14" r="6"/><circle cx="74" cy="28" r="5"/>
+  </g>
+  <g fill="currentColor">
+    <ellipse cx="58" cy="46" rx="13" ry="8" transform="rotate(-34 58 46)"/>
+    <circle cx="68" cy="32" r="5"/>
+    <path d="M70 28q5-6 2-10 6 3 2 11z"/>
+    <path d="M66 27q1-6-3-8 7 0 6 8z"/>
+    <path d="M50 52l-6 8 2 1.5 6-7zM56 55l-3 9 2.4.8 4-8zM64 44l6 7 2-1.4-5-8zM47 42q-5 0-6-4 3 1 6 .6z"/>
+  </g>
+  <path class="gs" d="M72 33.5h2.4" stroke-width="1.2"/>
+  <path d="M20 80l3-16h18l3 16z" fill="currentColor" fill-opacity=".75"/>
+  <path class="gs" d="M22.4 68h19.2M21.4 73h21.2" stroke-width="2.2"/>
+  <path d="M92 80l2.6-12h14l2.6 12z" fill="currentColor" fill-opacity=".75"/>
+  <path class="gs" d="M95 72h13.4" stroke-width="2"/>`),
+  shoeleather: svg(`
+  <path d="M56 22 40 6M70 22 88 4" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="40" cy="6" r="1.8" fill="currentColor"/><circle cx="88" cy="4" r="1.8" fill="currentColor"/>
+  <rect class="h" x="22" y="22" width="88" height="52" rx="5" fill="currentColor" fill-opacity=".14" stroke="currentColor"/>
+  <rect x="29" y="28" width="56" height="40" rx="3" fill="currentColor"/>
+  <g class="gs" stroke-width="1.2" fill="none" stroke-linejoin="round">
+    <path d="M48 62l3-9-4-5 3-6 6-1 5 3 1 6 6 2-2 6-6-2-2 8"/>
+    <circle cx="57" cy="37" r="3.6"/>
+  </g>
+  <circle class="g h" cx="97" cy="38" r="5" stroke="currentColor"/>
+  <path d="M97 34.4V38" stroke="currentColor" stroke-width="1.2"/>
+  <circle class="g h" cx="97" cy="54" r="5" stroke="currentColor"/>
+  <path d="M97 54l3-2" stroke="currentColor" stroke-width="1.2"/>
+  <rect x="46" y="74" width="40" height="3" fill="currentColor"/>`),
+  'jacquard-index': svg(`
+  <rect class="g h" x="10" y="8" width="112" height="66" stroke="currentColor"/>
+  <g fill="currentColor" fill-opacity=".85" style="font-family: var(--font-outlier), monospace; font-size: 5px;">
+    <text x="46" y="18" text-anchor="middle">2</text><text x="54" y="18" text-anchor="middle">4</text>
+    <text x="62" y="18" text-anchor="middle">6</text><text x="70" y="18" text-anchor="middle">6</text>
+    <text x="78" y="18" text-anchor="middle">4</text><text x="86" y="18" text-anchor="middle">2</text>
+    <text x="38" y="28" text-anchor="end">1</text><text x="38" y="36" text-anchor="end">3</text>
+    <text x="38" y="44" text-anchor="end">5</text><text x="38" y="52" text-anchor="end">5</text>
+    <text x="38" y="60" text-anchor="end">3</text><text x="38" y="68" text-anchor="end">1</text>
+  </g>
+  <g class="h" stroke="currentColor" fill="none">
+    <rect x="42" y="21" width="48" height="48"/>
+    <path d="M50 21v48M58 21v48M66 21v48M74 21v48M82 21v48M42 29h48M42 37h48M42 45h48M42 53h48M42 61h48" stroke-opacity=".4"/>
+  </g>
+  <path d="M66 21h8v8h8v8h8v16h-8v8h-8v8h-8v-8h-8v-8h-8V37h8v-8h8z" fill="currentColor"/>
+  <rect x="54" y="74" width="24" height="2.4" fill="currentColor" fill-opacity=".6"/>
+  <path d="M57 76.4q9 5 18 0" stroke="currentColor" stroke-width="1.4" fill="none"/>`),
+  alkahest: svg(`
+  <path d="M8 70h116" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M52 56l6.2-12.4h15.6L80 56a4 4 0 0 1-3.6 6H55.6a4 4 0 0 1-3.6-6z" fill="currentColor" fill-opacity=".3"/>
+  <path d="M60 22h12v14l14 28a4 4 0 0 1-3.6 6H49.6a4 4 0 0 1-3.6-6l14-28z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+  <circle class="g" cx="63" cy="52" r="1.6"/><circle class="g" cx="70" cy="57" r="1.3"/><circle class="g" cx="66" cy="46" r="1.1"/>
+  <rect x="58" y="18" width="16" height="4" fill="currentColor"/>
+  <g class="h" stroke="currentColor" fill="none">
+    <path d="M26 26l7 12H19z"/>
+    <circle cx="104" cy="24" r="6"/>
+    <path d="M100 46a6 6 0 1 0 8-8 7 7 0 0 1-8 8z"/>
+    <path d="M22 52h14M29 45v14"/>
+  </g>
+  <circle cx="104" cy="24" r="1" fill="currentColor"/>
+  <g fill="currentColor">
+    <rect x="86" y="64" width="5" height="5"/><rect x="93" y="64" width="5" height="5"/>
+    <rect x="86" y="57" width="5" height="5" fill-opacity=".4"/><rect x="93" y="57" width="5" height="5" fill-opacity=".4"/>
+  </g>`),
+  'office-of-the-road': svg(`
+  <path class="h" d="M8 20h116M8 32h116M8 44h116M8 56h116" stroke="currentColor" stroke-opacity=".35"/>
+  <rect class="g h" x="20" y="16" width="52" height="44" stroke="currentColor"/>
+  <path class="h" d="M26 26h40M26 33h40M26 40h32M26 47h36" stroke="currentColor" stroke-opacity=".55"/>
+  <circle cx="58" cy="50" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <g transform="rotate(12 96 38)">
+    <rect x="84" y="18" width="24" height="40" fill="currentColor"/>
+    <circle class="g" cx="96" cy="30" r="5"/>
+    <path class="gs" d="M88 50l6-8 5 5 5-9" stroke-width="1.2" fill="none"/>
+  </g>
+  <path d="M8 72h116" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 3" stroke-opacity=".6"/>
+  <g fill="currentColor">
+    <rect x="30" y="65" width="4" height="6"/><rect x="40" y="65" width="4" height="6"/>
+    <rect x="50" y="65" width="4" height="6"/><rect x="60" y="65" width="4" height="6"/>
+  </g>`),
+  popinjay: svg(`
+  <g fill="currentColor" fill-opacity=".3">
+    <rect x="8" y="6" width="2" height="2"/><rect x="28" y="18" width="2" height="2"/><rect x="118" y="10" width="2" height="2"/>
+    <rect x="104" y="28" width="2" height="2"/><rect x="16" y="52" width="2" height="2"/>
+  </g>
+  <circle cx="38" cy="28" r="11" fill="currentColor" fill-opacity=".14" stroke="currentColor" stroke-width="1.4"/>
+  <ellipse cx="38" cy="30" rx="6" ry="5" fill="currentColor"/>
+  <ellipse class="g" cx="40" cy="32" rx="4" ry="2.4" fill-opacity=".55"/>
+  <circle class="g" cx="41" cy="28" r="1.3"/>
+  <path d="M44 30l6-1-4 3z" fill="currentColor" fill-opacity=".7"/>
+  <circle class="h" cx="78" cy="22" r="9" fill="currentColor" fill-opacity=".32" stroke="currentColor"/>
+  <circle class="h" cx="104" cy="40" r="7" fill="currentColor" fill-opacity=".14" stroke="currentColor"/>
+  <circle cx="58" cy="48" r="5.5" fill="currentColor"/>
+  <path d="M66 78V14" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M66 14V6" stroke="currentColor" stroke-width="1.4" stroke-opacity=".45"/>
+  <path d="M54 78h24v-6H54z" fill="currentColor" fill-opacity=".6"/>
+  <rect x="62" y="68" width="8" height="10" fill="currentColor"/>`),
+  'material-breach': svg(`
+  <rect class="g h" x="10" y="8" width="112" height="66" stroke="currentColor"/>
+  <path d="M18 16h96" stroke="currentColor" stroke-width="2.4"/>
+  <path d="M18 28h96" stroke="currentColor" stroke-width="1.6"/>
+  <path class="h" d="M18 31h96" stroke="currentColor"/>
+  <g fill="currentColor" fill-opacity=".7">
+    <rect x="20" y="38" width="52" height="1.4"/><rect x="20" y="44" width="48" height="1.4"/>
+    <rect x="20" y="50" width="50" height="1.4"/><rect x="20" y="56" width="40" height="1.4"/>
+  </g>
+  <g fill="currentColor" fill-opacity=".85">
+    <rect x="86" y="40" width="14" height="10"/><rect x="102" y="40" width="10" height="10"/>
+    <rect x="86" y="52" width="10" height="10"/><rect x="98" y="52" width="14" height="10"/>
+  </g>
+  <rect class="gs" x="88" y="42" width="10" height="6" fill="none" stroke-width="1.2"/>
+  <circle class="g" cx="108" cy="62" r="8" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M104 62l3 3 6-7" stroke="currentColor" stroke-width="1.6" fill="none"/>`),
+};
+
 // FEEDBACK ENDPOINT — LIVE (worker deployed 2026-08-05, probe-verified).
 // If it's ever unreachable, each feedback box degrades in place to
 // "Feedback wire not yet connected." and the page stays presentable.
@@ -365,9 +577,10 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
             role="group"
             aria-label="Cartridge shelf. Click a cartridge to select it; click again to play."
           >
-            {/* Each cell: the script reads the name from .sr-only for its status
-                line; the visible name is the same text, hidden from assistive
-                tech so it is announced once. */}
+            {/* Each cell: the cartridge's label drawing (decorative), then the
+                name and register. The script reads the name from .sr-only for
+                its status line; the visible name is the same text, hidden from
+                assistive tech so it is announced once. */}
             {
               games.map((game, i) => (
                 <button
@@ -380,6 +593,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
                   aria-describedby={`panel-${game.id}`}
                 >
                   <span class="sr-only">{game.name}</span>
+                  <span class="cart-label" set:html={labelArt[game.id] ?? ''} />
                   <span class="cart-name" aria-hidden="true">
                     {game.name}
                   </span>
@@ -674,10 +888,11 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     min-width: 0;
   }
 
-  /* The character set. Cells share one hairline: the shelf draws the top and
-     left edges, each cell its right and bottom. The cells stand taller than
-     the 44 to 52px control band on purpose: each is the specimen of one build
-     (its name in Bodoni over its register). Play and Send keep 48px. */
+  /* The cartridges. Cells share one hairline: the shelf draws the top and left
+     edges, each cell its right and bottom. Each cell is one cartridge: its label
+     drawing in a hairline window, the name in Bodoni, the register under it. The
+     cells stand taller than the 44 to 52px control band on purpose; Play and
+     Send keep 48px. */
   .cab-shelf {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -691,21 +906,21 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
 
   .cart {
+    --cart-ground: var(--color-paper);
+    --cart-frame: var(--color-rule-2);
     appearance: none;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: var(--space-sm);
     min-width: 0;
-    aspect-ratio: 1 / 1;
     margin: 0;
     padding: var(--space-md);
     border: 0;
     border-right: var(--rule-hair) solid var(--color-rule-2);
     border-bottom: var(--rule-hair) solid var(--color-rule-2);
     border-radius: var(--radius-card);
-    background: var(--color-paper);
+    background: var(--cart-ground);
     color: var(--color-ink);
     font: inherit;
     text-align: left;
@@ -713,6 +928,33 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     transition:
       background-color var(--dur-micro) var(--ease-out),
       color var(--dur-micro) var(--ease-out);
+  }
+  /* The label: look D's drawing printed in ink on the cell's own ground. */
+  .cart-label {
+    display: block;
+    aspect-ratio: 132 / 80;
+    margin-bottom: var(--space-2xs);
+    border: var(--rule-hair) solid var(--cart-frame);
+    background: var(--cart-ground);
+    transition:
+      background-color var(--dur-micro) var(--ease-out),
+      border-color var(--dur-micro) var(--ease-out);
+  }
+  .cart-label :global(svg) {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .cart-label :global(.g) {
+    fill: var(--cart-ground);
+  }
+  .cart-label :global(.gs) {
+    fill: none;
+    stroke: var(--cart-ground);
+  }
+  .cart-label :global(.h),
+  .cart-label :global(.h *) {
+    vector-effect: non-scaling-stroke;
   }
   .cart-name {
     display: block;
@@ -726,28 +968,32 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   }
   .cart-reg {
     display: block;
+    margin-top: auto;
     font-size: var(--text-sm);
     font-weight: 500;
     line-height: 1.35;
     color: var(--color-muted);
     transition: color var(--dur-micro) var(--ease-out);
   }
-  .cart:hover {
-    background: var(--color-hover-well);
+  @media (hover: hover) {
+    .cart:hover {
+      --cart-ground: var(--color-hover-well);
+    }
+    .cart[aria-pressed='true']:hover {
+      --cart-ground: var(--color-ink-2);
+    }
   }
   .cart:active {
-    background: var(--color-paper-3);
+    --cart-ground: var(--color-paper-3);
   }
-  /* The current cell fills ink. */
+  /* The current cartridge fills ink and its label prints in reverse. */
   .cart[aria-pressed='true'] {
-    background: var(--color-ink);
+    --cart-ground: var(--color-ink);
+    --cart-frame: var(--color-band-rule);
     color: var(--color-band-ink);
   }
   .cart[aria-pressed='true'] .cart-reg {
     color: var(--color-band-muted);
-  }
-  .cart[aria-pressed='true']:hover {
-    background: var(--color-ink-2);
   }
   .cart:focus-visible {
     z-index: var(--z-base);
@@ -760,6 +1006,18 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     z-index: var(--z-base);
     outline: 2px solid var(--color-accent);
     outline-offset: -6px;
+  }
+
+  /* On a phone or tablet the selected build's details open inside the shelf,
+     directly under the row of the cartridge that was tapped (the script moves
+     the panel there; see initCabinet). They read as a drawer of that row. */
+  .cab-shelf > .cab-detail {
+    grid-column: 1 / -1;
+    position: static;
+    padding: var(--space-lg) var(--space-md) var(--space-xl);
+    background: var(--color-paper-2);
+    border-right: var(--rule-hair) solid var(--color-rule-2);
+    border-bottom: var(--rule-hair) solid var(--color-rule-2);
   }
 
   .cab-hint {
@@ -1205,7 +1463,7 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     text-decoration-line: underline;
     text-decoration-color: transparent;
     text-decoration-thickness: var(--rule-hair);
-    text-underline-offset: 0.18em;
+    text-underline-offset: 0.1em;
     transition: text-decoration-color var(--dur-micro) var(--ease-out);
   }
   .fn-sum:hover .fn-sum-name {
@@ -1265,9 +1523,6 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     .cab-shelf {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
-    .cart {
-      aspect-ratio: 4 / 3;
-    }
     .cab-hint {
       display: none;
     }
@@ -1299,8 +1554,11 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .cart {
-      aspect-ratio: 3 / 2;
+      gap: var(--space-xs);
       padding: var(--space-sm);
+    }
+    .cart-name {
+      font-size: var(--text-lg);
     }
     .field-report {
       padding: var(--space-lg) var(--space-md);
@@ -1357,14 +1615,46 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     const carts = Array.from(cabinet.querySelectorAll<HTMLButtonElement>('.cart'));
     const panels = Array.from(cabinet.querySelectorAll<HTMLElement>('.cab-panel'));
     const status = cabinet.querySelector<HTMLElement>('[data-cab-status]');
-    const shelf = cabinet.querySelector<HTMLElement>('.cab-shelf');
-    if (!carts.length || !panels.length || !shelf) return;
+    const shelfEl = cabinet.querySelector<HTMLElement>('.cab-shelf');
+    const detailEl = cabinet.querySelector<HTMLElement>('.cab-detail');
+    if (!carts.length || !panels.length || !shelfEl || !detailEl) return;
+    const shelf = shelfEl; // non-null aliases for the function decls below
+    const detail = detailEl;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const narrow = window.matchMedia('(max-width: 979px)');
+    const twoUp = window.matchMedia('(max-width: 37.5rem)');
+    // Where the details live on a wide screen: the column beside the shelf.
+    const detailParent = detail.parentElement;
+    const detailNext = detail.nextElementSibling;
     let selected = 0;
+    // The cartridge the details open under on narrow screens. Until the player
+    // picks one, they close the shelf, so all twelve cartridges read together.
+    let anchor = carts.length - 1;
 
-    function select(i: number, opts: { scroll?: boolean } = {}) {
+    function shelfCols() {
+      return getComputedStyle(shelf).gridTemplateColumns.split(' ').filter(Boolean).length || 3;
+    }
+
+    // On narrow screens the details open inside the shelf, directly under the
+    // row of the picked cartridge, so a tap shows its build where the player
+    // is looking instead of below all twelve cartridges.
+    function placeDetail() {
+      if (narrow.matches) {
+        const cols = shelfCols();
+        const rowEnd = Math.min(carts.length - 1, Math.floor(anchor / cols) * cols + cols - 1);
+        if (carts[rowEnd].nextElementSibling !== detail) carts[rowEnd].after(detail);
+      } else if (detailParent && detail.parentElement !== detailParent) {
+        detailParent.insertBefore(detail, detailNext);
+      }
+    }
+
+    function select(i: number, opts: { scroll?: boolean; initial?: boolean } = {}) {
+      // Where the tapped cartridge sits on screen before the details move, so
+      // the move never shifts it out from under the player's finger.
+      const before = carts[i].getBoundingClientRect().top;
       selected = i;
+      if (!opts.initial) anchor = i;
       carts.forEach((c, j) => {
         c.setAttribute('aria-pressed', j === i ? 'true' : 'false');
         c.tabIndex = j === i ? 0 : -1;
@@ -1386,12 +1676,18 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
       if (status) status.textContent = `Selected ${name}`;
       if (id) history.replaceState(null, '', `#${id}`);
       if (id) cabinet.dispatchEvent(new CustomEvent('cab:select', { detail: { id } }));
-      // On narrow screens the panel sits below the shelf — bring it up.
-      if (opts.scroll && window.matchMedia('(max-width: 979px)').matches) {
-        panels[i].scrollIntoView({
-          behavior: reduceMotion.matches ? 'auto' : 'smooth',
-          block: 'nearest',
-        });
+      placeDetail();
+      if (!opts.initial && narrow.matches) {
+        const shift = carts[i].getBoundingClientRect().top - before;
+        if (shift) window.scrollBy({ top: shift, behavior: 'instant' });
+        // When the opened details start low on the screen, lift the tapped
+        // row to the top so the build's picture and Play come into view.
+        if (opts.scroll && panels[i].getBoundingClientRect().top > window.innerHeight * 0.6) {
+          window.scrollBy({
+            top: carts[i].getBoundingClientRect().top - 16,
+            behavior: reduceMotion.matches ? 'auto' : 'smooth',
+          });
+        }
       }
     }
 
@@ -1413,8 +1709,10 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     });
 
     shelf.addEventListener('keydown', (e: KeyboardEvent) => {
-      const cols =
-        getComputedStyle(shelf).gridTemplateColumns.split(' ').filter(Boolean).length || 3;
+      // The opened details can sit inside the shelf on narrow screens; keys
+      // pressed in there (on Play, say) are not shelf navigation.
+      if (!(e.target instanceof HTMLElement) || !e.target.classList.contains('cart')) return;
+      const cols = shelfCols();
       let next = -1;
       if (e.key === 'ArrowRight') next = Math.min(selected + 1, carts.length - 1);
       else if (e.key === 'ArrowLeft') next = Math.max(selected - 1, 0);
@@ -1435,7 +1733,10 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     // scripts off) — accept that form here too and select it.
     const hash = location.hash.replace('#', '').replace(/^cart-/, '');
     const fromHash = carts.findIndex((c) => c.dataset.game === hash);
-    select(fromHash >= 0 ? fromHash : 0);
+    select(fromHash >= 0 ? fromHash : 0, { initial: fromHash < 0 });
+
+    narrow.addEventListener('change', placeDetail);
+    twoUp.addEventListener('change', placeDetail);
   }
 
   initCabinet();

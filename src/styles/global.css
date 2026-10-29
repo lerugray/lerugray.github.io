@@ -1,19 +1,20 @@
 /* Hallmark · shape: Long Document (pages), Index-First (/) · genre: editorial · theme: Specimen (deal 1/3, seed personal-brooklyn-wargame-designer-8be8·276607cb·2026-10-29·r0) · redesign: full · job: hire
- * hero: Banner (pages, /writing), Settled (/), Stage (/wargame-modules) · nav: edge-aligned, the counter and wordmark left, seven links and the contact address right · footer: index columns (a real sitemap of 37 pages), then contact and a colophon · imagery: the product, Ray's own captures and covers, no library photographs · signature: the name set at poster size in Bodoni with ink-blue guides at its cap height and baseline
+ * hero: Banner (pages, /writing), Settled (/, held to the top half of its screen on a paper plate so the commissions share the first screen; 44c waived), Stage (/wargame-modules) · nav: edge-aligned, the counter and wordmark left, seven links and the contact address right (on / the address and the locator live in the hero, once each) · footer: index columns (a real sitemap of 37 pages), then contact and a colophon · imagery: the product, Ray's own captures and covers, no library photographs · signature: the name set at poster size in Bodoni with ink-blue guides at its cap height and baseline
  * axes: light/high-contrast-serif/cool · posture: restrained · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4 · weakest: S, the Specimen material belongs to a foundry; the RW unit counter, the dated essay index and Ray's own module captures carry the specificity */
-/* Hallmark · hero-review: fix · 5 findings · 3 resolved 2 partial (the nav repeats the location and the address on /, the statement runs past the action) */
-/* Hallmark · finish-review: fix · subagent · 7 findings · 7 resolved · gap: the old home showed the commissions on its first screen, the new one gives that screen to the name and the action; the old cabinet gave each game a drawn picture, the new roster shows the selected game's real capture */
+/* Hallmark · hero-review: fix · 5 findings · 4 resolved 1 partial (the statement runs past the action); the nav repeating the location and the address on / was closed in fix 1 */
+/* Hallmark · finish-review: fix · subagent · 7 findings · 7 resolved · gap closed in fix 1: the home's first screen holds the commissions and every price again beside the name, and every cartridge on Field Trials carries its own label drawing, redrawn in ink from look D's, beside the selected build's real capture */
 /* Hallmark · waive 79 · document pages open on a Banner and their prose starts under it inside the same frame, above the fold · the render tier counts only section boundaries, so the essay and product text that follows the banner reads to it as empty paper */
 /* Hallmark · waive 49b · entry titles in the essay, business and catalog indexes are names that cannot shorten, two lines at most on a phone · essay titles and game names are Ray's own and wrap rather than truncate */
-/* Hallmark · waive 39b · Play and Send stand 48px; only the twelve roster cells on Field Trials run taller · each roster cell is the specimen of one build, its name set in Bodoni over its register, and selecting it fills the cell ink */
+/* Hallmark · waive 39b · Play and Send stand 48px; only the twelve roster cells on Field Trials run taller · each roster cell is one cartridge, its label drawing over its name in Bodoni and its register, and selecting it fills the cell ink */
+/* Hallmark · waive 44c · on / the hero plate ends near 430px of the 1440x900 screen and the commissions section starts under it on that same screen · look D opened on the commissions and their prices, and Ray's fix list asks for that first screen back, so the name shares it with the four offers instead of filling it alone */
 /* Hallmark · reworded "Digital wargame modules →" to "Digital wargame modules" · 63 names the arrow glued to link text */
 /* Hallmark · reworded "AI workflow & automation builds →" to "AI workflow & automation builds" · 63 names the arrow glued to link text */
 /* Hallmark · reworded "Custom voice & persona models →" to "Custom voice & persona models" · 63 names the arrow glued to link text */
 /* Hallmark · reworded "Game-design consultation →" to "Game-design consultation" · 63 names the arrow glued to link text */
-/* Hallmark · dropped 08246642135531 · the clue digits of the drawn Jacquard Index nonogram on one of the twelve cartridge labels dropped from Field Trials; 47c and 80 name drawn imitation hardware, and each build now shows its real capture */
+/* Hallmark · dropped 08246642135531 · look D's No.08 tile counter read together with the clue digits of the Jacquard Index label as one figure; the counter stays dropped as decoration (66), and the clue digits are back on the redrawn label */
 /* Hallmark · dismissed 77 · Long Document pages are one continuous text under a Banner, so their section count is the document's own and not a landing strip */
-/* Hallmark · dismissed 49 · the roster cells on Field Trials are square buttons whose names wrap inside the cell by design, and the manual link is a title that cannot shorten */
+/* Hallmark · dismissed 49 · the roster cells on Field Trials are cartridge buttons whose names wrap inside the cell by design, and the manual link is a title that cannot shorten */
 /* Hallmark · answered F1 · the words are Ray's as typed under copy verbatim, so straight apostrophes stay until he sets them himself */
 @import '@fontsource-variable/bodoni-moda/opsz.css';
 @import '@fontsource-variable/bodoni-moda/opsz-italic.css';
@@ -25,12 +26,39 @@
 @import url('./tokens.css');
 @import url('./base.css');
 
+/* Bodoni Moda draws its en and em dashes as a single razor hairline at every
+   optical size and weight, so inside display text they all but vanish. These
+   faces join the Bodoni Moda family for the dash code points only and take
+   those glyphs from Geist, whose dash keeps a visible stroke. Declared after
+   the family's own faces, they win for those code points; the text itself is
+   unchanged and the page still sets three families. */
+@font-face {
+  font-family: 'Bodoni Moda Variable';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/geist/files/geist-latin-400-normal.woff2')
+    format('woff2');
+  unicode-range: U+2012-2015, U+2212;
+}
+@font-face {
+  font-family: 'Bodoni Moda Variable';
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/geist/files/geist-latin-400-italic.woff2')
+    format('woff2');
+  unicode-range: U+2012-2015, U+2212;
+}
+
 /* ==========================================================================
    Project tokens: roles the theme leaves to the page
    ========================================================================== */
 :root {
   --text-body: 1.0625rem;
   --text-poster: clamp(3.5rem, 20.4vw, 18.5rem);
+  /* The same name held to seven of twelve columns. */
+  --text-poster-7: clamp(3.5rem, 11.6vw, 10.6rem);
   --measure: 58ch;
   --header-h: 72px;
   --rule-bar: 3px;
@@ -94,12 +122,15 @@ samp {
 code {
   overflow-wrap: anywhere;
 }
+/* The underline sits just under the baseline and breaks around descenders, so on
+   a wrapped Bodoni title it never crosses a J or g tail or reaches the next line. */
 a {
   color: var(--color-ink);
   text-decoration-line: underline;
   text-decoration-color: var(--color-accent);
   text-decoration-thickness: var(--rule-hair);
-  text-underline-offset: 0.18em;
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 0.1em;
   transition: text-decoration-color var(--dur-micro) var(--ease-out);
 }
 a:hover {
@@ -664,7 +695,7 @@ td a {
 .entry-title {
   font-family: var(--font-display);
   font-size: var(--text-title);
-  line-height: 1.15;
+  line-height: 1.22;
   letter-spacing: var(--tracking-display);
   color: var(--color-ink);
   text-decoration-color: var(--color-rule-2);
@@ -696,7 +727,7 @@ td a {
   grid-row: 1 / span 2;
   font-family: var(--font-display);
   font-size: var(--text-title);
-  line-height: 1.15;
+  line-height: 1.22;
   letter-spacing: var(--tracking-display);
   color: var(--color-ink);
   text-decoration-color: var(--color-rule-2);
@@ -917,7 +948,7 @@ td.num {
 .writing-index > li > h2 {
   max-width: none;
   font-size: var(--text-2xl);
-  line-height: 1.1;
+  line-height: 1.2;
 }
 .writing-index > li > h2 a {
   text-decoration-color: var(--color-rule-2);
@@ -1126,14 +1157,15 @@ td.num {
     padding-left: 0;
     border-left: 0;
   }
+  /* The seven links wrap to as many rows as they need, as look D's did, so
+     none sits off screen behind a sideways scroll. */
   .site-nav {
     order: 3;
     flex-basis: 100%;
-    margin: var(--space-xs) 0 0;
-    padding-bottom: var(--space-sm);
-    overflow-x: auto;
-    gap: var(--space-lg);
-    scrollbar-width: none;
+    flex-wrap: wrap;
+    margin: var(--space-2xs) 0 0;
+    padding-bottom: var(--space-xs);
+    gap: 0 var(--space-lg);
   }
   .site-nav a {
     font-size: var(--text-md);
@@ -1143,6 +1175,10 @@ td.num {
 @media (max-width: 60rem) {
   .page-content {
     padding-top: var(--space-2xl);
+  }
+  /* The home's hero plate meets the header on a phone too. */
+  .page-content--home {
+    padding-top: 0;
   }
   .page-heading > *,
   .essay-header > *,
@@ -1224,8 +1260,7 @@ td.num {
     width: 40px;
   }
   .site-nav {
-    padding-right: var(--space-2xl);
-    mask-image: linear-gradient(to right, var(--color-ink) 82%, transparent);
+    column-gap: var(--space-md);
   }
   .brand-link {
     font-size: var(--text-lg);

@@ -26,16 +26,20 @@ The spacing scale, the type scale, the easings and the durations are the scaffol
 - Body: Geist 400 at 17px, line-height 1.55 (1.7 in long prose), measure 58ch.
 - Labels, captions, table heads, nav: Geist 500 a step smaller, sentence case, `--color-muted`, never tracked, never capitals.
 - Mono: code, key names and glyph figures only.
+- Dashes: Bodoni Moda draws its en and em dashes as one hairline, so the family takes those code points from Geist: two `unicode-range` faces at the top of `global.css` join `Bodoni Moda Variable` for the dashes only. The text is untouched and the page still sets three families.
 
 ## Page shapes
 - Pages: a Banner heading (`.page-heading`), then a Long Document grid of four margin columns and eight text columns; `h2` sits in the margin and sticks while its text scrolls.
 - Hubs (Commissions, Tools, Works, Field Trials): ruled rows on hairlines, the title in the margin, facts and text on the right.
+- First page: the name holds seven columns under its guides with the statement beside it, so the commissions and every price reach the first screen at 1440x900. Each item shows once on that screen; on `/` the header leaves the locator and the address to the hero.
+- Field Trials: the twelve builds are cartridges in hairline cells, each with its label drawing (look D's, redrawn in ink: `currentColor`, tints of it and the cell's own ground, 1px non-scaling hairlines, no hue) over its name and register. The selected cartridge fills ink and its label prints in reverse. Under 980px the selected build's details open inside the shelf, directly under the tapped row.
 - Footer: the full sitemap as index columns, then contact and a colophon.
+- Nav: under 70rem the seven links wrap to their own rows; nothing scrolls sideways.
 
 ## Controls
 - Primary: ink fill, oat text, square, 48px tall (`.btn-primary`)
 - Secondary: 1px ink outline, same radius and height (`.btn-secondary`, `.cta`)
-- Links: ink, a 1px ink-blue underline that thickens on hover.
+- Links: ink, a 1px ink-blue underline 0.1em under the baseline that skips descenders and thickens on hover.
 
 ## Motion
 - Character: still. Only state moves (an underline, a fill); under reduced motion everything ends at once.
