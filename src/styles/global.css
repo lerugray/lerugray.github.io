@@ -5,6 +5,7 @@
 /* Hallmark · hero-review: fix · 5 findings · 3 resolved 2 partial (the nav repeats the location and the address on /, the statement runs past the action) */
 /* Hallmark · waive 79 · document pages open on a Banner and their prose starts under it inside the same frame, above the fold · the render tier counts only section boundaries, so the essay and product text that follows the banner reads to it as empty paper */
 /* Hallmark · waive 49b · entry titles in the essay, business and catalog indexes are names that cannot shorten, two lines at most on a phone · essay titles and game names are Ray's own and wrap rather than truncate */
+/* Hallmark · waive 39b · Play and Send stand 48px; only the twelve roster cells on Field Trials run taller · each roster cell is the specimen of one build, its name set in Bodoni over its register, and selecting it fills the cell ink */
 @import '@fontsource-variable/bodoni-moda/opsz.css';
 @import '@fontsource-variable/bodoni-moda/opsz-italic.css';
 @import '@fontsource/geist/400.css';
@@ -1170,6 +1171,14 @@ td.num {
   }
   .product-spec {
     row-gap: var(--space-md);
+  }
+  .infra-list .infra-title {
+    order: -1;
+  }
+  .infra-list > li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
   }
   .entries > li {
     grid-template-columns: minmax(0, 1fr);
