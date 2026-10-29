@@ -57,7 +57,7 @@ const totalEntries = canon.length;
   title="Works | Ray Weiss"
   description="Ray Weiss's complete body of work. Wargames published under Conflict Simulations LLC, music released as Le Rug and other projects, games, essays, and a book in progress."
 >
-  <div class="mx-auto max-w-3xl px-0">
+  <div class="doc__frame">
     <header class="page-heading">
       <h1>Works</h1>
       <p class="dek">
@@ -72,7 +72,6 @@ const totalEntries = canon.length;
 
     <div class="works-stats">
       <span><span class="stat-num">{totalReleased}</span> released</span>
-      <span class="stat-sep">·</span>
       <span><span class="stat-num">{totalEntries}</span> total entries</span>
     </div>
 
@@ -82,7 +81,7 @@ const totalEntries = canon.length;
           <div class="section-head">
             <h2 class="section-label">{mediumOrder[medium]}</h2>
             <span class="section-count">
-              {entries.length} {entries.length === 1 ? 'entry' : 'entries'} ——
+              {entries.length} {entries.length === 1 ? 'entry' : 'entries'}
             </span>
           </div>
 
@@ -114,18 +113,12 @@ const totalEntries = canon.length;
                     <div class="works-meta">
                       {entry.alias && <span class="works-alias">{entry.alias}</span>}
                       {entry.venue && entry.venue !== entry.alias && (
-                        <>
-                          <span class="works-sep">·</span>
-                          <span class="works-venue">{entry.venue}</span>
-                        </>
+                        <span class="works-venue">{entry.venue}</span>
                       )}
                       {!statusIsNeutral && (
-                        <>
-                          <span class="works-sep">·</span>
-                          <span class={`works-status works-status--${entry.status}`}>
-                            {statusText}
-                          </span>
-                        </>
+                        <span class={`works-status works-status--${entry.status}`}>
+                          {statusText}
+                        </span>
                       )}
                     </div>
                     {entry.notes && <p class="works-notes">{entry.notes}</p>}
@@ -141,147 +134,113 @@ const totalEntries = canon.length;
 </BaseLayout>
 
 <style>
+  /* Works: the catalog as one ruled index, year, title and venue, then the note. */
   .unverified-mark {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--color-rule);
-    margin-left: 2px;
+    margin-left: var(--space-3xs);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
     vertical-align: super;
   }
-
   .works-stats {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-subtle);
-    margin: 0 0 3.5rem;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: baseline;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    padding: 10px 0;
-  }
-
-  .stat-num {
-    color: var(--color-foreground);
-    font-weight: 600;
-  }
-
-  .stat-sep {
-    color: var(--color-rule);
-  }
-
-  .works-section {
-    margin-bottom: 3rem;
-  }
-
-  .works-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    max-width: 72ch;
-  }
-
-  .works-entry {
-    display: grid;
-    grid-template-columns: 52px minmax(0, 1fr);
-    gap: 20px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--color-border);
-    align-items: baseline;
-  }
-
-  .works-entry:last-child {
-    border-bottom: none;
-  }
-
-  .works-year {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    color: var(--color-rule);
-    padding-top: 4px;
-    text-align: right;
-  }
-
-  .works-year .unverified {
-    color: var(--color-subtle);
-  }
-
-  .works-body {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .works-title {
-    font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 1.3;
-    color: var(--color-foreground);
-    letter-spacing: -0.005em;
-    text-decoration: none;
-  }
-
-  a.works-title:hover {
-    color: var(--color-link);
-  }
-
-  .works-meta {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-subtle);
     display: flex;
     flex-wrap: wrap;
-    gap: 0 6px;
-    align-items: baseline;
-  }
-
-  .works-alias {
+    gap: var(--space-xs) 0;
+    padding: var(--space-md) 0;
+    border-bottom: var(--rule-hair) solid var(--color-rule);
+    font-size: var(--text-sm);
     color: var(--color-muted);
   }
-
-  .works-venue {
-    color: var(--color-subtle);
+  .works-stats > span + span {
+    margin-left: var(--space-md);
+    padding-left: var(--space-md);
+    border-left: var(--rule-hair) solid var(--color-rule);
   }
-
-  .works-sep {
-    color: var(--color-rule);
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
   }
-
-  .works-status {
-    color: var(--color-subtle);
+  .works-section {
+    display: block;
   }
-
-  .works-status--abandoned,
-  .works-status--lost {
-    color: var(--color-rule);
+  .works-section > .section-head {
+    margin-bottom: 0;
   }
-
+  .works-section .section-label {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+  .works-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .works-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: var(--gap-columns);
+    align-items: baseline;
+    padding: var(--space-md) 0;
+    border-bottom: var(--rule-hair) solid var(--color-rule);
+  }
+  .works-year {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .works-year .unverified {
+    color: var(--color-ink-2);
+  }
+  .works-body {
+    display: contents;
+  }
+  .works-title {
+    grid-column: 2;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    line-height: 1.25;
+    color: var(--color-ink);
+    text-decoration-color: var(--color-rule-2);
+    overflow-wrap: break-word;
+    min-width: 0;
+  }
+  a.works-title:hover {
+    text-decoration-color: var(--color-accent);
+  }
+  .works-meta {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-sm);
+    margin-top: var(--space-2xs);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+  .works-meta > * + * {
+    padding-left: var(--space-sm);
+    border-left: var(--rule-hair) solid var(--color-rule);
+  }
+  .works-alias {
+    color: var(--color-ink-2);
+  }
   .works-status--in-progress {
-    color: var(--color-blue-tick);
+    color: var(--color-accent);
   }
-
-  .works-status--unpublished {
-    color: var(--color-subtle);
-  }
-
   .works-notes {
-    font-family: var(--font-serif);
-    font-size: 14.5px;
-    color: var(--color-subtle);
-    margin: 2px 0 0;
-    line-height: 1.5;
-    max-width: 58ch;
-    font-style: italic;
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    max-width: 60ch;
+    color: var(--color-ink-2);
+  }
+  @media (max-width: 60rem) {
+    .works-entry {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 4fr);
+      row-gap: var(--space-2xs);
+    }
+    .works-notes {
+      grid-column: 2;
+      grid-row: auto;
+    }
   }
 </style>

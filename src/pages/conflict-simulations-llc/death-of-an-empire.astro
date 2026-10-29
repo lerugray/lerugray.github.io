@@ -6,14 +6,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   title="Death Of An Empire | Ray Weiss"
   description="Death Of An Empire. A terminal wargame of the Franco-Prussian War, 1870. Released on itch under Conflict Simulations LLC."
 >
-  <main class="px-6 py-24 lg:px-16">
-    <div class="mx-auto max-w-3xl">
+  <main class="doc">
+    <div class="doc__frame">
       <header class="page-heading">
-        <p class="eyebrow">
-          <a href="/conflict-simulations-llc" class="hover:text-link-hover"
+        <nav class="eyebrow" aria-label="Breadcrumb">
+          <a href="/conflict-simulations-llc"
             >Conflict Simulations LLC</a
           >
-        </p>
+        </nav>
         <h1>Death Of An Empire</h1>
         <p class="dek">A terminal wargame of the Franco-Prussian War, 1870.</p>
       </header>
@@ -41,89 +41,88 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         </p>
       </div>
 
-      <div class="mt-12 overflow-x-auto">
+      <div>
         <div class="table-scroll" role="region" aria-label="Scrollable table" tabindex="0">
-          <table class="w-full text-left text-sm">
+          <table>
             <thead>
-              <tr class="border-b border-border">
+              <tr>
                 <th
-                  class="py-3 pr-6 font-mono text-xs font-medium uppercase tracking-wider text-muted"
                   >Feature</th
                 >
-                <th class="py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                <th
                   >Detail</th
                 >
               </tr>
             </thead>
-            <tbody class="font-serif">
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">Nine scenarios</td>
-                <td class="py-4 text-muted">
+            <tbody>
+              <tr>
+                <td>Nine scenarios</td>
+                <td>
                   The 45-day Grand Campaign, the Frontier Battles, the battles for Metz,
                   Mars-la-Tour, the March to Sedan, Sedan, plus what-if variants (Niel Plan,
                   Defensive Concentration, The Wet Summer).
                 </td>
               </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">Command asymmetry</td>
-                <td class="py-4 text-muted">
+              <tr>
+                <td>Command asymmetry</td>
+                <td>
                   German commanders act on initiative when they hear gunfire. French commanders wait
                   for orders that arrive late or not at all. German players get three orders per
                   turn and a faster command cycle; French players get two and political interference
                   from Paris.
                 </td>
               </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">Fog of war</td>
-                <td class="py-4 text-muted">
+              <tr>
+                <td>Fog of war</td>
+                <td>
                   You see only what your scouts report. They are not always right.
                 </td>
               </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">CRT combat</td>
-                <td class="py-4 text-muted">
+              <tr>
+                <td>CRT combat</td>
+                <td>
                   Bombardment, infantry assault, cavalry charges. Terrain and entrenchment
                   modifiers. Chassepot range advantage modeled.
                 </td>
               </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">Historical orders of battle</td>
-                <td class="py-4 text-muted">
+              <tr>
+                <td>Historical orders of battle</td>
+                <td>
                   25+ commanders with unique initiative, aggression, and personal traits.
                 </td>
               </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">Supply</td>
-                <td class="py-4 text-muted"> Depots, supply lines, French intendance chaos. </td>
+              <tr>
+                <td>Supply</td>
+                <td> Depots, supply lines, French intendance chaos. </td>
               </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">Political pressure</td>
-                <td class="py-4 text-muted">
+              <tr>
+                <td>Political pressure</td>
+                <td>
                   Paris sends directives. You can comply or defy, with consequences either way.
                 </td>
               </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">Weather</td>
-                <td class="py-4 text-muted">
+              <tr>
+                <td>Weather</td>
+                <td>
                   Historical 1870 conditions affecting movement, artillery, and reconnaissance.
                 </td>
               </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">AI opponent</td>
-                <td class="py-4 text-muted">
+              <tr>
+                <td>AI opponent</td>
+                <td>
                   Concentrates forces, pursues retreating enemies, fills defensive gaps, holds
                   reserves.
                 </td>
               </tr>
-              <tr class="border-b border-border">
-                <td class="py-4 pr-6 font-medium text-foreground">PBEM multiplayer</td>
-                <td class="py-4 text-muted">
+              <tr>
+                <td>PBEM multiplayer</td>
+                <td>
                   Exchange fog-safe save files with a friend. Opponent cannot see your hidden units.
                 </td>
               </tr>
               <tr>
-                <td class="py-4 pr-6 font-medium text-foreground">Spectator mode</td>
-                <td class="py-4 text-muted">
+                <td>Spectator mode</td>
+                <td>
                   Watch the war play itself to learn the campaign flow before taking command.
                 </td>
               </tr>
@@ -132,7 +131,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         </div>
       </div>
 
-      <div class="prose-body terminal-section mt-12">
+      <div class="prose-body terminal-section">
         <h2>Why this subject</h2>
         <p>
           The Franco-Prussian War is one of the most consequential wars most people have never

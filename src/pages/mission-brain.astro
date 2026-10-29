@@ -7,8 +7,8 @@ import ProductSpec from '@/components/ProductSpec.astro';
   title="Mission Brain | Ray Weiss"
   description="Open-source second-brain template. Built on Karpathy's three-layer LLM-Wiki pattern with four enforced invariants. Refusal is the feature. It surfaces cited passages, never writes new ones."
 >
-  <main class="px-6 py-24 lg:px-16">
-    <div class="mx-auto max-w-3xl">
+  <main class="doc">
+    <div class="doc__frame">
       <header class="page-heading">
         <h1>Mission Brain</h1>
         <p class="dek">Open-source second-brain template.</p>
@@ -18,7 +18,7 @@ import ProductSpec from '@/components/ProductSpec.astro';
       <ProductSpec>
         <div class="infra-meta">
           <span
-            ><span class="dot live"></span><span class="k">Status</span><span class="v">Public</span
+            ><span class="k">Status</span><span class="v">Public</span
             ></span
           >
           <span><span class="k">Pattern</span><span class="v">Three-layer LLM-Wiki</span></span>
@@ -30,7 +30,7 @@ import ProductSpec from '@/components/ProductSpec.astro';
         </p>
       </ProductSpec>
 
-      <div class="prose-body mt-12">
+      <div class="prose-body">
         <p>
           An open-source second-brain template. RayBrain is Ray's private instance, built over a
           private personal corpus. Mission Brain surfaces cited passages from prior user output. It

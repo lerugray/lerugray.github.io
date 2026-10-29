@@ -17,24 +17,23 @@ const sectionPaths: Record<string, string[]> = {
 };
 const inSection = (section: string) =>
   (sectionPaths[section] || []).some((route) => path === route || path.startsWith(route + '/'));
+// On / the hero carries the locator and the address, so the header shows each once.
+const isHome = path === '/';
 ---
 
 <header class="site-header">
   <div class="container site-header__inner">
     <div class="brand-cluster">
       <a href="/" aria-label="Ray Weiss">
-        <img
-          class="brand-counter"
+        <img class="brand-counter"
           src="/counter-rw.svg"
           width="96"
           height="72"
           alt="Ray Weiss unit counter"
         />
       </a>
-      <a class="brand-link" href="/" aria-current={path === '/' ? 'page' : undefined}>Ray Weiss</a>
-      <span class="brand-locator"
-        >Brooklyn, NY{path === '/' && <span class="brand-locator__coord"> · 40°41′N</span>}</span
-      >
+      <a class="brand-link" href="/" aria-current={isHome ? 'page' : undefined}>Ray Weiss</a>
+      {!isHome && <span class="brand-locator">Brooklyn, NY</span>}
     </div>
     <nav class="site-nav" aria-label="Site navigation">
       <a
@@ -87,6 +86,12 @@ const inSection = (section: string) =>
           : undefined}>About</a
       >
     </nav>
-    <a class="header-contact" href="mailto:rweiss@consimsltd.com">rweiss@consimsltd.com</a>
+    {
+      !isHome && (
+        <a class="header-contact" href="mailto:rweiss@consimsltd.com">
+          rweiss@consimsltd.com
+        </a>
+      )
+    }
   </div>
 </header>

@@ -15,7 +15,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
   <main>
     <section class="home-masthead">
       <div class="container home-masthead__grid">
-        <header class="home-identity">
+        <div class="home-identity">
           <img
             src="/counter-rw.svg"
             alt="Ray Weiss unit counter"
@@ -23,15 +23,18 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             width="96"
             height="72"
           />
-          <div>
-            <h1 class="home-name">Ray Weiss</h1>
+          <h1 class="home-name"><span class="home-name__set">Ray <span class="home-name__w">W</span>eiss</span></h1>
+          <div class="home-identity__line">
             <p class="home-dek">Brooklyn wargame designer, running four businesses.</p>
             <p class="home-locator">
-              Brooklyn, NY · 40°41′N · <a href="mailto:rweiss@consimsltd.com"
-                >rweiss@consimsltd.com</a>
+              <span>Brooklyn, NY</span>
+              <span>40°41′N</span>
             </p>
+            <a class="btn-primary home-action" href="mailto:rweiss@consimsltd.com"
+              >rweiss@consimsltd.com</a
+            >
           </div>
-        </header>
+        </div>
 
         <div class="home-bio-panel">
           <p class="home-bio-text">
@@ -49,7 +52,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             <h2 class="section-heading">Work with me</h2>
             <p class="home-services__dek">A small number of commissions a year.</p>
           </div>
-          <a class="btn-primary" href="mailto:rweiss@consimsltd.com">Email me →</a>
+          <a class="btn-secondary" href="mailto:rweiss@consimsltd.com">Email me</a>
         </div>
 
         <div class="home-services__grid">
@@ -57,7 +60,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             <div class="flagship-offer__body">
               <div class="flagship-offer__top">
                 <h3 class="flagship-offer__title">
-                  <a href="/wargame-modules">Digital wargame modules →</a>
+                  <a href="/wargame-modules">Digital wargame modules</a>
                 </h3>
                 <span class="flagship-offer__price">Price $400 to $800.</span>
               </div>
@@ -75,7 +78,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             </a>
 
             <div class="dispatch-cta-row">
-              <a class="btn-primary" href="/wargame-modules">Wargame Modules →</a>
+              <a class="btn-primary" href="/wargame-modules">Wargame Modules</a>
               <a class="flagship-offer__price" href="mailto:rweiss@consimsltd.com"
                 >rweiss@consimsltd.com</a
               >
@@ -85,7 +88,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             <article class="service-card">
               <div class="service-card__header">
                 <h3 class="service-card__title">
-                  <a href="/services">AI workflow &amp; automation builds →</a>
+                  <a href="/services">AI workflow &amp; automation builds</a>
                 </h3>
                 <span class="service-card__meta">Setup $1,200 fixed.</span>
               </div>
@@ -103,7 +106,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             <article class="service-card">
               <div class="service-card__header">
                 <h3 class="service-card__title">
-                  <a href="/services">Custom voice &amp; persona models →</a>
+                  <a href="/services">Custom voice &amp; persona models</a>
                 </h3>
                 <span class="service-card__meta">Delivery 2 to 3 weeks.</span>
               </div>
@@ -116,7 +119,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             <article class="service-card">
               <div class="service-card__header">
                 <h3 class="service-card__title">
-                  <a href="/services">Game-design consultation →</a>
+                  <a href="/services">Game-design consultation</a>
                 </h3>
               </div>
               <p>
@@ -134,17 +137,17 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     <div class="home-lower-deck">
       <div class="container home-lower-grid">
         <aside class="featured-essay" aria-labelledby="start-here">
-          <span class="featured-essay__label" id="start-here">Start here</span>
+          <h2 class="featured-essay__head" id="start-here">Start here</h2>
           <h3 class="featured-essay__title">{newest.data.title}</h3>
           <p class="featured-essay__summary">{newest.data.description}</p>
-          <a href={`/writing/${newest.id}`} class="cta">Read the post &rarr;</a>
+          <a href={`/writing/${newest.id}`} class="cta">Read the post</a>
         </aside>
 
         <div class="home-index-column">
           <section class="index-block" aria-labelledby="writing">
             <div class="section-head">
               <h2 class="section-label" id="writing">Writing</h2>
-              <span class="section-count">12 entries ——</span>
+              <span class="section-count">12 entries</span>
             </div>
             <ol class="entries">
               <li>
@@ -299,10 +302,10 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             </ol>
           </section>
 
-          <section class="index-block" aria-labelledby="businesses">
+          <section class="index-block index-block--grid" aria-labelledby="businesses">
             <div class="section-head">
               <h2 class="section-label" id="businesses">Businesses</h2>
-              <span class="section-count">04 entries ——</span>
+              <span class="section-count">04 entries</span>
             </div>
             <ol class="entries">
               <li>
@@ -354,20 +357,20 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
           <section class="index-block" aria-labelledby="tools">
             <div class="section-head">
               <h2 class="section-label" id="tools">Tools</h2>
-              <span class="section-count">04 entries ——</span>
+              <span class="section-count">04 entries</span>
             </div>
             <p class="section-subhead">How the work actually gets done.</p>
             <ol class="infra-list">
               <li>
                 <div class="infra-meta">
                   <span
-                    ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                    ><span class="k">Status</span><span class="v"
                       >Public</span
                     ></span
                   >
                   <span><span class="k">License</span><span class="v">MIT</span></span>
                   <span
-                    ><span class="k">Format</span><span class="v">Plain JSON · local-first</span
+                    ><span class="k">Format</span><span class="v">Plain JSON, local-first</span
                     ></span
                   >
                 </div>
@@ -382,12 +385,12 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
               <li>
                 <div class="infra-meta">
                   <span
-                    ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                    ><span class="k">Status</span><span class="v"
                       >Public</span
                     ></span
                   >
                   <span><span class="k">License</span><span class="v">AGPL-3.0</span></span>
-                  <span><span class="k">Access</span><span class="v">BYOK · local-first</span></span
+                  <span><span class="k">Access</span><span class="v">BYOK, local-first</span></span
                   >
                   <span><span class="k">Ecosystem</span><span class="v">Mission apps</span></span>
                 </div>
@@ -403,12 +406,12 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
               <li>
                 <div class="infra-meta">
                   <span
-                    ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                    ><span class="k">Status</span><span class="v"
                       >In daily use</span
                     ></span
                   >
                   <span
-                    ><span class="k">Surface</span><span class="v">CLI · slash command</span></span
+                    ><span class="k">Surface</span><span class="v">CLI, slash command</span></span
                   >
                   <span><span class="k">Cost</span><span class="v">~$0.01 per audit</span></span>
                 </div>
@@ -426,12 +429,12 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
               <li>
                 <div class="infra-meta">
                   <span
-                    ><span class="dot live"></span><span class="k">Status</span><span class="v"
+                    ><span class="k">Status</span><span class="v"
                       >Public on HuggingFace</span
                     ></span
                   >
                   <span><span class="k">Base</span><span class="v">Qwen2.5-7B-Instruct</span></span>
-                  <span><span class="k">Method</span><span class="v">QLoRA · rank 32</span></span>
+                  <span><span class="k">Method</span><span class="v">QLoRA, rank 32</span></span>
                 </div>
                 <a href="/hammerstein-model" class="infra-title">Hammerstein-7B</a>
                 <p class="infra-desc">
@@ -445,17 +448,17 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             </ol>
           </section>
 
-          <section class="index-block" aria-labelledby="projects">
+          <section class="index-block index-block--grid" aria-labelledby="projects">
             <div class="section-head">
               <h2 class="section-label" id="projects">Projects</h2>
-              <span class="section-count">04 entries ——</span>
+              <span class="section-count">04 entries</span>
             </div>
             <ol class="entries">
               <li>
                 <div class="index"><em>i.</em></div>
                 <div class="entry">
                   <a href="https://lerugray.github.io/the-elect/" class="entry-title">
-                    The Elect &rarr;
+                    The Elect
                   </a>
                   <p class="entry-desc">
                     A roster of local voice models, each trained on the public-domain words of a
@@ -490,7 +493,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 <div class="index"><em>iv.</em></div>
                 <div class="entry">
                   <a href="https://lerugray.github.io/yoon-suin/" class="entry-title">
-                    Solo RPG campaigns &rarr;
+                    Solo RPG campaigns
                   </a>
                   <p class="entry-desc">
                     A Whitehack × Yoon-Suin solo campaign vault. The Yellow City, played turn by
@@ -504,7 +507,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
           <section class="music-block index-block" aria-labelledby="music">
             <div class="section-head">
               <h2 class="section-label" id="music">Music</h2>
-              <span class="section-count">01 entry ——</span>
+              <span class="section-count">01 entry</span>
             </div>
             <p>
               <a href="/music">Le Rug</a>,
@@ -513,10 +516,466 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 former life.</span
               >
             </p>
-            <a href="/music" class="follow">Listen &rarr;</a>
+            <a href="/music" class="follow cta">Listen</a>
           </section>
         </div>
       </div>
     </div>
   </main>
 </BaseLayout>
+
+<style>
+  /* Home: the name under its ink-blue guides with the statement beside it, the
+     identity line under both, then the commissions with every price. The name
+     holds seven columns, not twelve, so the first screen at 1440x900 reaches the
+     prices; each item on that screen shows once (the header leaves the locator
+     and the address to this hero on /). The hero sits on a paper-2 plate, so
+     the change of paper, not a wide gap, divides it from the commissions; it
+     and Start here are the page's two bands. */
+  .home-masthead {
+    background: var(--color-paper-2);
+  }
+  .home-masthead__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap-columns);
+    row-gap: var(--space-lg);
+    align-items: center;
+    padding-block: var(--space-xl);
+  }
+  .home-identity {
+    display: contents;
+  }
+  .home-counter-badge {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+  }
+  .home-name {
+    grid-column: 1 / span 7;
+    grid-row: 1;
+    position: relative;
+    max-width: none;
+    font-size: var(--text-poster-7);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+  .home-name__w {
+    margin-right: -0.09em;
+  }
+  /* The guides: ink-blue hairlines at the face's cap height and baseline. */
+  .home-name::before,
+  .home-name::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: var(--rule-hair) solid var(--color-accent);
+    pointer-events: none;
+  }
+  .home-name::before {
+    top: round(down, 0.105em, 1px);
+  }
+  .home-name::after {
+    top: round(down, 0.89em, 1px);
+  }
+  .home-name__set {
+    position: relative;
+    display: inline-block;
+  }
+  .home-identity__line {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-lg);
+  }
+  .home-dek {
+    font-size: var(--text-lead);
+    line-height: 1.45;
+    color: var(--color-ink);
+  }
+  .home-locator {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: var(--space-lg);
+    border-left: var(--rule-hair) solid var(--color-rule);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .home-locator > span + span {
+    margin-left: var(--space-md);
+    padding-left: var(--space-md);
+    border-left: var(--rule-hair) solid var(--color-rule);
+  }
+  .home-action {
+    margin-left: auto;
+  }
+  .home-bio-panel {
+    grid-column: 8 / -1;
+    grid-row: 1;
+    padding-left: var(--space-lg);
+    border-left: var(--rule-hair) solid var(--color-rule);
+  }
+  .home-bio-text {
+    max-width: 36ch;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+
+  /* Commissions: the flagship on seven columns, the three services as ruled
+     rows beside it, so every title and price sits at the top of its column. */
+  .home-services {
+    padding-block: var(--space-lg) var(--section-gap);
+  }
+  .home-services__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-md) var(--space-xl);
+    padding-bottom: var(--space-md);
+    border-bottom: var(--rule-hair) solid var(--color-ink);
+  }
+  .home-services__title-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-xs) var(--space-lg);
+  }
+  .section-heading {
+    font-size: var(--text-section);
+  }
+  .home-services__dek {
+    font-size: var(--text-lead);
+    color: var(--color-ink-2);
+  }
+  .home-services__header > .btn-secondary {
+    align-self: center;
+  }
+  .home-services__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap-columns);
+    align-items: start;
+  }
+  .flagship-offer {
+    grid-column: 1 / span 7;
+    display: grid;
+    grid-template-areas:
+      'body'
+      'image'
+      'cta';
+    row-gap: var(--space-lg);
+    padding: var(--space-md) 0 var(--space-xl);
+  }
+  .flagship-offer__body {
+    grid-area: body;
+    display: grid;
+    gap: var(--space-xs);
+    align-content: start;
+  }
+  .flagship-offer__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-lg);
+    padding-bottom: var(--space-sm);
+  }
+  .flagship-offer__title {
+    max-width: none;
+    font-size: var(--text-3xl);
+    line-height: 1.1;
+  }
+  .flagship-offer__title a,
+  .service-card__title a {
+    text-decoration-color: var(--color-rule-2);
+  }
+  .flagship-offer__title a:hover,
+  .service-card__title a:hover {
+    text-decoration-color: var(--color-accent);
+  }
+  .flagship-offer__price,
+  .service-card__meta {
+    font-size: var(--text-md);
+    font-weight: 500;
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .flagship-offer__top > .flagship-offer__price {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    letter-spacing: var(--tracking-display);
+    white-space: nowrap;
+  }
+  .flagship-offer__lead {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    line-height: 1.3;
+    color: var(--color-ink);
+  }
+  .flagship-offer__proof {
+    color: var(--color-ink-2);
+  }
+  .flagship-offer__image {
+    grid-area: image;
+    display: block;
+    line-height: 0;
+  }
+  .flagship-offer__image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    outline: var(--rule-hair) solid var(--color-rule-2);
+    outline-offset: -1px;
+  }
+  .flagship-offer__image:focus-visible {
+    outline-offset: var(--space-2xs);
+  }
+  .dispatch-cta-row {
+    grid-area: cta;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md) var(--space-lg);
+  }
+  .dispatch-cta-row .flagship-offer__price {
+    font-weight: 400;
+  }
+  .service-ledger-stack {
+    grid-column: 8 / -1;
+    display: grid;
+    padding-left: var(--space-xl);
+    border-left: var(--rule-hair) solid var(--color-rule);
+  }
+  .service-card {
+    display: grid;
+    row-gap: var(--space-xs);
+    padding: var(--space-md) 0 var(--space-lg);
+    border-bottom: var(--rule-hair) solid var(--color-rule);
+  }
+  .service-card:last-child {
+    border-bottom: 0;
+  }
+  .service-card__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2xs) var(--space-md);
+  }
+  .service-card__title {
+    max-width: none;
+    font-size: var(--text-title);
+  }
+  .service-card > p {
+    max-width: var(--measure);
+    color: var(--color-ink-2);
+  }
+
+  /* Start here: a paper band */
+  .home-lower-deck {
+    padding-bottom: var(--space-3xl);
+  }
+  .home-lower-grid {
+    display: grid;
+    gap: var(--section-gap-s);
+  }
+  .featured-essay {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: var(--gap-columns);
+    row-gap: var(--space-lg);
+    padding: var(--space-3xl) var(--space-xl);
+    background: var(--color-paper-2);
+  }
+  .featured-essay > * {
+    grid-column: 2;
+    margin: 0;
+  }
+  .featured-essay > .featured-essay__head {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    font-size: var(--text-2xl);
+  }
+  .featured-essay__title {
+    max-width: 20ch;
+    font-size: var(--text-display);
+    line-height: 1.02;
+    font-variation-settings: 'opsz' var(--display-optical);
+  }
+  .featured-essay__summary {
+    max-width: 48ch;
+    font-size: var(--text-lead);
+    color: var(--color-ink-2);
+  }
+  .featured-essay .cta {
+    justify-self: start;
+  }
+
+  /* The index */
+  .home-index-column {
+    display: grid;
+    gap: var(--section-gap-s);
+  }
+  .index-block .entries {
+    margin-top: 0;
+  }
+  .index-block .section-subhead {
+    margin-bottom: var(--space-md);
+  }
+  .index-block--grid .entries {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--gap-columns);
+  }
+  .index-block--grid .entries > li {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    row-gap: var(--space-sm);
+    padding: var(--space-xl) var(--space-lg) var(--space-xl) 0;
+    border-bottom: 0;
+    border-right: var(--rule-hair) solid var(--color-rule);
+  }
+  .index-block--grid .entries > li:last-child {
+    border-right: 0;
+  }
+  .index-block--grid .entry-title {
+    font-size: var(--text-xl);
+  }
+  .music-block {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: var(--gap-columns);
+    row-gap: var(--space-md);
+    align-items: baseline;
+  }
+  .music-block > .section-head {
+    grid-column: 1 / -1;
+  }
+  .music-block > p {
+    grid-column: 2;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    line-height: 1.35;
+    color: var(--color-ink);
+  }
+  .music-block > .follow {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .music-block .muted {
+    color: var(--color-ink-2);
+  }
+
+  /* Laptop widths: the identity line wraps, so the counter holds its first
+     line and the statement steps down to stay near the name's height. */
+  @media (min-width: 60.0625rem) and (max-width: 75rem) {
+    .home-counter-badge {
+      align-self: start;
+    }
+    .home-action {
+      margin-left: 0;
+    }
+    .home-bio-text {
+      font-size: var(--text-lg);
+    }
+  }
+  @media (max-width: 60rem) {
+    .home-masthead__grid {
+      row-gap: var(--space-lg);
+      align-items: start;
+      padding-block: var(--space-xl) var(--space-2xl);
+    }
+    .home-name {
+      grid-column: 1 / -1;
+      margin-bottom: var(--space-sm);
+      font-size: var(--text-poster);
+    }
+    .home-counter-badge {
+      grid-column: 1 / span 4;
+      max-width: 112px;
+    }
+    .home-identity__line {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      display: grid;
+      justify-items: start;
+      gap: var(--space-md);
+    }
+    .home-locator {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .home-action {
+      margin: var(--space-xs) 0 0;
+    }
+    .home-bio-panel {
+      grid-column: 1 / -1;
+      grid-row: 4;
+      margin-top: var(--space-md);
+      padding-top: var(--space-lg);
+      padding-left: 0;
+      border-top: var(--rule-hair) solid var(--color-rule);
+      border-left: 0;
+    }
+    .home-services {
+      padding-top: var(--section-gap-s);
+    }
+    .flagship-offer,
+    .service-ledger-stack {
+      grid-column: 1 / -1;
+    }
+    .service-ledger-stack {
+      padding-left: 0;
+      border-top: var(--rule-hair) solid var(--color-rule);
+      border-left: 0;
+    }
+    .featured-essay,
+    .music-block {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .featured-essay > *,
+    .featured-essay > .featured-essay__head,
+    .music-block > p,
+    .music-block > .follow {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .featured-essay {
+      padding: var(--space-2xl) var(--space-lg);
+    }
+    .featured-essay__title {
+      font-size: var(--text-display-s);
+    }
+    .index-block--grid .entries {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .index-block--grid .entries > li {
+      border-right: 0;
+      border-bottom: var(--rule-hair) solid var(--color-rule);
+    }
+  }
+  @media (max-width: 40rem) {
+    .home-counter-badge {
+      max-width: 112px;
+    }
+    .index-block--grid .entries {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .index-block--grid .entries > li {
+      padding-right: 0;
+    }
+  }
+</style>

@@ -12,9 +12,12 @@ const optedOut: { title: string; by: string }[] = [];
   <div class="meta-strip">
     <div class="container meta-strip__inner">
       <p class="meta-facts">
-        Digital modules · Commissions open, selective · $400 to monster · Brooklyn, NY
+        <span>Digital modules</span>
+        <span>Commissions open, selective</span>
+        <span>$400 to monster</span>
+        <span>Brooklyn, NY</span>
       </p>
-      <a href="#pricing">Pricing →</a>
+      <a class="meta-strip__link" href="#pricing">Pricing</a>
     </div>
   </div>
 
@@ -24,7 +27,7 @@ const optedOut: { title: string; by: string }[] = [];
       <div class="container hero-dossier__container">
         <div class="hero-dossier__grid">
           <div class="hero-brief">
-            <div class="hero-title-group">
+            <div class="title-group">
               <h1 class="page-title">Wargame Modules</h1>
               <p class="page-dek">Print wargames. Running locally in a browser.</p>
             </div>
@@ -57,22 +60,23 @@ const optedOut: { title: string; by: string }[] = [];
               </div>
 
               <div class="dispatch-cta-row">
-                <a class="btn-primary" href="mailto:rweiss@consimsltd.com">Email me →</a>
+                <a class="btn-primary" href="mailto:rweiss@consimsltd.com">Email me</a>
                 <div class="dispatch-email-block">
                   <a class="dispatch-email-link" href="mailto:rweiss@consimsltd.com"
                     >rweiss@consimsltd.com</a
                   >
-                  <span class="dispatch-subnote"
-                    >$400 to monster · <a href="#pricing">Pricing</a> · <a href="#terms">Terms</a
-                    ></span
-                  >
+                  <span class="dispatch-subnote">
+                    <span>$400 to monster</span>
+                    <span><a href="#pricing">Pricing</a></span>
+                    <span><a href="#terms">Terms</a></span>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="hero-proof">
-            <figure class="screen-plate screen-plate--hero">
+            <figure class="screen-plate screen-plate--hero" data-kind="product">
               <div class="screen-plate__frame">
                 <img
                   src="/images/wargame-modules/nab-crop.webp"
@@ -135,7 +139,7 @@ const optedOut: { title: string; by: string }[] = [];
           </p>
         </div>
 
-        <figure class="screen-plate screen-plate--full">
+        <figure class="screen-plate screen-plate--full" data-kind="product">
           <div class="screen-plate__frame">
             <img
               src="/images/wargame-modules/flattop-crop.webp"
@@ -153,7 +157,7 @@ const optedOut: { title: string; by: string }[] = [];
         </figure>
 
         <div class="plates-duo-grid plates-duo-grid--pog-ftp">
-          <figure class="screen-plate">
+          <figure class="screen-plate" data-kind="product">
             <div class="screen-plate__frame">
               <img
                 src="/images/wargame-modules/pog-crop.webp"
@@ -171,7 +175,7 @@ const optedOut: { title: string; by: string }[] = [];
             </figcaption>
           </figure>
 
-          <figure class="screen-plate">
+          <figure class="screen-plate" data-kind="product">
             <div class="screen-plate__frame">
               <img
                 src="/images/wargame-modules/ftp-crop.webp"
@@ -195,61 +199,62 @@ const optedOut: { title: string; by: string }[] = [];
     <!-- FROM A CLIENT: BLOODY APRIL CASE STUDY & FULL TESTIMONIAL -->
     <section class="client-dossier" id="from-a-client">
       <div class="container">
-        <div class="section-bar">
-          <h2 class="section-heading">From a client</h2>
-        </div>
+        <div class="client-case">
+          <div class="section-bar">
+            <h2 class="section-heading">From a client</h2>
+          </div>
 
-        <div class="client-intro-row">
-          <p class="client-intro-text">
-            Bloody April is GMT's game of the 1917 air war over Arras: flights of aircraft at
-            different altitudes, sighting rules, and movement unlike a standard hex-and-counter
-            game. David Greenwood commissioned the module and a computer opponent that plays either
-            side.
-          </p>
-        </div>
+          <div class="client-intro-row">
+            <p class="client-intro-text">
+              Bloody April is GMT's game of the 1917 air war over Arras: flights of aircraft at
+              different altitudes, sighting rules, and movement unlike a standard hex-and-counter
+              game. David Greenwood commissioned the module and a computer opponent that plays either
+              side.
+            </p>
+          </div>
 
-        <div class="bloody-april-plates">
-          <figure class="screen-plate">
-            <div class="screen-plate__frame">
-              <img
-                src="/images/wargame-modules/bloody-april-board.webp"
-                loading="lazy"
-                width="1600"
-                height="1082"
-                alt="Bloody April digital module. Operational map of the Arras front with German flights and British contacts, a flight-movement panel showing altitude, and the sequence of play."
-              />
-            </div>
-            <figcaption class="screen-plate__caption">
-              <span
-                >Bloody April. Flights, altitude, and the sequence of play on the Arras map.</span
-              >
-            </figcaption>
-          </figure>
+          <div class="bloody-april-plates">
+            <figure class="screen-plate" data-kind="product">
+              <div class="screen-plate__frame">
+                <img
+                  src="/images/wargame-modules/bloody-april-board.webp"
+                  loading="lazy"
+                  width="1600"
+                  height="1082"
+                  alt="Bloody April digital module. Operational map of the Arras front with German flights and British contacts, a flight-movement panel showing altitude, and the sequence of play."
+                />
+              </div>
+              <figcaption class="screen-plate__caption">
+                <span
+                  >Bloody April. Flights, altitude, and the sequence of play on the Arras map.</span
+                >
+              </figcaption>
+            </figure>
 
-          <figure class="screen-plate">
-            <div class="screen-plate__frame">
-              <img
-                src="/images/wargame-modules/bloody-april-ai.webp"
-                loading="lazy"
-                width="1600"
-                height="794"
-                alt="Bloody April digital module. Operations log of computer-opponent decisions and a resolved air combat, each entry citing its rule section."
-              />
-            </div>
-            <figcaption class="screen-plate__caption">
-              <span
-                >Bloody April. The computer opponent's moves and a resolved air combat in the phase
-                record, with rule citations.</span
-              >
-            </figcaption>
-          </figure>
+            <figure class="screen-plate" data-kind="product">
+              <div class="screen-plate__frame">
+                <img
+                  src="/images/wargame-modules/bloody-april-ai.webp"
+                  loading="lazy"
+                  width="1600"
+                  height="794"
+                  alt="Bloody April digital module. Operations log of computer-opponent decisions and a resolved air combat, each entry citing its rule section."
+                />
+              </div>
+              <figcaption class="screen-plate__caption">
+                <span
+                  >Bloody April. The computer opponent's moves and a resolved air combat in the phase
+                  record, with rule citations.</span
+                >
+              </figcaption>
+            </figure>
+          </div>
         </div>
 
         <figure class="testimonial-monument">
           <figcaption class="testimonial-monument__header">
             <span class="testimonial-attribution"
-              ><span class="testimonial-name">David Greenwood,</span>{' '}<span
-                class="testimonial-commission">Bloody April commission</span
+              ><span class="testimonial-name">David Greenwood,</span>{' '}<span class="testimonial-commission">Bloody April commission</span
               ></span
             >
           </figcaption>
@@ -351,9 +356,8 @@ const optedOut: { title: string; by: string }[] = [];
         </p>
 
         <div class="plates-duo-grid plates-duo-grid--twu">
-          <figure class="screen-plate">
-            <a
-              class="screen-plate__frame"
+          <figure class="screen-plate" data-kind="product">
+            <a class="screen-plate__frame"
               href="https://conflict-simulations-llc.itch.io/the-world-undone"
               target="_blank"
               rel="noopener"
@@ -370,14 +374,13 @@ const optedOut: { title: string; by: string }[] = [];
               <a
                 href="https://conflict-simulations-llc.itch.io/the-world-undone"
                 target="_blank"
-                rel="noopener">The World Undone: East Front Trilogy, Deluxe Digital on itch.io →</a
+                rel="noopener">The World Undone: East Front Trilogy, Deluxe Digital on itch.io</a
               >
             </figcaption>
           </figure>
 
-          <figure class="screen-plate">
-            <a
-              class="screen-plate__frame"
+          <figure class="screen-plate" data-kind="product">
+            <a class="screen-plate__frame"
               href="https://twu-ep-pt-dba90a.pages.dev/"
               target="_blank"
               rel="noopener"
@@ -392,7 +395,7 @@ const optedOut: { title: string; by: string }[] = [];
             </a>
             <figcaption class="screen-plate__caption">
               <a href="https://twu-ep-pt-dba90a.pages.dev/" target="_blank" rel="noopener"
-                >Play the East Prussia 1914 playtest →</a
+                >Play the East Prussia 1914 playtest</a
               >
             </figcaption>
           </figure>
@@ -491,9 +494,845 @@ const optedOut: { title: string; by: string }[] = [];
               reply with scope and price. If it does not, I say so.
             </p>
           </div>
-          <a class="btn-primary" href="mailto:rweiss@consimsltd.com">Email me →</a>
+          <a class="btn-primary" href="mailto:rweiss@consimsltd.com">Email me</a>
         </div>
       </div>
     </section>
   </main>
 </SpecLayout>
+
+<style>
+  /* Wargame Modules: the commissions offer page in the Specimen material.
+     Hero: text on five columns, the capture on seven, the offer row ruled in ink beneath both.
+     Then figures, a showcase of captures, the client case with its testimonial on the ink band,
+     the price ledger under the double rule, the free build, the terms as rows, a paper close. */
+
+  /* Meta strip: the offer's facts, parted by hairlines */
+  .meta-strip {
+    border-bottom: var(--rule-hair) solid var(--color-rule);
+  }
+  .meta-strip__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    min-height: 3rem;
+  }
+  /* Each fact carries its hairline on the left; the list is pulled left by one
+     separator and clipped there, so a fact that starts a line never shows one. */
+  .meta-facts {
+    --sep: var(--space-md);
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: var(--space-2xs);
+    margin: 0 0 0 calc(-1 * (var(--sep) + var(--rule-hair)));
+    clip-path: inset(0 0 0 calc(var(--sep) + var(--rule-hair)));
+    font-size: var(--text-sm);
+    color: var(--color-ink-2);
+  }
+  .meta-facts > span {
+    margin-right: var(--sep);
+    padding-left: var(--sep);
+    border-left: var(--rule-hair) solid var(--color-rule);
+  }
+  .meta-facts > span:first-child {
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+  .meta-strip__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* Focus: one ring everywhere, outside what it marks */
+  a:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  /* Captures: the product, framed by a hairline, never a shadow or a device */
+  .screen-plate {
+    margin: 0;
+    min-width: 0;
+  }
+  .screen-plate__frame {
+    display: block;
+    position: relative;
+  }
+  .screen-plate__frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    outline: var(--rule-hair) solid var(--color-rule);
+    outline-offset: -1px;
+  }
+  a.screen-plate__frame {
+    color: inherit;
+    text-decoration: none;
+  }
+  a.screen-plate__frame img {
+    transition: outline-color var(--dur-micro) var(--ease-out);
+  }
+  a.screen-plate__frame:hover img {
+    outline-color: var(--color-ink-2);
+  }
+  a.screen-plate__frame:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  .screen-plate__caption {
+    margin-top: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  /* ==========================================================================
+     Hero: one screen. Title at the picture's top, intro on its baseline,
+     the offer row (action under the words, prices under the picture) below.
+     ========================================================================== */
+  .hero-dossier__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto auto auto;
+    column-gap: var(--gap-columns);
+    row-gap: var(--space-xl);
+    align-content: center;
+    min-height: calc(100dvh - var(--header-h) - 3rem - 2 * var(--rule-hair));
+    padding-block: var(--space-xl);
+  }
+  .hero-brief {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    min-width: 0;
+  }
+  .title-group {
+    grid-column: 1 / 6;
+    grid-row: 1;
+    display: grid;
+    align-content: start;
+    gap: var(--space-md);
+    padding-right: var(--space-xl);
+    container-type: inline-size;
+  }
+  /* The title is set to its column: the longer word fills it at any width. */
+  .page-title {
+    max-width: none;
+    font-size: clamp(var(--text-display), 22cqi, 7rem);
+    line-height: 0.98;
+  }
+  .page-dek {
+    font-size: var(--text-lead);
+    line-height: 1.4;
+    color: var(--color-ink);
+  }
+  .hero-intro {
+    grid-column: 1 / 6;
+    grid-row: 2;
+    align-self: end;
+    max-width: 56ch;
+    padding-right: var(--space-xl);
+    color: var(--color-ink-2);
+  }
+  .hero-proof {
+    grid-column: 6 / -1;
+    grid-row: 1 / 3;
+    min-width: 0;
+  }
+  .screen-plate--hero .screen-plate__frame {
+    height: clamp(18rem, 100dvh - 24rem, 36rem);
+  }
+  .screen-plate--hero img {
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+  }
+
+  .commission-dispatch {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: center;
+    padding-top: var(--space-lg);
+    border-top: var(--rule-hair) solid var(--color-ink);
+  }
+  .dispatch-cta-row {
+    grid-column: 1 / 6;
+    grid-row: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md) var(--space-lg);
+  }
+  .dispatch-email-block {
+    display: grid;
+    gap: var(--space-3xs);
+    min-width: 0;
+  }
+  .dispatch-email-link {
+    font-weight: 500;
+  }
+  .dispatch-subnote {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(-1 * (var(--space-sm) + var(--rule-hair)));
+    /* clipped on the left only; the links' focus rings keep their room elsewhere */
+    clip-path: inset(
+      calc(-1 * var(--space-xs)) calc(-1 * var(--space-xs)) calc(-1 * var(--space-xs))
+        calc(var(--space-sm) + var(--rule-hair))
+    );
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+  .dispatch-subnote > span {
+    margin-right: var(--space-sm);
+    padding-left: var(--space-sm);
+    border-left: var(--rule-hair) solid var(--color-rule);
+  }
+  .dispatch-subnote a {
+    color: var(--color-ink-2);
+  }
+  .dispatch-tiers {
+    grid-column: 6 / -1;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .dispatch-tier {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2xs);
+    min-width: 0;
+    padding-inline: var(--space-md);
+    border-left: var(--rule-hair) solid var(--color-rule);
+  }
+  .dispatch-tier:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .dispatch-tier__price {
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-xl), 2.6vw, var(--text-3xl));
+    line-height: 1;
+    letter-spacing: var(--tracking-display);
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .dispatch-tier__name {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--color-muted);
+  }
+
+  /* What a module includes: the head split from its line, then the record in figures */
+  .includes-ledger {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap-columns);
+    align-items: baseline;
+    margin-top: var(--section-gap-s);
+  }
+  .includes-ledger__title {
+    grid-column: 1 / 6;
+  }
+  .includes-ledger__body {
+    grid-column: 7 / -1;
+    max-width: 50ch;
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: var(--color-ink-2);
+  }
+  .stat-ribbon {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-top: var(--space-2xl);
+    border-top: var(--rule-hair) solid var(--color-ink);
+    border-bottom: var(--rule-hair) solid var(--color-rule);
+  }
+  .stat-cell {
+    padding: var(--space-lg) var(--space-lg) var(--space-xl);
+    border-left: var(--rule-hair) solid var(--color-rule);
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    line-height: 1.1;
+    letter-spacing: var(--tracking-display);
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  .stat-cell:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .stat-pip {
+    display: none;
+  }
+
+  /* ==========================================================================
+     Track record: a showcase. Head and its line, one capture across all twelve
+     columns, two beneath at five and seven.
+     ========================================================================== */
+  #track-record {
+    padding-top: var(--section-gap);
+  }
+  .track-record-card {
+    display: grid;
+    gap: var(--space-lg);
+  }
+  .track-record-card__body {
+    max-width: 50ch;
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: var(--color-ink-2);
+  }
+  .screen-plate--full {
+    margin-top: var(--space-2xl);
+  }
+  .screen-plate--full .screen-plate__frame {
+    aspect-ratio: 16 / 9;
+  }
+  .screen-plate--full img {
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .plates-duo-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap-columns);
+    row-gap: var(--space-2xl);
+    align-items: start;
+  }
+  .plates-duo-grid--pog-ftp {
+    margin-top: var(--space-2xl);
+  }
+  .plates-duo-grid--pog-ftp > :first-child {
+    grid-column: 1 / 6;
+  }
+  .plates-duo-grid--pog-ftp > :last-child {
+    grid-column: 6 / -1;
+  }
+  .plates-duo-grid--pog-ftp .screen-plate__frame {
+    height: clamp(20rem, 38vw, 35rem);
+  }
+  .plates-duo-grid--pog-ftp img {
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0;
+  }
+
+  /* ==========================================================================
+     From a client: the board on eight columns, head and case beside it;
+     the log across the page; the testimonial as a statement on the ink band.
+     ========================================================================== */
+  .client-dossier {
+    padding-top: var(--section-gap-l);
+  }
+  .client-dossier > .container {
+    max-width: none;
+    padding-inline: 0;
+  }
+  .client-case {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto 1fr auto;
+    column-gap: var(--gap-columns);
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .client-case > .section-bar {
+    grid-column: 9 / -1;
+    grid-row: 1;
+  }
+  .client-intro-row {
+    grid-column: 9 / -1;
+    grid-row: 2;
+    align-self: start;
+    margin-top: var(--space-lg);
+  }
+  .client-intro-text {
+    max-width: 50ch;
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: var(--color-ink-2);
+  }
+  .bloody-april-plates {
+    display: contents;
+  }
+  .bloody-april-plates > :first-child {
+    grid-column: 1 / 9;
+    grid-row: 1 / 3;
+  }
+  .bloody-april-plates > :last-child {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-top: var(--space-2xl);
+  }
+
+  .testimonial-monument {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap-columns);
+    row-gap: var(--space-2xl);
+    margin: var(--section-gap-s) 0 0;
+    padding-block: var(--section-gap-s);
+    padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));
+    background: var(--color-band);
+    color: var(--color-band-ink);
+  }
+  .testimonial-body {
+    grid-column: 1 / 11;
+    grid-row: 1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    columns: 2;
+    column-gap: var(--space-2xl);
+    font-family: var(--font-display);
+    font-size: var(--text-lead);
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--color-band-muted);
+  }
+  .testimonial-body p {
+    max-width: none;
+  }
+  .testimonial-body p + p {
+    margin-top: var(--space-sm);
+  }
+  .testimonial-lead-sentence {
+    display: block;
+    column-span: all;
+    margin-bottom: var(--space-2xl);
+    font-size: var(--text-display-s);
+    font-style: normal;
+    line-height: 1.08;
+    letter-spacing: var(--tracking-display);
+    color: var(--color-band-ink);
+    font-variation-settings: 'opsz' var(--display-optical);
+    text-wrap: balance;
+  }
+  .testimonial-closing-sentence {
+    color: var(--color-band-ink);
+  }
+  .testimonial-monument__header {
+    grid-column: 1 / 11;
+    grid-row: 2;
+    margin: 0;
+    padding-top: var(--space-lg);
+    border-top: var(--rule-hair) solid var(--color-band-rule);
+    font-size: var(--text-md);
+    color: var(--color-band-muted);
+  }
+  .testimonial-name {
+    font-weight: 500;
+    color: var(--color-band-ink);
+  }
+
+  /* ==========================================================================
+     Pricing: the one table that matters, a ledger under the double rule
+     ========================================================================== */
+  #pricing {
+    padding-top: var(--section-gap-s);
+  }
+  #pricing > .container,
+  #try-one > .container,
+  #terms > .container {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap-columns);
+  }
+  #pricing .section-bar {
+    grid-column: 1 / -1;
+    padding-bottom: var(--space-xl);
+  }
+  .pricing-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    border-top: var(--rule-bar) double var(--color-ink);
+  }
+  .pricing-tier {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: start;
+    row-gap: var(--space-xs);
+    padding-block: var(--space-xl);
+    border-bottom: var(--rule-hair) solid var(--color-rule);
+  }
+  .pricing-tier__amount {
+    grid-column: 1 / 4;
+    grid-row: 1 / span 2;
+    font-family: var(--font-display);
+    font-size: var(--text-display-s);
+    line-height: 0.9;
+    letter-spacing: var(--tracking-display);
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+    font-variation-settings: 'opsz' var(--display-optical);
+  }
+  .pricing-tier__title {
+    grid-column: 4 / 8;
+    grid-row: 1;
+    max-width: none;
+    font-size: var(--text-title);
+  }
+  .pricing-tier__scope {
+    grid-column: 4 / 8;
+    grid-row: 2;
+    color: var(--color-ink-2);
+  }
+  .pricing-tier__detail {
+    grid-column: 8 / -1;
+    grid-row: 1 / span 2;
+    max-width: 56ch;
+    color: var(--color-ink-2);
+  }
+  .pricing-terms-note {
+    grid-column: 4 / -1;
+    max-width: 56ch;
+    margin-top: var(--space-xl);
+    color: var(--color-ink-2);
+  }
+
+  /* ==========================================================================
+     Try one: head split from its line, the two builds side by side
+     ========================================================================== */
+  #try-one {
+    padding-top: var(--section-gap-l);
+  }
+  #try-one > .container {
+    align-items: baseline;
+  }
+  #try-one .section-bar {
+    grid-column: 1 / 6;
+  }
+  .try-one-lead {
+    grid-column: 7 / -1;
+    max-width: 56ch;
+    color: var(--color-ink-2);
+  }
+  .plates-duo-grid--twu {
+    grid-column: 1 / -1;
+    align-self: start;
+    margin-top: var(--space-2xl);
+  }
+  .plates-duo-grid--twu > :first-child {
+    grid-column: 1 / 7;
+  }
+  .plates-duo-grid--twu > :last-child {
+    grid-column: 7 / -1;
+  }
+  .plates-duo-grid--twu .screen-plate__frame {
+    aspect-ratio: 7 / 5;
+  }
+  .plates-duo-grid--twu img {
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+  .plates-duo-grid--twu .screen-plate__caption {
+    font-size: var(--text-md);
+  }
+  .plates-duo-grid--twu .screen-plate__caption a {
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  /* ==========================================================================
+     Terms: the head held beside four rows, at reading size
+     ========================================================================== */
+  #terms {
+    padding-top: var(--section-gap);
+  }
+  #terms > .container {
+    align-items: start;
+  }
+  #terms .section-bar {
+    grid-column: 1 / 5;
+    position: sticky;
+    top: var(--space-xl);
+  }
+  .terms-sheet {
+    grid-column: 5 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    row-gap: var(--space-2xl);
+  }
+  .terms-preamble {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--space-md);
+  }
+  .terms-preamble p {
+    max-width: 56ch;
+  }
+  .terms-list {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: term;
+    border-bottom: var(--rule-hair) solid var(--color-rule);
+  }
+  .terms-list > li {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    row-gap: var(--space-xs);
+    padding-block: var(--space-lg);
+    border-top: var(--rule-hair) solid var(--color-rule);
+    counter-increment: term;
+  }
+  .term-title {
+    grid-column: 1 / 4;
+    font-family: var(--font-display);
+    font-size: var(--text-title);
+    line-height: 1.3;
+    letter-spacing: var(--tracking-display);
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  .term-title::before {
+    content: counter(term) '.';
+    margin-right: var(--space-xs);
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .term-description {
+    display: block;
+    grid-column: 4 / -1;
+    max-width: 56ch;
+    color: var(--color-ink-2);
+  }
+  .terms-footer {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  /* ==========================================================================
+     The close: one email, on a paper band
+     ========================================================================== */
+  .closing-cta {
+    margin-top: var(--section-gap);
+    padding-block: var(--section-gap-s);
+    background: var(--color-paper-2);
+  }
+  .closing-cta__box {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap-columns);
+    align-items: end;
+  }
+  .closing-cta__content {
+    grid-column: 1 / 9;
+    display: grid;
+    gap: var(--space-lg);
+  }
+  .closing-cta__body {
+    max-width: 50ch;
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: var(--color-ink-2);
+  }
+  .closing-cta__box > .btn-primary {
+    grid-column: 10 / -1;
+    justify-self: end;
+  }
+
+  /* ==========================================================================
+     Under 60rem every composition stacks in reading order
+     ========================================================================== */
+  @media (max-width: 40rem) {
+    .meta-facts {
+      --sep: var(--space-sm);
+    }
+  }
+  @media (max-width: 60rem) {
+    .hero-dossier__grid {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      align-content: start;
+      min-height: 0;
+      padding-block: var(--space-2xl) 0;
+    }
+    .hero-brief {
+      display: contents;
+    }
+    .title-group,
+    .hero-intro,
+    .hero-proof,
+    .commission-dispatch {
+      grid-column: 1;
+      grid-row: auto;
+      padding-right: 0;
+    }
+    .title-group {
+      order: 1;
+    }
+    .hero-intro {
+      order: 2;
+    }
+    .hero-proof {
+      order: 3;
+    }
+    .commission-dispatch {
+      order: 4;
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-xl);
+    }
+    .dispatch-tiers {
+      grid-column: 1;
+      grid-row: 1;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: var(--space-lg);
+    }
+    .dispatch-tier:nth-child(3) {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .dispatch-cta-row {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .screen-plate--hero .screen-plate__frame,
+    .plates-duo-grid--pog-ftp .screen-plate__frame,
+    .screen-plate--full .screen-plate__frame,
+    .plates-duo-grid--twu .screen-plate__frame {
+      height: auto;
+      aspect-ratio: auto;
+    }
+    .screen-plate__frame img,
+    .screen-plate--hero img,
+    .screen-plate--full img,
+    .plates-duo-grid--pog-ftp img,
+    .plates-duo-grid--twu img {
+      height: auto;
+      object-fit: fill;
+    }
+
+    .includes-ledger {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-lg);
+    }
+    .includes-ledger__title,
+    .includes-ledger__body {
+      grid-column: 1;
+    }
+    .stat-ribbon {
+      grid-template-columns: minmax(0, 1fr);
+      border-bottom: 0;
+    }
+    .stat-cell,
+    .stat-cell:first-child {
+      padding: var(--space-md) 0;
+      border-left: 0;
+      border-bottom: var(--rule-hair) solid var(--color-rule);
+      font-size: var(--text-xl);
+    }
+
+    .plates-duo-grid > *,
+    .plates-duo-grid--pog-ftp > :first-child,
+    .plates-duo-grid--pog-ftp > :last-child,
+    .plates-duo-grid--twu > :first-child,
+    .plates-duo-grid--twu > :last-child {
+      grid-column: 1 / -1;
+    }
+    .plates-duo-grid {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-xl);
+    }
+
+    .client-case {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      row-gap: var(--space-lg);
+    }
+    .client-case > .section-bar,
+    .client-intro-row,
+    .bloody-april-plates > :first-child,
+    .bloody-april-plates > :last-child {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .bloody-april-plates > :first-child {
+      margin-top: var(--space-md);
+    }
+    .bloody-april-plates > :last-child {
+      margin-top: var(--space-xl);
+    }
+    .testimonial-monument {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-xl);
+    }
+    .testimonial-body,
+    .testimonial-monument__header {
+      grid-column: 1;
+    }
+    .testimonial-body {
+      columns: auto;
+    }
+    .testimonial-lead-sentence {
+      margin-bottom: var(--space-xl);
+    }
+
+    #pricing > .container,
+    #try-one > .container,
+    #terms > .container,
+    .closing-cta__box {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    #pricing .section-bar,
+    .pricing-grid,
+    .pricing-tier,
+    .pricing-terms-note,
+    #try-one .section-bar,
+    .try-one-lead,
+    .plates-duo-grid--twu,
+    #terms .section-bar,
+    .terms-sheet,
+    .closing-cta__content,
+    .closing-cta__box > .btn-primary {
+      grid-column: 1;
+    }
+    .pricing-tier__amount,
+    .pricing-tier__title,
+    .pricing-tier__scope,
+    .pricing-tier__detail {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .pricing-tier__amount {
+      margin-bottom: var(--space-sm);
+    }
+    .try-one-lead {
+      margin-top: var(--space-lg);
+    }
+    #terms .section-bar {
+      position: static;
+      margin-bottom: var(--space-xl);
+    }
+    .term-title,
+    .term-description {
+      grid-column: 1 / -1;
+    }
+    .closing-cta__box {
+      row-gap: var(--space-xl);
+    }
+    .closing-cta__box > .btn-primary {
+      justify-self: start;
+    }
+  }
+</style>

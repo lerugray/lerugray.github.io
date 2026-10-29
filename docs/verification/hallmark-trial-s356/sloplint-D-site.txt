@@ -1,0 +1,514 @@
+sloplint --render --before over look D: static src at af54ea5 plus 36 rendered routes (/raybrain/ is a meta-refresh redirect stub and hangs the renderer, so it is skipped in both runs)
+
+FAIL 6a src/styles/global.css:339 hero sized in vh: min-height: calc(100vh - 5.3125rem) on .hero-dossier | fix: dvh or svh
+FAIL 7a src/pages/games.astro:1251 pure #000: background: #000 (.crt-screen) | fix: Tint the base toward the anchor hue
+FAIL 19 src/pages/conflict-simulations-llc/veridian-contraption.astro:40 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 19 src/pages/conflict-simulations-llc/zero-page.astro:122 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 19 src/pages/games.astro:671 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 19 src/pages/generalstaff.astro:167 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 19 src/pages/hammerstein-model.astro:45 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 19 src/pages/hammerstein.astro:44 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 19 src/pages/index.astro:147 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 19 src/pages/kit.astro:38 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 19 src/pages/services.astro:37 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 19 src/pages/works.astro:85 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+FAIL 26a /:1 [1440px] focus ring 2.03:1 against what is behind it on a "Digital wargame mo" | fix: A ring at 3:1 or better against the surface it is drawn over: --color-focus, or a ring colour per band
+FAIL 26a /:1 [1440px] focus ring 2.03:1 against what is behind it on a.flagship-offer__image | fix: A ring at 3:1 or better against the surface it is drawn over: --color-focus, or a ring colour per band
+FAIL 26a /:1 [1440px] focus ring 2.03:1 against what is behind it on a.btn-primary "Wargame Modules →" | fix: A ring at 3:1 or better against the surface it is drawn over: --color-focus, or a ring colour per band
+FAIL 26a /:1 [1440px] focus ring 2.03:1 against what is behind it on a.flagship-offer__price "rweiss@consimsltd." | fix: A ring at 3:1 or better against the surface it is drawn over: --color-focus, or a ring colour per band
+FAIL 26a /wargame-modules/:1 [1440px] focus ring 1.07:1 against what is behind it on a.screen-plate__frame | fix: A ring at 3:1 or better against the surface it is drawn over: --color-focus, or a ring colour per band
+FAIL 26a src/components/ProductSpec.astro:1 no :focus-visible styling anywhere | fix: A focus ring at 3:1 or better, instant
+FAIL 26a src/layouts/BaseLayout.astro:1 no :focus-visible styling anywhere | fix: A focus ring at 3:1 or better, instant
+FAIL 26a src/pages/conflict-simulations-llc/death-of-an-empire.astro:1 no :focus-visible styling anywhere | fix: A focus ring at 3:1 or better, instant
+FAIL 26a src/pages/writing/[slug].astro:1 no :focus-visible styling anywhere | fix: A focus ring at 3:1 or better, instant
+FAIL 34 src/layouts/BaseLayout.astro:1 no overflow-x: clip on html and body | fix: overflow-x: clip on both html and body
+FAIL 34 src/pages/about.astro:1 no overflow-x: clip on html and body | fix: overflow-x: clip on both html and body
+FAIL 39a src/pages/games.astro:1606 disabled via opacity alone on .feedback-submit:disabled | fix: Three disabled channels: fill, ink and cursor, plus the disabled attribute
+FAIL 40 /games/:1 [1440px] a field's edge is under 3:1 against what surrounds it: select.fr-select 1.49:1 | fix: Draw the field in --color-muted, or fill it a step off the surface it sits on
+FAIL 48 src/pages/games.astro:1005 colour literal rgb(232 161 60 / 0.55) outside tokens (box-shadow on .cab-rail-left::before) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1024 colour literal rgb(232 161 60 / 0.07) outside tokens (background on .cab-shelf-col) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1058 colour literal rgb(0 0 0 / 0.65) outside tokens (border on .cart) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1060 colour literal rgb(255 255 255 / 0.14) outside tokens (box-shadow on .cart) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1060 colour literal rgb(0 0 0 / 0.3) outside tokens (box-shadow on .cart) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1097 colour literal rgb(0 0 0 / 0.34) outside tokens (background on .cart-grip) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1114 colour literal rgb(0 0 0 / 0.35) outside tokens (box-shadow on .cart-no) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1119 colour literal rgb(0 0 0 / 0.6) outside tokens (border on .cart-label) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1122 colour literal rgb(255 255 255 / 0.06) outside tokens (box-shadow on .cart-label) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1138 colour literal rgb(0 0 0 / 0.45) outside tokens (background on .cart-led) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1139 colour literal rgb(0 0 0 / 0.6) outside tokens (box-shadow on .cart-led) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1144 colour literal rgb(255 255 255 / 0.14) outside tokens (box-shadow on .cart[aria-pressed='true']) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1144 colour literal rgb(0 0 0 / 0.3) outside tokens (box-shadow on .cart[aria-pressed='true']) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1223 colour literal #000 outside tokens (border on .crt) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1226 colour literal rgb(255 255 255 / 0.05) outside tokens (box-shadow on .crt) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1245 colour literal rgb(232 161 60 / 0.6) outside tokens (box-shadow on .crt-power) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1251 colour literal #000 outside tokens (background on .crt-screen) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1266 colour literal rgb(0 0 0 / 0.16) outside tokens (background on .crt-screen::after) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1266 colour literal rgb(0 0 0 / 0.4) outside tokens (background on .crt-screen::after) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1402 colour literal rgb(232 161 60 / 0.7) outside tokens (box-shadow on .cab-play) | fix: Lift the value into the token block
+FAIL 48 src/pages/games.astro:1467 colour literal rgb(232 161 60 / 0.55) outside tokens (box-shadow on .fr-title::before) | fix: Lift the value into the token block
+FAIL 50 src/pages/works.astro:83 display header word "{mediumOrder[medium]}" with no overflow-wrap | fix: Add overflow-wrap: break-word and min-width: 0
+FAIL 54 src/pages/index.astro:137 eyebrow "Start here" before <h3> | fix: Cut it; the heading already says this (craft.md § 7 has twelve other openings)
+FAIL 54 src/pages/kit.astro:114 eyebrow "Proof of work" before <h3> | fix: Cut it; the heading already says this (craft.md § 7 has twelve other openings)
+FAIL 54 src/pages/services.astro:107 eyebrow "Start" before <h3> | fix: Cut it; the heading already says this (craft.md § 7 has twelve other openings)
+FAIL 54 src/pages/works.astro:73 eyebrow "{totalReleased} released · {tot…" before <section> | fix: Cut it; the heading already says this (craft.md § 7 has twelve other openings)
+FAIL 58 /:1 [1440px] 227 words on one screen (from y=1550) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+FAIL 58 /about/:1 [1440px] 288 words on one screen (from y=950) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /auftragstaktik/:1 [1440px] 210 words on one screen (from y=300) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /buddies/:1 [1440px] 173 words on one screen (from y=200) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /catalogdna/:1 [1440px] 183 words on one screen (from y=250) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /conflict-simulations-llc/:1 [1440px] 117 words on one screen (from y=3700) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /conflict-simulations-llc/death-of-an-empire/:1 [1440px] 249 words on one screen (from y=300) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /conflict-simulations-llc/veridian-contraption/:1 [1440px] 186 words on one screen (from y=300) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /conflict-simulations-llc/zero-page/:1 [1440px] 182 words on one screen (from y=300) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /devforge/:1 [1440px] 108 words on one screen (from y=1650) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /field-trials/:1 [1440px] 103 words on one screen (from y=0) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /games/:1 [1440px] 249 words on one screen (from y=2000) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /generalstaff/:1 [1440px] 204 words on one screen (from y=4150) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /generalstaff/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+FAIL 58 /hammerstein-ai/:1 [1440px] 176 words on one screen (from y=550) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /hammerstein-ai/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+FAIL 58 /hammerstein-model/:1 [1440px] 185 words on one screen (from y=1900) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /hammerstein-model/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+FAIL 58 /hammerstein/:1 [1440px] 215 words on one screen (from y=750) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /hammerstein/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+FAIL 58 /kit/:1 [1440px] 211 words on one screen (from y=200) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /mission-brain/:1 [1440px] 214 words on one screen (from y=1100) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /mission-brain/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+FAIL 58 /music/:1 [1440px] 153 words on one screen (from y=0) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /retrogaze/:1 [1440px] 208 words on one screen (from y=1100) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /services/:1 [1440px] 261 words on one screen (from y=450) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /wargame-modules/:1 [1440px] 272 words on one screen (from y=4500) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /works/:1 [1440px] 149 words on one screen (from y=2550) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/:1 [1440px] 109 words on one screen (from y=1300) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/boolean-gates/:1 [1440px] 296 words on one screen (from y=850) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/columbo-needed-a-confession/:1 [1440px] 252 words on one screen (from y=1100) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/democratic-defeat-counter-autopsy/:1 [1440px] 322 words on one screen (from y=8550) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/gs-launch-post/:1 [1440px] 279 words on one screen (from y=3250) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/hammerstein/:1 [1440px] 274 words on one screen (from y=2450) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/hundred-percent-then-broke-it/:1 [1440px] 252 words on one screen (from y=3700) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/i-am-the-gate/:1 [1440px] 276 words on one screen (from y=250) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/judgment-does-not-transfer/:1 [1440px] 316 words on one screen (from y=400) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/out-of-the-notebook/:1 [1440px] 301 words on one screen (from y=750) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/the-bird-didnt-run/:1 [1440px] 312 words on one screen (from y=350) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/the-model-that-hangs-up/:1 [1440px] 295 words on one screen (from y=1950) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 58 /writing/the-register-not-the-man/:1 [1440px] 335 words on one screen (from y=1500) | fix: One idea per screen: cut to about 80 words, make the section an object
+FAIL 63 src/layouts/BaseLayout.astro:46 middle-dot meta string "Imprint · Brooklyn, NY · Set in Newsreader & IBM …" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/conflict-simulations-llc.astro:17 middle-dot meta string "~30 published wargames · CSR Award nominee · Publ…" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/hammerstein-ai.astro:25 middle-dot meta string "Status Live · early access Price $15 / month Limi…" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/hammerstein-model.astro:19 middle-dot meta string "Status Public on HuggingFace Base Qwen2.5-7B-Inst…" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/hammerstein.astro:21 middle-dot meta string "Status In daily use Surface CLI · slash command ·…" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/hammerstein.astro:27 middle-dot meta string "Surface CLI · slash command · hosted" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/hammerstein.astro:28 middle-dot meta string "CLI · slash command · hosted" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/hammerstein.astro:30 middle-dot meta string "Backends OpenRouter · DeepSeek · Ollama" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/hammerstein.astro:31 middle-dot meta string "OpenRouter · DeepSeek · Ollama" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/index.astro:29 middle-dot meta string "Brooklyn, NY · 40°41′N · rweiss@consimsltd.com" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/index.astro:52 arrow glued to the label "Email me →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/index.astro:60 arrow glued to the label "Digital wargame modules →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/index.astro:78 arrow glued to the label "Wargame Modules →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/index.astro:88 arrow glued to the label "AI workflow & automation builds →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/index.astro:106 arrow glued to the label "Custom voice & persona models →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/index.astro:119 arrow glued to the label "Game-design consultation →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/index.astro:140 arrow glued to the label "Read the post →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/index.astro:406 decorative status dots (dot live) repeated across the page | fix: Delete them; a dot means live state, and only where it is one
+FAIL 63 src/pages/index.astro:457 arrow glued to the label "The Elect →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/index.astro:492 arrow glued to the label "Solo RPG campaigns →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/index.astro:516 arrow glued to the label "Listen →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/kit.astro:121 arrow glued to the label "See the wargame modules →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/music.astro:74 middle-dot meta string "@tylerthecreator, on the song Ray wrote and playe…" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/music.astro:93 middle-dot meta string "@tylerthecreator · original · archive" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/music.astro:110 middle-dot meta string "@tylerthecreator · original · archive" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/services.astro:46 arrow glued to the label "Custom voice & persona models →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/services.astro:80 arrow glued to the label "Digital wargame modules →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/services.astro:114 arrow glued to the label "Email me →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/wargame-modules.astro:14 middle-dot meta string "Digital modules · Commissions open, selective · $…" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/wargame-modules.astro:17 arrow glued to the label "Pricing →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/wargame-modules.astro:60 arrow glued to the label "Email me →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/wargame-modules.astro:61 middle-dot meta string "rweiss@consimsltd.com $400 to monster · Pricing ·…" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/wargame-modules.astro:65 middle-dot meta string "$400 to monster · Pricing · Terms" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 63 src/pages/wargame-modules.astro:370 arrow glued to the label "The World Undone: East Front Trilogy, D…" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/wargame-modules.astro:394 arrow glued to the label "Play the East Prussia 1914 playtest →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/wargame-modules.astro:494 arrow glued to the label "Email me →" | fix: A verb as the label; the link already says it goes somewhere
+FAIL 63 src/pages/works.astro:114 middle-dot meta string "{entry.alias && {entry.alias} } {entry.venue && e…" | fix: Line breaks, columns or hairlines; one dot in a byline at most
+FAIL 67 src/layouts/EssayLayout.astro:24 uppercase at 12px tracked 0.05em on <p class="mt-6 font-mono text-xs uppercas…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/auftragstaktik.astro:39 "Layer" uppercase at 12px tracked 0.05em on <th class="py-3 pr-6 font-mono text-xs fon…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/auftragstaktik.astro:43 "What it shows" uppercase at 12px tracked 0.05em on <th class="py-3 font-mono text-xs font-med…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc.astro:17 "~30 published wargames …" uppercase at 12px tracked 0.05em on <p class="font-mono text-xs font-medium u…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc.astro:40 "Board wargames" uppercase at 12px tracked 0.05em on <h2 class="font-mono text-xs font-medium u…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc.astro:70 "Digital games" uppercase at 12px tracked 0.05em on <h2 class="font-mono text-xs font-medium u…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc.astro:85 "Title" uppercase at 12px tracked 0.05em on <th class="py-3 pr-6 font-mono text-xs fon…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc.astro:89 "Price" uppercase at 12px tracked 0.05em on <th class="py-3 pr-6 font-mono text-xs fon…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc.astro:93 "Format" uppercase at 12px tracked 0.05em on <th class="py-3 pr-6 font-mono text-xs fon…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc.astro:97 "Description" uppercase at 12px tracked 0.05em on <th class="py-3 font-mono text-xs font-med…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc.astro:174 "A Contemporary Guide to…" uppercase at 12px tracked 0.05em on <h2 class="font-mono text-xs font-medium u…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/death-of-an-empire.astro:49 "Feature" uppercase at 12px tracked 0.05em on <th class="py-3 pr-6 font-mono text-xs fon…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/death-of-an-empire.astro:53 "Detail" uppercase at 12px tracked 0.05em on <th class="py-3 font-mono text-xs font-med…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/veridian-contraption.astro:26 "In-game annals · tick 1…" uppercase at 12px tracked 0.05em on <footer class="mt-3 font-mono text-xs not-ital…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/veridian-contraption.astro:71 "opens fullscreen, in a …" uppercase at 12px tracked 0.05em on <span class="font-mono text-xs uppercase tra…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/veridian-contraption.astro:81 "System" uppercase at 12px tracked 0.05em on <th class="py-3 pr-6 font-mono text-xs fon…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/veridian-contraption.astro:85 "What it does" uppercase at 12px tracked 0.05em on <th class="py-3 font-mono text-xs font-med…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/zero-page.astro:27 "PUZZLE 001 · FIELD BALL…" uppercase at 12px tracked 0.05em on <footer class="mt-3 font-mono text-xs not-ital…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/zero-page.astro:70 "opens fullscreen, in a …" uppercase at 12px tracked 0.05em on <span class="font-mono text-xs uppercase tra…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/zero-page.astro:108 "System" uppercase at 12px tracked 0.05em on <th class="py-3 pr-6 font-mono text-xs fon…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/conflict-simulations-llc/zero-page.astro:112 "What it does" uppercase at 12px tracked 0.05em on <th class="py-3 font-mono text-xs font-med…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/pages/games.astro:733 "→ BROWSE · ENTER PLAYS" typed in capitals at 14px tracked 0.06em (<p class="cab-hint">) | fix: Sentence case in the body face; capitals survive only as a wordmark or as the display voice
+FAIL 67 src/pages/games.astro:877 .cab-hint: letter-spaced tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:984 .cab-rail: letter-spaced tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1102 .cart-no: letter-spaced tracked 0.08em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1229 .crt-top: letter-spaced tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1287 .crt-screen--empty: letter-spaced tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1299 .crt-fig figcaption: uppercase tracked 0.12em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1343 .cab-meta dt: uppercase tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1376 .cab-audit .k: uppercase tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1386 .cab-play: letter-spaced tracked 0.22em at 15px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1407 .cab-play-sub: letter-spaced tracked 0.08em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1439 .fr-rail: letter-spaced tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1474 .fr-select: letter-spaced tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1513 .feedback-list :global(.feedback-comment-meta): uppercase tracked 0.1em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1552 .feedback-label: uppercase tracked 0.14em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1591 .feedback-submit: uppercase tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1610 .feedback-note: letter-spaced tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1645 .field-notes-row: letter-spaced tracked 0.04em at 12px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1657 .field-notes-meta: uppercase tracked 0.1em at 10px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1680 .fn-sub-title: uppercase tracked 0.22em at 11px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1692 .fn-sub-count: uppercase tracked 0.14em at 11px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1709 .fn-sum: uppercase tracked 0.14em at 11px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1748 .fn-sum-meta: letter-spaced tracked 0.1em in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1765 .fn-group-row: letter-spaced tracked 0.04em at 12px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1782 .fn-date: letter-spaced tracked 0.1em at 10px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/games.astro:1789 .fn-cart-link: uppercase tracked 0.16em at 10px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/works.astro:152 .works-stats: uppercase tracked 0.18em at 11px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/works.astro:202 .works-year: letter-spaced tracked 0.12em at 11px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/works.astro:236 .works-meta: uppercase tracked 0.14em at 11px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/pages/writing/index.astro:21 uppercase at 12px tracked 0.05em on <p class="mt-3 font-mono text-xs uppercas…"> | fix: Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class
+FAIL 67 src/styles/global.css:1250 .featured-essay__label: uppercase tracked 0.06em at 12px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/styles/global.css:1286 .index-block__heading: uppercase tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/styles/global.css:1717 .site-page .section-label, .site-page .sub-head: uppercase tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/styles/global.css:2063 .site-page .game-landing .kicker, .site-page .game-landing .label, .site-page .game-landing .f-eyebrow: uppercase track… | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+FAIL 67 src/styles/site-content.css:24 .site-page .page-heading .eyebrow: uppercase tracked 0.06em at 14px in a label role | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
+REFLEX 23 /writing/:1 [1280px] accent paints ~12.7% of the 1280x800 viewport (> 8%) | fix: Retreat the accent to <= 5%; large colour belongs to paper/field tokens or a declared posture
+REFLEX 24b src/pages/games.astro:978 margin: 14px auto 0 (off the 4px scale) on .cabinet | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:989 padding: 10px 16px (off the 4px scale) on .cab-rail | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1003 margin-right: 9px (off the 4px scale) on .cab-rail-left::before | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1022 padding: 26px 22px 14px (off the 4px scale) on .cab-shelf-col | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1038 column-gap: 18px (off the 4px scale) on .cab-shelf | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1039 row-gap: 30px (off the 4px scale) on .cab-shelf | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1044 column-gap: 14px (off the 4px scale) on .cab-shelf | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1045 row-gap: 26px (off the 4px scale) on .cab-shelf | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1056 padding: 15px 9px 11px (off the 4px scale) on .cart | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1096 margin: -9px 48px 8px 14px (off the 4px scale) on .cart-grip | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1188 margin: 26px 2px 6px (off the 4px scale) on .cab-hint | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1204 padding: 26px 24px 24px (off the 4px scale) on .cab-detail | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1225 padding: 12px 12px 10px (off the 4px scale) on .crt | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1233 margin: 0 2px 9px (off the 4px scale) on .crt-top | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1310 padding: 18px 2px 0 (off the 4px scale) on .cab-readout | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1336 gap: 6px (off the 4px scale) on .cab-meta | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1340 gap: 10px (off the 4px scale) on .cab-meta > div | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1365 margin: 0 0 18px (off the 4px scale) on .cab-audit | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1366 padding: 9px 11px (off the 4px scale) on .cab-audit | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1378 margin-bottom: 3px (off the 4px scale) on .cab-audit .k | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1391 gap: 10px (off the 4px scale) on .cab-play | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1392 padding: 13px 22px (off the 4px scale) on .cab-play | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1434 margin-top: 22px (off the 4px scale) on .field-report | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1445 padding: 10px 16px (off the 4px scale) on .fr-rail | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1465 margin-right: 9px (off the 4px scale) on .fr-title::before | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1489 padding: 18px 20px 20px (off the 4px scale) on .field-report .feedback-box | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1502 margin: 0 0 14px (off the 4px scale) on .feedback-list | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1507 padding: 9px 0 (off the 4px scale) on .feedback-list :global(.feedback-comment) | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1520 margin: 0 0 3px (off the 4px scale) on .feedback-list :global(.feedback-comment-meta) | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1550 margin-bottom: 11px (off the 4px scale) on .feedback-field | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1560 margin-bottom: 5px (off the 4px scale) on .feedback-label | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1576 padding: 8px 10px (off the 4px scale) on .feedback-input, .feedback-textarea | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1588 gap: 14px (off the 4px scale) on .feedback-row | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1628 margin-top: 34px (off the 4px scale) on .field-notes | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1636 margin: -14px 0 22px (off the 4px scale) on .fn-lede | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1641 margin: 0 0 34px (off the 4px scale) on .field-notes-list | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1646 padding: 10px 0 (off the 4px scale) on .field-notes-row | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1672 gap: 14px (off the 4px scale) on .fn-sub | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1675 padding-bottom: 6px (off the 4px scale) on .fn-sub | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1703 margin: 0 0 18px (off the 4px scale) on .fn-groups | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1713 gap: 14px (off the 4px scale) on .fn-sum | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1714 padding: 11px 0 (off the 4px scale) on .fn-sum | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1763 padding: 0 0 0 14px (off the 4px scale) on .fn-group-list | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1768 gap: 14px (off the 4px scale) on .fn-group-row | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1769 padding: 7px 0 (off the 4px scale) on .fn-group-row | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/games.astro:1791 margin: 12px 0 0 14px (off the 4px scale) on .fn-cart-link | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/works.astro:161 gap: 10px (off the 4px scale) on .works-stats | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/works.astro:166 padding: 10px 0 (off the 4px scale) on .works-stats | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/works.astro:193 padding: 14px 0 (off the 4px scale) on .works-entry | fix: Use the 4px spacing scale
+REFLEX 24b src/pages/works.astro:245 gap: 0 6px (off the 4px scale) on .works-meta | fix: Use the 4px spacing scale
+REFLEX 24b src/styles/global.css:1798 margin-right: 7px (off the 4px scale) on .site-page .dot | fix: Use the 4px spacing scale
+REFLEX 25 /kit/:1 [1440px] running prose set too wide: p.infra-desc about 98 characters a line | fix: Cap the measure at 45 to 75ch
+REFLEX 25 /services/:1 [1440px] running prose set too wide: p about 91 characters a line, p.infra-desc about 117 characters a line | fix: Cap the measure at 45 to 75ch
+REFLEX 25 /wargame-modules/:1 [1440px] running prose set too wide: p.track-record-card__body about 119 characters a line, p.try-one-lead about 102 ch… | fix: Cap the measure at 45 to 75ch
+REFLEX 26b src/components/ProductSpec.astro:1 no :active styling anywhere | fix: All eight states; guard: not a form control, no aria-disabled anywhere
+REFLEX 26b src/layouts/BaseLayout.astro:1 no :active styling anywhere | fix: All eight states; guard: not a form control, no aria-disabled anywhere
+REFLEX 26b src/pages/conflict-simulations-llc/death-of-an-empire.astro:1 no :active styling anywhere | fix: All eight states; guard: not a form control, no aria-disabled anywhere
+REFLEX 26b src/pages/writing/[slug].astro:1 no :active styling anywhere | fix: All eight states; guard: not a form control, no aria-disabled anywhere
+REFLEX 26b src/styles/global.css:1 no :active styling anywhere | fix: All eight states; guard: not a form control, no aria-disabled anywhere
+REFLEX 37 src/styles/global.css:50 4 font families: newsreader, ibm plex sans, ibm plex sans condensed, ibm… | fix: Drop the extra family; three is the ceiling
+REFLEX 38iii src/pages/games.astro:1680 accented word inside a heading (.fn-sub-title) | fix: Set the whole head one way: a line break, a second line at a second size, or the whole head in the accent. Guard: the theme names the coloured word as its signature and it appears once on the page, in the hero
+REFLEX 39b /:1 [1440px] control height outside 44 to 52px: a.cta 18px | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
+REFLEX 39b /games/:1 [1440px] control height outside 44 to 52px: button.cart 160px, button.cart 160px, button.cart 160px | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
+REFLEX 39b /kit/:1 [1440px] control height outside 44 to 52px: a.cta 18px | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
+REFLEX 39b /services/:1 [1440px] control height outside 44 to 52px: a.cta 18px | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
+REFLEX 44c /:1 [1440px] hero ends at 197px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /about/:1 [1440px] hero ends at 170px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /auftragstaktik/:1 [1440px] hero ends at 272px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /buddies/:1 [1440px] hero ends at 242px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /catalogdna/:1 [1440px] hero ends at 242px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /conflict-simulations-llc/:1 [1440px] hero ends at 212px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /conflict-simulations-llc/death-of-an-empire/:1 [1440px] hero ends at 249px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /conflict-simulations-llc/veridian-contraption/:1 [1440px] hero ends at 249px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /conflict-simulations-llc/zero-page/:1 [1440px] hero ends at 249px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /devforge/:1 [1440px] hero ends at 212px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /field-trials/:1 [1440px] hero ends at 212px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /games/:1 [1440px] hero ends at 242px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /generalstaff/:1 [1440px] hero ends at 254px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /hammerstein-ai/:1 [1440px] hero ends at 314px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /hammerstein-model/:1 [1440px] hero ends at 254px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /hammerstein/:1 [1440px] hero ends at 284px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /kit/:1 [1440px] hero ends at 242px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /mission-brain/:1 [1440px] hero ends at 254px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /music/:1 [1440px] hero ends at 242px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /retrogaze/:1 [1440px] hero ends at 272px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /services/:1 [1440px] hero ends at 242px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /wargame-modules/:1 [1440px] hero ends at 213px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /works/:1 [1440px] hero ends at 302px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/:1 [1440px] hero ends at 170px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/boolean-gates/:1 [1440px] hero ends at 186px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/columbo-needed-a-confession/:1 [1440px] hero ends at 186px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/democratic-defeat-counter-autopsy/:1 [1440px] hero ends at 294px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/gs-launch-post/:1 [1440px] hero ends at 240px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/hammerstein/:1 [1440px] hero ends at 240px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/hundred-percent-then-broke-it/:1 [1440px] hero ends at 186px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/i-am-the-gate/:1 [1440px] hero ends at 186px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/judgment-does-not-transfer/:1 [1440px] hero ends at 186px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/out-of-the-notebook/:1 [1440px] hero ends at 186px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/the-bird-didnt-run/:1 [1440px] hero ends at 186px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/the-model-that-hangs-up/:1 [1440px] hero ends at 186px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 44c /writing/the-register-not-the-man/:1 [1440px] hero ends at 186px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+REFLEX 49b /:1 [320px] link "Digital wargame modules →" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+REFLEX 49b /:1 [320px] link "AI workflow & automation builds " wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+REFLEX 49b /:1 [320px] link "Custom voice & persona models →" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+REFLEX 49b /:1 [320px] link "Game-design consultation →" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+REFLEX 49b /conflict-simulations-llc/:1 [320px] link "Veridian Contraption" wraps to 2 lines (a.font-medium.text-foreground) | fix: Shorten the label or set nowrap
+REFLEX 49b /conflict-simulations-llc/:1 [320px] link "Death Of An Empire" wraps to 2 lines (a.font-medium.text-foreground) | fix: Shorten the label or set nowrap
+REFLEX 49b /conflict-simulations-llc/:1 [320px] link "Prigozhin's March of Justice" wraps to 2 lines (a.font-medium.text-foreground) | fix: Shorten the label or set nowrap
+REFLEX 49b /wargame-modules/:1 [320px] link "The World Undone: East Front Tri" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+REFLEX 49b /wargame-modules/:1 [320px] link "Play the East Prussia 1914 playt" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+REFLEX 49b /wargame-modules/:1 [320px] link "Publishers who want an official " wraps to 3 lines (a) | fix: Shorten the label or set nowrap
+REFLEX 49b /wargame-modules/:1 [375px] link "Publishers who want an official " wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+REFLEX 59 /:1 [1440px] smallest gap between sections is 50px (gaps: 50, 58, 651, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /about/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /auftragstaktik/:1 [1440px] smallest gap between sections is 52px (gaps: 705, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /buddies/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /catalogdna/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /conflict-simulations-llc/:1 [1440px] smallest gap between sections is 52px (gaps: 705, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /conflict-simulations-llc/death-of-an-empire/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /conflict-simulations-llc/veridian-contraption/:1 [1440px] smallest gap between sections is 52px (gaps: 673, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /conflict-simulations-llc/zero-page/:1 [1440px] smallest gap between sections is 52px (gaps: 673, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /devforge/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /games/:1 [1440px] smallest gap between sections is 34px (gaps: 40, 34, 705, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /generalstaff/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /hammerstein-ai/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /hammerstein-model/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /hammerstein/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /kit/:1 [1440px] smallest gap between sections is 52px (gaps: 705, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /mission-brain/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /music/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /retrogaze/:1 [1440px] smallest gap between sections is 52px (gaps: 698, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /services/:1 [1440px] smallest gap between sections is 52px (gaps: 705, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /wargame-modules/:1 [1440px] smallest gap between sections is 78px (gaps: 78, 114, 114, 114, 114, 114, 78) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /works/:1 [1440px] smallest gap between sections is 52px (gaps: 719, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/:1 [1440px] smallest gap between sections is 52px (gaps: 674, 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/boolean-gates/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/columbo-needed-a-confession/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/democratic-defeat-counter-autopsy/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/gs-launch-post/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/hammerstein/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/hundred-percent-then-broke-it/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/i-am-the-gate/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/judgment-does-not-transfer/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/out-of-the-notebook/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/the-bird-didnt-run/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/the-model-that-hangs-up/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 59 /writing/the-register-not-the-man/:1 [1440px] smallest gap between sections is 52px (gaps: 52) | fix: 120px or more between sections, by the --section-gap steps
+REFLEX 64 src/pages/auftragstaktik.astro:39 font-mono on "Layer" at 12px (<th class="py-3 pr-6 font-mono text-xs fon…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/auftragstaktik.astro:43 font-mono on "What it shows" at 12px (<th class="py-3 font-mono text-xs font-med…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc.astro:40 font-mono on "Board wargames" at 12px (<h2 class="font-mono text-xs font-medium u…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc.astro:63 font-mono on "The Great Northern War,…" at 12px (<figcaption class="mt-3 font-mono text-xs text-sub…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc.astro:70 font-mono on "Digital games" at 12px (<h2 class="font-mono text-xs font-medium u…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc.astro:85 font-mono on "Title" at 12px (<th class="py-3 pr-6 font-mono text-xs fon…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc.astro:89 font-mono on "Price" at 12px (<th class="py-3 pr-6 font-mono text-xs fon…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc.astro:93 font-mono on "Format" at 12px (<th class="py-3 pr-6 font-mono text-xs fon…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc.astro:97 font-mono on "Description" at 12px (<th class="py-3 font-mono text-xs font-med…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc.astro:174 font-mono on "A Contemporary Guide to…" at 12px (<h2 class="font-mono text-xs font-medium u…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/death-of-an-empire.astro:49 font-mono on "Feature" at 12px (<th class="py-3 pr-6 font-mono text-xs fon…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/death-of-an-empire.astro:53 font-mono on "Detail" at 12px (<th class="py-3 font-mono text-xs font-med…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/veridian-contraption.astro:26 font-mono on "In-game annals · tick 1…" at 12px (<footer class="mt-3 font-mono text-xs not-ital…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/veridian-contraption.astro:71 font-mono on "opens fullscreen, in a …" at 12px (<span class="font-mono text-xs uppercase tra…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/veridian-contraption.astro:81 font-mono on "System" at 12px (<th class="py-3 pr-6 font-mono text-xs fon…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/veridian-contraption.astro:85 font-mono on "What it does" at 12px (<th class="py-3 font-mono text-xs font-med…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/zero-page.astro:27 font-mono on "PUZZLE 001 · FIELD BALL…" at 12px (<footer class="mt-3 font-mono text-xs not-ital…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/zero-page.astro:70 font-mono on "opens fullscreen, in a …" at 12px (<span class="font-mono text-xs uppercase tra…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/zero-page.astro:108 font-mono on "System" at 12px (<th class="py-3 pr-6 font-mono text-xs fon…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/conflict-simulations-llc/zero-page.astro:112 font-mono on "What it does" at 12px (<th class="py-3 font-mono text-xs font-med…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/games.astro:1301 monospace label voice on .crt-fig figcaption | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
+REFLEX 64 src/pages/games.astro:1554 monospace label voice on .feedback-label | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
+REFLEX 64 src/pages/games.astro:1611 monospace label voice on .feedback-note | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
+REFLEX 64 src/pages/music.astro:74 font-mono on "@tylerthecreator, on th…" at 12px (<figcaption class="mt-2 pl-6 font-mono text-xs not…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/music.astro:93 font-mono on "@tylerthecreator · orig…" at 12px (<figcaption class="mt-2 pl-6 font-mono text-xs not…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/pages/music.astro:110 font-mono on "@tylerthecreator · orig…" at 12px (<figcaption class="mt-2 pl-6 font-mono text-xs not…">) | fix: Labels in the body face at a smaller size and normal case; font-mono only for code and figures
+REFLEX 64 src/styles/global.css:492 monospace label voice on .dispatch-subnote | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
+REFLEX 64 src/styles/global.css:553 monospace label voice on .screen-plate__caption | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
+REFLEX 64 src/styles/global.css:1251 monospace label voice on .featured-essay__label | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
+REFLEX 64 src/styles/global.css:2122 monospace label voice on .site-page .game-landing .badge, .site-page .game-landing .chip | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
+REFLEX 64 src/styles/global.css:2151 monospace label voice on .site-page .game-landing .ea-note, .site-page .game-landing .fineprint | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
+REFLEX 75 /auftragstaktik/:1 [1440px] text that strains the eye: p.dek leaded 1.25 | fix: Running text 12px or more (16px for body), functional text 11px or more, multi-line prose leaded 1.3 or more
+REFLEX 75 /games/:1 [1440px] text that strains the eye: span.field-notes-meta at 10px, span.field-notes-meta at 10px, span.field-notes-meta… | fix: Running text 12px or more (16px for body), functional text 11px or more, multi-line prose leaded 1.3 or more
+REFLEX 75 /retrogaze/:1 [1440px] text that strains the eye: p.dek leaded 1.25 | fix: Running text 12px or more (16px for body), functional text 11px or more, multi-line prose leaded 1.3 or more
+REFLEX 75 /works/:1 [1440px] text that strains the eye: p.dek leaded 1.25, span.works-alias at 10.5px, span.works-alias at 10.5px, span.wor… | fix: Running text 12px or more (16px for body), functional text 11px or more, multi-line prose leaded 1.3 or more
+REFLEX 77 /:1 [1440px] 1 thin section: section.contact-directory (49% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /auftragstaktik/:1 [1440px] 1 thin section: section.contact-directory (68% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /buddies/:1 [1440px] 1 thin section: section.contact-directory (68% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /catalogdna/:1 [1440px] 1 thin section: section.contact-directory (68% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /conflict-simulations-llc/veridian-contraption/:1 [1440px] 1 thin section: section.contact-directory (68% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /field-trials/:1 [1440px] 1 thin section: div.section-head (99% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /games/:1 [1440px] 1 thin section: section.contact-directory (53% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /hammerstein-ai/:1 [1440px] 1 thin section: section.contact-directory (67% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /hammerstein/:1 [1440px] 1 thin section: section.contact-directory (69% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /music/:1 [1440px] 1 thin section: section.contact-directory (68% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /retrogaze/:1 [1440px] 1 thin section: section.contact-directory (68% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /works/:1 [1440px] 1 thin section: section.contact-directory (63% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /writing/boolean-gates/:1 [1440px] 1 thin section: section.contact-directory (68% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /writing/columbo-needed-a-confession/:1 [1440px] 1 thin section: section.contact-directory (67% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /writing/hundred-percent-then-broke-it/:1 [1440px] 1 thin section: section.contact-directory (67% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /writing/judgment-does-not-transfer/:1 [1440px] 1 thin section: section.contact-directory (68% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /writing/the-model-that-hangs-up/:1 [1440px] 1 thin section: section.contact-directory (71% wide) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 77 /writing/the-register-not-the-man/:1 [1440px] 1 thin section: section.contact-directory (71% wide) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+REFLEX 78 /:1 [1440px] section heads render at 14px under a 44px hero head | fix: h2 at --text-section (about 52px at 1440), item titles at --text-title (layout.md § 2)
+REFLEX 78 /games/:1 [1440px] section heads render at 14px under a 50px hero head | fix: h2 at --text-section (about 52px at 1440), item titles at --text-title (layout.md § 2)
+REFLEX 78 /wargame-modules/:1 [1440px] section heads render at 32px under a 50px hero head | fix: h2 at --text-section (about 52px at 1440), item titles at --text-title (layout.md § 2)
+REFLEX 79 /about/:1 [1440px] 752px of nothing between the hero's last content (y 148) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /auftragstaktik/:1 [1440px] 650px of nothing between the hero's last content (y 250) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /buddies/:1 [1440px] 680px of nothing between the hero's last content (y 220) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /catalogdna/:1 [1440px] 680px of nothing between the hero's last content (y 220) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /conflict-simulations-llc/:1 [1440px] 710px of nothing between the hero's last content (y 190) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /conflict-simulations-llc/death-of-an-empire/:1 [1440px] 673px of nothing between the hero's last content (y 227) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /conflict-simulations-llc/veridian-contraption/:1 [1440px] 673px of nothing between the hero's last content (y 227) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /conflict-simulations-llc/zero-page/:1 [1440px] 673px of nothing between the hero's last content (y 227) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /devforge/:1 [1440px] 710px of nothing between the hero's last content (y 190) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /field-trials/:1 [1440px] 188px of nothing between the hero's last content (y 190) and the next section | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /games/:1 [1440px] 241px of nothing between the hero's last content (y 220) and the next section | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /generalstaff/:1 [1440px] 668px of nothing between the hero's last content (y 232) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /hammerstein-ai/:1 [1440px] 608px of nothing between the hero's last content (y 292) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /hammerstein-model/:1 [1440px] 668px of nothing between the hero's last content (y 232) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /hammerstein/:1 [1440px] 638px of nothing between the hero's last content (y 262) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /kit/:1 [1440px] 680px of nothing between the hero's last content (y 220) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /mission-brain/:1 [1440px] 668px of nothing between the hero's last content (y 232) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /music/:1 [1440px] 680px of nothing between the hero's last content (y 220) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /retrogaze/:1 [1440px] 650px of nothing between the hero's last content (y 250) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /services/:1 [1440px] 680px of nothing between the hero's last content (y 220) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /wargame-modules/:1 [1440px] 700px of nothing between the hero's last content (y 200) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /works/:1 [1440px] 620px of nothing between the hero's last content (y 280) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/:1 [1440px] 752px of nothing between the hero's last content (y 148) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/boolean-gates/:1 [1440px] 736px of nothing between the hero's last content (y 164) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/columbo-needed-a-confession/:1 [1440px] 736px of nothing between the hero's last content (y 164) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/democratic-defeat-counter-autopsy/:1 [1440px] 628px of nothing between the hero's last content (y 272) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/gs-launch-post/:1 [1440px] 682px of nothing between the hero's last content (y 218) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/hammerstein/:1 [1440px] 682px of nothing between the hero's last content (y 218) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/hundred-percent-then-broke-it/:1 [1440px] 736px of nothing between the hero's last content (y 164) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/i-am-the-gate/:1 [1440px] 736px of nothing between the hero's last content (y 164) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/judgment-does-not-transfer/:1 [1440px] 736px of nothing between the hero's last content (y 164) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/out-of-the-notebook/:1 [1440px] 736px of nothing between the hero's last content (y 164) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/the-bird-didnt-run/:1 [1440px] 736px of nothing between the hero's last content (y 164) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/the-model-that-hangs-up/:1 [1440px] 736px of nothing between the hero's last content (y 164) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 79 /writing/the-register-not-the-man/:1 [1440px] 736px of nothing between the hero's last content (y 164) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+REFLEX 83 /wargame-modules/:1 [1440px] photographs cover 44% of the page below the hero (7 pictures) | fix: Balance the page: cut or shrink pictures until they cover a quarter to a third of it, and carry the freed sections in type, figures, the product or a list (imagery.md § 5)
+WARN 3 src/styles/global.css:1911 side stripe border-left: 3px solid var(--color-carmine) on .site-page blockquote, .site-page .pullquote | fix: Hairline all round, none, or an accent square
+WARN 49 src/pages/games.astro:712 long clickable label "No.{(i + 1).toString().padStart(2, …" without nowrap | fix: Shorten the label or set nowrap
+WARN 49 src/pages/kit.astro:121 long clickable label "See the wargame modules &rarr;" without nowrap | fix: Shorten the label or set nowrap
+WARN 58 src/pages/auftragstaktik.astro:14 hero paragraph runs 21 words | fix: One sentence, twelve words or fewer
+WARN 58 src/pages/buddies.astro:14 hero paragraph runs 15 words | fix: One sentence, twelve words or fewer
+WARN 58 src/pages/music.astro:13 hero paragraph runs 22 words | fix: One sentence, twelve words or fewer
+WARN 58 src/pages/retrogaze.astro:13 hero paragraph runs 26 words | fix: One sentence, twelve words or fewer
+WARN 58 src/pages/works.astro:63 hero paragraph runs 37 words | fix: One sentence, twelve words or fewer
+WARN 77 /about/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /auftragstaktik/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /buddies/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /catalogdna/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /conflict-simulations-llc/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /conflict-simulations-llc/death-of-an-empire/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /conflict-simulations-llc/veridian-contraption/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /conflict-simulations-llc/zero-page/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /devforge/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /field-trials/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /generalstaff/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /hammerstein-ai/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /hammerstein-model/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /hammerstein/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /kit/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /mission-brain/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /music/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /retrogaze/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /services/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /works/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/boolean-gates/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/columbo-needed-a-confession/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/democratic-defeat-counter-autopsy/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/gs-launch-post/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/hammerstein/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/hundred-percent-then-broke-it/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/i-am-the-gate/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/judgment-does-not-transfer/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/out-of-the-notebook/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/the-bird-didnt-run/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/the-model-that-hangs-up/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN 77 /writing/the-register-not-the-man/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+WARN F1 src/pages/about.astro:14 straight quote in prose x5 (first: ittle about me. I've been design) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/buddies.astro:31 straight quote in prose x3 (first: Claude doesn't burn tokens) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/catalogdna.astro:14 straight quote in prose x2 (first: ineers a musician's catalog into) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/conflict-simulations-llc.astro:13 straight quote in prose x3 (first: Ray Weiss's imprint for) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/conflict-simulations-llc/death-of-an-empire.astro:23 straight quote in prose x7 (first: in-Chief. You don't move units.) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/conflict-simulations-llc/veridian-contraption.astro:44 straight quote in prose x2 (first: ed Dwarf Fortress's narrative la) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/devforge.astro:17 straight quote in prose x2 (first: or people who don't touch git an) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/games.astro:671 straight quote in prose x3 (first: These are games I'm still buildi) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/generalstaff.astro:245 straight quote in prose x2 (first: kes the framework's vo) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/hammerstein-ai.astro:59 straight quote in prose x1 (first: What's shipped) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/hammerstein-model.astro:43 straight quote in prose x5 (first: is not the model's ra) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/hammerstein.astro:39 straight quote in prose x3 (first: Von Hammerstein's Ghost, In Da) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/index.astro:38 straight quote in prose x11 (first: tried and couldn't quite learn) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/kit.astro:77 straight quote in prose x2 (first: follows hexwright's conventions,) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/mission-brain.astro:35 straight quote in prose x5 (first: . RayBrain is Ray's private inst) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/music.astro:21 straight quote in prose x10 (first: Le Rug was Ray's main music p) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/retrogaze.astro:22 straight quote in prose x7 (first: ide that platform's actual) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/services.astro:53 straight quote in prose x1 (first: er, not the model's) | fix: Use typographic quotes: “ ” ’
+WARN F1 src/pages/wargame-modules.astro:204 straight quote in prose x3 (first: oody April is GMT's game of the) | fix: Use typographic quotes: “ ” ’
+WARN F4 src/styles/global.css:970 3 filled primary-button recipes: .btn-primary + .closing-cta + .site-page .game-land… | fix: One filled primary per page; demote the rest to outline/quiet variants
+WARN F15 src/styles/global.css:1 2 container widths on one page (1376, 1152px) | fix: One container width, applied by the same two-element pattern in every section
+WARN F16 src/styles/global.css:1 browser surfaces unthemed: ::selection, scrollbar-color | fix: Theme the parts you did not draw from the palette
+WARN F17 /conflict-simulations-llc/death-of-an-empire/:1 [1440px] "Historical orders of battle" squeezed to 127px wide over 4 lines (td.py-4) | fix: A grid placement or a span ran wide; give the text its column back
+WARN F19 /:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /about/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /catalogdna/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /devforge/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /generalstaff/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /hammerstein-ai/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /hammerstein-model/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /hammerstein/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /kit/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /mission-brain/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /music/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /services/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /wargame-modules/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /writing/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /writing/democratic-defeat-counter-autopsy/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /writing/hammerstein/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F19 /writing/hundred-percent-then-broke-it/:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+WARN F20 /hammerstein-ai/:1 [1440px] div.infra-meta leaves one item alone on its last row (3 + 1) | fix: Change the count or the columns so the last row is not an orphan
+WARN F20 /hammerstein-model/:1 [1440px] div.infra-meta leaves one item alone on its last row (3 + 1) | fix: Change the count or the columns so the last row is not an orphan
+
+sloplint: 186 FAIL, 240 REFLEX, 83 WARN across 36 file(s) and 36 URL(s), grouped by gate; every line is in .hallmark/before.txt.
+before: recorded 135 links, 4 fields, 0 handlers, 0 test hooks, 0 script hooks and 36 rendered page(s) in .hallmark/before.json; --kept checks a redesign against it

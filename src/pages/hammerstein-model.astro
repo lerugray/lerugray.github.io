@@ -7,8 +7,8 @@ import ProductSpec from '@/components/ProductSpec.astro';
   title="Hammerstein-7B | Ray Weiss"
   description="A 7B QLoRA on Qwen2.5-7B-Instruct that bakes the Hammerstein-Equord framework into the weights. Trained for $4. Runs on 8 GB Mac via Ollama."
 >
-  <main class="px-6 py-24 lg:px-16">
-    <div class="mx-auto max-w-3xl">
+  <main class="doc">
+    <div class="doc__frame">
       <header class="page-heading">
         <h1>Hammerstein-7B</h1>
         <p class="dek">A 7B model that learned a strategic-reasoning framework.</p>
@@ -18,15 +18,15 @@ import ProductSpec from '@/components/ProductSpec.astro';
       <ProductSpec>
         <div class="infra-meta">
           <span
-            ><span class="dot live"></span><span class="k">Status</span><span class="v"
+            ><span class="k">Status</span><span class="v"
               >Public on HuggingFace</span
             ></span
           >
           <span><span class="k">Base</span><span class="v">Qwen2.5-7B-Instruct</span></span>
-          <span><span class="k">Method</span><span class="v">QLoRA · rank 32</span></span>
-          <span><span class="k">Quant</span><span class="v">Q4_K_M · 4.68 GB</span></span>
+          <span><span class="k">Method</span><span class="v">QLoRA, rank 32</span></span>
+          <span><span class="k">Quant</span><span class="v">Q4_K_M, 4.68 GB</span></span>
         </div>
-        <p class="mt-6 font-serif text-sm text-muted">
+        <p class="spec-note">
           HuggingFace:
           <a href="https://huggingface.co/lerugray/hammerstein-7b-lora"
             >huggingface.co/lerugray/hammerstein-7b-lora</a
@@ -37,7 +37,7 @@ import ProductSpec from '@/components/ProductSpec.astro';
         </p>
       </ProductSpec>
 
-      <div class="prose-body mt-12">
+      <div class="prose-body">
         <p>
           The <a href="/hammerstein">Hammerstein CLI</a> wraps the framework in retrieval-augmented prompting.
           This model bakes the framework into the weights of a small open base. The point is not the model's
