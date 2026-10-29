@@ -5,6 +5,46 @@ Headless Chrome ran: Hallmark's render tier (sloplint --render, through puppetee
 
 Branch `gs/hallmark-trial-s356`. `head=274a682` is the redesign commit every check and frame below ran against; the commit that adds this report and its proof files sits on top and changes nothing under `src/`. Nothing was pushed or merged to `main`, nothing was deployed, and no pull request was opened.
 
+## FIX2
+
+HALLMARK-FIX2 DONE head=efac24a hyphens=fixed tap=visible orphans_deleted=1 build=green routes=50=50 links_ok=1435/1435 floor=0 frames=33
+
+Ray picked this redesign, and this round closes the second look's two open items and clears out leftover look D styling. `head=efac24a` is the fix commit that every check and frame in this section ran against, each build from a clean `npm ci` in its own worktree. The commit that adds this section, its proof files and the 33 frames sits on top and changes nothing under `src/`. Branch only: nothing went to `main`, no pull request, no deploy. Where this section and FIX1 disagree, this section is current.
+
+### The three, and what changed
+
+1. **Short hyphens.** Bodoni Moda draws its hyphen as one hairline, just like its dashes. The two `unicode-range` faces that FIX1 added for the en and em dashes now cover the hyphen code points too (U+002D, U+2010, U+2011) and draw them from Geist. The text is unchanged, the page still sets three families, and the faces reuse the Geist file every page already loads. Chrome's own font report on `/` and `/games/`, at 390 and 1440, shows every Bodoni-set hyphen drawing from Geist: "AI-assisted", "Game-design", "wright-kit", "Hammerstein-7B", "pre-release" and "field-trials". In FIX1 every one of them drew from Bodoni. Across all 49 routes there are 26 Bodoni-set hyphens. The largest, in "Hammerstein-7B" and "wright-kit" at 84px, now read as a solid stroke beside Bodoni's thick stems.
+2. **Phone tap on /games/.** Measured at FIX1, a tap low on a 390x844 screen left the opened drawer below the fold in the first frame, and only a smooth scroll about 250ms later brought it up. In 13 of 33 test taps the first frame showed none of the build. Even after the lift, Play stayed below the fold for every build. That contradicts FIX1's item 4, which said "the picture and Play come into view". Now a tap moves the page at once, by the least scroll that puts the whole drawer on screen; a drawer taller than the screen opens at its top. Result: 33 of 33 taps show the build's capture and name in the first frame, from any position. Play is on screen for 3 of the 11 builds and 18 to 124px below the fold for the other 8. The cells also drop the browser's blue tap wash and keep their own pressed state. Desktop is unchanged: a click does not scroll, and the details stay in their column. **The frame** `frames/games-H-390-tap-r2-s356.png` is a real touch tap on Capriole (sixth of twelve; Chapel Perilous was the default selection). Its cell sat in the lowest row on screen, at y 645 to 825, the case that failed before. The frame was captured at once after the tap. The drawer sits inside the shelf at y 16, the capture at y 40 to 242, the name to y 341, and Play at y 762 to 810 of 844. Numbers and the full sweep are in `tap-r2.md`.
+3. **Orphaned look D styling.** I checked every file in `src/` and `public/`, every stylesheet, font import and CSS file, and every class selector in the built CSS. **No look D stylesheet, font import or CSS file is left in `src/` or `public/`.** `utilities.css` and `site-content.css` went in the redesign, and `global.css` imports only Bodoni Moda, Geist and Geist Mono. **One orphan was found and deleted:** `@fontsource/ibm-plex-serif`, one of look D's five font packages. It was still listed in `package.json` although nothing imports it; the other four had already gone. I removed it with `npm uninstall`, and the lockfile drops that one entry only. Of 348 class selectors in the built CSS, 3 are used by no page. Those are `cab-shot--empty` (the fallback for a build with no capture) and `keep-motion` and `visually-hidden` (Hallmark's `base.css` scaffold). None of them is look D's.
+
+### Proof (files in this folder)
+
+| # | Check | Result | File |
+| --- | --- | --- | --- |
+| 1 | `npm run build` at efac24a, clean `npm ci` | green, 37 pages | `build-H-r2.txt` |
+| 2 | Built HTML routes, look D against FIX2 | 50 = 50, identical set | `parity-r2.md` |
+| 2 | Internal hrefs resolving, fragments checked | D 1502/1502, FIX2 1435/1435 | `parity-r2.md` |
+| 2 | Every `<a href>`, per page | 1707 to 1706, the same single anchor as FIX1; FIX1 to FIX2: 0 lost, 0 gained. Only `/games/` differs in built HTML beyond the bundle names | `parity-r2.md` |
+| 2 | Visible text, word level | FIX1 to FIX2: 0 words changed on 49 pages; look D to FIX2 is look D to FIX1, change for change; no sentence changed | `text-parity.md`, section FIX2 |
+| 3 | `sloplint --render --kept`, whole site | FIX2: 0 FAIL, 0 REFLEX, 0 WARN (42 waived, 19 answered, 37 dismissed, 58 notes); kept: links 135/135, fields 4/4, headings 177/181 and figures 164/165, every gap on the record; the output is line for line FIX1's | `sloplint-H-site-r2.txt` |
+| 3 | Look D, same conditions | 182 FAIL, 235 REFLEX, 83 WARN | `sloplint-D-site-r2.txt` |
+| 4 | Frames | 32 recaptures named `-r2-s356.png` (same pages, sizes, densities and 256-colour full pages as before), plus the tap frame: 33 | `frames/` |
+| 4 | Phone tap sweep | first frame shows the build: 390x844 33/33 (FIX1 20/33), 375x667 31/31, 768x1024 33/33 | `tap-r2.md` |
+| 5 | Repo checks | `astro check` 0 errors, 0 warnings (1 hint, also present at FIX1); ESLint clean on `src` | (run in session) |
+
+### On the record
+
+- **Frames against r1.** 24 of the 32 recaptures are byte-identical to their r1 frames. The 8 that changed are the 7 redesign frames of `/` and `/games/`, where the hyphens are, plus `games-D-390-full`. In that one, look D's animated CRT capture area was caught at another animation phase, and side by side the two look the same. `/writing/` and `/hammerstein-ai/` set no hyphen in Bodoni, so their frames did not change.
+- **Instant, not smooth.** The lift no longer animates. That way the first frame after the tap already holds the details, as reduced-motion visitors already had it. No style animates the drawer in, so that frame shows it whole.
+- **Play on a phone.** For 8 of 11 builds at 390x844, Play sits one short scroll below the drawer's facts and audit. Fitting it onto every first screen would mean moving Play up the drawer or tightening the drawer on phones. That is a composition change, so I left it out of the last round. Yours to call.
+- **My first FIX2 lint showed 1 WARN.** I had served FIX2 at a different local address from look D's before record, so the kept check could not pair the pages. Served at the same address, the rerun is clean, and that rerun is the file above.
+
+### Seen, not changed (for landing)
+
+- `public/counter-csl.svg`, `public/scale-bar.svg` and `public/wargame-counter.png` are referenced by nothing, and look D did not reference them either. They are images, not look D styling, so they stay; deleting them is your call.
+- `src/layouts/SpecLayout.astro` prints an older copy of the Hallmark stamp, from before FIX1, in a comments-only `<style is:inline>` block. For instance, it still says the cartridge drawings were dropped. `global.css` carries the current stamp. It is comments only, and the lint passes with both.
+- The dated "Current status" block in `CLAUDE.md` (2026-04-18) still lists Tailwind 4 and `@fontsource/ibm-plex-*` under Stack. `DESIGN.md` is current. The social preview `public/og-image.png` still shows look D, as noted below.
+
 ## FIX1
 
 HALLMARK-FIX1 DONE head=495c25b fixed=6/6 build=green routes=50=50 links_ok=1435/1435 floor=0 frames=32

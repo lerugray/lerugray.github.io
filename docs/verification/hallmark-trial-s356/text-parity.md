@@ -154,3 +154,17 @@ Every change from look D to the fixed redesign was already a change from look D 
 On `/` the header no longer prints "Brooklyn, NY · 40°41′N" or the address, because the hero prints both directly under it (defect 3: each item once on the first screen). The hero keeps "Brooklyn, NY", "40°41′N" and the address button, so no word leaves the page; only the second copy goes. Every other page keeps the header locator and address as before.
 
 No content sentence changed. Nothing was reworded, and no new label or sentence was added: the cartridge pictures are drawings, the dash fix is a font face, and the layout fixes are CSS and one script.
+
+## FIX2
+
+Rerun on fresh builds of look D (af54ea5), FIX1 (495c25b) and the FIX2 head (efac24a), each from a clean `npm ci` in its own worktree, with the same stripping as above (scripts, styles, inline SVG and the head removed), over the 49 built `index.html` pages.
+
+```
+D -> 495c25b     WORDS removed=472 added=227 changes=323
+D -> efac24a     WORDS removed=472 added=227 changes=323
+495c25b -> efac24a  WORDS removed=0 added=0 changes=0
+changes in D -> efac24a that are not in D -> 495c25b: 0
+changes in D -> 495c25b that are gone from D -> efac24a: 0
+```
+
+This run splits blocks at slightly different element boundaries from the FIX1 run, so its totals for D -> 495c25b (472/227/323) differ by a few words from that run's 468/228/325. The comparison that matters uses one method for every build, and there FIX2 changes no word on any page: the hyphen fix is a font face, the tap fix is a script and the orphan was a package. Every change from look D is still exactly the list above.
