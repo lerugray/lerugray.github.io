@@ -535,8 +535,8 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gap-columns);
     align-content: center;
-    min-height: min(calc(100svh - var(--header-h)), 54rem);
-    padding-block: var(--space-2xl) var(--space-3xl);
+    min-height: calc(100svh - var(--header-h));
+    padding-block: var(--space-xl);
   }
   .home-identity {
     display: contents;
@@ -569,14 +569,14 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     position: absolute;
     left: 0;
     right: 0;
-    border-top: var(--rule-hair) solid color-mix(in oklab, var(--color-accent) 70%, transparent);
+    border-top: var(--rule-hair) solid var(--color-accent);
     pointer-events: none;
   }
   .home-name::before {
-    top: 0.105em;
+    top: round(down, 0.105em, 1px);
   }
   .home-name::after {
-    top: 0.89em;
+    top: round(down, 0.89em, 1px);
   }
   .home-name__set {
     position: relative;
@@ -686,7 +686,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
   }
   .flagship-offer__title a,
   .service-card__title a {
-    text-decoration-color: transparent;
+    text-decoration-color: var(--color-rule-2);
   }
   .flagship-offer__title a:hover,
   .service-card__title a:hover {
@@ -776,7 +776,6 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
     column-gap: var(--gap-columns);
     row-gap: var(--space-lg);
-    margin-inline: calc(-1 * var(--space-xl));
     padding: var(--space-3xl) var(--space-xl);
     background: var(--color-paper-2);
   }
@@ -784,7 +783,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     grid-column: 2;
     margin: 0;
   }
-  .featured-essay__head {
+  .featured-essay > .featured-essay__head {
     grid-column: 1;
     grid-row: 1 / span 3;
     font-size: var(--text-2xl);
@@ -866,7 +865,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     }
     .home-counter-badge {
       grid-column: 1 / span 4;
-      max-width: 96px;
+      max-width: 112px;
     }
     .home-identity__line {
       grid-column: 1 / -1;
@@ -907,15 +906,14 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     .service-card__header,
     .service-card > p,
     .featured-essay > *,
-    .featured-essay__head,
+    .featured-essay > .featured-essay__head,
     .music-block > p,
     .music-block > .follow {
       grid-column: 1;
       grid-row: auto;
     }
     .featured-essay {
-      margin-inline: calc(-1 * var(--gutter));
-      padding: var(--space-2xl) var(--gutter);
+      padding: var(--space-2xl) var(--space-lg);
     }
     .featured-essay__title {
       font-size: var(--text-display-s);
@@ -930,7 +928,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
   }
   @media (max-width: 40rem) {
     .home-counter-badge {
-      max-width: 72px;
+      max-width: 112px;
     }
     .index-block--grid .entries {
       grid-template-columns: minmax(0, 1fr);

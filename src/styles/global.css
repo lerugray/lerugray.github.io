@@ -3,6 +3,7 @@
  * axes: light/high-contrast-serif/cool · posture: restrained · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4 · weakest: S, the Specimen material belongs to a foundry; the RW unit counter, the dated essay index and Ray's own module captures carry the specificity */
 /* Hallmark · hero-review: fix · 5 findings · 3 resolved 2 partial (the nav repeats the location and the address on /, the statement runs past the action) */
+/* Hallmark · finish-review: fix · subagent · 7 findings · 7 resolved · gap: the old home showed the commissions on its first screen, the new one gives that screen to the name and the action; the old cabinet gave each game a drawn picture, the new roster shows the selected game's real capture */
 /* Hallmark · waive 79 · document pages open on a Banner and their prose starts under it inside the same frame, above the fold · the render tier counts only section boundaries, so the essay and product text that follows the banner reads to it as empty paper */
 /* Hallmark · waive 49b · entry titles in the essay, business and catalog indexes are names that cannot shorten, two lines at most on a phone · essay titles and game names are Ray's own and wrap rather than truncate */
 /* Hallmark · waive 39b · Play and Send stand 48px; only the twelve roster cells on Field Trials run taller · each roster cell is the specimen of one build, its name set in Bodoni over its register, and selecting it fills the cell ink */
@@ -58,8 +59,10 @@ h3 {
   color: var(--color-ink);
   font-optical-sizing: auto;
 }
+/* Optical size 96 only where the type is display size; smaller heads let it follow
+   their size so the hairlines hold. */
 h1,
-h2 {
+.section-heading {
   font-variation-settings: 'opsz' var(--display-optical);
 }
 h3 {
@@ -664,7 +667,7 @@ td a {
   line-height: 1.15;
   letter-spacing: var(--tracking-display);
   color: var(--color-ink);
-  text-decoration-color: transparent;
+  text-decoration-color: var(--color-rule-2);
 }
 .entry-title:hover {
   text-decoration-color: var(--color-accent);
@@ -696,7 +699,7 @@ td a {
   line-height: 1.15;
   letter-spacing: var(--tracking-display);
   color: var(--color-ink);
-  text-decoration-color: transparent;
+  text-decoration-color: var(--color-rule-2);
 }
 .infra-list .infra-title:hover {
   text-decoration-color: var(--color-accent);
@@ -760,6 +763,7 @@ td a {
 }
 .product-spec .section-label {
   font-size: var(--text-2xl);
+  font-variation-settings: normal;
 }
 .product-spec__body {
   display: grid;
@@ -916,7 +920,7 @@ td.num {
   line-height: 1.1;
 }
 .writing-index > li > h2 a {
-  text-decoration-color: transparent;
+  text-decoration-color: var(--color-rule-2);
 }
 .writing-index > li > h2 a:hover {
   text-decoration-color: var(--color-accent);
@@ -1029,7 +1033,7 @@ td.num {
   font-size: var(--text-sm);
   white-space: nowrap;
   color: var(--color-ink);
-  text-decoration-color: transparent;
+  text-decoration-color: var(--color-rule);
 }
 .directory-group a:hover {
   text-decoration-color: var(--color-accent);
