@@ -256,7 +256,7 @@ and MUST be updated by hand or the post is invisible where Ray actually looks:
    publishDate, readingTime, description). Auto-appears at /writing/ only.
 2. **Homepage entries list** — `src/pages/index.astro`, the Writing `<ol class="entries">`:
    add a new `<li>` at the top, renumber the roman numerals (SCOPED to this list only —
-   other sections use the same `<em>i.</em>` markup), bump the "NN entries ——" count.
+   other sections use the same `<em>i.</em>` markup), bump the "NN entries" count.
 3. **Left sidebar nav** — `src/data/navigation.ts`, the `Writing` group's `items`:
    add `{ href, label }` at the top.
 4. **Featured "start here" hero** — `src/pages/index.astro` `<aside class="featured">`:

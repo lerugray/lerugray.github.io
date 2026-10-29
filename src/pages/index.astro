@@ -23,7 +23,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
             width="96"
             height="72"
           />
-          <h1 class="home-name"><span class="home-name__set">Ray Weiss</span></h1>
+          <h1 class="home-name"><span class="home-name__set">Ray <span class="home-name__w">W</span>eiss</span></h1>
           <div class="home-identity__line">
             <p class="home-dek">Brooklyn wargame designer, running four businesses.</p>
             <p class="home-locator">
@@ -539,23 +539,28 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     padding-block: var(--space-2xl) var(--space-3xl);
   }
   .home-identity {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: subgrid;
-    row-gap: var(--space-lg);
+    display: contents;
   }
   .home-counter-badge {
     grid-column: 1 / span 2;
-    width: 72px;
+    grid-row: 2;
+    width: 100%;
+    max-width: 136px;
     height: auto;
   }
   .home-name {
     grid-column: 1 / -1;
+    grid-row: 1;
     position: relative;
     max-width: none;
+    margin-bottom: var(--space-xl);
     font-size: var(--text-poster);
     line-height: 1;
     letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+  .home-name__w {
+    margin-right: -0.09em;
   }
   /* The guides: ink-blue hairlines at the face's cap height and baseline. */
   .home-name::before,
@@ -564,7 +569,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     position: absolute;
     left: 0;
     right: 0;
-    border-top: var(--rule-hair) solid var(--color-guide);
+    border-top: var(--rule-hair) solid color-mix(in oklab, var(--color-accent) 70%, transparent);
     pointer-events: none;
   }
   .home-name::before {
@@ -578,8 +583,8 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     display: inline-block;
   }
   .home-identity__line {
-    grid-column: 1 / span 5;
-    margin-top: var(--space-md);
+    grid-column: 3 / span 4;
+    grid-row: 2;
     display: grid;
     gap: var(--space-md);
     align-content: start;
@@ -607,7 +612,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
   }
   .home-bio-panel {
     grid-column: 7 / -1;
-    margin-top: calc(-1 * var(--space-2xl) - var(--space-lg));
+    grid-row: 2;
     padding-left: var(--space-xl);
     border-left: var(--rule-hair) solid var(--color-rule);
     align-self: start;
@@ -859,9 +864,18 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
       min-height: 0;
       padding-block: var(--space-xl) var(--space-2xl);
     }
-    .home-identity__line,
+    .home-counter-badge {
+      grid-column: 1 / span 4;
+      max-width: 96px;
+    }
+    .home-identity__line {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      margin-top: var(--space-lg);
+    }
     .home-bio-panel {
       grid-column: 1 / -1;
+      grid-row: 4;
     }
     .home-bio-panel {
       margin-top: var(--space-xl);
@@ -916,7 +930,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
   }
   @media (max-width: 40rem) {
     .home-counter-badge {
-      width: 56px;
+      max-width: 72px;
     }
     .index-block--grid .entries {
       grid-template-columns: minmax(0, 1fr);
