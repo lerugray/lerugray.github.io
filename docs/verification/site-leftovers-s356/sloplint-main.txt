@@ -1,0 +1,173 @@
+sloplint --render --before over main 9da97f4: static src plus 36 rendered routes (/raybrain/ skipped, as in the Hallmark trial), served at the same local address as the branch run. Hallmark pinned at 8f6969f8922caabde9de1784959eae11ddf68073, genre editorial. Local addresses and paths stripped.
+
+render tier: 180 screenshots in .hallmark/before (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
+  WAIVED 39b /games/:1 [1440px] control height outside 44 to 52px: button.cart 248px, … | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
+  WAIVED 44c /:1 [1440px] hero ends at 432px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+  WAIVED 49b x7 /:1 [320px] link "Digital wargame modules" wraps to 2 lines (a); /:1 [320px] link "AI workflow & automation builds" wraps to 2 lines… | fix: Shorten the label or set nowrap
+  WAIVED 79 x33 /about/:1 [1440px] 643px of nothing between the hero's last content (y 25…; /auftragstaktik/:1 [1440px] 566px of nothing between the hero's last content (y 33… | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+  ANSWERED F1 x19 src/pages/about.astro:14 straight quote in prose x5 (first: ittle about me. I've been de…; src/pages/buddies.astro:31 straight quote in prose x3 (first: Claude doesn't burn tokens) | fix: Use typographic quotes: “ ” ’
+  DISMISSED 49 x2 src/pages/conflict-simulations-llc/zero-page.astro:93 long clickable label "Operator Reference Manual" without nowrap; src/pages/games.astro:586 long clickable label "{game.name} {game.name} {game.regis…" wit… | fix: Shorten the label or set nowrap
+  DISMISSED 77 x35 /:1 [1440px] 4 sections, hero and footer included; /about/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+  NOTE 19 x7 src/pages/conflict-simulations-llc/veridian-contraption.astro:40 dash "—" in copy; src/pages/conflict-simulations-llc/zero-page.astro:119 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+  NOTE 58 x47 src/pages/auftragstaktik.astro:14 hero paragraph runs 21 words; src/pages/buddies.astro:14 hero paragraph runs 15 words | fix: One sentence, twelve words or fewer
+  NOTE waive x4 src/components/ProductSpec.astro:1 4 reflex gates waived (79, 49b, 39b, 44c): that is a house styl…; src/pages/conflict-simulations-llc/death-of-an-empire.astro:1 4 reflex gates waived (79, 49b, 39b, 44c): that is a house styl… | fix: Lock it into a design.md so later pages inherit it instead of re-arguing it
+sloplint: 0 FAIL, 0 WARN, 42 WAIVED, 19 ANSWERED, 37 DISMISSED, 58 NOTE across 36 file(s) and 36 URL(s), grouped by gate; every line is in .hallmark/before.txt.
+before: recorded 135 links, 4 fields, 0 handlers, 0 test hooks, 0 script hooks and 36 rendered page(s) in .hallmark/before.json; --kept checks a redesign against it
+
+Full findings list (.hallmark/before.txt):
+WAIVED 39b /games/:1 [1440px] control height outside 44 to 52px: button.cart 248px, button.cart 248px, button.cart 248px | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
+WAIVED 44c /:1 [1440px] hero ends at 432px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+WAIVED 49b /:1 [320px] link "Digital wargame modules" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+WAIVED 49b /:1 [320px] link "AI workflow & automation builds" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+WAIVED 49b /conflict-simulations-llc/:1 [320px] link "Veridian Contraption" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+WAIVED 49b /conflict-simulations-llc/:1 [320px] link "Death Of An Empire" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+WAIVED 49b /conflict-simulations-llc/:1 [320px] link "Prigozhin's March of Justice" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+WAIVED 49b /wargame-modules/:1 [320px] link "The World Undone: East Front Tri" wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+WAIVED 49b /wargame-modules/:1 [320px] link "Publishers who want an official " wraps to 2 lines (a) | fix: Shorten the label or set nowrap
+WAIVED 79 /about/:1 [1440px] 643px of nothing between the hero's last content (y 257) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /auftragstaktik/:1 [1440px] 566px of nothing between the hero's last content (y 334) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /buddies/:1 [1440px] 566px of nothing between the hero's last content (y 334) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /catalogdna/:1 [1440px] 566px of nothing between the hero's last content (y 334) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /conflict-simulations-llc/:1 [1440px] 596px of nothing between the hero's last content (y 304) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /conflict-simulations-llc/death-of-an-empire/:1 [1440px] 559px of nothing between the hero's last content (y 341) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /conflict-simulations-llc/veridian-contraption/:1 [1440px] 559px of nothing between the hero's last content (y 341) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /conflict-simulations-llc/zero-page/:1 [1440px] 559px of nothing between the hero's last content (y 341) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /devforge/:1 [1440px] 596px of nothing between the hero's last content (y 304) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /field-trials/:1 [1440px] 596px of nothing between the hero's last content (y 304) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /generalstaff/:1 [1440px] 558px of nothing between the hero's last content (y 342) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /hammerstein-ai/:1 [1440px] 497px of nothing between the hero's last content (y 403) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /hammerstein-model/:1 [1440px] 558px of nothing between the hero's last content (y 342) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /hammerstein/:1 [1440px] 527px of nothing between the hero's last content (y 373) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /kit/:1 [1440px] 551px of nothing between the hero's last content (y 349) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /mission-brain/:1 [1440px] 558px of nothing between the hero's last content (y 342) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /music/:1 [1440px] 566px of nothing between the hero's last content (y 334) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /retrogaze/:1 [1440px] 535px of nothing between the hero's last content (y 365) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /services/:1 [1440px] 551px of nothing between the hero's last content (y 349) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /works/:1 [1440px] 505px of nothing between the hero's last content (y 395) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/:1 [1440px] 643px of nothing between the hero's last content (y 257) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/boolean-gates/:1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/columbo-needed-a-confession/:1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/democratic-defeat-counter-autopsy/:1 [1440px] 567px of nothing between the hero's last content (y 333) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/gs-launch-post/:1 [1440px] 567px of nothing between the hero's last content (y 333) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/hammerstein/:1 [1440px] 567px of nothing between the hero's last content (y 333) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/hundred-percent-then-broke-it/:1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/i-am-the-gate/:1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/judgment-does-not-transfer/:1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/out-of-the-notebook/:1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/the-bird-didnt-run/:1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/the-model-that-hangs-up/:1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+WAIVED 79 /writing/the-register-not-the-man/:1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold | fix: Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy
+ANSWERED F1 src/pages/about.astro:14 straight quote in prose x5 (first: ittle about me. I've been design) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/buddies.astro:31 straight quote in prose x3 (first: Claude doesn't burn tokens) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/catalogdna.astro:14 straight quote in prose x2 (first: ineers a musician's catalog into) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/conflict-simulations-llc.astro:13 straight quote in prose x3 (first: Ray Weiss's imprint for) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/conflict-simulations-llc/death-of-an-empire.astro:23 straight quote in prose x7 (first: in-Chief. You don't move units.) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/conflict-simulations-llc/veridian-contraption.astro:44 straight quote in prose x2 (first: ed Dwarf Fortress's narrative la) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/devforge.astro:17 straight quote in prose x2 (first: or people who don't touch git an) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/games.astro:543 straight quote in prose x4 (first: These are games I'm still buildi) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/generalstaff.astro:245 straight quote in prose x2 (first: kes the framework's vo) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/hammerstein-ai.astro:59 straight quote in prose x1 (first: What's shipped) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/hammerstein-model.astro:43 straight quote in prose x5 (first: is not the model's ra) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/hammerstein.astro:39 straight quote in prose x3 (first: Von Hammerstein's Ghost, In Da) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/index.astro:41 straight quote in prose x11 (first: tried and couldn't quite learn) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/kit.astro:74 straight quote in prose x2 (first: follows hexwright's conventions,) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/mission-brain.astro:35 straight quote in prose x5 (first: . RayBrain is Ray's private inst) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/music.astro:21 straight quote in prose x10 (first: Le Rug was Ray's main music p) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/retrogaze.astro:22 straight quote in prose x7 (first: ide that platform's actual) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/services.astro:50 straight quote in prose x1 (first: er, not the model's) | fix: Use typographic quotes: “ ” ’
+ANSWERED F1 src/pages/wargame-modules.astro:209 straight quote in prose x3 (first: oody April is GMT's game of the) | fix: Use typographic quotes: “ ” ’
+DISMISSED 49 src/pages/conflict-simulations-llc/zero-page.astro:93 long clickable label "Operator Reference Manual" without nowrap | fix: Shorten the label or set nowrap
+DISMISSED 49 src/pages/games.astro:586 long clickable label "{game.name} {game.name} {game.regis…" without nowrap | fix: Shorten the label or set nowrap
+DISMISSED 77 /:1 [1440px] 4 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /about/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /auftragstaktik/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /buddies/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /catalogdna/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /conflict-simulations-llc/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /conflict-simulations-llc/death-of-an-empire/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /conflict-simulations-llc/veridian-contraption/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /conflict-simulations-llc/zero-page/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /devforge/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /field-trials/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /games/:1 [1440px] 3 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /generalstaff/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /hammerstein-ai/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /hammerstein-model/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /hammerstein/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /kit/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /mission-brain/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /music/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /retrogaze/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /services/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /works/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/boolean-gates/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/columbo-needed-a-confession/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/democratic-defeat-counter-autopsy/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/gs-launch-post/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/hammerstein/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/hundred-percent-then-broke-it/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/i-am-the-gate/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/judgment-does-not-transfer/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/out-of-the-notebook/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/the-bird-didnt-run/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/the-model-that-hangs-up/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+DISMISSED 77 /writing/the-register-not-the-man/:1 [1440px] 1 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+NOTE 19 src/pages/conflict-simulations-llc/veridian-contraption.astro:40 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+NOTE 19 src/pages/conflict-simulations-llc/zero-page.astro:119 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+NOTE 19 src/pages/games.astro:543 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+NOTE 19 src/pages/generalstaff.astro:167 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+NOTE 19 src/pages/hammerstein-model.astro:45 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+NOTE 19 src/pages/hammerstein.astro:44 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+NOTE 19 src/pages/index.astro:312 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+NOTE 58 src/pages/auftragstaktik.astro:14 hero paragraph runs 21 words | fix: One sentence, twelve words or fewer
+NOTE 58 src/pages/buddies.astro:14 hero paragraph runs 15 words | fix: One sentence, twelve words or fewer
+NOTE 58 src/pages/music.astro:13 hero paragraph runs 22 words | fix: One sentence, twelve words or fewer
+NOTE 58 src/pages/retrogaze.astro:13 hero paragraph runs 26 words | fix: One sentence, twelve words or fewer
+NOTE 58 src/pages/works.astro:63 hero paragraph runs 37 words | fix: One sentence, twelve words or fewer
+NOTE 58 /:1 [1440px] 192 words on one screen (from y=2750) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /about/:1 [1440px] 344 words on one screen (from y=950) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /auftragstaktik/:1 [1440px] 247 words on one screen (from y=450) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /buddies/:1 [1440px] 200 words on one screen (from y=450) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /catalogdna/:1 [1440px] 195 words on one screen (from y=300) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /conflict-simulations-llc/:1 [1440px] 110 words on one screen (from y=4450) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /conflict-simulations-llc/death-of-an-empire/:1 [1440px] 281 words on one screen (from y=450) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /conflict-simulations-llc/veridian-contraption/:1 [1440px] 230 words on one screen (from y=1450) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /conflict-simulations-llc/zero-page/:1 [1440px] 221 words on one screen (from y=1950) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /devforge/:1 [1440px] 107 words on one screen (from y=0) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /games/:1 [1440px] 208 words on one screen (from y=2800) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /games/:1 [1440px] hero carries 4 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+NOTE 58 /generalstaff/:1 [1440px] 250 words on one screen (from y=1300) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /generalstaff/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+NOTE 58 /hammerstein-ai/:1 [1440px] 220 words on one screen (from y=1000) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /hammerstein-ai/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+NOTE 58 /hammerstein-model/:1 [1440px] 251 words on one screen (from y=1200) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /hammerstein-model/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+NOTE 58 /hammerstein/:1 [1440px] 273 words on one screen (from y=1200) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /hammerstein/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+NOTE 58 /kit/:1 [1440px] 194 words on one screen (from y=500) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /mission-brain/:1 [1440px] 257 words on one screen (from y=1700) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /mission-brain/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+NOTE 58 /music/:1 [1440px] 182 words on one screen (from y=450) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /retrogaze/:1 [1440px] 273 words on one screen (from y=950) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /services/:1 [1440px] 255 words on one screen (from y=850) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /wargame-modules/:1 [1440px] 226 words on one screen (from y=7800) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /wargame-modules/:1 [1440px] hero carries 3 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+NOTE 58 /works/:1 [1440px] 196 words on one screen (from y=2150) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/:1 [1440px] 102 words on one screen (from y=1550) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/boolean-gates/:1 [1440px] 353 words on one screen (from y=2800) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/columbo-needed-a-confession/:1 [1440px] 319 words on one screen (from y=650) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/democratic-defeat-counter-autopsy/:1 [1440px] 384 words on one screen (from y=7750) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/gs-launch-post/:1 [1440px] 359 words on one screen (from y=900) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/hammerstein/:1 [1440px] 318 words on one screen (from y=3950) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/hundred-percent-then-broke-it/:1 [1440px] 303 words on one screen (from y=4100) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/i-am-the-gate/:1 [1440px] 338 words on one screen (from y=600) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/judgment-does-not-transfer/:1 [1440px] 377 words on one screen (from y=1800) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/out-of-the-notebook/:1 [1440px] 381 words on one screen (from y=900) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/the-bird-didnt-run/:1 [1440px] 381 words on one screen (from y=600) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/the-model-that-hangs-up/:1 [1440px] 356 words on one screen (from y=1650) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE 58 /writing/the-register-not-the-man/:1 [1440px] 408 words on one screen (from y=1600) | fix: One idea per screen: cut to about 80 words, make the section an object
+NOTE waive src/components/ProductSpec.astro:1 4 reflex gates waived (79, 49b, 39b, 44c): that is a house style, not a… | fix: Lock it into a design.md so later pages inherit it instead of re-arguing it
+NOTE waive src/pages/conflict-simulations-llc/death-of-an-empire.astro:1 4 reflex gates waived (79, 49b, 39b, 44c): that is a house style, not a… | fix: Lock it into a design.md so later pages inherit it instead of re-arguing it
+NOTE waive src/pages/writing/[slug].astro:1 4 reflex gates waived (79, 49b, 39b, 44c): that is a house style, not a… | fix: Lock it into a design.md so later pages inherit it instead of re-arguing it
+NOTE waive src/styles/base.css:1 4 reflex gates waived (79, 49b, 39b, 44c): that is a house style, not a… | fix: Lock it into a design.md so later pages inherit it instead of re-arguing it
