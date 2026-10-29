@@ -925,6 +925,8 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     font: inherit;
     text-align: left;
     cursor: pointer;
+    /* The cell has its own pressed state (:active below); no browser wash. */
+    -webkit-tap-highlight-color: transparent;
     transition:
       background-color var(--dur-micro) var(--ease-out),
       color var(--dur-micro) var(--ease-out);
@@ -1621,7 +1623,6 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
     const shelf = shelfEl; // non-null aliases for the function decls below
     const detail = detailEl;
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const narrow = window.matchMedia('(max-width: 979px)');
     const twoUp = window.matchMedia('(max-width: 37.5rem)');
     // Where the details live on a wide screen: the column beside the shelf.
@@ -1680,13 +1681,17 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
       if (!opts.initial && narrow.matches) {
         const shift = carts[i].getBoundingClientRect().top - before;
         if (shift) window.scrollBy({ top: shift, behavior: 'instant' });
-        // When the opened details start low on the screen, lift the tapped
-        // row to the top so the build's picture and Play come into view.
-        if (opts.scroll && panels[i].getBoundingClientRect().top > window.innerHeight * 0.6) {
-          window.scrollBy({
-            top: carts[i].getBoundingClientRect().top - 16,
-            behavior: reduceMotion.matches ? 'auto' : 'smooth',
-          });
+        // Then bring the whole opened drawer on screen at once, by the least
+        // scroll that does it: the build's picture, facts and Play, with what
+        // fits of the tapped row above them. A drawer taller than the screen
+        // starts at its top. No smooth scroll, so the first frame after the
+        // tap already shows the details.
+        if (opts.scroll) {
+          const box = detail.getBoundingClientRect();
+          const edge = 16;
+          const below = Math.max(0, box.bottom - (window.innerHeight - edge));
+          const lift = Math.min(below, box.top - edge);
+          if (lift) window.scrollBy({ top: lift, behavior: 'instant' });
         }
       }
     }
