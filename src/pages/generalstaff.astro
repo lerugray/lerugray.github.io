@@ -7,8 +7,8 @@ import ProductSpec from '@/components/ProductSpec.astro';
   title="GeneralStaff | Ray Weiss"
   description="Open-source autonomous engineering for solo founders. Verification-gated, BYOK, local-first. An open-source alternative to Polsia with the anti-slop architecture Polsia doesn't have."
 >
-  <main class="px-6 py-24 lg:px-16">
-    <div class="mx-auto max-w-3xl">
+  <main class="doc">
+    <div class="doc__frame">
       <header class="page-heading">
         <h1>GeneralStaff</h1>
         <p class="dek">Open-source autonomous engineering for solo founders.</p>
@@ -18,14 +18,14 @@ import ProductSpec from '@/components/ProductSpec.astro';
       <ProductSpec>
         <div class="infra-meta">
           <span
-            ><span class="dot live"></span><span class="k">Status</span><span class="v"
+            ><span class="k">Status</span><span class="v"
               >v0.3.0 shipped</span
             ></span
           >
           <span><span class="k">License</span><span class="v">AGPL-3.0</span></span>
           <span><span class="k">Access</span><span class="v">BYOK · local-first</span></span>
         </div>
-        <p class="mt-6 font-serif text-sm text-muted">
+        <p class="spec-note">
           Repo: <a href="https://github.com/lerugray/generalstaff"
             >github.com/lerugray/generalstaff</a
           >. Tagged v0.1.0 on 2026-04-19 after a four-day build. v0.2.0 added the usage-budget gate
@@ -35,7 +35,7 @@ import ProductSpec from '@/components/ProductSpec.astro';
         </p>
       </ProductSpec>
 
-      <div class="prose-body mt-12">
+      <div class="prose-body">
         <p>
           A meta-dispatcher that runs Claude Code agents on your local projects with a verification
           gate that cannot be prompted around, mandatory hands-off lists, and a full audit log of

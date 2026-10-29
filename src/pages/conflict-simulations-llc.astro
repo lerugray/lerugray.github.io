@@ -6,41 +6,38 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   title="Conflict Simulations LLC | Ray Weiss"
   description="Conflict Simulations LLC. Ray Weiss's imprint for historical board wargames and digital games."
 >
-  <main class="px-6 py-24 lg:px-16">
-    <div class="mx-auto max-w-3xl">
+  <main class="doc">
+    <div class="doc__frame">
       <header class="page-heading">
         <h1>Conflict Simulations LLC</h1>
         <p class="dek">Ray Weiss's imprint for board wargames and digital games.</p>
       </header>
 
-      <div class="mt-10 border-y border-border py-4">
-        <p class="font-mono text-xs font-medium uppercase tracking-wider text-muted">
+      <div class="meta-strip-row">
+        <p class="meta-row">
           <span>~30 published wargames</span>
-          <span class="mx-3 text-subtle">·</span>
-          <span>CSR Award nominee</span>
-          <span class="mx-3 text-subtle">·</span>
-          <span>Published by Multi-Man Publishing (Rostov 41, SCS series)</span>
+<span>CSR Award nominee</span>
+<span>Published by Multi-Man Publishing (Rostov 41, SCS series)</span>
         </p>
       </div>
 
-      <figure class="mt-12">
+      <figure>
         <img
           src="/images/csl/gnw-cover.webp"
           alt="The Great Northern War box cover. Peter the Great in armor with faction emblems for Saxony, the Ottoman Empire, and Poland. CSL logo and A Game by Ray Weiss credit."
           width="800"
-          class="w-full rounded"
           loading="eager"
         />
-        <figcaption class="mt-3 font-mono text-xs text-subtle">
+        <figcaption>
           The Great Northern War (2023)
         </figcaption>
       </figure>
 
-      <section class="mt-16">
-        <h2 class="font-mono text-xs font-medium uppercase tracking-wider text-muted">
+      <section>
+        <h2>
           Board wargames
         </h2>
-        <div class="prose-body mt-6">
+        <div class="prose-body">
           <p>
             Operational and strategic-scale historical wargames. Print-on-demand fulfillment out of
             Brooklyn. The full catalog is at <a href="https://consimsltd.com/shop"
@@ -52,103 +49,96 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             DAMOS.
           </p>
         </div>
-        <figure class="mt-8">
+        <figure>
           <img
             src="/images/csl/gnw-gameplay.webp"
             alt="The Great Northern War in play. Board with wooden army pieces, diplomacy track, and playing cards on a table."
             width="800"
-            class="w-full rounded"
             loading="lazy"
           />
-          <figcaption class="mt-3 font-mono text-xs text-subtle">
+          <figcaption>
             The Great Northern War, mid-game
           </figcaption>
         </figure>
       </section>
 
-      <section class="mt-16">
-        <h2 class="font-mono text-xs font-medium uppercase tracking-wider text-muted">
+      <section>
+        <h2>
           Digital games
         </h2>
-        <div class="prose-body mt-6">
+        <div class="prose-body">
           <p>
             Four titles released on itch under the CSL brand. The full itch catalog is at <a
               href="https://conflict-simulations-llc.itch.io">conflict-simulations-llc.itch.io</a
             >.
           </p>
         </div>
-        <div class="mt-8 overflow-x-auto">
+        <div>
           <div class="table-scroll" role="region" aria-label="Scrollable table" tabindex="0">
-            <table class="w-full text-left text-sm">
+            <table>
               <thead>
-                <tr class="border-b border-border">
+                <tr>
                   <th
-                    class="py-3 pr-6 font-mono text-xs font-medium uppercase tracking-wider text-muted"
                     >Title</th
                   >
                   <th
-                    class="py-3 pr-6 font-mono text-xs font-medium uppercase tracking-wider text-muted"
                     >Price</th
                   >
                   <th
-                    class="py-3 pr-6 font-mono text-xs font-medium uppercase tracking-wider text-muted"
                     >Format</th
                   >
-                  <th class="py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted"
+                  <th
                     >Description</th
                   >
                 </tr>
               </thead>
-              <tbody class="font-serif">
-                <tr class="border-b border-border transition-colors hover:bg-surface">
-                  <td class="py-4 pr-6">
-                    <a href="/devforge" class="font-medium text-foreground hover:text-link-hover"
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="/devforge"
                       >Devforge</a
                     >
                   </td>
-                  <td class="py-4 pr-6 font-mono tabular-nums text-muted">$9</td>
-                  <td class="py-4 pr-6 text-muted">Windows desktop</td>
-                  <td class="py-4 text-muted">
+                  <td class="num">$9</td>
+                  <td>Windows desktop</td>
+                  <td>
                     A game dev terminal that knows your project cold.
                   </td>
                 </tr>
-                <tr class="border-b border-border transition-colors hover:bg-surface">
-                  <td class="py-4 pr-6">
+                <tr>
+                  <td>
                     <a
                       href="/conflict-simulations-llc/veridian-contraption"
-                      class="font-medium text-foreground hover:text-link-hover"
                       >Veridian Contraption</a
                     >
                   </td>
-                  <td class="py-4 pr-6 font-mono tabular-nums text-muted">$3</td>
-                  <td class="py-4 pr-6 text-muted">Rust terminal</td>
-                  <td class="py-4 text-muted">
+                  <td class="num">$3</td>
+                  <td>Rust terminal</td>
+                  <td>
                     A world-simulator of considerable density and dubious intent.
                   </td>
                 </tr>
-                <tr class="border-b border-border transition-colors hover:bg-surface">
-                  <td class="py-4 pr-6">
+                <tr>
+                  <td>
                     <a
                       href="/conflict-simulations-llc/death-of-an-empire"
-                      class="font-medium text-foreground hover:text-link-hover"
                       >Death Of An Empire</a
                     >
                   </td>
-                  <td class="py-4 pr-6 font-mono tabular-nums text-muted">$3.99</td>
-                  <td class="py-4 pr-6 text-muted">Rust terminal</td>
-                  <td class="py-4 text-muted">Franco-Prussian War, 1870.</td>
+                  <td class="num">$3.99</td>
+                  <td>Rust terminal</td>
+                  <td>Franco-Prussian War, 1870.</td>
                 </tr>
-                <tr class="transition-colors hover:bg-surface">
-                  <td class="py-4 pr-6">
+                <tr>
+                  <td>
                     <a
                       href="https://conflict-simulations-llc.itch.io/prigozhins-march-of-justice"
-                      class="font-medium text-foreground hover:text-link-hover"
                       >Prigozhin's March of Justice</a
                     >
                   </td>
-                  <td class="py-4 pr-6 font-mono tabular-nums text-muted">$2.99</td>
-                  <td class="py-4 pr-6 text-muted">Digital</td>
-                  <td class="py-4 text-muted">
+                  <td class="num">$2.99</td>
+                  <td>Digital</td>
+                  <td>
                     Digital version of Ray's solitaire board wargame.
                   </td>
                 </tr>
@@ -156,25 +146,24 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             </table>
           </div>
         </div>
-        <figure class="mt-8">
+        <figure>
           <img
             src="/images/csl/prigozhin-map.webp"
             alt="Prigozhin's March of Justice game map. Route from Rostov-on-Don to Moscow with cities, momentum track, and combat results table. Designer Ray Weiss, art by Ilya Kudriashov."
             width="800"
-            class="w-full rounded"
             loading="lazy"
           />
-          <figcaption class="mt-3 font-mono text-xs text-subtle">
+          <figcaption>
             Prigozhin's March of Justice map (art: Ilya Kudriashov)
           </figcaption>
         </figure>
       </section>
 
-      <section class="mt-16">
-        <h2 class="font-mono text-xs font-medium uppercase tracking-wider text-muted">
+      <section>
+        <h2>
           A Contemporary Guide to Wargame Design
         </h2>
-        <div class="prose-body mt-6">
+        <div class="prose-body">
           <p>
             A practitioner's book on designing historical wargames. Roughly twenty-three chapters,
             drawing on thirty shipped titles. Drafting now; free online reader planned.

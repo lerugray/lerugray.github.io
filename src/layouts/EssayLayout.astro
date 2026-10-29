@@ -21,16 +21,9 @@ const dateFormatted = publishDate.toLocaleDateString('en-US', {
       <h1>
         {title}
       </h1>
-      <p class="mt-6 font-mono text-xs uppercase tracking-wider text-muted">
+      <p class="essay-meta">
         <time datetime={publishDate.toISOString()}>{dateFormatted}</time>
-        {
-          readingTime && (
-            <>
-              <span class="mx-3 text-subtle">·</span>
-              <span>{readingTime}</span>
-            </>
-          )
-        }
+        {readingTime && <span>{readingTime}</span>}
       </p>
     </header>
     <div class="prose-body">

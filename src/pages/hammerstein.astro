@@ -7,8 +7,8 @@ import ProductSpec from '@/components/ProductSpec.astro';
   title="Hammerstein | Ray Weiss"
   description="Strategic-reasoning advisor tuned to the Hammerstein-Equord officer typology. The CLI Ray uses to audit a plan before firing it."
 >
-  <main class="px-6 py-24 lg:px-16">
-    <div class="mx-auto max-w-3xl">
+  <main class="doc">
+    <div class="doc__frame">
       <header class="page-heading">
         <h1>Hammerstein</h1>
         <p class="dek">
@@ -20,7 +20,7 @@ import ProductSpec from '@/components/ProductSpec.astro';
       <ProductSpec>
         <div class="infra-meta">
           <span
-            ><span class="dot live"></span><span class="k">Status</span><span class="v"
+            ><span class="k">Status</span><span class="v"
               >In daily use</span
             ></span
           >
@@ -33,19 +33,19 @@ import ProductSpec from '@/components/ProductSpec.astro';
           >
           <span><span class="k">Cost</span><span class="v">~$0.01 per audit</span></span>
         </div>
-        <p class="mt-6 font-serif text-sm text-muted">
+        <p class="spec-note">
           Repo: <a href="https://github.com/lerugray/hammerstein">github.com/lerugray/hammerstein</a
           >. Hosted: <a href="https://hammerstein.ai">hammerstein.ai</a>. Framework essay: <a
             href="/writing/hammerstein">Von Hammerstein's Ghost, In Daily Use</a
           >. The companion model: <a href="/hammerstein-model">Hammerstein-7B</a>.
         </p>
-        <p class="mt-3 font-serif text-sm text-muted">
+        <p class="spec-note">
           Latest: <a href="/writing/hundred-percent-then-broke-it">100%, then I tried to break it</a
           > — the day I ran the benchmark, got 100%, then ran a Diplomacy game to falsify it.
         </p>
       </ProductSpec>
 
-      <div class="prose-body mt-12">
+      <div class="prose-body">
         <p>
           Hammerstein is a command-line advisor I run before firing any plan with a non-trivial
           blast radius. It takes the plan as input and returns adversarial review: failure modes,
