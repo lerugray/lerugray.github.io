@@ -108,7 +108,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 <h3 class="service-card__title">
                   <a href="/services">Custom voice &amp; persona models</a>
                 </h3>
-                <span class="service-card__meta">Delivery 2 to 3 weeks.</span>
+                <span class="service-card__meta">Quote on request. Delivery 2 to 3 weeks.</span>
               </div>
               <p>
                 A small open model fine-tuned to one register: a historical figure, a brand, a house
@@ -121,6 +121,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 <h3 class="service-card__title">
                   <a href="/services">Game-design consultation</a>
                 </h3>
+                <span class="service-card__meta">Quote on request.</span>
               </div>
               <p>
                 System design, rules audits, development, editorial passes. Tabletop and digital.
@@ -275,19 +276,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>xi.</em> 2026.04.15</div>
-                <div class="entry">
-                  <a href="/writing/hammerstein" class="entry-title">
-                    Von Hammerstein's Ghost, In Daily Use
-                  </a>
-                  <p class="entry-desc">
-                    A ninety-year-old officer typology, used as the operating principle for daily
-                    AI-assisted work. A log of moments the framework fired and moments it did not.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <div class="index"><em>xii.</em> 2026.04.18</div>
+                <div class="index"><em>xi.</em> 2026.04.18</div>
                 <div class="entry">
                   <a href="/writing/boolean-gates" class="entry-title">
                     Boolean Gates, Not Prompts
@@ -296,6 +285,18 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                     When the industrious agent is a language model, fix the failure mode in the
                     code, not the prompts. The architecture-layer companion to the Hammerstein
                     essay.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="index"><em>xii.</em> 2026.04.15</div>
+                <div class="entry">
+                  <a href="/writing/hammerstein" class="entry-title">
+                    Von Hammerstein's Ghost, In Daily Use
+                  </a>
+                  <p class="entry-desc">
+                    A ninety-year-old officer typology, used as the operating principle for daily
+                    AI-assisted work. A log of moments the framework fired and moments it did not.
                   </p>
                 </div>
               </li>
@@ -779,15 +780,19 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     max-width: none;
     font-size: var(--text-title);
   }
+  /* Every service's price takes the same slot, its own line under the
+     title, whether or not the title leaves room beside it. */
+  .service-card__meta {
+    flex-basis: 100%;
+  }
   .service-card > p {
     max-width: var(--measure);
     color: var(--color-ink-2);
   }
 
-  /* Start here: a paper band */
-  .home-lower-deck {
-    padding-bottom: var(--space-3xl);
-  }
+  /* Start here: a paper band. The deck adds no padding under Music: the
+     directory's own section gap (144px) is the space above the footer, as on
+     every other page. */
   .home-lower-grid {
     display: grid;
     gap: var(--section-gap-s);
@@ -854,26 +859,29 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
   .index-block--grid .entry-title {
     font-size: var(--text-xl);
   }
+  /* Music: one row under its head, set from the first column like every
+     other section's content, the line on eight columns and Listen at the
+     row's end (the commissions header's text-and-action pattern). */
   .music-block {
     display: grid;
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gap-columns);
-    row-gap: var(--space-md);
-    align-items: baseline;
+    row-gap: var(--space-lg);
+    align-items: end;
   }
   .music-block > .section-head {
     grid-column: 1 / -1;
   }
   .music-block > p {
-    grid-column: 2;
+    grid-column: 1 / span 8;
     font-family: var(--font-display);
     font-size: var(--text-xl);
     line-height: 1.35;
     color: var(--color-ink);
   }
   .music-block > .follow {
-    grid-column: 2;
-    justify-self: start;
+    grid-column: 9 / -1;
+    justify-self: end;
   }
   .music-block .muted {
     color: var(--color-ink-2);
@@ -952,6 +960,12 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
     .music-block > .follow {
       grid-column: 1;
       grid-row: auto;
+    }
+    .music-block {
+      row-gap: var(--space-md);
+    }
+    .music-block > .follow {
+      justify-self: start;
     }
     .featured-essay {
       padding: var(--space-2xl) var(--space-lg);

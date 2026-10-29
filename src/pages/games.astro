@@ -453,11 +453,13 @@ const labelArt: Record<string, string> = {
   <path d="M104 62l3 3 6-7" stroke="currentColor" stroke-width="1.6" fill="none"/>`),
 };
 
-// FEEDBACK ENDPOINT — LIVE (worker deployed 2026-08-05, probe-verified).
-// If it's ever unreachable, each feedback box degrades in place to
-// "Feedback wire not yet connected." and the page stays presentable.
-// Note: local dev renders show the degraded state (CORS allowlists the
-// production origin) — that's expected, not a defect.
+// FEEDBACK BOX — HIDDEN until a real endpoint is wired (2026-10-29).
+// The live page showed every visitor "Feedback wire not yet connected.", so
+// the field report box (its markup under the cabinet and its widget script at
+// the foot of this file) is not rendered at all while this is false. Bring it
+// back only once FEEDBACK_ENDPOINT answers from the production origin: then
+// set FEEDBACK_WIRED to true. The box's styles stay in place for that day.
+const FEEDBACK_WIRED = false;
 const FEEDBACK_ENDPOINT = 'https://field-trials-feedback.lerugray.workers.dev';
 
 // ============================================================
@@ -681,57 +683,61 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
           }
         </div>
 
-        <section class="field-report" aria-labelledby="fr-heading">
-          <div class="fr-rail">
-            <h3 class="fr-title" id="fr-heading">Field report — tell me what broke</h3>
-            <label class="fr-select-wrap">
-              <span class="fr-select-label">Filed under</span>
-              <select id="fr-game" class="fr-select">
-                {games.map((g) => <option value={g.id}>{g.name}</option>)}
-              </select>
-            </label>
-          </div>
-          <div class="feedback-box" data-endpoint={FEEDBACK_ENDPOINT} data-game={games[0].id}>
-            <p class="feedback-status" hidden></p>
-            <ol class="feedback-list" aria-label="Feedback for the selected game"></ol>
-            <form class="feedback-form" aria-label="Send feedback for the selected game">
-              <div class="feedback-honeypot" aria-hidden="true">
-                <label>
-                  Leave this field blank
-                  <input type="text" name="website" tabindex={-1} autocomplete="off" />
-                </label>
-              </div>
-              <div class="feedback-field">
-                <label class="feedback-label" for="ft-name">
-                  Name <span class="feedback-optional">(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  id="ft-name"
-                  name="name"
-                  maxlength="40"
-                  class="feedback-input"
-                  autocomplete="name"
-                />
-              </div>
-              <div class="feedback-field">
-                <label class="feedback-label" for="ft-body">Feedback</label>
-                <textarea
-                  id="ft-body"
-                  name="body"
-                  maxlength="1000"
-                  rows="3"
-                  required
-                  class="feedback-textarea"
-                  placeholder="What happened? What would you change?"></textarea>
-              </div>
-              <div class="feedback-row">
-                <button type="submit" class="feedback-submit">Send</button>
-                <p class="feedback-note" role="status" aria-live="polite"></p>
-              </div>
-            </form>
-          </div>
-        </section>
+        {/* Hidden until a real feedback endpoint is wired: see FEEDBACK_WIRED in the
+            frontmatter. The markup is kept here, not rendered. */}
+        {FEEDBACK_WIRED && (
+          <section class="field-report" aria-labelledby="fr-heading">
+            <div class="fr-rail">
+              <h3 class="fr-title" id="fr-heading">Field report — tell me what broke</h3>
+              <label class="fr-select-wrap">
+                <span class="fr-select-label">Filed under</span>
+                <select id="fr-game" class="fr-select">
+                  {games.map((g) => <option value={g.id}>{g.name}</option>)}
+                </select>
+              </label>
+            </div>
+            <div class="feedback-box" data-endpoint={FEEDBACK_ENDPOINT} data-game={games[0].id}>
+              <p class="feedback-status" hidden></p>
+              <ol class="feedback-list" aria-label="Feedback for the selected game"></ol>
+              <form class="feedback-form" aria-label="Send feedback for the selected game">
+                <div class="feedback-honeypot" aria-hidden="true">
+                  <label>
+                    Leave this field blank
+                    <input type="text" name="website" tabindex={-1} autocomplete="off" />
+                  </label>
+                </div>
+                <div class="feedback-field">
+                  <label class="feedback-label" for="ft-name">
+                    Name <span class="feedback-optional">(optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="ft-name"
+                    name="name"
+                    maxlength="40"
+                    class="feedback-input"
+                    autocomplete="name"
+                  />
+                </div>
+                <div class="feedback-field">
+                  <label class="feedback-label" for="ft-body">Feedback</label>
+                  <textarea
+                    id="ft-body"
+                    name="body"
+                    maxlength="1000"
+                    rows="3"
+                    required
+                    class="feedback-textarea"
+                    placeholder="What happened? What would you change?"></textarea>
+                </div>
+                <div class="feedback-row">
+                  <button type="submit" class="feedback-submit">Send</button>
+                  <p class="feedback-note" role="status" aria-live="polite"></p>
+                </div>
+              </form>
+            </div>
+          </section>
+        )}
       </div>
     </div>
     <noscript>
@@ -1747,184 +1753,11 @@ const noteCountLabel = (n: number) => `${n} ${n === 1 ? 'note' : 'notes'}`;
   initCabinet();
 </script>
 
-<script>
-  // Field notes are SERVER-RENDERED from public/field-trials/devlog.json at
-  // build time (see the page frontmatter). The old runtime fetch that built
-  // the list in the browser was removed 2026-08-17 — it is superseded, and two
-  // renderers for one list is how they drift apart.
+{/* Field notes are SERVER-RENDERED from public/field-trials/devlog.json at
+    build time (see the page frontmatter). The old runtime fetch that built
+    the list in the browser was removed 2026-08-17 — it is superseded, and two
+    renderers for one list is how they drift apart. */}
 
-  // Field Trials feedback widget. One shared script wires every
-  // .feedback-box on the page against its own data-game / data-endpoint.
-  // If the endpoint is unreachable (placeholder URL, worker not deployed
-  // yet, network hiccup), each box degrades independently to a quiet
-  // status line and never shows a broken form.
-  interface FeedbackComment {
-    id?: number;
-    name?: string | null;
-    body: string;
-    created?: string;
-  }
-
-  function formatDate(iso?: string): string {
-    if (!iso) return '';
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return '';
-    return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
-  }
-
-  function renderComments(listEl: HTMLOListElement, comments: FeedbackComment[]) {
-    listEl.textContent = '';
-    if (!comments.length) {
-      const empty = document.createElement('li');
-      empty.className = 'feedback-empty';
-      empty.textContent = 'No feedback yet — be the first.';
-      listEl.appendChild(empty);
-      return;
-    }
-    for (const c of comments) {
-      const li = document.createElement('li');
-      li.className = 'feedback-comment';
-
-      const meta = document.createElement('p');
-      meta.className = 'feedback-comment-meta';
-      const who = c.name && c.name.trim() ? c.name.trim() : 'Anonymous';
-      const when = formatDate(c.created);
-      meta.textContent = when ? `${who} · ${when}` : who;
-
-      const body = document.createElement('p');
-      body.className = 'feedback-comment-body';
-      body.textContent = c.body;
-
-      li.appendChild(meta);
-      li.appendChild(body);
-      listEl.appendChild(li);
-    }
-  }
-
-  function degrade(statusEl: HTMLElement, listEl: HTMLElement, formEl: HTMLElement) {
-    statusEl.textContent = 'Feedback wire not yet connected.';
-    statusEl.hidden = false;
-    listEl.hidden = true;
-    formEl.hidden = true;
-  }
-
-  async function init() {
-    // ONE field-report box for the whole cabinet (Ray, 2026-08-12): the game
-    // dropdown replaces the old per-panel boxes; selecting a cartridge files
-    // the report under that game automatically.
-    const box = document.querySelector<HTMLElement>('.feedback-box');
-    const gameSelect = document.querySelector<HTMLSelectElement>('#fr-game');
-    if (!box || !gameSelect) return;
-
-    const endpoint = box.dataset.endpoint;
-    const statusEl = box.querySelector<HTMLElement>('.feedback-status');
-    const listEl = box.querySelector<HTMLOListElement>('.feedback-list');
-    const formEl = box.querySelector<HTMLFormElement>('.feedback-form');
-    const noteEl = box.querySelector<HTMLElement>('.feedback-note');
-    const submitEl = box.querySelector<HTMLButtonElement>('.feedback-submit');
-    if (!endpoint || !statusEl || !listEl || !formEl || !noteEl || !submitEl) return;
-
-    let game = gameSelect.value;
-    let loadSeq = 0;
-
-    const fetchThread = async (id: string): Promise<FeedbackComment[]> => {
-      const res = await fetch(`${endpoint}/comments?game=${encodeURIComponent(id)}`, {
-        headers: { Accept: 'application/json' },
-      });
-      if (!res.ok) throw new Error(`status ${res.status}`);
-      const data = await res.json();
-      return Array.isArray(data) ? data : [];
-    };
-
-    // The first load gates degrade — endpoint unreachable means the whole
-    // plate goes quiet, never broken.
-    try {
-      renderComments(listEl, await fetchThread(game));
-    } catch {
-      degrade(statusEl, listEl, formEl);
-      gameSelect.disabled = true;
-      return;
-    }
-
-    const showThread = async (id: string) => {
-      game = id;
-      const seq = ++loadSeq;
-      try {
-        const comments = await fetchThread(id);
-        if (seq === loadSeq) renderComments(listEl, comments);
-      } catch {
-        if (seq !== loadSeq) return;
-        listEl.textContent = '';
-        const li = document.createElement('li');
-        li.className = 'feedback-empty';
-        li.textContent = "Couldn't load this thread right now.";
-        listEl.appendChild(li);
-      }
-    };
-
-    gameSelect.addEventListener('change', () => {
-      void showThread(gameSelect.value);
-    });
-
-    document.getElementById('cabinet')?.addEventListener('cab:select', ((e: Event) => {
-      const id = (e as CustomEvent).detail?.id as string | undefined;
-      if (!id || id === gameSelect.value) return;
-      if (![...gameSelect.options].some((o) => o.value === id)) return;
-      gameSelect.value = id;
-      void showThread(id);
-    }) as EventListener);
-
-    formEl.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = new FormData(formEl);
-      const honeypot = String(data.get('website') || '').trim();
-      const body = String(data.get('body') || '').trim();
-      const name = String(data.get('name') || '').trim();
-
-      if (!body) {
-        noteEl.textContent = 'Say something first.';
-        noteEl.classList.add('is-error');
-        return;
-      }
-
-      submitEl.disabled = true;
-      noteEl.textContent = 'Sending…';
-      noteEl.classList.remove('is-error');
-
-      try {
-        const res = await fetch(`${endpoint}/comments`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ game, name: name || undefined, body, website: honeypot }),
-        });
-        if (!res.ok) throw new Error(`status ${res.status}`);
-        const created: FeedbackComment = await res.json();
-
-        const emptyLi = listEl.querySelector('.feedback-empty');
-        if (emptyLi) emptyLi.remove();
-
-        const li = document.createElement('li');
-        li.className = 'feedback-comment';
-        const meta = document.createElement('p');
-        meta.className = 'feedback-comment-meta';
-        meta.textContent = `${name || 'Anonymous'} · just now`;
-        const bodyEl = document.createElement('p');
-        bodyEl.className = 'feedback-comment-body';
-        bodyEl.textContent = created.body ?? body;
-        li.appendChild(meta);
-        li.appendChild(bodyEl);
-        listEl.insertBefore(li, listEl.firstChild);
-
-        formEl.reset();
-        noteEl.textContent = "Thanks — that's in.";
-      } catch {
-        noteEl.textContent = "Couldn't send that. Try again in a bit.";
-        noteEl.classList.add('is-error');
-      } finally {
-        submitEl.disabled = false;
-      }
-    });
-  }
-
-  init();
-</script>
+{/* The feedback widget's script hook ships only with the box: hidden until a
+    real endpoint is wired (FEEDBACK_WIRED in the frontmatter). */}
+{FEEDBACK_WIRED && <script src="../scripts/field-report.ts"></script>}
