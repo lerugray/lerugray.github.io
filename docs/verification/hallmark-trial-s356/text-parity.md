@@ -129,3 +129,28 @@ Pages: `/games/`, `/`, `/kit/`, `/services/`, `/works/`
 - `/wargame-modules/`: `→` to `(nothing)`
 - `/wargame-modules/`: `→` to `(nothing)`
 - `/wargame-modules/`: `→` to `(nothing)`
+
+## FIX1
+
+Rerun on fresh builds of look D (af54ea5), the redesign before this fix (564468c) and the FIX1 head (495c25b), with the same stripping as above (scripts, styles, inline SVG and the head removed; the twelve redrawn cartridge labels are inline SVG, so they add no words).
+
+```
+D -> 564468c  WORDS removed=463 added=228 changes=323
+D -> 495c25b  WORDS removed=468 added=228 changes=325
+564468c -> 495c25b  WORDS removed=5 added=0 changes=2
+changes in D -> 495c25b that are not in D -> 564468c: 2
+changes in D -> 564468c that are gone from D -> 495c25b: 0
+```
+
+The rerun counts words at block boundaries a little differently from the first run (467/227/321 above), so its totals differ by a few words; the comparison that matters is between the two reruns, which use one method.
+
+Every change from look D to the fixed redesign was already a change from look D to the redesign before the fix (the changes listed above), except exactly these two, both on `/`:
+
+- `/`: `Brooklyn, NY · 40°41′N` to `(nothing)`
+- `/`: `rweiss@consimsltd.com` to `(nothing)`
+
+### duplicate locator and address removed from the header on / (2)
+
+On `/` the header no longer prints "Brooklyn, NY · 40°41′N" or the address, because the hero prints both directly under it (defect 3: each item once on the first screen). The hero keeps "Brooklyn, NY", "40°41′N" and the address button, so no word leaves the page; only the second copy goes. Every other page keeps the header locator and address as before.
+
+No content sentence changed. Nothing was reworded, and no new label or sentence was added: the cartridge pictures are drawings, the dash fix is a font face, and the layout fixes are CSS and one script.

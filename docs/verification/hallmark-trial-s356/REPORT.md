@@ -5,6 +5,50 @@ Headless Chrome ran: Hallmark's render tier (sloplint --render, through puppetee
 
 Branch `gs/hallmark-trial-s356`. `head=274a682` is the redesign commit every check and frame below ran against; the commit that adds this report and its proof files sits on top and changes nothing under `src/`. Nothing was pushed or merged to `main`, nothing was deployed, and no pull request was opened.
 
+## FIX1
+
+HALLMARK-FIX1 DONE head=495c25b fixed=6/6 build=green routes=50=50 links_ok=1435/1435 floor=0 frames=32
+
+The independent look passed the redesign with six defects. All six are fixed on this branch in the Specimen material. `head=495c25b` is the fix commit that every check and frame in this section ran against. The commit that adds this section, its proof files and the new frames sits on top and changes nothing under `src/`. Branch only: nothing went to `main`, no pull request, no deploy. This section supersedes "What the old design did better" further down: both gaps that section kept are now closed.
+
+### The six, and what changed
+
+1. **/games/ pictures.** Every cartridge has its picture again. I redrew look D's twelve label drawings (the `labelArt` SVGs at af54ea5) in Specimen's material. They keep the same compositions in ink on oat, using `currentColor`, tints of it and the cell's own ground. The hairlines stay 1px at any size, and there is no hue. The selected cartridge fills ink and its label prints in reverse. The page copy ("Pick a cartridge below… under the cabinet") is untouched and now matches the screen. The Jacquard Index label has its clue digits back. The drawings are code in `src/pages/games.astro`: no stock, AI or new raster images.
+2. **Phone nav.** Under 70rem the seven links wrap onto their own rows, two rows at 390px, as look D's did. The sideways scroll and its fade are gone. I checked six pages at 390px: no link sits off screen and the page stays 390px wide.
+3. **Home first screen.** The name now holds seven of the twelve columns under its guides, with the statement beside it, on a paper-2 plate. Under that, the commissions run in two columns: the flagship with "Price $400 to $800." on the left, the three services on the right. At 1440x900 all three prices are on the first screen; the last ends at y 874. On `/` the header drops its locator and its address, because the hero prints both directly under it, so each shows once. Every other page keeps the header as it was.
+4. **/games/ on a phone.** Under 980px the selected build's details open inside the shelf, directly under the row of the tapped cartridge, as a drawer. The tapped cartridge stays where the finger was. If the details would start low on the screen, the row lifts to the top so the picture and Play come into view. On first load the details close the shelf, so all twelve cartridges read together first. A deep link such as `#capriole` opens under that cartridge's own row. Desktop is unchanged: the details stay in the column beside the shelf. Keys pressed inside the opened details no longer move the shelf's selection.
+5. **Bodoni dashes.** Bodoni Moda draws its en and em dashes as one hairline at every optical size and weight; I tested up to weight 900. Two `unicode-range` faces now join the Bodoni family for the dash code points only and draw them from Geist. The text is unchanged. On /games/, Chrome's own font report shows the statement and the field-report head drawing their dashes from Geist and every other glyph from Bodoni.
+6. **Phone link underlines.** The underline now sits 0.1em under the baseline instead of 0.18em, with skip-ink set. Wrapped display titles get a little more line height (1.2 to 1.22). The line now breaks around J and g tails and stays clear of the next line.
+
+Checking turned up two smaller faults, both fixed. On touch screens the tapped cartridge kept a hover tint; it now shows the plain ink fill. At laptop widths (960 to 1200px) the home's identity line wraps, and the counter now holds its first line instead of floating between two.
+
+### Proof (files in this folder)
+
+| # | Check | Result | File |
+| --- | --- | --- | --- |
+| 1 | `npm run build` at 495c25b | green, 37 pages | `build-H-r1.txt` |
+| 2 | Built HTML routes, look D against the fix | 50 = 50, identical set | `parity-r1.md` |
+| 2 | Internal hrefs resolving, fragments checked | D 1502/1502, fix 1435/1435 | `parity-r1.md` |
+| 2 | Every `<a href>`, per page | 1707 to 1706: the header's copy of the address on `/`, removed on purpose; no destination is lost from any page and nothing is gained | `parity-r1.md` |
+| 2 | Visible text, word level | look D to the fix equals look D to the redesign before it, plus two removals on `/` (the header's "Brooklyn, NY · 40°41′N" and its address); no sentence changed | `text-parity.md`, section FIX1 |
+| 3 | `sloplint --render --kept`, whole site | fix: 0 FAIL, 0 REFLEX, 0 WARN (42 waived, 19 answered, 37 dismissed, 58 notes); kept: links 135/135, fields 4/4, headings 177/181 and figures 164/165, every gap on the record | `sloplint-H-site-r1.txt` |
+| 3 | Look D, same conditions | 182 FAIL, 235 REFLEX, 83 WARN | `sloplint-D-site-r1.txt` |
+| 4 | Frames | 32 new captures named `-r1-s356.png`, beside the 32 originals; same pages, sizes and densities | `frames/` |
+| 5 | Repo checks | `astro check` 0 errors; ESLint clean on `src` | (run in session) |
+
+### On the record
+
+- **Gate 44c is waived.** It wants the hero to fill the first screen and only that screen. Defect 3 wants the commissions and their prices on that screen, so on `/` the hero plate ends near 432px and the commissions start under it. The stamp says so. That makes four waived Reflex gates, which sloplint reports as a note, not a failure.
+- **Gate 59 is met, not waived.** It wants 112px between sections, or 64px where the paper changes. The hero plate is paper-2 and the commissions sit on the page's paper, so the 70px between them passes. The plate and Start here are the page's two bands, the most Specimen allows.
+- **Look D's count is 182 FAIL here, not 186.** The first run linted look D from a folder without the project's `package.json`. Files that carry no CSS of their own (a layout, a component and two page templates) then did not inherit the stylesheet's focus styles. Both builds in this section ran with the project root in place. My own first lint of the fix had the same gap and showed 6 FAIL on those same files; rerunning with the root cleared them, which is how I found the cause.
+- **Text totals.** The rerun splits words at block boundaries slightly differently from the first run, so its totals for the redesign before this fix (463 removed, 228 added) differ by a few words from the first run's 467 and 227. The FIX1 comparison uses the same method for every build.
+- **No new requests.** The dash faces reuse the Geist file every page already loads, and the page still sets three families (gate 37).
+
+### Still yours to weigh
+
+- At 1440x900 the /games/ first screen is still the title and the statement, and the cartridges start one scroll down. Look D's cabinet began on the first screen. That was not one of the six, so it stays as it was.
+- On a phone, a tap opens a long drawer (the capture, the facts, the audit, Play) under that row of cartridges, and the rest of the shelf continues below it.
+
 ## For Ray, in four lines
 
 1. **Audit of look D** (`AUDIT.md`): on the six pages, Hallmark's linter finds 98 Floor, 94 Reflex and 14 Finish findings, and the judged gates add 11 Reflex and 1 Finish. The headline is gate 65: cream paper, a serif display and a clay-red accent together are the single most recognised generated look, and look D sits inside all three bands. The words, prices and module captures are strong; the system around them is what reads as machine-made.
