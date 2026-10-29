@@ -1,0 +1,63 @@
+npm run build at the redesign head
+
+
+> personal-site@0.1.0 build
+> astro build
+
+13:14:40 [content] Syncing content
+13:14:40 [content] Synced content
+13:14:40 [types] Generated 1.08s
+13:14:40 [build] output: "static"
+13:14:40 [build] mode: "static"
+13:14:40 [build] directory: dist/
+13:14:40 [build] Collecting build info...
+13:14:40 [build] ✓ Completed in 1.15s.
+13:14:40 [build] Building static entrypoints...
+13:14:43 [vite] ✓ built in 3.05s
+13:14:43 [vite] ✓ built in 127ms
+13:14:43 [build] Rearranging server assets...
+
+ generating static routes 
+13:14:43   ├─ /about/index.html (+22ms) 
+13:14:44   ├─ /auftragstaktik/index.html (+7ms) 
+13:14:44   ├─ /buddies/index.html (+7ms) 
+13:14:44   ├─ /catalogdna/index.html (+6ms) 
+13:14:44   ├─ /conflict-simulations-llc/death-of-an-empire/index.html (+7ms) 
+13:14:44   ├─ /conflict-simulations-llc/veridian-contraption/index.html (+6ms) 
+13:14:44   ├─ /conflict-simulations-llc/zero-page/index.html (+8ms) 
+13:14:44   ├─ /conflict-simulations-llc/index.html (+11ms) 
+13:14:44   ├─ /devforge/index.html (+10ms) 
+13:14:44   ├─ /field-trials/index.html (+8ms) 
+13:14:44   ├─ /games/index.html (+13ms) 
+13:14:44   ├─ /generalstaff/index.html (+6ms) 
+13:14:44   ├─ /hammerstein/index.html (+11ms) 
+13:14:44   ├─ /hammerstein-ai/index.html (+4ms) 
+13:14:44   ├─ /hammerstein-model/index.html (+4ms) 
+13:14:44   ├─ /kit/index.html (+3ms) 
+13:14:44   ├─ /mission-brain/index.html (+3ms) 
+13:14:44   ├─ /music/index.html (+4ms) 
+13:14:44   ├─ /raybrain/index.html (+3ms) 
+13:14:44   ├─ /retrogaze/index.html (+4ms) 
+13:14:44   ├─ /services/index.html (+6ms) 
+13:14:44   ├─ /wargame-modules/index.html (+7ms) 
+13:14:44   ├─ /works/index.html (+10ms) 
+13:14:44   ├─ /writing/boolean-gates/index.html (+7ms) 
+13:14:44   ├─ /writing/columbo-needed-a-confession/index.html (+4ms) 
+13:14:44   ├─ /writing/democratic-defeat-counter-autopsy/index.html (+4ms) 
+13:14:44   ├─ /writing/gs-launch-post/index.html (+3ms) 
+13:14:44   ├─ /writing/hammerstein/index.html (+3ms) 
+13:14:44   ├─ /writing/hundred-percent-then-broke-it/index.html (+3ms) 
+13:14:44   ├─ /writing/i-am-the-gate/index.html (+3ms) 
+13:14:44   ├─ /writing/judgment-does-not-transfer/index.html (+2ms) 
+13:14:44   ├─ /writing/out-of-the-notebook/index.html (+2ms) 
+13:14:44   ├─ /writing/the-bird-didnt-run/index.html (+2ms) 
+13:14:44   ├─ /writing/the-model-that-hangs-up/index.html (+2ms) 
+13:14:44   ├─ /writing/the-register-not-the-man/index.html (+2ms) 
+13:14:44   ├─ /writing/index.html (+7ms) 
+13:14:44   ├─ /index.html (+5ms) 
+13:14:44 ✓ Completed in 268ms.
+
+13:14:44 [build] ✓ Completed in 3.55s.
+13:14:44 [build] 37 page(s) built in 4.87s
+13:14:44 [build] Complete!
+exit=0

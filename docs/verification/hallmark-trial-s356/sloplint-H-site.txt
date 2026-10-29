@@ -1,0 +1,218 @@
+sloplint --render --kept over the redesign: static src plus 36 rendered routes (/raybrain/ skipped as in the look D run), compared against look D's before record
+
+render tier: 180 screenshots in .hallmark/shots (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
+/games/
+  WAIVED 39b :1 [1440px] control height outside 44 to 52px: button.cart 188px, button.cart 188px, button.cart 188px
+  DISMISSED 77 :1 [1440px] 3 sections, hero and footer included
+  NOTE 58 :1 [1440px] 206 words on one screen (from y=2600) | fix: One idea per screen: cut to about 80 words, make the section an object
+  NOTE 58 :1 [1440px] hero carries 4 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+/
+  WAIVED 49b :1 [320px] link "Digital wargame modules" wraps to 2 lines (a)
+  WAIVED 49b :1 [320px] link "AI workflow & automation builds" wraps to 2 lines (a)
+  WAIVED 49b :1 [1024px] link "Digital wargame modules" wraps to 3 lines (a)
+  WAIVED 49b :1 [1024px] link "Custom voice & persona models" wraps to 2 lines (a)
+  DISMISSED 77 :1 [1440px] 4 sections, hero and footer included
+  NOTE 58 :1 [1440px] 197 words on one screen (from y=3850)
+  NOTE 58 :1 [1440px] hero carries 4 text blocks before its actions
+/conflict-simulations-llc/
+  WAIVED 49b :1 [320px] link "Veridian Contraption" wraps to 2 lines (a)
+  WAIVED 49b :1 [320px] link "Death Of An Empire" wraps to 2 lines (a)
+  WAIVED 49b :1 [320px] link "Prigozhin's March of Justice" wraps to 2 lines (a)
+  WAIVED 79 :1 [1440px] 596px of nothing between the hero's last content (y 304) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 110 words on one screen (from y=4450)
+/wargame-modules/
+  WAIVED 49b :1 [320px] link "The World Undone: East Front Tri" wraps to 2 lines (a)
+  WAIVED 49b :1 [320px] link "Publishers who want an official " wraps to 2 lines (a)
+  NOTE 58 :1 [1440px] 226 words on one screen (from y=7800)
+  NOTE 58 :1 [1440px] hero carries 3 text blocks before its actions
+/about/
+  WAIVED 79 :1 [1440px] 643px of nothing between the hero's last content (y 257) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 344 words on one screen (from y=950)
+/auftragstaktik/
+  WAIVED 79 :1 [1440px] 566px of nothing between the hero's last content (y 334) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 247 words on one screen (from y=450)
+/buddies/
+  WAIVED 79 :1 [1440px] 566px of nothing between the hero's last content (y 334) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 200 words on one screen (from y=450)
+/catalogdna/
+  WAIVED 79 :1 [1440px] 566px of nothing between the hero's last content (y 334) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 195 words on one screen (from y=300)
+/conflict-simulations-llc/death-of-an-empire/
+  WAIVED 79 :1 [1440px] 559px of nothing between the hero's last content (y 341) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 281 words on one screen (from y=450)
+/conflict-simulations-llc/veridian-contraption/
+  WAIVED 79 :1 [1440px] 559px of nothing between the hero's last content (y 341) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 230 words on one screen (from y=1450)
+/conflict-simulations-llc/zero-page/
+  WAIVED 79 :1 [1440px] 559px of nothing between the hero's last content (y 341) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 221 words on one screen (from y=1950)
+/devforge/
+  WAIVED 79 :1 [1440px] 596px of nothing between the hero's last content (y 304) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 107 words on one screen (from y=0)
+/field-trials/
+  WAIVED 79 :1 [1440px] 596px of nothing between the hero's last content (y 304) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+/generalstaff/
+  WAIVED 79 :1 [1440px] 558px of nothing between the hero's last content (y 342) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 250 words on one screen (from y=1300)
+  NOTE 58 :1 [1440px] hero carries 3 text blocks before its actions
+/hammerstein-ai/
+  WAIVED 79 :1 [1440px] 497px of nothing between the hero's last content (y 403) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 220 words on one screen (from y=1000)
+  NOTE 58 :1 [1440px] hero carries 3 text blocks before its actions
+/hammerstein-model/
+  WAIVED 79 :1 [1440px] 558px of nothing between the hero's last content (y 342) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 251 words on one screen (from y=1200)
+  NOTE 58 :1 [1440px] hero carries 3 text blocks before its actions
+/hammerstein/
+  WAIVED 79 :1 [1440px] 527px of nothing between the hero's last content (y 373) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 273 words on one screen (from y=1200)
+  NOTE 58 :1 [1440px] hero carries 3 text blocks before its actions
+/kit/
+  WAIVED 79 :1 [1440px] 551px of nothing between the hero's last content (y 349) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 194 words on one screen (from y=500)
+/mission-brain/
+  WAIVED 79 :1 [1440px] 558px of nothing between the hero's last content (y 342) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 257 words on one screen (from y=1700)
+  NOTE 58 :1 [1440px] hero carries 3 text blocks before its actions
+/music/
+  WAIVED 79 :1 [1440px] 566px of nothing between the hero's last content (y 334) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 182 words on one screen (from y=450)
+/retrogaze/
+  WAIVED 79 :1 [1440px] 535px of nothing between the hero's last content (y 365) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 273 words on one screen (from y=950)
+/services/
+  WAIVED 79 :1 [1440px] 551px of nothing between the hero's last content (y 349) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 255 words on one screen (from y=850)
+/works/
+  WAIVED 79 :1 [1440px] 505px of nothing between the hero's last content (y 395) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 196 words on one screen (from y=2150)
+/writing/
+  WAIVED 79 :1 [1440px] 643px of nothing between the hero's last content (y 257) and the fold
+  DISMISSED 77 :1 [1440px] 2 sections, hero and footer included
+  NOTE 58 :1 [1440px] 102 words on one screen (from y=1500)
+/writing/boolean-gates/
+  WAIVED 79 :1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 353 words on one screen (from y=2800)
+/writing/columbo-needed-a-confession/
+  WAIVED 79 :1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 319 words on one screen (from y=650)
+/writing/democratic-defeat-counter-autopsy/
+  WAIVED 79 :1 [1440px] 567px of nothing between the hero's last content (y 333) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 384 words on one screen (from y=7750)
+/writing/gs-launch-post/
+  WAIVED 79 :1 [1440px] 567px of nothing between the hero's last content (y 333) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 359 words on one screen (from y=900)
+/writing/hammerstein/
+  WAIVED 79 :1 [1440px] 567px of nothing between the hero's last content (y 333) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 318 words on one screen (from y=3950)
+/writing/hundred-percent-then-broke-it/
+  WAIVED 79 :1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 303 words on one screen (from y=4100)
+/writing/i-am-the-gate/
+  WAIVED 79 :1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 338 words on one screen (from y=600)
+/writing/judgment-does-not-transfer/
+  WAIVED 79 :1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 377 words on one screen (from y=1800)
+/writing/out-of-the-notebook/
+  WAIVED 79 :1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 381 words on one screen (from y=900)
+/writing/the-bird-didnt-run/
+  WAIVED 79 :1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 381 words on one screen (from y=600)
+/writing/the-model-that-hangs-up/
+  WAIVED 79 :1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 356 words on one screen (from y=1650)
+/writing/the-register-not-the-man/
+  WAIVED 79 :1 [1440px] 630px of nothing between the hero's last content (y 270) and the fold
+  DISMISSED 77 :1 [1440px] 1 sections, hero and footer included
+  NOTE 58 :1 [1440px] 408 words on one screen (from y=1600)
+src/pages/about.astro
+  ANSWERED F1 :14 straight quote in prose x5 (first: ittle about me. I've been design)
+src/pages/buddies.astro
+  ANSWERED F1 :31 straight quote in prose x3 (first: Claude doesn't burn tokens)
+  NOTE 58 :14 hero paragraph runs 15 words | fix: One sentence, twelve words or fewer
+src/pages/catalogdna.astro
+  ANSWERED F1 :14 straight quote in prose x2 (first: ineers a musician's catalog into)
+src/pages/conflict-simulations-llc.astro
+  ANSWERED F1 :13 straight quote in prose x3 (first: Ray Weiss's imprint for)
+src/pages/conflict-simulations-llc/death-of-an-empire.astro
+  ANSWERED F1 :23 straight quote in prose x7 (first: in-Chief. You don't move units.)
+src/pages/conflict-simulations-llc/veridian-contraption.astro
+  ANSWERED F1 :44 straight quote in prose x2 (first: ed Dwarf Fortress's narrative la)
+  NOTE 19 :40 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
+src/pages/devforge.astro
+  ANSWERED F1 :17 straight quote in prose x2 (first: or people who don't touch git an)
+src/pages/games.astro
+  ANSWERED F1 :331 straight quote in prose x3 (first: These are games I'm still buildi)
+  DISMISSED 49 :373 long clickable label "{game.name} {game.name} {game.regis…" without nowrap
+  NOTE 19 :331 dash "—" in copy
+src/pages/generalstaff.astro
+  ANSWERED F1 :245 straight quote in prose x2 (first: kes the framework's vo)
+  NOTE 19 :167 dash "—" in copy
+src/pages/hammerstein-ai.astro
+  ANSWERED F1 :59 straight quote in prose x1 (first: What's shipped)
+src/pages/hammerstein-model.astro
+  ANSWERED F1 :43 straight quote in prose x5 (first: is not the model's ra)
+  NOTE 19 :45 dash "—" in copy
+src/pages/hammerstein.astro
+  ANSWERED F1 :39 straight quote in prose x3 (first: Von Hammerstein's Ghost, In Da)
+  NOTE 19 :44 dash "—" in copy
+src/pages/index.astro
+  ANSWERED F1 :41 straight quote in prose x11 (first: tried and couldn't quite learn)
+  NOTE 19 :312 dash "—" in copy
+src/pages/kit.astro
+  ANSWERED F1 :74 straight quote in prose x2 (first: follows hexwright's conventions,)
+src/pages/mission-brain.astro
+  ANSWERED F1 :35 straight quote in prose x5 (first: . RayBrain is Ray's private inst)
+src/pages/music.astro
+  ANSWERED F1 :21 straight quote in prose x10 (first: Le Rug was Ray's main music p)
+  NOTE 58 :13 hero paragraph runs 22 words
+src/pages/retrogaze.astro
+  ANSWERED F1 :22 straight quote in prose x7 (first: ide that platform's actual)
+  NOTE 58 :13 hero paragraph runs 26 words
+src/pages/services.astro
+  ANSWERED F1 :50 straight quote in prose x1 (first: er, not the model's)
+src/pages/wargame-modules.astro
+  ANSWERED F1 :209 straight quote in prose x3 (first: oody April is GMT's game of the)
+src/pages/conflict-simulations-llc/zero-page.astro
+  DISMISSED 49 :93 long clickable label "Operator Reference Manual" without nowrap
+  NOTE 19 :119 dash "—" in copy
+src/pages/auftragstaktik.astro
+  NOTE 58 :14 hero paragraph runs 21 words
+src/pages/works.astro
+  NOTE 58 :63 hero paragraph runs 37 words
+sloplint: 0 FAIL, 0 WARN, 43 WAIVED, 19 ANSWERED, 37 DISMISSED, 55 NOTE across 36 file(s) and 36 URL(s).
+kept: links 135/135, fields 4/4, headings 177/181 (4 dropped on record), figures 164/165 (1 dropped on record); before 186 FAIL, 240 REFLEX, now 0 FAIL, 0 REFLEX
+compare: .hallmark/compare.html shows before and after side by side

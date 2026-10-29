@@ -52,7 +52,7 @@ Pages: `/about/`, `/auftragstaktik/`, `/buddies/`, `/catalogdna/`, `/conflict-si
 - `/services/`: `/ TYPE` to `Type`
 - `/services/`: `UNIT` to `Unit`
 
-### other (47)
+### /games/ roster: tile counters, slot labels, the play glyph and dash separators dropped (gate 66 decoration); the build names now set as text in the cells (47)
 
 - `/games/`: `AUDITS PUBLISHED No.01` to `audits published`
 - `/games/`: `No.02` to `Chapel Perilous First-person grid crawler`

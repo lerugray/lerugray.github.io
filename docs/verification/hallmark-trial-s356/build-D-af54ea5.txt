@@ -1,0 +1,63 @@
+npm run build at af54ea5 (look D), clean npm ci in a scratch worktree
+
+
+> personal-site@0.1.0 build
+> astro build
+
+12:27:26 [content] Syncing content
+12:27:27 [content] Synced content
+12:27:27 [types] Generated 2.06s
+12:27:27 [build] output: "static"
+12:27:27 [build] mode: "static"
+12:27:27 [build] directory: <scratch>
+12:27:27 [build] Collecting build info...
+12:27:27 [build] ✓ Completed in 2.10s.
+12:27:27 [build] Building static entrypoints...
+12:27:31 [vite] ✓ built in 3.24s
+12:27:31 [vite] ✓ built in 105ms
+12:27:31 [build] Rearranging server assets...
+
+ generating static routes 
+12:27:31   ├─ /about/index.html (+33ms) 
+12:27:31   ├─ /auftragstaktik/index.html (+19ms) 
+12:27:31   ├─ /buddies/index.html (+12ms) 
+12:27:31   ├─ /catalogdna/index.html (+14ms) 
+12:27:31   ├─ /conflict-simulations-llc/death-of-an-empire/index.html (+12ms) 
+12:27:31   ├─ /conflict-simulations-llc/veridian-contraption/index.html (+11ms) 
+12:27:31   ├─ /conflict-simulations-llc/zero-page/index.html (+10ms) 
+12:27:31   ├─ /conflict-simulations-llc/index.html (+10ms) 
+12:27:31   ├─ /devforge/index.html (+11ms) 
+12:27:31   ├─ /field-trials/index.html (+9ms) 
+12:27:31   ├─ /games/index.html (+18ms) 
+12:27:31   ├─ /generalstaff/index.html (+15ms) 
+12:27:31   ├─ /hammerstein/index.html (+11ms) 
+12:27:31   ├─ /hammerstein-ai/index.html (+10ms) 
+12:27:31   ├─ /hammerstein-model/index.html (+10ms) 
+12:27:31   ├─ /kit/index.html (+9ms) 
+12:27:31   ├─ /mission-brain/index.html (+8ms) 
+12:27:31   ├─ /music/index.html (+8ms) 
+12:27:31   ├─ /raybrain/index.html (+7ms) 
+12:27:31   ├─ /retrogaze/index.html (+7ms) 
+12:27:31   ├─ /services/index.html (+9ms) 
+12:27:31   ├─ /wargame-modules/index.html (+12ms) 
+12:27:31   ├─ /works/index.html (+16ms) 
+12:27:31   ├─ /writing/boolean-gates/index.html (+6ms) 
+12:27:31   ├─ /writing/columbo-needed-a-confession/index.html (+4ms) 
+12:27:31   ├─ /writing/democratic-defeat-counter-autopsy/index.html (+4ms) 
+12:27:31   ├─ /writing/gs-launch-post/index.html (+4ms) 
+12:27:31   ├─ /writing/hammerstein/index.html (+4ms) 
+12:27:31   ├─ /writing/hundred-percent-then-broke-it/index.html (+4ms) 
+12:27:31   ├─ /writing/i-am-the-gate/index.html (+4ms) 
+12:27:31   ├─ /writing/judgment-does-not-transfer/index.html (+4ms) 
+12:27:31   ├─ /writing/out-of-the-notebook/index.html (+4ms) 
+12:27:31   ├─ /writing/the-bird-didnt-run/index.html (+4ms) 
+12:27:31   ├─ /writing/the-model-that-hangs-up/index.html (+4ms) 
+12:27:31   ├─ /writing/the-register-not-the-man/index.html (+4ms) 
+12:27:31   ├─ /writing/index.html (+13ms) 
+12:27:31   ├─ /index.html (+10ms) 
+12:27:31 ✓ Completed in 419ms.
+
+12:27:31 [build] ✓ Completed in 3.87s.
+12:27:31 [build] 37 page(s) built in 5.98s
+12:27:31 [build] Complete!
+exit=0
