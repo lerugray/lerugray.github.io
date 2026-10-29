@@ -1,11 +1,20 @@
 /* Hallmark · shape: Long Document (pages), Index-First (/) · genre: editorial · theme: Specimen (deal 1/3, seed personal-brooklyn-wargame-designer-8be8·276607cb·2026-10-29·r0) · redesign: full · job: hire
- * hero: Banner (pages, /writing), Settled (/) · nav: edge-aligned, the counter and wordmark left, seven links and the contact address right · footer: index columns (a real sitemap of 37 pages), then contact and a colophon · imagery: the product, Ray's own captures and covers, no library photographs · signature: the name set at poster size in Bodoni with ink-blue guides at its cap height and baseline
+ * hero: Banner (pages, /writing), Settled (/), Stage (/wargame-modules) · nav: edge-aligned, the counter and wordmark left, seven links and the contact address right · footer: index columns (a real sitemap of 37 pages), then contact and a colophon · imagery: the product, Ray's own captures and covers, no library photographs · signature: the name set at poster size in Bodoni with ink-blue guides at its cap height and baseline
  * axes: light/high-contrast-serif/cool · posture: restrained · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4 · weakest: S, the Specimen material belongs to a foundry; the RW unit counter, the dated essay index and Ray's own module captures carry the specificity */
 /* Hallmark · hero-review: fix · 5 findings · 3 resolved 2 partial (the nav repeats the location and the address on /, the statement runs past the action) */
 /* Hallmark · waive 79 · document pages open on a Banner and their prose starts under it inside the same frame, above the fold · the render tier counts only section boundaries, so the essay and product text that follows the banner reads to it as empty paper */
 /* Hallmark · waive 49b · entry titles in the essay, business and catalog indexes are names that cannot shorten, two lines at most on a phone · essay titles and game names are Ray's own and wrap rather than truncate */
 /* Hallmark · waive 39b · Play and Send stand 48px; only the twelve roster cells on Field Trials run taller · each roster cell is the specimen of one build, its name set in Bodoni over its register, and selecting it fills the cell ink */
+/* Hallmark · reworded "Digital wargame modules →" to "Digital wargame modules" · 63 names the arrow glued to link text */
+/* Hallmark · reworded "AI workflow & automation builds →" to "AI workflow & automation builds" · 63 names the arrow glued to link text */
+/* Hallmark · reworded "Custom voice & persona models →" to "Custom voice & persona models" · 63 names the arrow glued to link text */
+/* Hallmark · reworded "Game-design consultation →" to "Game-design consultation" · 63 names the arrow glued to link text */
+/* Hallmark · reworded "By build 12 builds · 50 notes" to "By build 12 builds 50 notes" (the counts now sit in their own ruled spans) · 63 names the middle dot */
+/* Hallmark · dropped the twelve drawn cartridge labels on /games/, among them the Jacquard Index nonogram whose clue digits read as the figure 08246642135531 · 47c and 80 name drawn imitation hardware; each build now shows its real capture */
+/* Hallmark · dismissed 77 · Long Document pages are one continuous text under a Banner, so their section count is the document's own and not a landing strip */
+/* Hallmark · dismissed 49 · the roster cells on Field Trials are square buttons whose names wrap inside the cell by design, and the manual link is a title that cannot shorten */
+/* Hallmark · answered F1 · the words are Ray's as typed under copy verbatim, so straight apostrophes stay until he sets them himself */
 @import '@fontsource-variable/bodoni-moda/opsz.css';
 @import '@fontsource-variable/bodoni-moda/opsz-italic.css';
 @import '@fontsource/geist/400.css';
@@ -762,6 +771,15 @@ td a {
   max-width: var(--measure);
   color: var(--color-ink-2);
 }
+.product-spec .infra-meta {
+  display: grid;
+  max-width: var(--measure);
+}
+.product-spec .infra-meta > span {
+  padding: var(--space-xs) 0;
+  border-left: 0;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
 .spec-note {
   max-width: var(--measure);
   color: var(--color-ink-2);
@@ -801,7 +819,7 @@ td a {
 
 /* The plain-hero pages open with a statement under the heading. */
 .bio p {
-  max-width: 40ch;
+  max-width: 46ch;
   font-family: var(--font-display);
   font-size: var(--text-xl);
   line-height: 1.35;
@@ -1094,7 +1112,7 @@ td.num {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-@media (max-width: 60rem) {
+@media (max-width: 70rem) {
   .site-header__inner {
     flex-wrap: wrap;
     gap: 0 var(--space-lg);
@@ -1113,13 +1131,13 @@ td.num {
     overflow-x: auto;
     gap: var(--space-lg);
     scrollbar-width: none;
-    padding-right: var(--space-2xl);
-    mask-image: linear-gradient(to right, var(--color-ink) 82%, transparent);
   }
   .site-nav a {
     font-size: var(--text-md);
     line-height: 2.75;
   }
+}
+@media (max-width: 60rem) {
   .page-content {
     padding-top: var(--space-2xl);
   }
@@ -1201,6 +1219,10 @@ td.num {
 @media (max-width: 40rem) {
   .brand-counter {
     width: 40px;
+  }
+  .site-nav {
+    padding-right: var(--space-2xl);
+    mask-image: linear-gradient(to right, var(--color-ink) 82%, transparent);
   }
   .brand-link {
     font-size: var(--text-lg);
