@@ -15,18 +15,18 @@ The locked system for the Hallmark redesign trial (branch `gs/hallmark-trial-s35
   --color-paper: oklch(96.5% 0.016 82);  --color-paper-2: oklch(93.5% 0.02 80);  --color-paper-3: oklch(89% 0.024 78);
   --color-ink: oklch(17% 0.012 60);  --color-ink-2: oklch(28% 0.014 60);  --color-muted: oklch(49% 0.014 65);  --color-rule: oklch(80% 0.018 75);
   --color-accent: oklch(45% 0.18 262);  --color-accent-ink: oklch(97% 0.012 82);  --color-focus: oklch(50% 0.18 262);
-  --font-display: "Bodoni Moda Variable", "Bodoni Moda", ui-serif, Georgia, serif;  --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;  --font-outlier: "Geist Mono", ui-monospace, monospace;
+  --font-display: 'Newsreader', Georgia, serif;  --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;  --font-outlier: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
   --radius-card: 0;  --radius-pill: 0;  --rule-hair: 1px;  --shadow-card: none;
 }
 ```
 The spacing scale, the type scale, the easings and the durations are the scaffold's and live in `tokens.css`. Project roles (`--measure`, `--text-poster`, `--header-h`) sit at the top of `src/styles/global.css`. Fonts are self-hosted through `@fontsource` packages; no third-party font requests.
 
 ## Type
-- Display: Bodoni Moda 400, `opsz` 96 on `h1` and `h2`, sentence case, roman, tracking -0.02em.
-- Body: Geist 400 at 17px, line-height 1.55 (1.7 in long prose), measure 58ch.
-- Labels, captions, table heads, nav: Geist 500 a step smaller, sentence case, `--color-muted`, never tracked, never capitals.
-- Mono: code, key names and glyph figures only.
-- Hyphens and dashes: Bodoni Moda draws its hyphens and its en and em dashes as one hairline, so the family takes those code points from Geist: two `unicode-range` faces at the top of `global.css` join `Bodoni Moda Variable` for the hyphens and dashes only. The text is untouched and the page still sets three families.
+> Fonts reverted 2026-10-31 (Ray: "revert the change in fonts ... its too hard to read now"): the Specimen layout stays, the faces are back to the pre-10-29 set. Bodoni Moda and Geist are superseded; do not reintroduce them.
+- Display: Newsreader 400, `h1` and `h2`, sentence case, roman, tracking -0.02em.
+- Body: IBM Plex Sans 400 at 17px, line-height 1.55 (1.7 in long prose), measure 58ch.
+- Labels, captions, table heads, nav: IBM Plex Sans 500 a step smaller, sentence case, `--color-muted`, never tracked, never capitals.
+- Mono: IBM Plex Mono for code, key names and glyph figures only.
 
 ## Page shapes
 - Pages: a Banner heading (`.page-heading`), then a Long Document grid of four margin columns and eight text columns; `h2` sits in the margin and sticks while its text scrolls.

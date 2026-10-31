@@ -17,40 +17,20 @@
 /* Hallmark · dismissed 77 · Long Document pages are one continuous text under a Banner, so their section count is the document's own and not a landing strip */
 /* Hallmark · dismissed 49 · the roster cells on Field Trials are cartridge buttons whose names wrap inside the cell by design, and the manual link is a title that cannot shorten */
 /* Hallmark · answered F1 · the words are Ray's as typed under copy verbatim, so straight apostrophes stay until he sets them himself */
-@import '@fontsource-variable/bodoni-moda/opsz.css';
-@import '@fontsource-variable/bodoni-moda/opsz-italic.css';
-@import '@fontsource/geist/400.css';
-@import '@fontsource/geist/400-italic.css';
-@import '@fontsource/geist/500.css';
-@import '@fontsource/geist/600.css';
-@import '@fontsource/geist-mono/400.css';
+/* Ray 2026-10-31: the Specimen fonts (Bodoni Moda + Geist) read too hard; back to the pre-10-29 faces, layout unchanged. */
+@import '@fontsource/newsreader/400.css';
+@import '@fontsource/newsreader/500.css';
+@import '@fontsource/newsreader/600.css';
+@import '@fontsource/newsreader/700.css';
+@import '@fontsource/newsreader/400-italic.css';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/400-italic.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
 @import url('./tokens.css');
 @import url('./base.css');
-
-/* Bodoni Moda draws its hyphens and its en and em dashes as a single razor
-   hairline at every optical size and weight, so inside display text they all
-   but vanish. These faces join the Bodoni Moda family for the hyphen and dash
-   code points only and take those glyphs from Geist, whose strokes stay
-   visible. Declared after the family's own faces, they win for those code
-   points; the text itself is unchanged and the page still sets three families. */
-@font-face {
-  font-family: 'Bodoni Moda Variable';
-  font-style: normal;
-  font-weight: 400 900;
-  font-display: swap;
-  src: url('../../node_modules/@fontsource/geist/files/geist-latin-400-normal.woff2')
-    format('woff2');
-  unicode-range: U+002D, U+2010-2015, U+2212;
-}
-@font-face {
-  font-family: 'Bodoni Moda Variable';
-  font-style: italic;
-  font-weight: 400 900;
-  font-display: swap;
-  src: url('../../node_modules/@fontsource/geist/files/geist-latin-400-italic.woff2')
-    format('woff2');
-  unicode-range: U+002D, U+2010-2015, U+2212;
-}
 
 /* ==========================================================================
    Project tokens: roles the theme leaves to the page
