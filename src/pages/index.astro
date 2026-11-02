@@ -1,11 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
 
-// "Start here" shows the newest published essay (Ray, 2026-10-17).
-const [newest] = (await getCollection('writing', ({ data }) => data.published !== false)).sort(
-  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
-);
+// Preserve the current "Start here" selection while the Writing list gets a new first entry.
+const featured = await getEntry('writing', 'out-of-the-notebook');
+if (!featured) throw new Error('Featured writing entry is missing');
 ---
 
 <BaseLayout
@@ -139,20 +138,32 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
       <div class="container home-lower-grid">
         <aside class="featured-essay" aria-labelledby="start-here">
           <h2 class="featured-essay__head" id="start-here">Start here</h2>
-          <h3 class="featured-essay__title">{newest.data.title}</h3>
-          <p class="featured-essay__summary">{newest.data.description}</p>
-          <a href={`/writing/${newest.id}`} class="cta">Read the post</a>
+          <h3 class="featured-essay__title">{featured.data.title}</h3>
+          <p class="featured-essay__summary">{featured.data.description}</p>
+          <a href={`/writing/${featured.id}`} class="cta">Read the post</a>
         </aside>
 
         <div class="home-index-column">
           <section class="index-block" aria-labelledby="writing">
             <div class="section-head">
               <h2 class="section-label" id="writing">Writing</h2>
-              <span class="section-count">12 entries</span>
+              <span class="section-count">13 entries</span>
             </div>
             <ol class="entries">
               <li>
-                <div class="index"><em>i.</em> 2026.08.14</div>
+                <div class="index"><em>i.</em> 2026.11.02</div>
+                <div class="entry">
+                  <a href="/writing/generalstaff-after-claude-refused" class="entry-title">
+                    GeneralStaff After Claude Refused
+                  </a>
+                  <p class="entry-desc">
+                    What happened when Claude refused my client work, and how GeneralStaff let me continue with Codex and Kimi.
+                  </p>
+                </div>
+              </li>
+
+              <li>
+                <div class="index"><em>ii.</em> 2026.08.14</div>
                 <div class="entry">
                   <a href="/writing/out-of-the-notebook" class="entry-title">
                     Out of the Notebook
@@ -165,7 +176,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
               </li>
 
               <li>
-                <div class="index"><em>ii.</em> 2026.07.14</div>
+                <div class="index"><em>iii.</em> 2026.07.14</div>
                 <div class="entry">
                   <a href="/writing/columbo-needed-a-confession" class="entry-title">
                     Columbo Needed a Confession
@@ -178,7 +189,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>iii.</em> 2026.06.18</div>
+                <div class="index"><em>iv.</em> 2026.06.18</div>
                 <div class="entry">
                   <a href="/writing/the-register-not-the-man" class="entry-title">
                     The Register, Not the Man
@@ -191,7 +202,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>iv.</em> 2026.06.12</div>
+                <div class="index"><em>v.</em> 2026.06.12</div>
                 <div class="entry">
                   <a href="/writing/judgment-does-not-transfer" class="entry-title">
                     Judgment Does Not Transfer
@@ -204,7 +215,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>v.</em> 2026.06.09</div>
+                <div class="index"><em>vi.</em> 2026.06.09</div>
                 <div class="entry">
                   <a href="/writing/the-model-that-hangs-up" class="entry-title">
                     The Model That Hangs Up
@@ -217,7 +228,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>vi.</em> 2026.05.22</div>
+                <div class="index"><em>vii.</em> 2026.05.22</div>
                 <div class="entry">
                   <a href="/writing/democratic-defeat-counter-autopsy" class="entry-title">
                     The 2024 Democratic Defeat: An Independent Autopsy
@@ -230,7 +241,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>vii.</em> 2026.05.15</div>
+                <div class="index"><em>viii.</em> 2026.05.15</div>
                 <div class="entry">
                   <a href="/writing/the-bird-didnt-run" class="entry-title">
                     The Bird Didn't Run
@@ -242,7 +253,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>viii.</em> 2026.05.10</div>
+                <div class="index"><em>ix.</em> 2026.05.10</div>
                 <div class="entry">
                   <a href="/writing/hundred-percent-then-broke-it" class="entry-title">
                     100%, then I tried to break it
@@ -254,7 +265,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>ix.</em> 2026.05.08</div>
+                <div class="index"><em>x.</em> 2026.05.08</div>
                 <div class="entry">
                   <a href="/writing/i-am-the-gate" class="entry-title"> I Am the Gate </a>
                   <p class="entry-desc">
@@ -264,7 +275,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>x.</em> 2026.04.20</div>
+                <div class="index"><em>xi.</em> 2026.04.20</div>
                 <div class="entry">
                   <a href="/writing/gs-launch-post" class="entry-title">
                     GeneralStaff, from the agent side
@@ -276,7 +287,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>xi.</em> 2026.04.18</div>
+                <div class="index"><em>xii.</em> 2026.04.18</div>
                 <div class="entry">
                   <a href="/writing/boolean-gates" class="entry-title">
                     Boolean Gates, Not Prompts
@@ -289,7 +300,7 @@ const [newest] = (await getCollection('writing', ({ data }) => data.published !=
                 </div>
               </li>
               <li>
-                <div class="index"><em>xii.</em> 2026.04.15</div>
+                <div class="index"><em>xiii.</em> 2026.04.15</div>
                 <div class="entry">
                   <a href="/writing/hammerstein" class="entry-title">
                     Von Hammerstein's Ghost, In Daily Use
