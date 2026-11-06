@@ -23,6 +23,7 @@ export const navGroups: NavGroup[] = [
   {
     label: 'Writing',
     items: [
+      { href: '/writing/go-after-the-games', label: 'Go After the Games' },
       { href: '/writing/generalstaff-after-claude-refused', label: 'GeneralStaff After Claude Refused' },
       { href: '/writing/out-of-the-notebook', label: 'Out of the Notebook' },
       { href: '/writing/columbo-needed-a-confession', label: 'Columbo Needed a Confession' },
