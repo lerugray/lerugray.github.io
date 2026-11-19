@@ -11,7 +11,7 @@ interface Props {
 
 const path = Astro.url.pathname.replace(/\/$/, '');
 const ContentContainer =
-  ['/games', '/works', '/services', '/kit'].includes(path) || path.startsWith('/writing/')
+  ['/works', '/services', '/kit'].includes(path) || path.startsWith('/writing/')
     ? 'main'
     : 'div';
 ---

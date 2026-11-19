@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Sandkasten | Ray Weiss"
+  description="Sandkasten. Open-source naval and air wargame. Free in the browser at csl-sandkasten.com. Designed by Ray Weiss, Conflict Simulations LLC."
+>
+  <main class="doc">
+    <div class="doc__frame">
+      <header class="page-heading">
+        <nav class="eyebrow" aria-label="Breadcrumb">
+          <a href="/conflict-simulations-llc"
+            >Conflict Simulations LLC</a
+          >
+        </nav>
+        <h1>Sandkasten</h1>
+        <p class="dek">Open-source naval and air wargame. Free in your browser.</p>
+      </header>
+
+      <div class="prose-body">
+        <p>
+          Command naval and air forces on a tactical map with NATO symbology, radar detection, fog
+          of war, and continuous or WeGo turns. Designed by Ray Weiss at Conflict Simulations LLC.
+          The live build sits at <a href="https://csl-sandkasten.com">csl-sandkasten.com</a>, not on
+          itch.
+        </p>
+        <p>
+          The demo scenario puts a US carrier strike group in the Strait of Hormuz: bring USS Nimitz
+          into the marked transit gate. Sensors and fog decide what you see; missiles and air
+          defence fight it out. A scenario editor lets you place your own forces.
+        </p>
+        <p>
+          Shares its map renderer and NATO symbology with Auftragstaktik. Platform data is
+          community-maintained and open. Free and open source.
+        </p>
+      </div>
+
+      <figure>
+        <img
+          src="/images/games/sandkasten-cover.png"
+          alt="Sandkasten play view: green tactical plot of the Strait of Hormuz with Nimitz group tracks, range rings and a mission sidebar"
+          width="800"
+          loading="lazy"
+        />
+        <figcaption>Play view, Strait of Hormuz</figcaption>
+      </figure>
+
+      <div class="prose-body terminal-section">
+        <h2>Play</h2>
+        <p>
+          Free in the browser at
+          <a href="https://csl-sandkasten.com">csl-sandkasten.com</a>.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

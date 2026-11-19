@@ -10,10 +10,6 @@ export interface NavGroup {
 
 export const navGroups: NavGroup[] = [
   {
-    label: 'Field Trials',
-    items: [{ href: '/games', label: 'Field Trials' }],
-  },
-  {
     label: 'Work With Me',
     items: [
       { href: '/services', label: 'Commissions' },

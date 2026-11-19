@@ -2,7 +2,6 @@
 const currentPath = Astro.url.pathname;
 const path = currentPath.replace(/\/$/, '') || '/';
 const sectionPaths: Record<string, string[]> = {
-  '/games': ['/field-trials'],
   '/conflict-simulations-llc': ['/devforge', '/retrogaze', '/hammerstein-ai'],
   '/kit': [
     '/generalstaff',
@@ -36,14 +35,6 @@ const isHome = path === '/';
       {!isHome && <span class="brand-locator">Brooklyn, NY</span>}
     </div>
     <nav class="site-nav" aria-label="Site navigation">
-      <a
-        href="/games"
-        aria-current={inSection('/games') ||
-        currentPath === '/games' ||
-        currentPath.startsWith('/games/')
-          ? 'page'
-          : undefined}>Field Trials</a
-      >
       <a
         href="/services"
         aria-current={currentPath === '/services' || currentPath.startsWith('/services/')

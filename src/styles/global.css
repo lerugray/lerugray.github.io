@@ -3,19 +3,14 @@
  * axes: light/high-contrast-serif/cool · posture: restrained · contrast: pass · fold: pass · copy: verbatim · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4 · weakest: S, the Specimen material belongs to a foundry; the RW unit counter, the dated essay index and Ray's own module captures carry the specificity */
 /* Hallmark · hero-review: fix · 5 findings · 4 resolved 1 partial (the statement runs past the action); the nav repeating the location and the address on / was closed in fix 1 */
-/* Hallmark · finish-review: fix · subagent · 7 findings · 7 resolved · gap closed in fix 1: the home's first screen holds the commissions and every price again beside the name, and every cartridge on Field Trials carries its own label drawing, redrawn in ink from look D's, beside the selected build's real capture */
 /* Hallmark · waive 79 · document pages open on a Banner and their prose starts under it inside the same frame, above the fold · the render tier counts only section boundaries, so the essay and product text that follows the banner reads to it as empty paper */
 /* Hallmark · waive 49b · entry titles in the essay, business and catalog indexes are names that cannot shorten, two lines at most on a phone · essay titles and game names are Ray's own and wrap rather than truncate */
-/* Hallmark · waive 39b · Play and Send stand 48px; only the twelve roster cells on Field Trials run taller · each roster cell is one cartridge, its label drawing over its name in Bodoni and its register, and selecting it fills the cell ink */
 /* Hallmark · waive 44c · on / the hero plate ends near 430px of the 1440x900 screen and the commissions section starts under it on that same screen · look D opened on the commissions and their prices, and Ray's fix list asks for that first screen back, so the name shares it with the four offers instead of filling it alone */
 /* Hallmark · reworded "Digital wargame modules →" to "Digital wargame modules" · 63 names the arrow glued to link text */
 /* Hallmark · reworded "AI workflow & automation builds →" to "AI workflow & automation builds" · 63 names the arrow glued to link text */
 /* Hallmark · reworded "Custom voice & persona models →" to "Custom voice & persona models" · 63 names the arrow glued to link text */
 /* Hallmark · reworded "Game-design consultation →" to "Game-design consultation" · 63 names the arrow glued to link text */
-/* Hallmark · dropped 08246642135531 · look D's No.08 tile counter read together with the clue digits of the Jacquard Index label as one figure; the counter stays dropped as decoration (66), and the clue digits are back on the redrawn label */
-/* Hallmark · dropped form 1, #fr-game, website, name, body, Field report — tell me what broke · the Field Trials feedback box (its form, game selector and head) is hidden until a real endpoint is wired, see FEEDBACK_WIRED in games.astro; live it told every visitor the wire was not yet connected */
 /* Hallmark · dismissed 77 · Long Document pages are one continuous text under a Banner, so their section count is the document's own and not a landing strip */
-/* Hallmark · dismissed 49 · the roster cells on Field Trials are cartridge buttons whose names wrap inside the cell by design, and the manual link is a title that cannot shorten */
 /* Hallmark · answered F1 · the words are Ray's as typed under copy verbatim, so straight apostrophes stay until he sets them himself */
 /* Ray 2026-10-31: the Specimen fonts (Bodoni Moda + Geist) read too hard; back to the pre-10-29 faces, layout unchanged. */
 @import '@fontsource/newsreader/400.css';
@@ -974,29 +969,6 @@ td.num {
   color: var(--color-ink);
 }
 
-/* ==========================================================================
-   Field Trials contents page
-   ========================================================================== */
-.landing-index .lede {
-  max-width: var(--measure);
-  font-size: var(--text-lead);
-}
-.landing-index > .section-head {
-  margin-top: var(--section-gap-s);
-}
-.landing-index .entries > li {
-  grid-template-columns: minmax(0, 2fr) minmax(0, 10fr);
-}
-.landing-index .meta {
-  display: block;
-  color: var(--color-ink-2);
-}
-.landing-index .off {
-  color: var(--color-muted);
-}
-.landing-index {
-  padding-bottom: var(--section-gap-s);
-}
 .back {
   display: inline-block;
   margin-top: var(--space-2xl);

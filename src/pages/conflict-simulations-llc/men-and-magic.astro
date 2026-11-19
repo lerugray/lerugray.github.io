@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Men and Magic | Ray Weiss"
+  description="Men and Magic. A first-person dungeon crawl for six. Early access on itch under Conflict Simulations LLC."
+>
+  <main class="doc">
+    <div class="doc__frame">
+      <header class="page-heading">
+        <nav class="eyebrow" aria-label="Breadcrumb">
+          <a href="/conflict-simulations-llc"
+            >Conflict Simulations LLC</a
+          >
+        </nav>
+        <h1>Men and Magic</h1>
+        <p class="dek">A first-person dungeon crawl for six. Early access.</p>
+      </header>
+
+      <div class="prose-body">
+        <p>
+          You lead six people down twelve floors, one grid step at a time. Fights are turn-based:
+          you give all six their orders, then the round plays out. The front three take the blows;
+          the back three shoot, cast and heal.
+        </p>
+        <p>
+          The dungeon is built from a seed. The same seed always gives the same floors, so you can
+          replay one or share it. Every seed is checked before play, so a floor can always be
+          finished: no key sits locked behind its own door.
+        </p>
+        <p>
+          Depth 7 holds the Undermarket: an inn, shops, a vault and an altar. Depth 12 is the Marrow
+          Vault and the Warden of the Choir. Death is final for the six you took down; people left
+          at the surface camp stay for the next descent.
+        </p>
+      </div>
+
+      <figure>
+        <img
+          src="/images/games/men-and-magic-cover.png"
+          alt="Men and Magic combat screen: six party portraits around a first-person stone room facing a mushroom spider, a hooded watcher and a rat"
+          width="800"
+          loading="lazy"
+        />
+        <figcaption>Combat, Keep floor</figcaption>
+      </figure>
+
+      <div class="prose-body terminal-section">
+        <h2>Buy</h2>
+        <p>
+          Early access on itch under Conflict Simulations LLC at $6.99. Windows, macOS, Linux.
+          <a href="https://conflict-simulations-llc.itch.io/men-and-magic"
+            >conflict-simulations-llc.itch.io/men-and-magic</a
+          >.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
